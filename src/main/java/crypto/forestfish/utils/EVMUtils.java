@@ -316,7 +316,7 @@ public class EVMUtils {
                 BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice(); // increase by 10%?
                 BigInteger gasLimit = new BigInteger(strGasLimit);
 
-                LOGGER.info("Proceeding with tx using gasPrice: " + gasPrice + " and gasLimit: " + gasLimit); 
+                LOGGER.info("Proceeding with tx using gasPrice: " + gasPrice + ", gasLimit: " + gasLimit + " and noonce " + nonce); 
 
                 RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, rawData);
                 byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Long.parseLong(bchain.getChainID() + ""), wallet.getCredentials());
@@ -330,6 +330,10 @@ public class EVMUtils {
                         confirmedTransaction = true; // this feels wrong
                     } else if (response.getError().getMessage().contains("replacement transaction underpriced")) {
                     	// https://ethereum.stackexchange.com/questions/27256/error-replacement-transaction-underpriced/44875
+                    	LOGGER.warn("Transaction gave an \"replacement transaction\" response, which means you may have submitted the same transaction twice");
+                    	confirmedTransaction = true; // let this slide only if in HA mode?
+                    } else if (response.getError().getMessage().contains("nonce too low")) {
+                    	// https://ethereum.stackexchange.com/questions/78044/error-nonce-too-low
                     	bumpNoonce = true;
                     } else {
                         LOGGER.error("response ERROR data: " + response.getError().getData());
