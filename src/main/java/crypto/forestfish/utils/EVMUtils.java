@@ -28,6 +28,7 @@ import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 import org.web3j.utils.Convert.Unit;
 
+import crypto.forestfish.enums.EVMChain;
 import crypto.forestfish.enums.ProviderException;
 import crypto.forestfish.objects.evm.ERC20Contract;
 import crypto.forestfish.objects.evm.EVMBlockChain;
@@ -422,5 +423,18 @@ public class EVMUtils {
         return true;
 
     }
+
+	public static EVMBlockChain createBlockchain(EVMChain chain, String providerURL) {
+		EVMBlockChain blockChain = null;
+		
+		if (chain == EVMChain.ETHEREUM) blockChain = new EVMBlockChain("Ethereum", "ETH", 1, providerURL, "https://etherscan.io/");
+		if (chain == EVMChain.POLYGON) blockChain = new EVMBlockChain("Polygon", "MATIC", 1, providerURL, "https://polygonscan.com/");
+		
+		if (null == blockChain) {
+			LOGGER.error("Not sure how to create a blockchain of type " + chain);
+			SystemUtils.halt();
+		}
+		return blockChain;
+	}
 
 }

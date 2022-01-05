@@ -44,12 +44,12 @@
 		<dependency>
 			<groupId>org.web3j</groupId>
 			<artifactId>core</artifactId>
-			<version>5.0.0</version>
+			<version>4.8.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.web3j</groupId>
 			<artifactId>contracts</artifactId>
-			<version>5.0.0</version>
+			<version>4.8.9</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.ipfs</groupId>
