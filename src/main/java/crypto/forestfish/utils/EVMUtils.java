@@ -99,19 +99,23 @@ public class EVMUtils {
 	}
 
 	public static EVMWalletBalance getWalletBalanceMain(Web3j web3j, EVMBlockChain bchain, EVMLocalWallet localWallet) {
+		int nrRetriesLeft = 10;
+		if (nrRetriesLeft>0) {
+			nrRetriesLeft--;
+			try {
+				Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
+				LOGGER.debug("Client version: " + clientVersion.getWeb3ClientVersion());
 
-		try {
-			Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
-			LOGGER.debug("Client version: " + clientVersion.getWeb3ClientVersion());
-		} catch (Exception e) {
-			LOGGER.error("getWalletBalanceMain() e: " + e.getMessage());
-			System.exit(1);
+				BigDecimal balanceInETH = localWallet.getWalletBalanceInEth(web3j);
+				BigInteger balanceInWEI = localWallet.getWalletBalanceInWei(web3j);
+				return new EVMWalletBalance(balanceInETH, balanceInWEI);
+				
+			} catch (Exception e) {
+				LOGGER.warn("getWalletBalanceMain() e: " + e.getMessage());
+			}
 		}
 
-		BigDecimal balanceInETH = localWallet.getWalletBalanceInEth(web3j);
-		BigInteger balanceInWEI = localWallet.getWalletBalanceInWei(web3j);
-
-		return new EVMWalletBalance(balanceInETH, balanceInWEI);
+		return null;
 	}
 
 	public static void printWalletBalance(Web3j web3j, EVMBlockChain bchain, EVMLocalWallet localWallet) {
@@ -317,13 +321,13 @@ public class EVMUtils {
 				BigInteger gasPrice = null;
 				if (transactionAttemptCount > 1) {
 					gasPrice = web3j.ethGasPrice().send().getGasPrice().multiply(new BigInteger("2")); // increase by 100%
+					LOGGER.info("Double the gas price since this is attempt " + transactionAttemptCount);
 				} else {
 					gasPrice = web3j.ethGasPrice().send().getGasPrice();
 				}
 
 				BigInteger gasLimit = new BigInteger(strGasLimit);
-
-				LOGGER.info("Proceeding with tx using gasPrice: " + gasPrice + ", gasLimit: " + gasLimit + " and noonce " + nonce); 
+				LOGGER.info("Proceeding with tx using gasPrice: " + gasPrice + ", gasLimit: " + gasLimit + " and noonce " + nonce + ", transactionAttemptCount=" + transactionAttemptCount); 
 
 				RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, rawData);
 				byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, Long.parseLong(bchain.getChainID() + ""), wallet.getCredentials());
@@ -373,15 +377,15 @@ public class EVMUtils {
 						receiptPollCounter++;
 
 						if (receiptPollCounter>20) {
-							LOGGER.error("Unable to grab tx receipt for " + response.getTransactionHash());
-							return null;
+							LOGGER.warn("Unable to grab tx receipt for " + response.getTransactionHash());
 						}
 					}
 				}
 
 			} catch (Exception ex) {
 				if (ex.getMessage().contains("timeout")) {
-					LOGGER.info("Got a timeout .. will retry ..");
+					LOGGER.info("Got a timeout .. will retry .. ex: " + ex.getMessage());
+					transactionAttemptCount--; // lets not count timeouts as actual attempts??
 				} else {
 					LOGGER.error("ex: " + ex.getMessage());
 					SystemUtils.halt();
