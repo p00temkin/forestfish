@@ -1,5 +1,7 @@
 package crypto.forestfish.utils;
 
+import java.math.BigInteger;
+
 import org.web3j.abi.datatypes.generated.Uint256;
 
 public class FormatUtils {
@@ -21,6 +23,15 @@ public class FormatUtils {
 
     public static String makeUINT256WithHex(String hex) {
         return StringsUtils.prefixStringWith0sToLengthN(hex, 64); // bitsize 256 = 64 hex chars
+    }
+    
+    public static String makeUINT256WithDec2Hex(long i) {
+        String hex = Long.toHexString(i);
+        return StringsUtils.prefixStringWith0sToLengthN(hex, 64); // bitsize 256 = 64 hex chars
+    }
+    
+    public static String makeUINT256WithDec2Hex(BigInteger i) {
+        return StringsUtils.prefixStringWith0sToLengthN(i.toString(16), 64); // bitsize 256 = 64 hex chars
     }
     
 }

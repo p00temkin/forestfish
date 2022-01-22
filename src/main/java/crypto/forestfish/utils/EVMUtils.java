@@ -449,4 +449,29 @@ public class EVMUtils {
 		return blockChain;
 	}
 
+	public static boolean makeRequest(String hexData, int txRetryThreshold, int confirmTimeInSecondsBeforeRetry, Web3j maticWeb3j, EVMBlockChain maticBlockChain, EVMLocalWallet maticWallet, String aavegotchiContractAddress, String gasLimit) {
+		int txCounter = 0;
+		boolean txAttemptsCompleted = false;
+		while (!txAttemptsCompleted && txCounter <= txRetryThreshold) {
+			LOGGER.info("Sending request: " + hexData);
+			
+			String txHASH = EVMUtils.sendTX(maticWeb3j, maticBlockChain, maticWallet, aavegotchiContractAddress, hexData, confirmTimeInSecondsBeforeRetry, gasLimit);
+			if (null == txHASH) {
+				LOGGER.warn("Transaction failed, will sleep 10 seconds and try again (attempt #" + txCounter + ")");
+				SystemUtils.sleepInSeconds(10);
+				txCounter++;
+			} else {
+				System.out.println("txHASH: " + txHASH);
+				txAttemptsCompleted = true;
+			}
+
+			if (!txAttemptsCompleted && txCounter == 20) {
+				LOGGER.warn("Unable to get a transaction receipt after multiple attempts .. we can still check if kinship still got bumped");
+			}
+
+		}
+		
+		return txAttemptsCompleted;
+	}
+
 }
