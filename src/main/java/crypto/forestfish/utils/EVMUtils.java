@@ -316,6 +316,8 @@ public class EVMUtils {
 				//BigInteger gasPrice = gp.getGasPrice();
 				//BigInteger gasLimit = gp.getGasLimit();
 
+
+				
 				LOGGER.info("Getting gasprice, gasLimit is set to " + strGasLimit);
 
 				BigInteger gasPrice = null;
@@ -326,7 +328,13 @@ public class EVMUtils {
 					gasPrice = web3j.ethGasPrice().send().getGasPrice();
 				}
 
-				BigInteger gasLimit = new BigInteger(strGasLimit);
+				BigInteger gasLimit = null;
+				if (null == strGasLimit) {
+					DefaultGasProvider gp = new DefaultGasProvider();
+					gasLimit = gp.getGasLimit();
+				} else {
+					gasLimit = new BigInteger(strGasLimit);
+				}
 				LOGGER.info("Proceeding with tx using gasPrice: " + gasPrice + ", gasLimit: " + gasLimit + " and noonce " + nonce + ", transactionAttemptCount=" + transactionAttemptCount); 
 
 				RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, rawData);
