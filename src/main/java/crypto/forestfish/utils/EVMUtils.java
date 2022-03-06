@@ -394,6 +394,9 @@ public class EVMUtils {
 				if (ex.getMessage().contains("timeout")) {
 					LOGGER.info("Got a timeout .. will retry .. ex: " + ex.getMessage());
 					transactionAttemptCount--; // lets not count timeouts as actual attempts??
+				} else if (ex.getMessage().contains("must be in format")) {
+						LOGGER.info("Issue getting gas price .. will retry .. ex: " + ex.getMessage());
+						transactionAttemptCount--; // lets not count timeouts as actual attempts??
 				} else {
 					LOGGER.error("ex: " + ex.getMessage());
 					SystemUtils.halt();
