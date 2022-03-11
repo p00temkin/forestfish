@@ -109,7 +109,7 @@ public class EVMUtils {
 				BigDecimal balanceInETH = localWallet.getWalletBalanceInEth(web3j);
 				BigInteger balanceInWEI = localWallet.getWalletBalanceInWei(web3j);
 				return new EVMWalletBalance(balanceInETH, balanceInWEI);
-				
+
 			} catch (Exception e) {
 				LOGGER.warn("getWalletBalanceMain() e: " + e.getMessage());
 			}
@@ -297,7 +297,7 @@ public class EVMUtils {
 
 	}
 
-	public static String sendTX(Web3j web3j, EVMBlockChain bchain, EVMLocalWallet wallet, String contractAddress, String rawData, int initialConfirmTimeInSeconds, String strGasLimit) {
+	public static String sendTX(Web3j web3j, EVMBlockChain bchain, EVMLocalWallet wallet, String contractAddress, String rawData, int initialConfirmTimeInSeconds, String strFallbackGasPrice, String strGasLimit) {
 
 		String hash = null;
 		boolean confirmedTransaction = false;
@@ -312,27 +312,42 @@ public class EVMUtils {
 				BigInteger nonce =  ethGetTransactionCount.getTransactionCount();
 				if (bumpNoonce) nonce = nonce.add(new BigInteger("1"));
 
-				//DefaultGasProvider gp = new DefaultGasProvider();
-				//BigInteger gasPrice = gp.getGasPrice();
+				DefaultGasProvider gp0 = new DefaultGasProvider();
+				BigInteger gasPrice = gp0.getGasPrice();
+				System.out.println("DefaultGasProvider gasPrice: " + gasPrice);
 				//BigInteger gasLimit = gp.getGasLimit();
 
-
-				
-				LOGGER.info("Getting gasprice, gasLimit is set to " + strGasLimit);
-
-				BigInteger gasPrice = null;
-				if (transactionAttemptCount > 1) {
-					gasPrice = web3j.ethGasPrice().send().getGasPrice().multiply(new BigInteger("2")); // increase by 100%
-					LOGGER.info("Double the gas price since this is attempt " + transactionAttemptCount);
-				} else {
-					gasPrice = web3j.ethGasPrice().send().getGasPrice();
+				LOGGER.info("Getting gasprice.. fallback gasprice is " + strFallbackGasPrice);
+				//BigInteger gasPrice = null;
+				try {
+					if (transactionAttemptCount > 1) {
+						gasPrice = web3j.ethGasPrice().send().getGasPrice().multiply(new BigInteger("2")); // increase by 100%
+						LOGGER.info("Double the gas price since this is attempt " + transactionAttemptCount);
+					} else {
+						
+						/*
+						EthGasPrice ethGasPrice = web3j.ethGasPrice().send();
+						System.out.println("ethGasPrice.getError().getMessage(): " + ethGasPrice.getError().getMessage());
+						System.out.println("ethGasPrice.getError().getCode(): " + ethGasPrice.getError().getCode());
+						System.out.println("ethGasPrice.getError().getData(): " + ethGasPrice.getError().getData());
+						gasPrice = ethGasPrice.getGasPrice();
+						*/
+						
+						gasPrice = web3j.ethGasPrice().send().getGasPrice();
+					}
+				} catch (Exception e) {
+					LOGGER.warn("Caught exception while getting gasprice: " + e.getMessage() + ", moving forward with fallback gasPrice " + strFallbackGasPrice);
+					gasPrice = new BigInteger(strFallbackGasPrice);
 				}
+				LOGGER.info("Moving forward with gasprice " + gasPrice.toString());
 
 				BigInteger gasLimit = null;
 				if (null == strGasLimit) {
+					LOGGER.info("Using default gasLimit");
 					DefaultGasProvider gp = new DefaultGasProvider();
 					gasLimit = gp.getGasLimit();
 				} else {
+					LOGGER.info("Using specified gasLimit of " + strGasLimit);
 					gasLimit = new BigInteger(strGasLimit);
 				}
 				LOGGER.info("Proceeding with tx using gasPrice: " + gasPrice + ", gasLimit: " + gasLimit + " and noonce " + nonce + ", transactionAttemptCount=" + transactionAttemptCount); 
@@ -395,8 +410,17 @@ public class EVMUtils {
 					LOGGER.info("Got a timeout .. will retry .. ex: " + ex.getMessage());
 					transactionAttemptCount--; // lets not count timeouts as actual attempts??
 				} else if (ex.getMessage().contains("must be in format")) {
-						LOGGER.info("Issue getting gas price .. will retry .. ex: " + ex.getMessage());
-						transactionAttemptCount--; // lets not count timeouts as actual attempts??
+					LOGGER.info("Issue getting gas priceo .. will retry .. ex: " + ex.getMessage());
+					SystemUtils.sleepInSeconds(5);
+					//transactionAttemptCount--; // we need to count this as an attempt since we are hitting the rpc node (infura, pokt ..), so leave commented
+				} else if (ex.getMessage().contains("Invalid response received: 429")) {
+					if (ex.getMessage().contains("daily request count exceeded")) {
+						LOGGER.info("RPC Node limit reached " + ex.getMessage() + ", sleeping 1 hour");
+						SystemUtils.sleepInSeconds(3600);
+					} else {
+						LOGGER.error("Unknown error: " + ex.getMessage() + ", exiting");
+						SystemUtils.halt();
+					}
 				} else {
 					LOGGER.error("ex: " + ex.getMessage());
 					SystemUtils.halt();
@@ -461,12 +485,17 @@ public class EVMUtils {
 	}
 
 	public static boolean makeRequest(String hexData, int txRetryThreshold, int confirmTimeInSecondsBeforeRetry, Web3j maticWeb3j, EVMBlockChain maticBlockChain, EVMLocalWallet maticWallet, String aavegotchiContractAddress, String gasLimit) {
+		String fallbackGasPrice = "300000000000";
+		return makeRequest(hexData, txRetryThreshold, confirmTimeInSecondsBeforeRetry, maticWeb3j, maticBlockChain, maticWallet, aavegotchiContractAddress, fallbackGasPrice, gasLimit);
+	}
+	
+	public static boolean makeRequest(String hexData, int txRetryThreshold, int confirmTimeInSecondsBeforeRetry, Web3j maticWeb3j, EVMBlockChain maticBlockChain, EVMLocalWallet maticWallet, String aavegotchiContractAddress, String fallbackGasPrice, String gasLimit) {
 		int txCounter = 0;
 		boolean txAttemptsCompleted = false;
 		while (!txAttemptsCompleted && txCounter <= txRetryThreshold) {
 			LOGGER.info("Sending request: " + hexData);
-			
-			String txHASH = EVMUtils.sendTX(maticWeb3j, maticBlockChain, maticWallet, aavegotchiContractAddress, hexData, confirmTimeInSecondsBeforeRetry, gasLimit);
+
+			String txHASH = EVMUtils.sendTX(maticWeb3j, maticBlockChain, maticWallet, aavegotchiContractAddress, hexData, confirmTimeInSecondsBeforeRetry, fallbackGasPrice, gasLimit);
 			if (null == txHASH) {
 				LOGGER.warn("Transaction failed, will sleep 10 seconds and try again (attempt #" + txCounter + ")");
 				SystemUtils.sleepInSeconds(10);
@@ -481,7 +510,7 @@ public class EVMUtils {
 			}
 
 		}
-		
+
 		return txAttemptsCompleted;
 	}
 
