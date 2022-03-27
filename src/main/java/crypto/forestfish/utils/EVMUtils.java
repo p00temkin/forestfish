@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.web3j.contracts.eip20.generated.ERC20;
 import org.web3j.contracts.eip721.generated.ERC721;
+import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Hash;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.Sign;
@@ -34,6 +35,7 @@ import crypto.forestfish.objects.evm.ERC20Contract;
 import crypto.forestfish.objects.evm.EVMBlockChain;
 import crypto.forestfish.objects.evm.EVMLocalWallet;
 import crypto.forestfish.objects.evm.EVMWalletBalance;
+import crypto.forestfish.objects.ipfs.WalletBalance;
 
 public class EVMUtils {
 
@@ -131,9 +133,11 @@ public class EVMUtils {
 		EVMWalletBalance evmw = getWalletBalanceMain(web3j, bchain, localWallet);
 		System.out.println(" * wallet address " + localWallet.getCredentials().getAddress() + " balance " +  evmw.getBalanceInETH() + " " + bchain.getTokenName() + " [" + evmw.getBalanceInWEI() + " wei]");
 	}
-
-	public static void printWalletBalanceForCustomERC20(Web3j web3j, EVMBlockChain bchain, EVMLocalWallet localWallet, ERC20Contract customTokenContract) {
-
+	
+	public static WalletBalance getWalletBalanceForERC20Token(Web3j web3j, EVMBlockChain bchain, String walletAddress, ERC20Contract customTokenContract) {
+		BigDecimal balanceInETH = null;
+		BigInteger balanceInWEI = null;
+		
 		/**
 		 *  Connect to ETH client
 		 */
@@ -141,40 +145,54 @@ public class EVMUtils {
 			Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
 			LOGGER.debug("Client version: " + clientVersion.getWeb3ClientVersion());
 		} catch (Exception e) {
-			LOGGER.error("init printWalletBalanceForCustomERC20() e: " + e.getMessage());
+			LOGGER.error("init getWalletBalanceForERC20Token() e1: " + e.getMessage());
 			System.exit(1);
 		}
 
 		/**
-		 *  print custom ERC20 token balance
+		 *  print ERC20 token balance
 		 */
 		try {
-			ERC20 customERC20TokensHeldInWallet = ERC20.load(customTokenContract.getContractAdress(), web3j, localWallet.getCredentials(), new DefaultGasProvider());
-			BigInteger balanceInWEI = customERC20TokensHeldInWallet.balanceOf(localWallet.getCredentials().getAddress()).send();
+			
+			// Why do we need to supply credentials to ERC20.load()? Just create a fake entry for now
+			String pk = "0x9999999999999999999999999999999999999999999999999999999999999999";
+			Credentials credentials = Credentials.create(pk);
+			
+			ERC20 customERC20Contract = ERC20.load(customTokenContract.getContractAdress(), web3j, credentials, new DefaultGasProvider());
+			LOGGER.debug("ERC20 contract address: " + customERC20Contract.getContractAddress());
+			
+			balanceInWEI = customERC20Contract.balanceOf(walletAddress).send();
 
 			// Handle custom per token fractions
 			if (false ||
-					(0 != customTokenContract.getWeiFraction().compareTo(localWallet.getDefaultDivide())) ||
-					(0 != customTokenContract.getWeiMultiple().compareTo(localWallet.getDefaultMultiple())) ||
+					(0 != customTokenContract.getWeiFraction().compareTo(getDefaultDivide())) ||
+					(0 != customTokenContract.getWeiMultiple().compareTo(getDefaultMultiple())) ||
 					false) {
 				LOGGER.debug("we have a custom fraction/multiple setting for customToken " + customTokenContract.getTokenName());
 				LOGGER.debug(" - customTokenContract.getWeiFraction(): " + customTokenContract.getWeiFraction());
 				LOGGER.debug(" - customTokenContract.getWeiMultiple(): " + customTokenContract.getWeiMultiple());
 				balanceInWEI = balanceInWEI.multiply(customTokenContract.getWeiMultiple());
 			}
-
-			BigDecimal balanceInETH = EVMUtils.convertBalanceInWeiToEth(balanceInWEI, web3j);
-			System.out.println(" * wallet address " + localWallet.getCredentials().getAddress() + " balance " +  balanceInETH + " " + customTokenContract.getTokenName() + " [" + balanceInWEI + " wei]");
-
+			balanceInETH = EVMUtils.convertBalanceInWeiToEth(balanceInWEI, web3j);
+			return new WalletBalance(balanceInETH, balanceInWEI);
+			
 		} catch (Exception e) {
 			if (e.getMessage().equals("Empty value (0x) returned from contract")) {
-				System.out.println(" * wallet addrezz " + localWallet.getCredentials().getAddress() + " balance " +  0 + " " + customTokenContract.getTokenName() + " [" + 0 + " wei]");
+				System.out.println(" * wallet address " + walletAddress + " balance " +  0 + " " + customTokenContract.getTokenName() + " [" + 0 + " wei]");
 			} else {
-				LOGGER.error("printWalletBalanceForCustomERC20() e: " + e.getMessage());
+				LOGGER.error("getWalletBalanceForERC20Token() e2: " + e.getMessage());
 				System.exit(1);
 			}
 		}
+		
+		return null;
+	}
 
+	public static void printWalletBalanceForERC20Token(Web3j web3j, EVMBlockChain bchain, String walletAddress, ERC20Contract customTokenContract) {
+		WalletBalance bal = getWalletBalanceForERC20Token(web3j, bchain, walletAddress, customTokenContract);
+		if (null != bal) {
+			System.out.println(" * wallet address " + walletAddress + " balance " +  bal.getBalance() + " " + customTokenContract.getTokenName() + " [" + bal.getBalanceInWEI() + " wei]");
+		}
 	}
 
 	public static BigDecimal convertBalanceInWeiToEth(BigInteger balance, Web3j web3j) {
@@ -514,4 +532,12 @@ public class EVMUtils {
 		return txAttemptsCompleted;
 	}
 
+    public static BigInteger getDefaultDivide() {
+        return new BigInteger("1000000000000000000");
+    }
+    
+    public static BigInteger getDefaultMultiple() {
+        return new BigInteger("1");
+    }
+	
 }

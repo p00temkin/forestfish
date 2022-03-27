@@ -266,14 +266,6 @@ public class EVMLocalWallet {
         return null;
     }
 
-    public BigInteger getDefaultDivide() {
-        return new BigInteger("1000000000000000000");
-    }
-    
-    public BigInteger getDefaultMultiple() {
-        return new BigInteger("1");
-    }
-
     // convenience
     public String getAddress() {
         return this.getCredentials().getAddress();
