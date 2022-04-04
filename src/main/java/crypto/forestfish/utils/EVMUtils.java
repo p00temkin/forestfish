@@ -420,6 +420,10 @@ public class EVMUtils {
 						if (receiptPollCounter>20) {
 							LOGGER.warn("Unable to grab tx receipt for " + response.getTransactionHash());
 						}
+						
+						if (receiptPollCounter>50) {
+							LOGGER.error("Unable to grab tx receipt for " + response.getTransactionHash() + ", have tried " + receiptPollCounter + " times");
+						}
 					}
 				}
 
