@@ -428,7 +428,11 @@ public class EVMUtils {
 					LOGGER.info("Got a timeout .. will retry .. ex: " + ex.getMessage());
 					transactionAttemptCount--; // lets not count timeouts as actual attempts??
 				} else if (ex.getMessage().contains("must be in format")) {
-					LOGGER.info("Issue getting gas priceo .. will retry .. ex: " + ex.getMessage());
+					LOGGER.info("Issue getting gas price .. will retry .. ex: " + ex.getMessage());
+					SystemUtils.sleepInSeconds(5);
+					//transactionAttemptCount--; // we need to count this as an attempt since we are hitting the rpc node (infura, pokt ..), so leave commented
+				} else if (ex.getMessage().contains("404;")) {
+					LOGGER.warn("Got a 404 non JSON response .. will retry .. ex: " + ex.getMessage());
 					SystemUtils.sleepInSeconds(5);
 					//transactionAttemptCount--; // we need to count this as an attempt since we are hitting the rpc node (infura, pokt ..), so leave commented
 				} else if (ex.getMessage().contains("Invalid response received: 429")) {

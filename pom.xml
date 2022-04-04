@@ -94,27 +94,27 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>5.3.17</version>
+			<version>5.3.18</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.6.5</version>
+			<version>2.6.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>5.3.17</version>
+			<version>5.3.18</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.13.2.1</version>
+			<version>2.13.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.klaytn.caver</groupId>
 			<artifactId>core</artifactId>
-			<version>1.6.4-android</version>
+			<version>1.8.0-android</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
