@@ -61,10 +61,10 @@ public class EVMLocalWallet {
                     System.out.println(" * address for this new wallet is: " + this.credentials.getAddress());
                     
                 } catch (CipherException e) {
-                    LOGGER.warn("e: " + e.getMessage());
+                    LOGGER.warn("cipher exception: " + e.getMessage());
                     SystemUtils.halt();
                 } catch (IOException e) {
-                    LOGGER.warn("e: " + e.getMessage());
+                    LOGGER.warn("ioexception e: " + e.getMessage());
                     SystemUtils.halt();
                 }
             } else if (walletOrigin == WalletOrigin.RECOVERY_MNEMONIC) {
