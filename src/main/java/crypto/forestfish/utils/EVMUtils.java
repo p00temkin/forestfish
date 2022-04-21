@@ -320,6 +320,7 @@ public class EVMUtils {
 		String hash = null;
 		boolean confirmedTransaction = false;
 		int transactionAttemptCount = 0;
+		boolean doubleGasPrice = false;
 		boolean bumpNoonce = false; // to force a new transaction
 
 		while (!confirmedTransaction && transactionAttemptCount<5) {
@@ -338,19 +339,10 @@ public class EVMUtils {
 				LOGGER.info("Getting gasprice.. fallback gasprice is " + strFallbackGasPrice);
 				//BigInteger gasPrice = null;
 				try {
-					if (transactionAttemptCount > 1) {
+					if ((transactionAttemptCount > 1) || doubleGasPrice) {
 						gasPrice = web3j.ethGasPrice().send().getGasPrice().multiply(new BigInteger("2")); // increase by 100%
 						LOGGER.info("Double the gas price since this is attempt " + transactionAttemptCount);
 					} else {
-						
-						/*
-						EthGasPrice ethGasPrice = web3j.ethGasPrice().send();
-						System.out.println("ethGasPrice.getError().getMessage(): " + ethGasPrice.getError().getMessage());
-						System.out.println("ethGasPrice.getError().getCode(): " + ethGasPrice.getError().getCode());
-						System.out.println("ethGasPrice.getError().getData(): " + ethGasPrice.getError().getData());
-						gasPrice = ethGasPrice.getGasPrice();
-						*/
-						
 						gasPrice = web3j.ethGasPrice().send().getGasPrice();
 					}
 				} catch (Exception e) {
@@ -387,6 +379,8 @@ public class EVMUtils {
 					} else if (response.getError().getMessage().contains("nonce too low")) {
 						// https://ethereum.stackexchange.com/questions/78044/error-nonce-too-low
 						bumpNoonce = true;
+					} else if (response.getError().getMessage().contains("transaction underpriced")) {
+						doubleGasPrice = true;
 					} else {
 						LOGGER.error("response ERROR data: " + response.getError().getData());
 						LOGGER.error("response ERROR message: " + response.getError().getMessage());
