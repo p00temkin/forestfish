@@ -22,19 +22,21 @@ public class GraphQLUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(GraphQLUtils.class);
 
     public static Mono<GraphQLResponse> executeQuery(String url, String graphqlQuery,
-            HashMap<String, Object> queryArgs, Integer retryCount, Integer sleepTimeInSecondsBetweenRetries) {
+            HashMap<String, Object> queryArgs, Integer retryLimit, Integer sleepTimeInSecondsBetweenRetries) {
 
         int theGraphErrorCount = 0;
 
-        while (theGraphErrorCount<=retryCount) {
+        while (theGraphErrorCount<=retryLimit) {
 
+        	LOGGER.info("Making GraphQL query towards " + url + ", theGraphErrorCount=" + theGraphErrorCount + ",retryLimit=" + retryLimit);
             CustomMonoGraphQLClient client = MonoGraphQLClient.createCustomReactive(url, (requestUrl, headers, body) -> {
                 HttpHeaders httpHeaders = new HttpHeaders();
                 headers.forEach(httpHeaders::addAll);
                 RestTemplate restTemplate = new RestTemplate();
                 int initGraphErrorCount = 0;
-                while (initGraphErrorCount<=retryCount) {
+                while (initGraphErrorCount<=retryLimit) {
                     try {
+                    	LOGGER.info("initGraphErrorCount: " + initGraphErrorCount);
                         ResponseEntity<String> exchange = restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(body, httpHeaders),String.class);
                         return Mono.just(new HttpResponse(exchange.getStatusCodeValue(), exchange.getBody(), exchange.getHeaders()));
                     } catch (Exception e) {
