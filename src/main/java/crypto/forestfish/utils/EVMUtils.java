@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.SignatureException;
+import java.util.Arrays;
 
 import org.bouncycastle.jcajce.provider.digest.SHA3;
 import org.bouncycastle.util.encoders.Hex;
@@ -12,9 +15,12 @@ import org.slf4j.LoggerFactory;
 import org.web3j.contracts.eip20.generated.ERC20;
 import org.web3j.contracts.eip721.generated.ERC721;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECDSASignature;
 import org.web3j.crypto.Hash;
+import org.web3j.crypto.Keys;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.Sign;
+import org.web3j.crypto.Sign.SignatureData;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -41,41 +47,22 @@ public class EVMUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EVMUtils.class);
 
-	public static void printSignedMessage(EVMLocalWallet localWallet, String message) {
+	static String SIGN_PREFIX = "\u0019Ethereum Signed Message:\n32";
 
-		/**
-		 *  sign a message
-		 */
-		byte[] messageToSign = message.getBytes();
+	public static String signSTR(EVMLocalWallet localWallet, String message) {
+		return sign(localWallet.getCredentials(), message);
+	}
 
-		// Create prefix
-		String prefix = "\u0019Ethereum Signed Message:\n" + messageToSign.length;
-
-		// Concat prefix and message
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
-
-		try {
-			outputStream.write(prefix.getBytes());
-			outputStream.write(messageToSign);
-		} catch (IOException e) {
-			throw new RuntimeException("Error when generating signature", e);
-		}
-
-		// Hash the prefixed message
-		byte[] hashedPrefixedMessage = Hash.sha3(outputStream.toByteArray());
-
-		//Sign the hashed message with the credentials private key
-		Sign.SignatureData signedMessage = Sign.signMessage(
-				hashedPrefixedMessage, localWallet.getCredentials().getEcKeyPair(), false);
-
-		// Convert sig values from bytes[] to int / hex strings
-		String hexSigR = Numeric.toHexString(signedMessage.getR());
-		String hexSigS = Numeric.toHexString(signedMessage.getS());
-		String hexSigV = Numeric.toHexString(signedMessage.getV());
-		String signedM = "0x" + hexSigR.replaceFirst("0x", "") + hexSigS.replaceFirst("0x", "") + hexSigV.replaceFirst("0x", "");
-
-		LOGGER.info("Signed message with wallet " + localWallet.getWalletName() + ": " + signedM);
-
+	public static String sign(Credentials cred, String message) {
+		byte[] hash = message.getBytes(StandardCharsets.UTF_8);
+		Sign.SignatureData signature = Sign.signPrefixedMessage(hash, cred.getEcKeyPair());
+		String r = Numeric.toHexString(signature.getR());
+		String s = Numeric.toHexString(signature.getS());
+		String v = Numeric.toHexString(signature.getV()).replace("0x", "");
+		return new StringBuilder(r)
+				.append(s)
+				.append(v)
+				.toString();
 	}
 
 	private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
@@ -133,11 +120,11 @@ public class EVMUtils {
 		EVMWalletBalance evmw = getWalletBalanceMain(web3j, bchain, localWallet);
 		System.out.println(" * wallet address " + localWallet.getCredentials().getAddress() + " balance " +  evmw.getBalanceInETH() + " " + bchain.getTokenName() + " [" + evmw.getBalanceInWEI() + " wei]");
 	}
-	
+
 	public static WalletBalance getWalletBalanceForERC20Token(Web3j web3j, EVMBlockChain bchain, String walletAddress, ERC20Contract customTokenContract) {
 		BigDecimal balanceInETH = null;
 		BigInteger balanceInWEI = null;
-		
+
 		/**
 		 *  Connect to ETH client
 		 */
@@ -153,14 +140,14 @@ public class EVMUtils {
 		 *  print ERC20 token balance
 		 */
 		try {
-			
+
 			// Why do we need to supply credentials to ERC20.load()? Just create a fake entry for now
 			String pk = "0x9999999999999999999999999999999999999999999999999999999999999999";
 			Credentials credentials = Credentials.create(pk);
-			
+
 			ERC20 customERC20Contract = ERC20.load(customTokenContract.getContractAdress(), web3j, credentials, new DefaultGasProvider());
 			LOGGER.debug("ERC20 contract address: " + customERC20Contract.getContractAddress());
-			
+
 			balanceInWEI = customERC20Contract.balanceOf(walletAddress).send();
 
 			// Handle custom per token fractions
@@ -175,7 +162,7 @@ public class EVMUtils {
 			}
 			balanceInETH = EVMUtils.convertBalanceInWeiToEth(balanceInWEI, web3j);
 			return new WalletBalance(balanceInETH, balanceInWEI);
-			
+
 		} catch (Exception e) {
 			if (e.getMessage().equals("Empty value (0x) returned from contract")) {
 				System.out.println(" * wallet address " + walletAddress + " balance " +  0 + " " + customTokenContract.getTokenName() + " [" + 0 + " wei]");
@@ -184,7 +171,7 @@ public class EVMUtils {
 				System.exit(1);
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -414,7 +401,7 @@ public class EVMUtils {
 						if (receiptPollCounter>20) {
 							LOGGER.warn("Unable to grab tx receipt for " + response.getTransactionHash());
 						}
-						
+
 						if (receiptPollCounter>50) {
 							LOGGER.error("Unable to grab tx receipt for " + response.getTransactionHash() + ", have tried " + receiptPollCounter + " times");
 						}
@@ -508,7 +495,7 @@ public class EVMUtils {
 		String fallbackGasPrice = "300000000000";
 		return makeRequest(hexData, txRetryThreshold, confirmTimeInSecondsBeforeRetry, maticWeb3j, maticBlockChain, maticWallet, aavegotchiContractAddress, fallbackGasPrice, gasLimit);
 	}
-	
+
 	public static boolean makeRequest(String hexData, int txRetryThreshold, int confirmTimeInSecondsBeforeRetry, Web3j maticWeb3j, EVMBlockChain maticBlockChain, EVMLocalWallet maticWallet, String aavegotchiContractAddress, String fallbackGasPrice, String gasLimit) {
 		int txCounter = 0;
 		boolean txAttemptsCompleted = false;
@@ -534,12 +521,51 @@ public class EVMUtils {
 		return txAttemptsCompleted;
 	}
 
-    public static BigInteger getDefaultDivide() {
-        return new BigInteger("1000000000000000000");
-    }
-    
-    public static BigInteger getDefaultMultiple() {
-        return new BigInteger("1");
-    }
-	
+	public static BigInteger getDefaultDivide() {
+		return new BigInteger("1000000000000000000");
+	}
+
+	public static BigInteger getDefaultMultiple() {
+		return new BigInteger("1");
+	}
+
+	public static boolean verify(String signature, String message, String address) {
+		byte[] msgHash = message.getBytes();
+
+		String r_string = "0x" + signature.replace("0x","").substring(0, 64);
+		String s_string = "0x" + signature.replace("0x","").substring(64, 128);
+		String v_string = "0x" + signature.replace("0x","").substring(128, 130);
+		
+		byte[] rbyte = Numeric.hexStringToByteArray(r_string);
+		byte[] sbyte = Numeric.hexStringToByteArray(s_string);
+		byte v = Numeric.hexStringToByteArray(v_string)[0];
+
+		SignatureData sd =
+				new SignatureData(
+						v,
+						rbyte,
+						sbyte);
+
+		LOGGER.debug("validate v: " + Numeric.toHexString(sd.getV()));
+		LOGGER.debug("validate r: " + Numeric.toHexString(sd.getR()));
+		LOGGER.debug("validate s: " + Numeric.toHexString(sd.getS()));
+
+		String addressRecovered = null;
+		boolean match = false;
+
+		try {
+			BigInteger recoveredKey = Sign.signedPrefixedMessageToKey(msgHash, sd);
+			if (recoveredKey != null) {
+				addressRecovered = "0x" + Keys.getAddress(recoveredKey);
+				LOGGER.debug("addressRecovered: " + addressRecovered);
+				if (addressRecovered.equals(address)) match = true;
+			}
+
+		} catch (SignatureException e) {
+			e.printStackTrace();
+		} 
+
+		return match;
+	}
+
 }
