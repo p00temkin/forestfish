@@ -1,22 +1,24 @@
 package crypto.forestfish.objects.evm;
 
-public class EVMInteractionExceptionEvent {
+import crypto.forestfish.enums.ProviderException;
+
+public class ProviderExceptionEvent {
 
 	private boolean nodeInteraction = false;
 	private boolean sleepBeforeRetry = false;
 	private int sleepTimeInSecondsRecommended = 5;
-	private boolean unknownError = false;
+	private ProviderException exceptionType = ProviderException.UNKNOWN;
 	
-	public EVMInteractionExceptionEvent() {
+	public ProviderExceptionEvent() {
 		super();
 	}
 
-	public EVMInteractionExceptionEvent(boolean nodeInteraction, boolean sleepBeforeRetry, int sleepTimeInSecondsRecommended, boolean unknownError) {
+	public ProviderExceptionEvent(ProviderException exceptionType, boolean nodeInteraction, boolean sleepBeforeRetry, int sleepTimeInSecondsRecommended) {
 		super();
+		this.exceptionType = exceptionType;
 		this.nodeInteraction = nodeInteraction;
 		this.sleepBeforeRetry = sleepBeforeRetry;
 		this.sleepTimeInSecondsRecommended = sleepTimeInSecondsRecommended;
-		this.unknownError = unknownError;
 	}
 
 	public boolean isNodeInteraction() {
@@ -43,12 +45,12 @@ public class EVMInteractionExceptionEvent {
 		this.sleepTimeInSecondsRecommended = sleepTimeInSecondsRecommended;
 	}
 
-	public boolean isUnknownError() {
-		return unknownError;
+	public ProviderException getExceptionType() {
+		return exceptionType;
 	}
 
-	public void setUnknownError(boolean unknownError) {
-		this.unknownError = unknownError;
+	public void setExceptionType(ProviderException exceptionType) {
+		this.exceptionType = exceptionType;
 	}
 	
 }

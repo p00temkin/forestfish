@@ -27,7 +27,6 @@ public class EVMUtilsTest {
 		boolean verified = EVMUtils.verify(signature, message, credentials.getAddress());
 		System.out.println("verified: " + verified);
 		assertEquals("Ensure we can verify the signed message", true, verified);
-
 	}
 	
 }

@@ -39,7 +39,7 @@ import crypto.forestfish.enums.EVMChain;
 import crypto.forestfish.enums.ProviderException;
 import crypto.forestfish.objects.evm.ERC20Contract;
 import crypto.forestfish.objects.evm.EVMBlockChain;
-import crypto.forestfish.objects.evm.EVMInteractionExceptionEvent;
+import crypto.forestfish.objects.evm.ProviderExceptionEvent;
 import crypto.forestfish.objects.evm.EVMLocalWallet;
 import crypto.forestfish.objects.evm.EVMWalletBalance;
 import crypto.forestfish.objects.ipfs.WalletBalance;
@@ -79,51 +79,60 @@ public class EVMUtils {
 	}
 
 	public static void printNodeClientVersion(Web3j web3j, EVMBlockChain bchain) {
-		try {
-			Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
-			System.out.println("Client version for nodeURL " + bchain.getNodeURL() + ": " + clientVersion.getWeb3ClientVersion());
-		} catch (Exception e) {
-			LOGGER.error("printNodeClientVersion() e: " + e.getMessage());
-			System.exit(1);
+		int nrRetriesLeft = 10;
+		while (nrRetriesLeft>0) {
+			nrRetriesLeft--;
+			try {
+				Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
+				System.out.println("Client version for nodeURL " + bchain.getNodeURL() + ": " + clientVersion.getWeb3ClientVersion());
+			} catch (Exception ex) {
+				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " printNodeClientVersion() ex: " + ex.getMessage());
+				ProviderExceptionEvent evmE = handleProviderException(ex);
+				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
+			}
 		}
 	}
 
 	public static EVMWalletBalance getWalletBalanceMain(Web3j web3j, EVMBlockChain bchain, EVMLocalWallet localWallet) {
 		int nrRetriesLeft = 10;
-		if (nrRetriesLeft>0) {
+		while (nrRetriesLeft>0) {
 			nrRetriesLeft--;
 			try {
 				Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
 				LOGGER.debug("Client version: " + clientVersion.getWeb3ClientVersion());
-
 				BigDecimal balanceInETH = localWallet.getWalletBalanceInEth(web3j);
 				BigInteger balanceInWEI = localWallet.getWalletBalanceInWei(web3j);
 				return new EVMWalletBalance(balanceInETH, balanceInWEI);
-
 			} catch (Exception ex) {
 				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " getWalletBalanceMain() ex: " + ex.getMessage());
-				EVMInteractionExceptionEvent evmE = handleEVMInteractionException(ex);
+				ProviderExceptionEvent evmE = handleProviderException(ex);
 				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
 				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
-				if (evmE.isUnknownError()) SystemUtils.halt();
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
 			}
 		}
-
 		return null;
 	}
 
 	public static void printWalletBalance(Web3j web3j, EVMBlockChain bchain, EVMLocalWallet localWallet) {
-
-		try {
-			Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
-			LOGGER.debug("Client version: " + clientVersion.getWeb3ClientVersion());
-		} catch (Exception e) {
-			LOGGER.error("printWalletBalance() e: " + e.getMessage());
-			System.exit(1);
+		int nrRetriesLeft = 10;
+		while (nrRetriesLeft>0) {
+			nrRetriesLeft--;
+			try {
+				Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
+				LOGGER.debug("Client version: " + clientVersion.getWeb3ClientVersion());
+			} catch (Exception ex) {
+				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " printWalletBalance() ex: " + ex.getMessage());
+				ProviderExceptionEvent evmE = handleProviderException(ex);
+				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
+			}
+			EVMWalletBalance evmw = getWalletBalanceMain(web3j, bchain, localWallet);
+			System.out.println(" * wallet address " + localWallet.getCredentials().getAddress() + " balance " +  evmw.getBalanceInETH() + " " + bchain.getTokenName() + " [" + evmw.getBalanceInWEI() + " wei]");
 		}
-
-		EVMWalletBalance evmw = getWalletBalanceMain(web3j, bchain, localWallet);
-		System.out.println(" * wallet address " + localWallet.getCredentials().getAddress() + " balance " +  evmw.getBalanceInETH() + " " + bchain.getTokenName() + " [" + evmw.getBalanceInWEI() + " wei]");
 	}
 
 	public static WalletBalance getWalletBalanceForERC20Token(Web3j web3j, EVMBlockChain bchain, String walletAddress, ERC20Contract customTokenContract) {
@@ -133,47 +142,60 @@ public class EVMUtils {
 		/**
 		 *  Connect to ETH client
 		 */
-		try {
-			Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
-			LOGGER.debug("Client version: " + clientVersion.getWeb3ClientVersion());
-		} catch (Exception e) {
-			LOGGER.error("init getWalletBalanceForERC20Token() e1: " + e.getMessage());
-			System.exit(1);
+		int nrRetriesLeft = 10;
+		while (nrRetriesLeft>0) {
+			nrRetriesLeft--;
+			try {
+				Web3ClientVersion clientVersion = web3j.web3ClientVersion().sendAsync().get();
+				LOGGER.debug("Client version: " + clientVersion.getWeb3ClientVersion());
+			} catch (Exception ex) {
+				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " getWalletBalanceForERC20Token() ex: " + ex.getMessage());
+				ProviderExceptionEvent evmE = handleProviderException(ex);
+				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
+			}
 		}
 
 		/**
 		 *  print ERC20 token balance
 		 */
-		try {
+		nrRetriesLeft = 10;
+		while (nrRetriesLeft>0) {
+			nrRetriesLeft--;
+			try {
+				// Why do we need to supply credentials to ERC20.load()? Just create a fake entry for now
+				String pk = "0x9999999999999999999999999999999999999999999999999999999999999999";
+				Credentials credentials = Credentials.create(pk);
 
-			// Why do we need to supply credentials to ERC20.load()? Just create a fake entry for now
-			String pk = "0x9999999999999999999999999999999999999999999999999999999999999999";
-			Credentials credentials = Credentials.create(pk);
+				ERC20 customERC20Contract = ERC20.load(customTokenContract.getContractAdress(), web3j, credentials, new DefaultGasProvider());
+				LOGGER.debug("ERC20 contract address: " + customERC20Contract.getContractAddress());
 
-			ERC20 customERC20Contract = ERC20.load(customTokenContract.getContractAdress(), web3j, credentials, new DefaultGasProvider());
-			LOGGER.debug("ERC20 contract address: " + customERC20Contract.getContractAddress());
+				balanceInWEI = customERC20Contract.balanceOf(walletAddress).send();
 
-			balanceInWEI = customERC20Contract.balanceOf(walletAddress).send();
+				// Handle custom per token fractions
+				if (false ||
+						(0 != customTokenContract.getWeiFraction().compareTo(getDefaultDivide())) ||
+						(0 != customTokenContract.getWeiMultiple().compareTo(getDefaultMultiple())) ||
+						false) {
+					LOGGER.debug("we have a custom fraction/multiple setting for customToken " + customTokenContract.getTokenName());
+					LOGGER.debug(" - customTokenContract.getWeiFraction(): " + customTokenContract.getWeiFraction());
+					LOGGER.debug(" - customTokenContract.getWeiMultiple(): " + customTokenContract.getWeiMultiple());
+					balanceInWEI = balanceInWEI.multiply(customTokenContract.getWeiMultiple());
+				}
+				balanceInETH = EVMUtils.convertBalanceInWeiToEth(balanceInWEI, web3j);
+				return new WalletBalance(balanceInETH, balanceInWEI);
 
-			// Handle custom per token fractions
-			if (false ||
-					(0 != customTokenContract.getWeiFraction().compareTo(getDefaultDivide())) ||
-					(0 != customTokenContract.getWeiMultiple().compareTo(getDefaultMultiple())) ||
-					false) {
-				LOGGER.debug("we have a custom fraction/multiple setting for customToken " + customTokenContract.getTokenName());
-				LOGGER.debug(" - customTokenContract.getWeiFraction(): " + customTokenContract.getWeiFraction());
-				LOGGER.debug(" - customTokenContract.getWeiMultiple(): " + customTokenContract.getWeiMultiple());
-				balanceInWEI = balanceInWEI.multiply(customTokenContract.getWeiMultiple());
-			}
-			balanceInETH = EVMUtils.convertBalanceInWeiToEth(balanceInWEI, web3j);
-			return new WalletBalance(balanceInETH, balanceInWEI);
-
-		} catch (Exception e) {
-			if (e.getMessage().equals("Empty value (0x) returned from contract")) {
-				System.out.println(" * wallet address " + walletAddress + " balance " +  0 + " " + customTokenContract.getTokenName() + " [" + 0 + " wei]");
-			} else {
-				LOGGER.error("getWalletBalanceForERC20Token() e2: " + e.getMessage());
-				System.exit(1);
+			} catch (Exception ex) {
+				if (ex.getMessage().equals("Empty value (0x) returned from contract")) {
+					System.out.println(" * wallet address " + walletAddress + " balance " +  0 + " " + customTokenContract.getTokenName() + " [" + 0 + " wei]");
+				} else {
+					LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " getWalletBalanceForERC20Token() ex: " + ex.getMessage());
+					ProviderExceptionEvent evmE = handleProviderException(ex);
+					if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+					if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+					if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
+				}
 			}
 		}
 
@@ -188,79 +210,76 @@ public class EVMUtils {
 	}
 
 	public static BigDecimal convertBalanceInWeiToEth(BigInteger balance, Web3j web3j) {
-		try {
-			BigDecimal ethBalanceFULL = Convert.fromWei(balance.toString(), Unit.ETHER);
-			return ethBalanceFULL;
-		} catch (Exception e) {
-			LOGGER.warn("convertBalanceInWeiToEth() e: " + e.getMessage());
-			System.exit(1);
+		int nrRetriesLeft = 10;
+		while (nrRetriesLeft>0) {
+			nrRetriesLeft--;
+			try {
+				BigDecimal ethBalanceFULL = Convert.fromWei(balance.toString(), Unit.ETHER);
+				return ethBalanceFULL;
+			} catch (Exception ex) {
+				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " convertBalanceInWeiToEth() ex: " + ex.getMessage());
+				ProviderExceptionEvent evmE = handleProviderException(ex);
+				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
+			}
 		}
 		return null;
 	}
 
 	public static void printLatestBlockNumber(Web3j web3j, EVMBlockChain bchain) {
-		try {
-			EthBlockNumber result = web3j.ethBlockNumber().sendAsync().get(); 
-			System.out.println(bchain.getName() + " (chainid: " + bchain.getChainID() + ") latest block number: " + result.getBlockNumber().toString());
-		} catch (Exception e) {
-			LOGGER.error("printLatestBlockNumber() e: " + e.getMessage());
-			System.exit(1);
+		int nrRetriesLeft = 10;
+		while (nrRetriesLeft>0) {
+			nrRetriesLeft--;
+			try {
+				EthBlockNumber result = web3j.ethBlockNumber().sendAsync().get(); 
+				LOGGER.info(bchain.getName() + " (chainid: " + bchain.getChainID() + ") latest block number: " + result.getBlockNumber().toString());
+			} catch (Exception ex) {
+				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " printLatestBlockNumber() ex: " + ex.getMessage());
+				ProviderExceptionEvent evmE = handleProviderException(ex);
+				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
+			}
 		}
 	}
 
 	public static void printCurrentStandardGasPriceInGWEI(Web3j web3j, EVMBlockChain bchain) {
-		try {
-			EthGasPrice gasPrice =  web3j.ethGasPrice().send();
-			System.out.println(bchain.getName() + " (chainid: " + bchain.getChainID() + ") current STANDARD gas price : " + gasPrice.getGasPrice().divide(new BigInteger("1000000000")) + " GWEI");
-		} catch (Exception e) {
-			LOGGER.error("printCurrentStandardGasPriceInGWEI() e: " + e.getMessage());
-			System.exit(1);
+		int nrRetriesLeft = 10;
+		while (nrRetriesLeft>0) {
+			nrRetriesLeft--;
+			try {
+				EthGasPrice gasPrice =  web3j.ethGasPrice().send();
+				LOGGER.info(bchain.getName() + " (chainid: " + bchain.getChainID() + ") current STANDARD gas price : " + gasPrice.getGasPrice().divide(new BigInteger("1000000000")) + " GWEI");
+			} catch (Exception ex) {
+				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " printCurrentStandardGasPriceInGWEI() ex: " + ex.getMessage());
+				ProviderExceptionEvent evmE = handleProviderException(ex);
+				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
+			}
 		}
 	}
 
 	public static Integer getCurrentStandardGasPriceInGWEI(Web3j web3j, EVMBlockChain bchain) {
-		int failCounter = 0;
-		while (failCounter<200) {
+		int nrRetriesLeft = 10;
+		while (nrRetriesLeft>0) {
+			nrRetriesLeft--;
 			try {
 				EthGasPrice gasPrice =  web3j.ethGasPrice().send();
 				BigInteger bint = gasPrice.getGasPrice().divide(new BigInteger("1000000000"));
 				return Integer.parseInt("" + bint.toString());
-			} catch (Exception e) {
-				ProviderException pException = EVMUtils.handleProviderException(e);
-				failCounter++;
-				LOGGER.warn("[" + failCounter + "] pException: " + pException.toString());
-				SystemUtils.sleepInSeconds(1);
+			} catch (Exception ex) {
+				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " getCurrentStandardGasPriceInGWEI() ex: " + ex.getMessage());
+				ProviderExceptionEvent evmE = handleProviderException(ex);
+				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
 			}
 		}
 		LOGGER.error("getCurrentStandardGasPriceInGWEI(), unable to complete request");
 		SystemUtils.halt();
 		return null;
-	}
-
-	private static ProviderException handleProviderException(Exception e) {
-		ProviderException pException = EVMUtils.determineIfRecoverableException(e.getMessage());
-		if (pException == ProviderException.RECOVERABLE) {
-			LOGGER.warn("Got a recoverable provider exception: " + e.getMessage() + ", will sleep 5 secs and try again..");
-			SystemUtils.sleepInSeconds(5);
-		} else if (pException == ProviderException.FATAL) {
-			LOGGER.error("We got a unrecoverable/fatal provider exception (" + e.getMessage() + "), halting");
-			SystemUtils.halt();
-		} else if (pException == ProviderException.UNKNOWN) {
-			LOGGER.warn("We got an unknown provider exception (" + e.getMessage() + "), assuming its a recoverable exception: " + e.getMessage() + ", will sleep 5 secs and try again..");
-			SystemUtils.sleepInSeconds(5);
-		} else {
-			LOGGER.warn("We got an unhandled provider exception (" + e.getMessage() + "), this needs to be mapped to a ProviderException object");
-			SystemUtils.halt();
-		}
-		return pException;
-	}
-
-	private static ProviderException determineIfRecoverableException(String exceptionMessage) {
-		// Invalid response received: 502; <html><head><title>502 Bad Gateway</title></head><body><center><h1>502 Bad Gateway</h1></center></body></html>
-		if (exceptionMessage.contains("502 Bad Gateway")) {
-			return ProviderException.RECOVERABLE;
-		}
-		return ProviderException.UNKNOWN;
 	}
 
 	public static void printDetailsOfOwnedNFTs(Web3j web3j, EVMBlockChain bchain, EVMLocalWallet wallet, String nftContractAddress, BigInteger tokenID) {
@@ -414,10 +433,10 @@ public class EVMUtils {
 				}
 
 			} catch (Exception ex) {
-				EVMInteractionExceptionEvent evmE = handleEVMInteractionException(ex);
+				ProviderExceptionEvent evmE = handleProviderException(ex);
 				if (evmE.isNodeInteraction()) transactionAttemptCount--; 
 				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
-				if (evmE.isUnknownError()) SystemUtils.halt();
+				if (evmE.getExceptionType() == ProviderException.FATAL) SystemUtils.halt();
 			}
 		}
 
@@ -429,45 +448,56 @@ public class EVMUtils {
 
 	}
 
-	
-	private static EVMInteractionExceptionEvent handleEVMInteractionException(Exception ex) {	
+
+	private static ProviderExceptionEvent handleProviderException(Exception ex) {	
 		boolean nodeInteraction = false;
 		boolean sleepBeforeRetry = false;
 		int sleepTimeInSecondsRecommended = 5;
-		boolean unknownError = false;
+		ProviderException exceptionType = ProviderException.UNKNOWN;
 		if (ex.getMessage().contains("timeout")) {
 			LOGGER.info("Got a timeout .. will retry .. ex: " + ex.getMessage());
 			nodeInteraction = false;
+			exceptionType = ProviderException.RECOVERABLE;
 		} else if (ex.getMessage().contains("must be in format")) {
 			LOGGER.info("Issue getting gas price .. will retry .. ex: " + ex.getMessage());
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
+			exceptionType = ProviderException.RECOVERABLE;
 		} else if (ex.getMessage().contains("Unexpected character")) {
 			LOGGER.info("Got an unknown/invalid RPC reply .. will retry .. ex: " + ex.getMessage());
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
+			exceptionType = ProviderException.RECOVERABLE;
 		} else if (ex.getMessage().contains("404;")) {
 			LOGGER.warn("Got a 404 non JSON response .. will retry .. ex: " + ex.getMessage());
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
+			exceptionType = ProviderException.RECOVERABLE;
+		} else if (ex.getMessage().contains("502 Bad Gateway")) {
+			// 502; <html><head><title>502 Bad Gateway</title></head><body><center><h1>502 Bad Gateway</h1></center></body></html>
+			LOGGER.warn("Got a 502 non JSON response .. will retry .. ex: " + ex.getMessage());
+			sleepBeforeRetry = true;
+			sleepTimeInSecondsRecommended = 5;
+			exceptionType = ProviderException.RECOVERABLE;	
 		} else if (ex.getMessage().contains("Invalid response received: 429")) {
 			if (ex.getMessage().contains("daily request count exceeded")) {
 				LOGGER.info("RPC Node limit reached " + ex.getMessage() + ", we should cool down");
 				sleepBeforeRetry = true;
 				sleepTimeInSecondsRecommended = 3600;
+				exceptionType = ProviderException.RECOVERABLE;
 			} else {
 				LOGGER.error("Unknown 429 error: " + ex.getMessage() + ", update handleEVMInteractionException() .. exiting");
-				unknownError = true;
+				exceptionType = ProviderException.UNKNOWN;
 			}
 		} else {
-			unknownError = true;
+			exceptionType = ProviderException.UNKNOWN;
 			LOGGER.warn("Unknown error: " + ex.getMessage() + ", update handleEVMInteractionException()");
 		}
-		
-		return new EVMInteractionExceptionEvent(nodeInteraction, sleepBeforeRetry, sleepTimeInSecondsRecommended, unknownError);
+
+		return new ProviderExceptionEvent(exceptionType, nodeInteraction, sleepBeforeRetry, sleepTimeInSecondsRecommended);
 	}
 
-	
+
 	/**
 	 * https://www.oodlestechnologies.com/blogs/validating-ethereum-address/
 	 * @param ethereumAddress
@@ -503,6 +533,7 @@ public class EVMUtils {
 
 	}
 
+
 	public static EVMBlockChain createBlockchain(EVMChain chain, String providerURL) {
 		EVMBlockChain blockChain = null;
 
@@ -516,10 +547,12 @@ public class EVMUtils {
 		return blockChain;
 	}
 
+
 	public static boolean makeRequest(String hexData, int txRetryThreshold, int confirmTimeInSecondsBeforeRetry, Web3j maticWeb3j, EVMBlockChain maticBlockChain, EVMLocalWallet maticWallet, String aavegotchiContractAddress, String gasLimit) {
 		String fallbackGasPrice = "300000000000";
 		return makeRequest(hexData, txRetryThreshold, confirmTimeInSecondsBeforeRetry, maticWeb3j, maticBlockChain, maticWallet, aavegotchiContractAddress, fallbackGasPrice, gasLimit);
 	}
+
 
 	public static boolean makeRequest(String hexData, int txRetryThreshold, int confirmTimeInSecondsBeforeRetry, Web3j maticWeb3j, EVMBlockChain maticBlockChain, EVMLocalWallet maticWallet, String aavegotchiContractAddress, String fallbackGasPrice, String gasLimit) {
 		int txCounter = 0;
@@ -542,9 +575,9 @@ public class EVMUtils {
 			}
 
 		}
-
 		return txAttemptsCompleted;
 	}
+
 
 	public static BigInteger getDefaultDivide() {
 		return new BigInteger("1000000000000000000");
@@ -560,7 +593,7 @@ public class EVMUtils {
 		String r_string = "0x" + signature.replace("0x","").substring(0, 64);
 		String s_string = "0x" + signature.replace("0x","").substring(64, 128);
 		String v_string = "0x" + signature.replace("0x","").substring(128, 130);
-		
+
 		byte[] rbyte = Numeric.hexStringToByteArray(r_string);
 		byte[] sbyte = Numeric.hexStringToByteArray(s_string);
 		byte v = Numeric.hexStringToByteArray(v_string)[0];
