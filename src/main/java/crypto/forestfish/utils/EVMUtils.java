@@ -39,6 +39,7 @@ import crypto.forestfish.enums.EVMChain;
 import crypto.forestfish.enums.ProviderException;
 import crypto.forestfish.objects.evm.ERC20Contract;
 import crypto.forestfish.objects.evm.EVMBlockChain;
+import crypto.forestfish.objects.evm.EVMInteractionExceptionEvent;
 import crypto.forestfish.objects.evm.EVMLocalWallet;
 import crypto.forestfish.objects.evm.EVMWalletBalance;
 import crypto.forestfish.objects.ipfs.WalletBalance;
@@ -99,8 +100,12 @@ public class EVMUtils {
 				BigInteger balanceInWEI = localWallet.getWalletBalanceInWei(web3j);
 				return new EVMWalletBalance(balanceInETH, balanceInWEI);
 
-			} catch (Exception e) {
-				LOGGER.warn("getWalletBalanceMain() e: " + e.getMessage());
+			} catch (Exception ex) {
+				LOGGER.warn("nrRetriesLeft: " + nrRetriesLeft + " getWalletBalanceMain() ex: " + ex.getMessage());
+				EVMInteractionExceptionEvent evmE = handleEVMInteractionException(ex);
+				if (evmE.isNodeInteraction()) nrRetriesLeft--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.isUnknownError()) SystemUtils.halt();
 			}
 		}
 
@@ -409,29 +414,10 @@ public class EVMUtils {
 				}
 
 			} catch (Exception ex) {
-				if (ex.getMessage().contains("timeout")) {
-					LOGGER.info("Got a timeout .. will retry .. ex: " + ex.getMessage());
-					transactionAttemptCount--; // lets not count timeouts as actual attempts??
-				} else if (ex.getMessage().contains("must be in format")) {
-					LOGGER.info("Issue getting gas price .. will retry .. ex: " + ex.getMessage());
-					SystemUtils.sleepInSeconds(5);
-					//transactionAttemptCount--; // we need to count this as an attempt since we are hitting the rpc node (infura, pokt ..), so leave commented
-				} else if (ex.getMessage().contains("404;")) {
-					LOGGER.warn("Got a 404 non JSON response .. will retry .. ex: " + ex.getMessage());
-					SystemUtils.sleepInSeconds(5);
-					//transactionAttemptCount--; // we need to count this as an attempt since we are hitting the rpc node (infura, pokt ..), so leave commented
-				} else if (ex.getMessage().contains("Invalid response received: 429")) {
-					if (ex.getMessage().contains("daily request count exceeded")) {
-						LOGGER.info("RPC Node limit reached " + ex.getMessage() + ", sleeping 1 hour");
-						SystemUtils.sleepInSeconds(3600);
-					} else {
-						LOGGER.error("Unknown error: " + ex.getMessage() + ", exiting");
-						SystemUtils.halt();
-					}
-				} else {
-					LOGGER.error("ex: " + ex.getMessage());
-					SystemUtils.halt();
-				}
+				EVMInteractionExceptionEvent evmE = handleEVMInteractionException(ex);
+				if (evmE.isNodeInteraction()) transactionAttemptCount--; 
+				if (evmE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
+				if (evmE.isUnknownError()) SystemUtils.halt();
 			}
 		}
 
@@ -443,6 +429,45 @@ public class EVMUtils {
 
 	}
 
+	
+	private static EVMInteractionExceptionEvent handleEVMInteractionException(Exception ex) {	
+		boolean nodeInteraction = false;
+		boolean sleepBeforeRetry = false;
+		int sleepTimeInSecondsRecommended = 5;
+		boolean unknownError = false;
+		if (ex.getMessage().contains("timeout")) {
+			LOGGER.info("Got a timeout .. will retry .. ex: " + ex.getMessage());
+			nodeInteraction = false;
+		} else if (ex.getMessage().contains("must be in format")) {
+			LOGGER.info("Issue getting gas price .. will retry .. ex: " + ex.getMessage());
+			sleepBeforeRetry = true;
+			sleepTimeInSecondsRecommended = 5;
+		} else if (ex.getMessage().contains("Unexpected character")) {
+			LOGGER.info("Got an unknown/invalid RPC reply .. will retry .. ex: " + ex.getMessage());
+			sleepBeforeRetry = true;
+			sleepTimeInSecondsRecommended = 5;
+		} else if (ex.getMessage().contains("404;")) {
+			LOGGER.warn("Got a 404 non JSON response .. will retry .. ex: " + ex.getMessage());
+			sleepBeforeRetry = true;
+			sleepTimeInSecondsRecommended = 5;
+		} else if (ex.getMessage().contains("Invalid response received: 429")) {
+			if (ex.getMessage().contains("daily request count exceeded")) {
+				LOGGER.info("RPC Node limit reached " + ex.getMessage() + ", we should cool down");
+				sleepBeforeRetry = true;
+				sleepTimeInSecondsRecommended = 3600;
+			} else {
+				LOGGER.error("Unknown 429 error: " + ex.getMessage() + ", update handleEVMInteractionException() .. exiting");
+				unknownError = true;
+			}
+		} else {
+			unknownError = true;
+			LOGGER.warn("Unknown error: " + ex.getMessage() + ", update handleEVMInteractionException()");
+		}
+		
+		return new EVMInteractionExceptionEvent(nodeInteraction, sleepBeforeRetry, sleepTimeInSecondsRecommended, unknownError);
+	}
+
+	
 	/**
 	 * https://www.oodlestechnologies.com/blogs/validating-ethereum-address/
 	 * @param ethereumAddress
