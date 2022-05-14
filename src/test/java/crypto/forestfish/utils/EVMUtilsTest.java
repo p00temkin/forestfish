@@ -29,4 +29,5 @@ public class EVMUtilsTest {
 		assertEquals("Ensure we can verify the signed message", true, verified);
 	}
 	
+	// see clients/web3j/sign.js for web3j example
 }

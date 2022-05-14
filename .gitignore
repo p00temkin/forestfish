@@ -4,3 +4,5 @@ bin
 *.sh
 *.jar
 *.pl
+clients/web3j/package-lock.json
+clients/web3j/node_modules
