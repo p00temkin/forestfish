@@ -505,6 +505,10 @@ public class EVMUtils {
 	 */
 	public static boolean isValidEthereumAddress(String ethereumAddress) {
 
+		if (null == ethereumAddress) return false;
+		if (!ethereumAddress.startsWith("0x")) return false;
+		if (ethereumAddress.length() != 42) return false;
+		
 		// to fetch the part after 0x
 		String subAddr = ethereumAddress.substring(2);
 
