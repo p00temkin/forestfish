@@ -13,9 +13,27 @@ public class HttpRequestUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpRequestUtils.class);
 	
-	public static String getBodyUsingUrlRequest(String url) {
+	public static String getBodyUsingGETUrlRequest(String url) {
 		try {
 			Document doc = Jsoup.connect(url).ignoreContentType(true).get();
+			String res = Jsoup.parse(doc.toString()).body().text();
+			return res;
+		} catch (ConnectException ce) {
+			LOGGER.warn("Connection exception: " + ce.getMessage());
+		} catch (HttpStatusException he) {
+			LOGGER.warn("HTTP status exception: " + he.getMessage());
+		} catch (IOException e) {
+			LOGGER.warn("e: " + e.getMessage());
+			LOGGER.warn("exception class: " + e.getClass());
+		}
+		return "";
+	}
+	
+	public static String getBodyUsingGETUrlRequestAndJWTToken(String url, String jwtToken) {
+		try {
+			Document doc = Jsoup.connect(url)
+					.header("Authorization", "Bearer " + jwtToken)
+					.ignoreContentType(true).get();
 			String res = Jsoup.parse(doc.toString()).body().text();
 			return res;
 		} catch (ConnectException ce) {
