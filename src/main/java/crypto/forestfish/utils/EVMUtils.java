@@ -553,7 +553,7 @@ public class EVMUtils {
 
 
 	public static boolean makeRequest(String hexData, int txRetryThreshold, int confirmTimeInSecondsBeforeRetry, Web3j maticWeb3j, EVMBlockChain maticBlockChain, EVMLocalWallet maticWallet, String aavegotchiContractAddress, String gasLimit) {
-		String fallbackGasPrice = "300000000000";
+		String fallbackGasPrice = "30000000000";
 		return makeRequest(hexData, txRetryThreshold, confirmTimeInSecondsBeforeRetry, maticWeb3j, maticBlockChain, maticWallet, aavegotchiContractAddress, fallbackGasPrice, gasLimit);
 	}
 
