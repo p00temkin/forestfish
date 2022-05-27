@@ -33,23 +33,24 @@ public class GraphQLUtils {
                 HttpHeaders httpHeaders = new HttpHeaders();
                 headers.forEach(httpHeaders::addAll);
                 RestTemplate restTemplate = new RestTemplate();
-                int initGraphErrorCount = 0;
-                while (initGraphErrorCount<=retryLimit) {
+                int graphErrorCount = 0;
+                while (graphErrorCount<=retryLimit) {
                     try {
-                    	LOGGER.info("initGraphErrorCount: " + initGraphErrorCount);
+                    	LOGGER.info("graphErrorCount: " + graphErrorCount);
                         ResponseEntity<String> exchange = restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(body, httpHeaders),String.class);
                         return Mono.just(new HttpResponse(exchange.getStatusCodeValue(), exchange.getBody(), exchange.getHeaders()));
                     } catch (Exception e) {
                         if (e.getMessage().contains("504 Gateway Time-out")) {
                             LOGGER.warn("transitory exception: " + e.getMessage());
                             SystemUtils.sleepInSeconds(sleepTimeInSecondsBetweenRetries);
-                            initGraphErrorCount++;
+                            graphErrorCount++;
                         } else {
                             LOGGER.warn("unknown exception: " + e.getMessage());
                             SystemUtils.sleepInSeconds(sleepTimeInSecondsBetweenRetries);
-                            initGraphErrorCount++;
+                            graphErrorCount++;
                         }
                     }
+                    graphErrorCount++;
                 }
                 LOGGER.error("Unable to properly setup a session with \"theGraph\"");
                 return null;
@@ -61,7 +62,7 @@ public class GraphQLUtils {
             } else {
                 return graphQLResponse;
             }
-
+            
         }
 
         LOGGER.error("Unable to properly communicate with \"theGraph\"");
