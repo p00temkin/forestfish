@@ -390,8 +390,12 @@ public class EVMUtils {
 					} else if (response.getError().getMessage().contains("nonce too low")) {
 						// https://ethereum.stackexchange.com/questions/78044/error-nonce-too-low
 						bumpNoonce = true;
-					} else if (response.getError().getMessage().contains("transaction underpriced")) {
-						doubleGasPrice = true;
+					} else if (response.getError().getMessage().contains("nonce too low")) {
+						// https://ethereum.stackexchange.com/questions/78044/error-nonce-too-low
+						bumpNoonce = true;
+					} else if (response.getError().getMessage().contains("insufficient funds for gas")) {
+						LOGGER.error("Out of funds!");					
+						SystemUtils.halt();
 					} else {
 						LOGGER.error("response ERROR data: " + response.getError().getData());
 						LOGGER.error("response ERROR message: " + response.getError().getMessage());
