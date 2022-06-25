@@ -44,6 +44,10 @@ public class GraphQLUtils {
                             LOGGER.warn("transitory exception: " + e.getMessage());
                             SystemUtils.sleepInSeconds(sleepTimeInSecondsBetweenRetries);
                             graphErrorCount++;
+                        } else if (e.getMessage().startsWith("522")) {
+                                LOGGER.warn("transitory exception: " + e.getMessage());
+                                SystemUtils.sleepInSeconds(sleepTimeInSecondsBetweenRetries);
+                                graphErrorCount++;
                         } else {
                             LOGGER.warn("unknown exception: " + e.getMessage());
                             SystemUtils.sleepInSeconds(sleepTimeInSecondsBetweenRetries);
