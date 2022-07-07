@@ -1,13 +1,9 @@
 package crypto.forestfish.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.SignatureException;
-import java.util.Arrays;
-
 import org.bouncycastle.jcajce.provider.digest.SHA3;
 import org.bouncycastle.util.encoders.Hex;
 import org.slf4j.Logger;
@@ -15,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.web3j.contracts.eip20.generated.ERC20;
 import org.web3j.contracts.eip721.generated.ERC721;
 import org.web3j.crypto.Credentials;
-import org.web3j.crypto.ECDSASignature;
-import org.web3j.crypto.Hash;
 import org.web3j.crypto.Keys;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.Sign;
@@ -387,9 +381,8 @@ public class EVMUtils {
 						// https://ethereum.stackexchange.com/questions/27256/error-replacement-transaction-underpriced/44875
 						LOGGER.warn("Transaction gave an \"replacement transaction\" response, which means you may have submitted the same transaction twice");
 						confirmedTransaction = true; // let this slide only if in HA mode?
-					} else if (response.getError().getMessage().contains("nonce too low")) {
-						// https://ethereum.stackexchange.com/questions/78044/error-nonce-too-low
-						bumpNoonce = true;
+					} else if (response.getError().getMessage().contains("transaction underpriced")) {
+						doubleGasPrice = true;
 					} else if (response.getError().getMessage().contains("nonce too low")) {
 						// https://ethereum.stackexchange.com/questions/78044/error-nonce-too-low
 						bumpNoonce = true;
