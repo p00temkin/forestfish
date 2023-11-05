@@ -1,0 +1,32 @@
+{
+  "erc1155tokens": {},
+  "erc721tokens": {
+    "MMV_ITEM": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xd08ac40b3a0a7fb20b026a3b6cd5d7cfadc3d6f5",
+      "description": "Morning Moon Village game item",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://www.bkcscan.com/address/0xd08ac40b3a0a7fb20b026a3b6cd5d7cfadc3d6f5",
+        "https://morningmoonvillage.com/",
+        "https://mmv.megaland.io/"
+      ],
+      "symbol": "MMV_ITEM"
+    },
+    "SANDX": {
+      "category": "NFT",
+      "chain": "BITKUB",
+      "contractAddress": "0x998c4a4f5231b10ad867bd5d99fa181495f34cd8",
+      "description": "SandX NFT",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://www.bkcscan.com/address/0x998c4a4f5231b10ad867bd5d99fa181495f34cd8",
+        "https://www.megaland.io/"
+      ],
+      "symbol": "SANDX"
+    }
+  }
+}

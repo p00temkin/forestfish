@@ -1,0 +1,27 @@
+{
+  "tokens": {
+    "ZEROCASINO": {
+      "category": "TEST",
+      "chain": "CELO",
+      "contractAddress": "0xbccEc3bfd4639440b1714a502bb3940F407b890A",
+      "decimals": 18,
+      "name": "0CASINO token",
+      "origins": [
+        "https://explorer.celo.org/token/0xbccEc3bfd4639440b1714a502bb3940F407b890A"
+      ],
+      "symbol": "ZEROCASINO"
+    },
+    "cUSD": {
+      "category": "STABLECOIN",
+      "chain": "CELO",
+      "contractAddress": "0x765DE816845861e75A25fCA122bb6898B8B1282a",
+      "decimals": 18,
+      "name": "CELO USD stable token",
+      "origins": [
+        "https://explorer.celo.org/token/0x765DE816845861e75A25fCA122bb6898B8B1282a",
+        "https://www.coingecko.com/en/coins/celo-dollar"
+      ],
+      "symbol": "cUSD"
+    }
+  }
+}

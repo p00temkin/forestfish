@@ -1,0 +1,243 @@
+{
+  "tokens": {
+    "APECOIN": {
+      "category": "GAMING",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x4d224452801aced8b2f0aebe155379bb5d594381",
+      "decimals": 18,
+      "name": "Bored Ape game token",
+      "origins": [
+        "https://www.coingecko.com/en/coins/apecoin",
+        "https://etherscan.io/address/0x4d224452801aced8b2f0aebe155379bb5d594381"
+      ],
+      "symbol": "APECOIN"
+    },
+    "CULT": {
+      "category": "MEME",
+      "chain": "ETHEREUM",
+      "contractAddress": "0xf0f9d895aca5c8678f706fb8216fa22957685a13",
+      "decimals": 18,
+      "name": "The CULT DAO token",
+      "origins": [
+        "https://etherscan.io/address/0xf0f9d895aca5c8678f706fb8216fa22957685a13",
+        "https://www.coingecko.com/en/coins/cult-dao"
+      ],
+      "symbol": "CULT"
+    },
+    "VIDYA": {
+      "category": "GAMING",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x3d3d35bb9bec23b06ca00fe472b50e7a4c692c30",
+      "decimals": 18,
+      "name": "VIDYA token",
+      "origins": [
+        "https://etherscan.io/address/0x3d3d35bb9bec23b06ca00fe472b50e7a4c692c30",
+        "https://www.coingecko.com/en/coins/vidya"
+      ],
+      "symbol": "VIDYA"
+    },
+    "TRAC": {
+      "category": "SUPPLYCHAIN",
+      "chain": "ETHEREUM",
+      "contractAddress": "0xaa7a9ca87d3694b5755f213b5d04094b8d0f0a6f",
+      "decimals": 18,
+      "name": "OriginTrail token",
+      "origins": [
+        "https://etherscan.io/address/0xaa7a9ca87d3694b5755f213b5d04094b8d0f0a6f",
+        "https://www.coingecko.com/en/coins/origintrail"
+      ],
+      "symbol": "TRAC"
+    },
+    "USDT": {
+      "category": "STABLECOIN",
+      "chain": "ETHEREUM",
+      "contractAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "decimals": 6,
+      "name": "Tether stablecoin token",
+      "origins": [
+        "https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "https://www.coingecko.com/en/coins/tether"
+      ],
+      "symbol": "USDT"
+    },
+    "SERUM": {
+      "category": "DEFI",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x476c5e26a75bd202a9683ffd34359c0cc15be0ff",
+      "decimals": 18,
+      "name": "Serum token",
+      "origins": [
+        "https://etherscan.io/address/0x476c5e26a75bd202a9683ffd34359c0cc15be0ff",
+        "https://www.coingecko.com/en/coins/serum"
+      ],
+      "symbol": "SERUM"
+    },
+    "DINU": {
+      "category": "MEME",
+      "chain": "ETHEREUM",
+      "contractAddress": "0xbb1ee07d6c7baeb702949904080eb61f5d5e7732",
+      "decimals": 18,
+      "name": "The Dogey-Inu token",
+      "origins": [
+        "https://etherscan.io/address/0xbb1ee07d6c7baeb702949904080eb61f5d5e7732",
+        "https://www.coingecko.com/en/coins/dogey-inu"
+      ],
+      "symbol": "DINU"
+    },
+    "DAI": {
+      "category": "STABLECOIN",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x6b175474e89094c44da98b954eedeac495271d0f",
+      "decimals": 18,
+      "name": "DAI stablecoin token",
+      "origins": [
+        "https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f",
+        "https://www.coingecko.com/en/coins/dai"
+      ],
+      "symbol": "DAI"
+    },
+    "DOBE": {
+      "category": "MEME",
+      "chain": "ETHEREUM",
+      "contractAddress": "0xe7ab45162f5979f09b0bda1cc7dfc97c270ea3d5",
+      "decimals": 18,
+      "name": "The Dobermann token",
+      "origins": [
+        "https://etherscan.io/address/0xe7ab45162f5979f09b0bda1cc7dfc97c270ea3d5",
+        "https://www.coingecko.com/en/coins/dobermann"
+      ],
+      "symbol": "DOBE"
+    },
+    "DOJO": {
+      "category": "MEME",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x180dae91d6d56235453a892d2e56a3e40ba81df8",
+      "decimals": 18,
+      "name": "The DOJO token",
+      "origins": [
+        "https://etherscan.io/address/0x180dae91d6d56235453a892d2e56a3e40ba81df8",
+        "https://www.coingecko.com/en/coins/dojo"
+      ],
+      "symbol": "DOJO"
+    },
+    "FWB": {
+      "category": "SOCIAL",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x35bd01fc9d6d5d81ca9e055db88dc49aa2c699a8",
+      "decimals": 18,
+      "name": "Friends With Benefits token",
+      "origins": [
+        "https://etherscan.io/address/0x35bd01fc9d6d5d81ca9e055db88dc49aa2c699a8",
+        "https://www.coingecko.com/en/coins/friends-with-benefits-pro"
+      ],
+      "symbol": "FWB"
+    },
+    "JINDOGE": {
+      "category": "MEME",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x3f4cd830543db25254ec0f05eac058d4d6e86166",
+      "decimals": 18,
+      "name": "The Jindoge token",
+      "origins": [
+        "https://etherscan.io/address/0x3f4cd830543db25254ec0f05eac058d4d6e86166",
+        "https://www.coingecko.com/en/coins/jindoge"
+      ],
+      "symbol": "JINDOGE"
+    },
+    "JSHIBA": {
+      "category": "MEME",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x1426cc6d52d1b14e2b3b1cb04d57ea42b39c4c7c",
+      "decimals": 18,
+      "name": "The Jomon Shiba token",
+      "origins": [
+        "https://etherscan.io/address/0x1426cc6d52d1b14e2b3b1cb04d57ea42b39c4c7c",
+        "https://www.coingecko.com/en/coins/jomon-shiba"
+      ],
+      "symbol": "JSHIBA"
+    },
+    "NB": {
+      "category": "MEME",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x20be82943e8d9c682580e11d424ec15db95b4a24",
+      "decimals": 18,
+      "name": "The No Bull token",
+      "origins": [
+        "https://etherscan.io/address/0x20be82943e8d9c682580e11d424ec15db95b4a24",
+        "https://www.coingecko.com/en/coins/no-bull"
+      ],
+      "symbol": "NB"
+    },
+    "SHUSHKY": {
+      "category": "MEME",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x236d53148f83706c3d670064809577385f923a75",
+      "decimals": 18,
+      "name": "The Siberian Husky token",
+      "origins": [
+        "https://etherscan.io/address/0x236d53148f83706c3d670064809577385f923a75",
+        "https://www.coingecko.com/en/coins/siberian-husky"
+      ],
+      "symbol": "SHUSHKY"
+    },
+    "TEST": {
+      "category": "TEST",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x2b591e99afe9f32eaa6214f7b7629768c40eeb39",
+      "decimals": 18,
+      "name": "TEST token",
+      "origins": [
+        "https://etherscan.io/token/0xMOJO"
+      ],
+      "symbol": "TEST"
+    },
+    "SOS": {
+      "category": "NFT",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x3b484b82567a09e2588a13d54d032153f0c0aee0",
+      "decimals": 18,
+      "name": "The OpenDAO SOS token",
+      "origins": [
+        "https://etherscan.io/address/0x3b484b82567a09e2588a13d54d032153f0c0aee0",
+        "https://www.coingecko.com/en/coins/opendao"
+      ],
+      "symbol": "SOS"
+    },
+    "UNIDX": {
+      "category": "DEFI",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x95b3497bbcccc46a8f45f5cf54b0878b39f8d96c",
+      "decimals": 18,
+      "name": "UniDex token",
+      "origins": [
+        "https://etherscan.io/address/0x95b3497bbcccc46a8f45f5cf54b0878b39f8d96c",
+        "https://www.coingecko.com/en/coins/unidex"
+      ],
+      "symbol": "UNIDX"
+    },
+    "XOR": {
+      "category": "UNKNOWN",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x40fd72257597aa14c7231a7b1aaa29fce868f677",
+      "decimals": 18,
+      "name": "The SORA token",
+      "origins": [
+        "https://etherscan.io/address/0x40fd72257597aa14c7231a7b1aaa29fce868f677",
+        "https://www.coingecko.com/en/coins/sora"
+      ],
+      "symbol": "XOR"
+    },
+    "USDC": {
+      "category": "STABLECOIN",
+      "chain": "ETHEREUM",
+      "contractAddress": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "decimals": 6,
+      "name": "USDC stablecoin token",
+      "origins": [
+        "https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "https://www.coingecko.com/en/coins/usd-coin"
+      ],
+      "symbol": "USDC"
+    }
+  }
+}

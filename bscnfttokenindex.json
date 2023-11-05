@@ -1,0 +1,100 @@
+{
+  "erc1155tokens": {},
+  "erc721tokens": {
+    "DREAMCARD": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xe6965b4f189dbdb2bd65e60abaeb531b6fe9580b",
+      "description": "X World Games Dreamcard",
+      "linked_tokens": [
+        "BSC:XWG"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://bscscan.com/address/0xe6965b4f189dbdb2bd65e60abaeb531b6fe9580b",
+        "https://babylons.io/outerringofficial"
+      ],
+      "symbol": "DREAMCARD"
+    },
+    "OUTERRINGMMO_SPACEVEH": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xceaac6759038d4d3b8791683b27b1021efa57003",
+      "description": "Outer Ring MMO Space Vehicle",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://bscscan.com/token/0xceaac6759038d4d3b8791683b27b1021efa57003",
+        "https://babylons.io/outerringofficial"
+      ],
+      "symbol": "OUTERRINGMMO_SPACEVEH"
+    },
+    "OUTERRINGMMO_ARMOR": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x0b36f379d7b3b4588f8b8e7e65091b2c44fa6dde",
+      "description": "Outer Ring MMO Armor",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://bscscan.com/token/0x0b36f379d7b3b4588f8b8e7e65091b2c44fa6dde",
+        "https://babylons.io/outerringofficial"
+      ],
+      "symbol": "OUTERRINGMMO_ARMOR"
+    },
+    "OUTERRINGMMO_EXOCRED": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x3fb6e0dd0eefff9615f186a6bb3a66a396ed0a58",
+      "description": "Outer Ring MMO Exocredits",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://bscscan.com/address/0x3fb6e0dd0eefff9615f186a6bb3a66a396ed0a58",
+        "https://babylons.io/outerringofficial"
+      ],
+      "symbol": "OUTERRINGMMO_EXOCRED"
+    },
+    "OUTERRINGMMO_LANDVEH": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x21d7d56350fcf7470e4ac38bb2f32c1461a73d8c",
+      "description": "Outer Ring MMO Land Vehicle",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://bscscan.com/token/0x21d7d56350fcf7470e4ac38bb2f32c1461a73d8c",
+        "https://babylons.io/outerringofficial"
+      ],
+      "symbol": "OUTERRINGMMO_LANDVEH"
+    },
+    "STELLAFANTASY_ASSET": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x80461f88de22b2363113226f0749a7a59cc2225a",
+      "description": "Stella Fantasy Asset",
+      "linked_tokens": [
+        "BSC:SFTY"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://bscscan.com/token/0x80461f88de22b2363113226f0749a7a59cc2225a",
+        "https://www.stellafantasy.io/"
+      ],
+      "symbol": "STELLAFANTASY_ASSET"
+    },
+    "OUTERRINGMMO_WEAPON": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xeb1aca4e9aa3448b7fecb2b555301325b5931ad9",
+      "description": "Outer Ring MMO Weapon",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://bscscan.com/token/0xeb1aca4e9aa3448b7fecb2b555301325b5931ad9",
+        "https://babylons.io/outerringofficial"
+      ],
+      "symbol": "OUTERRINGMMO_WEAPON"
+    }
+  }
+}

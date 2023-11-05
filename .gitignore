@@ -1,0 +1,14 @@
+config
+target
+bin
+*.sh
+*.jar
+*.pl
+*.bak
+node_modules
+package-lock.json
+.algo
+.avm
+.avm/*
+.evm
+.evm/*

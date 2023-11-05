@@ -1,0 +1,87 @@
+{
+  "tokens": {
+    "SPOOKYSWAP_FTM_MULTI_LP": {
+      "category": "LIQUIDITY_PROVIDER",
+      "chain": "FANTOM",
+      "contractAddress": "0x297C8990134bf1eE08aE5D8805042fbac8781201",
+      "decimals": 18,
+      "name": "Spookyswap FTM+MULTI LP token",
+      "origins": [
+        "https://ftmscan.com/token/0x297c8990134bf1ee08ae5d8805042fbac8781201?a=0xf0803b4cf6359d64913ec6a0b8227640afe69b2a",
+        "https://spooky.fi/#/add/FTM/0x9Fb9a33956351cf4fa040f65A13b835A3C8764E3"
+      ],
+      "symbol": "SPOOKYSWAP_FTM_MULTI_LP"
+    },
+    "TEST": {
+      "category": "TEST",
+      "chain": "FANTOM",
+      "contractAddress": "0x62b65f4b89e9a56b687ccebb57b4afeafa933894",
+      "decimals": 18,
+      "name": "TEST token",
+      "origins": [
+        "https://polygonscan.com/token/0xMOJO"
+      ],
+      "symbol": "TEST"
+    },
+    "STG": {
+      "category": "DEFI",
+      "chain": "FANTOM",
+      "contractAddress": "0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590",
+      "decimals": 18,
+      "name": "StarGate token",
+      "origins": [
+        "https://ftmscan.com/address/0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590",
+        "https://www.coingecko.com/en/coins/stargate-finance"
+      ],
+      "symbol": "STG"
+    },
+    "USDT": {
+      "category": "STABLECOIN",
+      "chain": "FANTOM",
+      "contractAddress": "0x049d68029688eabf473097a2fc38ef61633a3c7a",
+      "decimals": 18,
+      "name": "Tether stablecoin token",
+      "origins": [
+        "https://ftmscan.com/address/0x049d68029688eabf473097a2fc38ef61633a3c7a",
+        "https://www.coingecko.com/en/coins/tether"
+      ],
+      "symbol": "USDT"
+    },
+    "USDC": {
+      "category": "STABLECOIN",
+      "chain": "FANTOM",
+      "contractAddress": "0x04068da6c83afcfa0e13ba15a6696662335d5b75",
+      "decimals": 6,
+      "name": "USDC stablecoin token",
+      "origins": [
+        "https://ftmscan.com/address/0x04068da6c83afcfa0e13ba15a6696662335d5b75",
+        "https://www.coingecko.com/en/coins/usd-coin"
+      ],
+      "symbol": "USDC"
+    },
+    "MULTI": {
+      "category": "DEFI",
+      "chain": "FANTOM",
+      "contractAddress": "0x9fb9a33956351cf4fa040f65a13b835a3c8764e3",
+      "decimals": 18,
+      "name": "Multichain token",
+      "origins": [
+        "https://ftmscan.com/address/0x9fb9a33956351cf4fa040f65a13b835a3c8764e3",
+        "https://www.coingecko.com/en/coins/multichain"
+      ],
+      "symbol": "MULTI"
+    },
+    "DAI": {
+      "category": "STABLECOIN",
+      "chain": "FANTOM",
+      "contractAddress": "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e",
+      "decimals": 18,
+      "name": "DAI stablecoin token",
+      "origins": [
+        "https://ftmscan.com/address/0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e",
+        "https://www.coingecko.com/en/coins/dai"
+      ],
+      "symbol": "DAI"
+    }
+  }
+}

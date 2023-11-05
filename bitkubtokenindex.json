@@ -1,0 +1,313 @@
+{
+  "tokens": {
+    "MMV_CABBAGESEED": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x1f8b5af0ec97c44b24366b36c40f2d4aca2c73e2",
+      "decimals": 18,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x1f8b5af0ec97c44b24366b36c40f2d4aca2c73e2/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_CABBAGESEED"
+    },
+    "MMV_TOMATOSOUP": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xbE46a81D181069aC0Ff18F4F7239Df10422E6DC3",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xbE46a81D181069aC0Ff18F4F7239Df10422E6DC3/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_TOMATOSOUP"
+    },
+    "MMV_GREENHERB": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xde496524c30c460922e7810ddc6c806c0e2c5354",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xde496524c30c460922e7810ddc6c806c0e2c5354/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_GREENHERB"
+    },
+    "MMV_SHITAKE_MUSHROOM": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xd3b314b101b26fa2bd19df0d845a632d72c4fc44",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xd3b314b101b26fa2bd19df0d845a632d72c4fc44/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_SHITAKE_MUSHROOM"
+    },
+    "USDT": {
+      "category": "STABLECOIN",
+      "chain": "BITKUB",
+      "contractAddress": "0x7d984c24d2499d840eb3b7016077164e15e5faa6",
+      "decimals": 18,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x7d984c24d2499d840eb3b7016077164e15e5faa6/token-transfers"
+      ],
+      "symbol": "USDT"
+    },
+    "MMV_TOMATOSEED": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xe991151Bf43bD712beAC33e5cFF2580841c9b440",
+      "decimals": 18,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xe991151Bf43bD712beAC33e5cFF2580841c9b440/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_TOMATOSEED"
+    },
+    "MMV_LEATHER_PIECE": {
+      "category": "DEFI",
+      "chain": "BITKUB",
+      "contractAddress": "0x15aa87eb74069d3800f8e75A93FC04fda79AA24d",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x15aa87eb74069d3800f8e75A93FC04fda79AA24d/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_LEATHER_PIECE"
+    },
+    "MMV_HONEY": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x575d7bfdbdf255d5741571334f159d903de1544f",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x575d7bfdbdf255d5741571334f159d903de1544f/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_HONEY"
+    },
+    "KKUB": {
+      "category": "DEFI",
+      "chain": "BITKUB",
+      "contractAddress": "0x67eBD850304c70d983B2d1b93ea79c7CD6c3F6b5",
+      "decimals": 18,
+      "name": "Wrapped KUB (KKUB) token",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x67eBD850304c70d983B2d1b93ea79c7CD6c3F6b5/token-transfers"
+      ],
+      "symbol": "KKUB"
+    },
+    "MMV_SF_CABBAGE": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xc2990515610028139f68016b321a0c36a5101104",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xc2990515610028139f68016b321a0c36a5101104/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_SF_CABBAGE"
+    },
+    "MMV_SILVERKEY": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x73d05f935534918bbc87cb353928cb957ed03697",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x73d05f935534918bbc87cb353928cb957ed03697/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_SILVERKEY"
+    },
+    "MMV_LUMI": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x95013dcb6a561e6c003aed9c43fb8b64008aa361",
+      "decimals": 18,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x95013dcb6a561e6c003aed9c43fb8b64008aa361/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_LUMI"
+    },
+    "MMV_DRIEDAPPLE": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xb035c229903a0cff939be36b532d8c11204e6837",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xb035c229903a0cff939be36b532d8c11204e6837/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_DRIEDAPPLE"
+    },
+    "MMV_BANANA": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x0944882cf373adc8c3de740821fb14c8669e89eb",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x0944882cf373adc8c3de740821fb14c8669e89eb/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_BANANA"
+    },
+    "MMV_REDHERB": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x3F69C740456150268C5e23bD05a2A10Bf9e5c3CB",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x3F69C740456150268C5e23bD05a2A10Bf9e5c3CB/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_REDHERB"
+    },
+    "MMV_HEALTHPOTION": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xbd60c8caf6e22907576d9e363ab1f91b43aaf769",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xbd60c8caf6e22907576d9e363ab1f91b43aaf769/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_HEALTHPOTION"
+    },
+    "MMV_DIAMON_LP": {
+      "category": "DEFI",
+      "chain": "BITKUB",
+      "contractAddress": "0x7Bf51541208A70b784006eF7Bd6F774F4012Cd38",
+      "decimals": 18,
+      "name": "Morning Moon Village diamon LP",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x7Bf51541208A70b784006eF7Bd6F774F4012Cd38/token-transfers"
+      ],
+      "symbol": "MMV_DIAMON_LP"
+    },
+    "MMV_RAG": {
+      "category": "DEFI",
+      "chain": "BITKUB",
+      "contractAddress": "0x1F14690e6c7D02fCeB67c6b818aa2C093e16fe27",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x1F14690e6c7D02fCeB67c6b818aa2C093e16fe27/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_RAG"
+    },
+    "MMV_KTRUMPET_MUSHROOM": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xc14f24835efe355106ab8725488f16f93c8c5f96",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xc14f24835efe355106ab8725488f16f93c8c5f96/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_KTRUMPET_MUSHROOM"
+    },
+    "MMV_CORNSEED": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xe27aebed61be207e83fc05fbc408420c737881da",
+      "decimals": 18,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xe27aebed61be207e83fc05fbc408420c737881da/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_CORNSEED"
+    },
+    "MMV_GREENAPPLE": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x417e28bd41cd45d9f996b69450f81b02821a6d64",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x417e28bd41cd45d9f996b69450f81b02821a6d64/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_GREENAPPLE"
+    },
+    "MMV_CARROTSEED": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x7b263d648fff39142abecb07a1bb85297e09982d",
+      "decimals": 18,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x7b263d648fff39142abecb07a1bb85297e09982d/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_CARROTSEED"
+    },
+    "MMV_LHEALTHPOTION": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xe66f21d817af8f99129af6023332dd7b37503b9d",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xe66f21d817af8f99129af6023332dd7b37503b9d/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_LHEALTHPOTION"
+    },
+    "MMV_SALAD": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x2944d051dc66669e04629b827ae9e3ebcb1e48d9",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x2944d051dc66669e04629b827ae9e3ebcb1e48d9/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_SALAD"
+    },
+    "MMV_CORNSOUP": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0x2b09ae76dfc601210407560502b340e104787b34",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0x2b09ae76dfc601210407560502b340e104787b34/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_CORNSOUP"
+    },
+    "MMV_WBUTTON_MUSHROOM": {
+      "category": "GAMING",
+      "chain": "BITKUB",
+      "contractAddress": "0xcb74a1A9dB4285E97D4dE8aa4B61cd10277Ab479",
+      "decimals": 0,
+      "name": "Morning Moon Village game item",
+      "origins": [
+        "https://www.bkcscan.com/tokens/0xcb74a1A9dB4285E97D4dE8aa4B61cd10277Ab479/token-transfers",
+        "https://morningmoonvillage.com/"
+      ],
+      "symbol": "MMV_WBUTTON_MUSHROOM"
+    }
+  }
+}

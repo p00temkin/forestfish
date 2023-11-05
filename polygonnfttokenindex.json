@@ -1,0 +1,206 @@
+{
+  "erc1155tokens": {
+    "AAVEGOTCHI_INSTALLATION": {
+      "category": "GAMING",
+      "chain": "POLYGON",
+      "contractAddress": "0x9216c31d8146bcb3ea5a9162dc1702e8aedca355",
+      "description": "AAvegotchi game land installation NFT",
+      "linked_tokens": [
+        "POLYGON:GHST",
+        "POLYGON:KEK",
+        "POLYGON:ALPHA",
+        "POLYGON:FOMO",
+        "POLYGON:FUD",
+        "POLYGON:GLTR"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0x9216c31d8146bcb3ea5a9162dc1702e8aedca355",
+        "https://opensea.io/collection/gotchiverse-installations"
+      ],
+      "symbol": "AAVEGOTCHI_INSTALLATION"
+    }
+  },
+  "erc721tokens": {
+    "UNISWAPV3_POSITION": {
+      "category": "DEFI",
+      "chain": "POLYGON",
+      "contractAddress": "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+      "description": "Uniswap v3 position NFT",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/token/0xc36442b4a4522e871399cd717abdd847ab11fe88"
+      ],
+      "symbol": "UNISWAPV3_POSITION"
+    },
+    "UAPX_SONG": {
+      "category": "NFT",
+      "chain": "POLYGON",
+      "contractAddress": "0x86c47873dd7d2186f5bd87da4757aecf1e16ac2e",
+      "description": "UAPx song NFT (formerly Terra)",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0x86c47873dd7d2186f5bd87da4757aecf1e16ac2e"
+      ],
+      "symbol": "UAPX_SONG"
+    },
+    "UAPX_SHIP": {
+      "category": "NFT",
+      "chain": "POLYGON",
+      "contractAddress": "0x2148da6c55c10ea3d9b33311d19a065592abd24b",
+      "description": "UAPx ship NFT (formerly Terra)",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0x2148da6c55c10ea3d9b33311d19a065592abd24b"
+      ],
+      "symbol": "UAPX_SHIP"
+    },
+    "UAPX_ALIEN": {
+      "category": "NFT",
+      "chain": "POLYGON",
+      "contractAddress": "0xd8f000eac06cebab3b967eeb137fbcac842a1472",
+      "description": "UAPx alien NFT (formerly Terra)",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0xd8f000eac06cebab3b967eeb137fbcac842a1472"
+      ],
+      "symbol": "UAPX_ALIEN"
+    },
+    "AAVEGOTCHI": {
+      "category": "GAMING",
+      "chain": "POLYGON",
+      "contractAddress": "0x86935f11c86623dec8a25696e1c19a8659cbf95d",
+      "description": "AAvegotchi game NFT",
+      "linked_tokens": [
+        "POLYGON:GHST",
+        "POLYGON:KEK",
+        "POLYGON:ALPHA",
+        "POLYGON:FOMO",
+        "POLYGON:FUD",
+        "POLYGON:GLTR"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/token/0x86935f11c86623dec8a25696e1c19a8659cbf95d"
+      ],
+      "symbol": "AAVEGOTCHI"
+    },
+    "UNSTOPPABLE_DOMAIN": {
+      "category": "GAMING",
+      "chain": "POLYGON",
+      "contractAddress": "0xa9a6a3626993d487d2dbda3173cf58ca1a9d9e9f",
+      "description": "Unstoppable domains NFT",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0xa9a6a3626993d487d2dbda3173cf58ca1a9d9e9f"
+      ],
+      "symbol": "UNSTOPPABLE_DOMAIN"
+    },
+    "UNIOVERSE": {
+      "category": "NFT",
+      "chain": "POLYGON",
+      "contractAddress": "0xed55e4477b795eaa9bb4bca24df42214e1a05c18",
+      "description": "Unioverse Collectibles",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0xed55e4477b795eaa9bb4bca24df42214e1a05c18"
+      ],
+      "symbol": "UNIOVERSE"
+    },
+    "AAVEGOTCHI_LAND": {
+      "category": "GAMING",
+      "chain": "POLYGON",
+      "contractAddress": "0x1d0360bac7299c86ec8e99d0c1c9a95fefaf2a11",
+      "description": "AAvegotchi game LAND NFT",
+      "linked_tokens": [
+        "POLYGON:GHST",
+        "POLYGON:KEK",
+        "POLYGON:ALPHA",
+        "POLYGON:FOMO",
+        "POLYGON:FUD",
+        "POLYGON:GLTR"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0x1d0360bac7299c86ec8e99d0c1c9a95fefaf2a11"
+      ],
+      "symbol": "AAVEGOTCHI_LAND"
+    },
+    "LENSPROTOCOLPROFILE": {
+      "category": "GAMING",
+      "chain": "POLYGON",
+      "contractAddress": "0xdb46d1dc155634fbc732f92e853b10b288ad5a1d",
+      "description": "Lens Protocol Profile NFT",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0xdb46d1dc155634fbc732f92e853b10b288ad5a1d"
+      ],
+      "symbol": "LENSPROTOCOLPROFILE"
+    },
+    "MYCRYPTOHEROES": {
+      "category": "GAMING",
+      "chain": "POLYGON",
+      "contractAddress": "0x77bd275ff2b3dc007475aac9ce7f408f5a800188",
+      "description": "My Crypto Heroes NFT",
+      "linked_tokens": [],
+      "mintBlock": 16765971,
+      "origins": [
+        "https://polygonscan.com/address/0x77bd275ff2b3dc007475aac9ce7f408f5a800188"
+      ],
+      "symbol": "MYCRYPTOHEROES"
+    },
+    "SANDBOX_LAND": {
+      "category": "GAMING",
+      "chain": "POLYGON",
+      "contractAddress": "0x9d305a42a3975ee4c1c57555bed5919889dce63f",
+      "description": "The Sandbox LAND NFT",
+      "linked_tokens": [
+        "POLYGON:SAND"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0x9d305a42a3975ee4c1c57555bed5919889dce63f",
+        "https://opensea.io/collection/sandbox"
+      ],
+      "symbol": "SANDBOX_LAND"
+    },
+    "TRUMP": {
+      "category": "SCAM",
+      "chain": "POLYGON",
+      "contractAddress": "0x24a11e702cd90f034ea44faf1e180c0c654ac5d9",
+      "description": "Trump Digital Trading Card NFT",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0x24a11e702cd90f034ea44faf1e180c0c654ac5d9"
+      ],
+      "symbol": "TRUMP"
+    },
+    "AAVEGOTCHI_GMI": {
+      "category": "GAMING",
+      "chain": "POLYGON",
+      "contractAddress": "0x3f0e22b827e51ff567d7388c2b598e2eabfa74be",
+      "description": "AAvegotchi GMI NFT",
+      "linked_tokens": [
+        "POLYGON:GHST",
+        "POLYGON:KEK",
+        "POLYGON:ALPHA",
+        "POLYGON:FOMO",
+        "POLYGON:FUD",
+        "POLYGON:GLTR"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://polygonscan.com/address/0x3f0e22b827e51ff567d7388c2b598e2eabfa74be"
+      ],
+      "symbol": "AAVEGOTCHI_GMI"
+    }
+  }
+}

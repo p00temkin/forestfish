@@ -1,0 +1,92 @@
+{
+  "tokens": {
+    "ZETA": {
+      "category": "DEFI",
+      "chain": "GOERLITEST",
+      "contractAddress": "0xCc7bb2D219A0FC08033E130629C2B854b7bA9195",
+      "decimals": 18,
+      "name": "ZETA swap/bridge gas token",
+      "origins": [
+        "https://goerli.etherscan.io/token/0xCc7bb2D219A0FC08033E130629C2B854b7bA9195"
+      ],
+      "symbol": "ZETA"
+    },
+    "MNT": {
+      "category": "DEFI",
+      "chain": "GOERLITEST",
+      "contractAddress": "0xc1dC2d65A2243c22344E725677A3E3BEBD26E604",
+      "decimals": 18,
+      "name": "Mantle ERC-20 token",
+      "origins": [
+        "https://goerli.etherscan.io/token/0xc1dC2d65A2243c22344E725677A3E3BEBD26E604"
+      ],
+      "symbol": "MNT"
+    },
+    "TSTv4": {
+      "category": "TEST",
+      "chain": "GOERLITEST",
+      "contractAddress": "0x499d11E0b6eAC7c0593d8Fb292DCBbF815Fb29Ae",
+      "decimals": 18,
+      "name": "Goerli ERC-20 TST token",
+      "origins": [
+        "https://goerli.etherscan.io/token/0x499d11E0b6eAC7c0593d8Fb292DCBbF815Fb29Ae"
+      ],
+      "symbol": "TSTv4"
+    },
+    "TEST": {
+      "category": "TEST",
+      "chain": "GOERLITEST",
+      "contractAddress": "0x3f152b63ec5ca5831061b2dccfb29a874c317502",
+      "decimals": 18,
+      "name": "TEST token",
+      "origins": [
+        "https://goerli.etherscan.io/token/0xMOJO"
+      ],
+      "symbol": "TEST"
+    },
+    "TST4": {
+      "category": "TEST",
+      "chain": "GOERLITEST",
+      "contractAddress": "0x3f152b63ec5ca5831061b2dccfb29a874c317502",
+      "decimals": 18,
+      "name": "Official Goerli ERC-20 TST token",
+      "origins": [
+        "https://goerli.etherscan.io/token/0x3f152b63ec5ca5831061b2dccfb29a874c317502"
+      ],
+      "symbol": "TST4"
+    },
+    "USDC": {
+      "category": "STABLECOIN",
+      "chain": "GOERLITEST",
+      "contractAddress": "0x07865c6e87b9f70255377e024ace6630c1eaa37f",
+      "decimals": 6,
+      "name": "USDC Stable token",
+      "origins": [
+        "https://goerli.etherscan.io/token/0x07865c6e87b9f70255377e024ace6630c1eaa37f"
+      ],
+      "symbol": "USDC"
+    },
+    "WETH": {
+      "category": "DEFI",
+      "chain": "GOERLITEST",
+      "contractAddress": "0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6",
+      "decimals": 18,
+      "name": "Wrapped ETH token",
+      "origins": [
+        "https://goerli.etherscan.io/address/0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6"
+      ],
+      "symbol": "WETH"
+    },
+    "DAI": {
+      "category": "DEFI",
+      "chain": "GOERLITEST",
+      "contractAddress": "0x11fe4b6ae13d2a6055c8d9cf65c55bac32b5d844",
+      "decimals": 18,
+      "name": "DAI USD stablecoin token",
+      "origins": [
+        "https://goerli.etherscan.io/address/0x11fe4b6ae13d2a6055c8d9cf65c55bac32b5d844"
+      ],
+      "symbol": "DAI"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "erc1155tokens": {},
+  "erc721tokens": {
+    "BORED_APE": {
+      "category": "GAMING",
+      "chain": "ETHEREUM",
+      "contractAddress": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      "description": "Bored Ape NFT",
+      "linked_tokens": [
+        "ETHEREUM:APECOIN"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://etherscan.io/address/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+        "https://opensea.io/collection/boredapeyachtclub"
+      ],
+      "symbol": "BORED_APE"
+    },
+    "ENS_DOMAIN": {
+      "category": "NAMESERVICE",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85",
+      "description": "Ethereum Name Service Domain NFT",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://etherscan.io/token/0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85",
+        "https://opensea.io/collection/ens"
+      ],
+      "symbol": "ENS_DOMAIN"
+    },
+    "LUCHADORES": {
+      "category": "GAMING",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x8b4616926705fb61e9c4eeac07cd946a5d4b0760",
+      "description": "Luchadores game NFT",
+      "linked_tokens": [
+        "POLYGON:LUCHA"
+      ],
+      "mintBlock": 0,
+      "origins": [
+        "https://etherscan.io/address/0x8b4616926705fb61e9c4eeac07cd946a5d4b0760",
+        "https://opensea.io/collection/luchadores-io"
+      ],
+      "symbol": "LUCHADORES"
+    },
+    "WWW_LAND": {
+      "category": "GAMING",
+      "chain": "ETHEREUM",
+      "contractAddress": "0xa1d4657e0e6507d5a94d06da93e94dc7c8c44b51",
+      "description": "World Wide Webb game NFT",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://etherscan.io/address/0xa1d4657e0e6507d5a94d06da93e94dc7c8c44b51",
+        "https://opensea.io/collection/worldwidewebbland"
+      ],
+      "symbol": "WWW_LAND"
+    },
+    "UNSTOPPABLE_DOMAIN": {
+      "category": "NAMESERVICE",
+      "chain": "ETHEREUM",
+      "contractAddress": "0x049aba7510f45ba5b64ea9e658e342f904db358d",
+      "description": "Unstoppable Domains NFT",
+      "linked_tokens": [],
+      "mintBlock": 0,
+      "origins": [
+        "https://etherscan.io/token/0x049aba7510f45ba5b64ea9e658e342f904db358d",
+        "https://opensea.io/collection/unstoppable-domains"
+      ],
+      "symbol": "UNSTOPPABLE_DOMAIN"
+    }
+  }
+}

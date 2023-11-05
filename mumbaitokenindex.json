@@ -1,0 +1,133 @@
+{
+  "tokens": {
+    "RICOCHET_fUSDCx": {
+      "category": "DEFI",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0x42bb40bF79730451B11f6De1CbA222F17b87Afd7",
+      "decimals": 18,
+      "name": "Ricochet fUSDC token, fUSDCx",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0x42bb40bF79730451B11f6De1CbA222F17b87Afd7",
+        "https://docs.superfluid.finance/superfluid/developers/networks"
+      ],
+      "symbol": "RICOCHET_fUSDCx"
+    },
+    "TST": {
+      "category": "TEST",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0x2d7882bedcbfddce29ba99965dd3cdf7fcb10a1e",
+      "decimals": 18,
+      "name": "Official Mumbai ERC-20 TST token",
+      "origins": [
+        "https://mumbai.polygonscan.com/address/0x2d7882bedcbfddce29ba99965dd3cdf7fcb10a1e"
+      ],
+      "symbol": "TST"
+    },
+    "TEST": {
+      "category": "TEST",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0xeedb61304686f4b544baa1cb19f87c30bb8d38b9",
+      "decimals": 18,
+      "name": "TEST token",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0xMOJO"
+      ],
+      "symbol": "TEST"
+    },
+    "fUSDC": {
+      "category": "DEFI",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0xbe49ac1EadAc65dccf204D4Df81d650B50122aB2",
+      "decimals": 18,
+      "name": "Flux fUSDC token",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0xbe49ac1EadAc65dccf204D4Df81d650B50122aB2",
+        "https://docs.superfluid.finance/superfluid/developers/networks"
+      ],
+      "symbol": "fUSDC"
+    },
+    "RICOCHET_fTUSDx": {
+      "category": "DEFI",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0x918E0d5C96cAC79674E2D38066651212be3C9C48",
+      "decimals": 18,
+      "name": "Ricochet fTUSD token, fTUSDx",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0x918E0d5C96cAC79674E2D38066651212be3C9C48",
+        "https://docs.superfluid.finance/superfluid/developers/networks"
+      ],
+      "symbol": "RICOCHET_fTUSDx"
+    },
+    "fDAI": {
+      "category": "STABLECOIN",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0x15F0Ca26781C3852f8166eD2ebce5D18265cceb7",
+      "decimals": 18,
+      "name": "Flux fDAI stablecoin",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0x15F0Ca26781C3852f8166eD2ebce5D18265cceb7",
+        "https://docs.superfluid.finance/superfluid/developers/networks"
+      ],
+      "symbol": "fDAI"
+    },
+    "LINK": {
+      "category": "DEFI",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
+      "decimals": 18,
+      "name": "LINK token",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0x326c977e6efc84e512bb9c30f76e30c160ed06fb",
+        "https://www.coingecko.com/en/coins/chainlink"
+      ],
+      "symbol": "LINK"
+    },
+    "fTUSD": {
+      "category": "STABLECOIN",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0xA794C9ee519FD31BbCE643e8D8138f735E97D1DB",
+      "decimals": 18,
+      "name": "Flux fTUSD stablecoin",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0xA794C9ee519FD31BbCE643e8D8138f735E97D1DB",
+        "https://docs.superfluid.finance/superfluid/developers/networks"
+      ],
+      "symbol": "fTUSD"
+    },
+    "RICOCHET_fDAIx": {
+      "category": "DEFI",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0x15F0Ca26781C3852f8166eD2ebce5D18265cceb7",
+      "decimals": 18,
+      "name": "Ricochet fDAI token, fDAIx",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0x15F0Ca26781C3852f8166eD2ebce5D18265cceb7",
+        "https://docs.superfluid.finance/superfluid/developers/networks"
+      ],
+      "symbol": "RICOCHET_fDAIx"
+    },
+    "RICOCHET_MATICx": {
+      "category": "DEFI",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0x96B82B65ACF7072eFEb00502F45757F254c2a0D4",
+      "decimals": 18,
+      "name": "Ricochet MATIC token, MATICx",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0x96B82B65ACF7072eFEb00502F45757F254c2a0D4",
+        "https://docs.superfluid.finance/superfluid/developers/networks"
+      ],
+      "symbol": "RICOCHET_MATICx"
+    },
+    "DERC20": {
+      "category": "TEST",
+      "chain": "MUMBAITEST",
+      "contractAddress": "0x2d7882bedcbfddce29ba99965dd3cdf7fcb10a1e",
+      "decimals": 18,
+      "name": "Official Mumbai ERC-20 Dummy ERC20 token",
+      "origins": [
+        "https://mumbai.polygonscan.com/token/0xfe4f5145f6e09952a5ba9e956ed0c25e3fa4c7f1"
+      ],
+      "symbol": "DERC20"
+    }
+  }
+}

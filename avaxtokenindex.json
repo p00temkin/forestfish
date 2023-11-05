@@ -1,0 +1,64 @@
+{
+  "tokens": {
+    "STG": {
+      "category": "DEFI",
+      "chain": "AVAX",
+      "contractAddress": "0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590",
+      "decimals": 18,
+      "name": "StarGate token",
+      "origins": [
+        "https://snowtrace.io/address/0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590",
+        "https://www.coingecko.com/en/coins/stargate-finance"
+      ],
+      "symbol": "STG"
+    },
+    "PNG": {
+      "category": "DEFI",
+      "chain": "AVAX",
+      "contractAddress": "0x60781c2586d68229fde47564546784ab3faca982",
+      "decimals": 18,
+      "name": "PNG token",
+      "origins": [
+        "https://snowtrace.io/address/0x60781c2586d68229fde47564546784ab3faca982",
+        "https://www.coingecko.com/en/coins/pangolin"
+      ],
+      "symbol": "PNG"
+    },
+    "USDT": {
+      "category": "STABLECOIN",
+      "chain": "AVAX",
+      "contractAddress": "0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7",
+      "decimals": 18,
+      "name": "Tether stablecoin token",
+      "origins": [
+        "https://snowtrace.io/address/0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7",
+        "https://www.coingecko.com/en/coins/tether"
+      ],
+      "symbol": "USDT"
+    },
+    "USDC": {
+      "category": "STABLECOIN",
+      "chain": "AVAX",
+      "contractAddress": "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+      "decimals": 6,
+      "name": "USDC stablecoin token",
+      "origins": [
+        "https://snowtrace.io/address/0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+        "https://www.coingecko.com/en/coins/usd-coin"
+      ],
+      "symbol": "USDC"
+    },
+    "DAI": {
+      "category": "STABLECOIN",
+      "chain": "AVAX",
+      "contractAddress": "0xd586e7f844cea2f87f50152665bcbc2c279d8d70",
+      "decimals": 18,
+      "name": "DAI stablecoin token",
+      "origins": [
+        "https://snowtrace.io/address/0xd586e7f844cea2f87f50152665bcbc2c279d8d70",
+        "https://www.coingecko.com/en/coins/dai"
+      ],
+      "symbol": "DAI"
+    }
+  }
+}

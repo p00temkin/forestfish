@@ -1,0 +1,27 @@
+package crypto.forestfish.enums.evm;
+
+public enum PolygonERC721Token {
+
+	// Gaming
+	AAVEGOTCHI,
+	AAVEGOTCHI_LAND,
+	AAVEGOTCHI_GMI,
+	SANDBOX_LAND,
+	UNIOVERSE,
+	MYCRYPTOHEROES,
+	
+	// Defi,
+	UNISWAPV3_POSITION,
+	
+	// Social
+	LENSPROTOCOLPROFILE,
+	TRUMP,
+	
+	// NFT,
+	UAPX_ALIEN,
+	UAPX_SHIP,
+	UAPX_SONG,
+	
+	// Utility
+	UNSTOPPABLE_DOMAIN,
+}

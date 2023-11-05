@@ -1,0 +1,364 @@
+{
+  "tokens": {
+    "STARGATE_BUSD_LP": {
+      "category": "LIQUIDITY_PROVIDER",
+      "chain": "BSC",
+      "contractAddress": "0x98a5737749490856b401db5dc27f522fc314a4e1",
+      "decimals": 18,
+      "name": "StarGate sBUSD Pool token",
+      "origins": [
+        "https://bscscan.com/token/0x98a5737749490856b401db5dc27f522fc314a4e1"
+      ],
+      "symbol": "STARGATE_BUSD_LP"
+    },
+    "SUPS": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xc99cfaa8f5d9bd9050182f29b83cc9888c5846c4",
+      "decimals": 18,
+      "name": "Supremacy game token",
+      "origins": [
+        "https://bscscan.com/address/0xc99cfaa8f5d9bd9050182f29b83cc9888c5846c4",
+        "https://www.coingecko.com/en/coins/supremacy"
+      ],
+      "symbol": "SUPS"
+    },
+    "VAN": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xd3dbf84f7aed90d5f56e8d7cab2f43004e9ef6a6",
+      "decimals": 18,
+      "name": "Outer Ring MMO Vanadium Token",
+      "origins": [
+        "https://bscscan.com/token/0xd3dbf84f7aed90d5f56e8d7cab2f43004e9ef6a6"
+      ],
+      "symbol": "VAN"
+    },
+    "STG": {
+      "category": "DEFI",
+      "chain": "BSC",
+      "contractAddress": "0xb0d502e938ed5f4df2e681fe6e419ff29631d62b",
+      "decimals": 18,
+      "name": "StarGate token",
+      "origins": [
+        "https://bscscan.com/address/0xb0d502e938ed5f4df2e681fe6e419ff29631d62b",
+        "https://www.coingecko.com/en/coins/stargate-finance"
+      ],
+      "symbol": "STG"
+    },
+    "USDT": {
+      "category": "STABLECOIN",
+      "chain": "BSC",
+      "contractAddress": "0x55d398326f99059ff775485246999027b3197955",
+      "decimals": 18,
+      "name": "Tether stablecoin token",
+      "origins": [
+        "https://bscscan.com/address/0x55d398326f99059ff775485246999027b3197955",
+        "https://www.coingecko.com/en/coins/tether"
+      ],
+      "symbol": "USDT"
+    },
+    "XVS": {
+      "category": "DEFI",
+      "chain": "BSC",
+      "contractAddress": "0xcf6bb5389c92bdda8a3747ddb454cb7a64626c63",
+      "decimals": 18,
+      "name": "Venus Token",
+      "origins": [
+        "https://bscscan.com/address/0xcf6bb5389c92bdda8a3747ddb454cb7a64626c63",
+        "https://www.coingecko.com/en/coins/venus"
+      ],
+      "symbol": "XVS"
+    },
+    "PLU": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x07958be5d12365db62a6535d0a88105944a2e81e",
+      "decimals": 18,
+      "name": "Outer Ring MMO Plutonium Token",
+      "origins": [
+        "https://bscscan.com/token/0x07958be5d12365db62a6535d0a88105944a2e81e"
+      ],
+      "symbol": "PLU"
+    },
+    "ACE": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x6bf6c2b429421a55d90a02c56b2d8bffbc636039",
+      "decimals": 18,
+      "name": "Outer Ring MMO Acetylene Token",
+      "origins": [
+        "https://bscscan.com/token/0x6bf6c2b429421a55d90a02c56b2d8bffbc636039"
+      ],
+      "symbol": "ACE"
+    },
+    "COP": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x892f23e32b82ef0d5394cf33dcd4dff7f4b274b0",
+      "decimals": 18,
+      "name": "Outer Ring MMO Copper Token",
+      "origins": [
+        "https://bscscan.com/token/0x892f23e32b82ef0d5394cf33dcd4dff7f4b274b0"
+      ],
+      "symbol": "COP"
+    },
+    "CHMB": {
+      "category": "DEFI",
+      "chain": "BSC",
+      "contractAddress": "0x5492ef6aeeba1a3896357359ef039a8b11621b45",
+      "decimals": 18,
+      "name": "Chumbi Valley Game Token",
+      "origins": [
+        "https://bscscan.com/token/0x5492ef6aeeba1a3896357359ef039a8b11621b45",
+        "https://www.coingecko.com/en/coins/chumbai-valley"
+      ],
+      "symbol": "CHMB"
+    },
+    "VIKINGSWAP": {
+      "category": "DEFI",
+      "chain": "BSC",
+      "contractAddress": "0x896ede222d3f7f3414e136a2791bdb08aaa25ce0",
+      "decimals": 18,
+      "name": "Vikingswap Token",
+      "origins": [
+        "https://bscscan.com/address/0x896ede222d3f7f3414e136a2791bdb08aaa25ce0",
+        "https://www.coingecko.com/en/coins/viking-swap"
+      ],
+      "symbol": "VIKINGSWAP"
+    },
+    "BABYCAKE": {
+      "category": "DEFI",
+      "chain": "BSC",
+      "contractAddress": "0xdb8d30b74bf098af214e862c90e647bbb1fcc58c",
+      "decimals": 18,
+      "name": "BABYCAKE DEFI reflection Token",
+      "origins": [
+        "https://bscscan.com/token/0xdb8d30b74bf098af214e862c90e647bbb1fcc58c",
+        "https://www.coingecko.com/en/coins/baby-cake"
+      ],
+      "symbol": "BABYCAKE"
+    },
+    "CAKE": {
+      "category": "DEFI",
+      "chain": "BSC",
+      "contractAddress": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+      "decimals": 18,
+      "name": "Pancakeswap DEFI Token",
+      "origins": [
+        "https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+        "https://www.coingecko.com/en/coins/pancakeswap"
+      ],
+      "symbol": "CAKE"
+    },
+    "MOBOX": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x3203c9e46ca618c8c1ce5dc67e7e9d75f5da2377",
+      "decimals": 18,
+      "name": "MOBOX game token",
+      "origins": [
+        "https://bscscan.com/address/0x3203c9e46ca618c8c1ce5dc67e7e9d75f5da2377",
+        "https://www.coingecko.com/en/coins/mobox"
+      ],
+      "symbol": "MOBOX"
+    },
+    "NIC": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xf9a71cba51e260e184a72d9edf888d3f99f3bac1",
+      "decimals": 18,
+      "name": "Outer Ring MMO Nickel Token",
+      "origins": [
+        "https://bscscan.com/token/0xf9a71cba51e260e184a72d9edf888d3f99f3bac1"
+      ],
+      "symbol": "NIC"
+    },
+    "XWG": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x6b23c89196deb721e6fd9726e6c76e4810a464bc",
+      "decimals": 18,
+      "name": "X World Games Token",
+      "origins": [
+        "https://bscscan.com/address/0x6b23c89196deb721e6fd9726e6c76e4810a464bc",
+        "https://www.coingecko.com/en/coins/x-world-games"
+      ],
+      "symbol": "XWG"
+    },
+    "GQ": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xf700d4c708c2be1463e355f337603183d20e0808",
+      "decimals": 18,
+      "name": "Outer Ring MMO Game Token",
+      "origins": [
+        "https://bscscan.com/address/0xf700d4c708c2be1463e355f337603183d20e0808",
+        "https://www.coingecko.com/en/coins/outer-ring"
+      ],
+      "symbol": "GQ"
+    },
+    "IRON": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xbd1945cd85a2be93a6475381c9f5edf19407a921",
+      "decimals": 18,
+      "name": "Outer Ring MMO Iron Token",
+      "origins": [
+        "https://bscscan.com/token/0xbd1945cd85a2be93a6475381c9f5edf19407a921"
+      ],
+      "symbol": "IRON"
+    },
+    "DAI": {
+      "category": "STABLECOIN",
+      "chain": "BSC",
+      "contractAddress": "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
+      "decimals": 18,
+      "name": "DAI stablecoin token",
+      "origins": [
+        "https://bscscan.com/address/0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
+        "https://www.coingecko.com/en/coins/dai"
+      ],
+      "symbol": "DAI"
+    },
+    "CAR": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x253b7a24003684f7b4fe87e531a017c7382a3894",
+      "decimals": 18,
+      "name": "Outer Ring MMO Carbon Token",
+      "origins": [
+        "https://bscscan.com/token/0x253b7a24003684f7b4fe87e531a017c7382a3894"
+      ],
+      "symbol": "CAR"
+    },
+    "TEST": {
+      "category": "TEST",
+      "chain": "BSC",
+      "contractAddress": "0x1c3c3941acb8a9be35e50f086fae6a481f7d9df7",
+      "decimals": 18,
+      "name": "TEST token",
+      "origins": [
+        "https://bscscan.com/token/0xMOJO"
+      ],
+      "symbol": "TEST"
+    },
+    "ARG": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x0efcf1737b81ce89325b17eafae2686a8afe8bd4",
+      "decimals": 18,
+      "name": "Outer Ring MMO Acetylene Token",
+      "origins": [
+        "https://bscscan.com/token/0x0efcf1737b81ce89325b17eafae2686a8afe8bd4"
+      ],
+      "symbol": "ARG"
+    },
+    "SCK": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x227a3ef4d41d0215123f3197faa087bf71d2236a",
+      "decimals": 18,
+      "name": "Space Corsair Key",
+      "origins": [
+        "https://bscscan.com/address/0x227a3ef4d41d0215123f3197faa087bf71d2236a",
+        "https://www.coingecko.com/en/coins/space-corsair-key"
+      ],
+      "symbol": "SCK"
+    },
+    "TRON": {
+      "category": "SCAM",
+      "chain": "BSC",
+      "contractAddress": "0x85eac5ac2f758618dfa09bdbe0cf174e7d574d5b",
+      "decimals": 18,
+      "name": "TRON TRX token",
+      "origins": [
+        "https://coinmarketcap.com/currencies/tron/"
+      ],
+      "symbol": "TRON"
+    },
+    "USDC": {
+      "category": "STABLECOIN",
+      "chain": "BSC",
+      "contractAddress": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+      "decimals": 6,
+      "name": "USDC stablecoin token",
+      "origins": [
+        "https://bscscan.com/address/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+        "https://www.coingecko.com/en/coins/usd-coin"
+      ],
+      "symbol": "USDC"
+    },
+    "METIS": {
+      "category": "GASCURRENCY",
+      "chain": "BSC",
+      "contractAddress": "0xe552fb52a4f19e44ef5a967632dbc320b0820639",
+      "decimals": 18,
+      "name": "METIS token on BSC",
+      "origins": [
+        "https://bscscan.com/address/0xe552fb52a4f19e44ef5a967632dbc320b0820639",
+        "https://www.coingecko.com/en/coins/metis-token"
+      ],
+      "symbol": "METIS"
+    },
+    "BUSD": {
+      "category": "STABLECOIN",
+      "chain": "BSC",
+      "contractAddress": "0xe9e7cea3dedca5984780bafc599bd69add087d56",
+      "decimals": 18,
+      "name": "Binance stablecoin token",
+      "origins": [
+        "https://bscscan.com/address/0xe9e7cea3dedca5984780bafc599bd69add087d56",
+        "https://www.coingecko.com/en/coins/binance-usd"
+      ],
+      "symbol": "BUSD"
+    },
+    "NFTART": {
+      "category": "DEFI",
+      "chain": "BSC",
+      "contractAddress": "0xf7844cb890f4c339c497aeab599abdc3c874b67a",
+      "decimals": 18,
+      "name": "NFT Art Token",
+      "origins": [
+        "https://bscscan.com/address/0xf7844cb890f4c339c497aeab599abdc3c874b67a",
+        "https://www.coingecko.com/en/coins/nft-art-finance"
+      ],
+      "symbol": "NFTART"
+    },
+    "MET": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0x03697caf2e5458c7c2a8d9f8818079c2ae72f353",
+      "decimals": 18,
+      "name": "Outer Ring MMO Methane Token",
+      "origins": [
+        "https://bscscan.com/token/0x03697caf2e5458c7c2a8d9f8818079c2ae72f353"
+      ],
+      "symbol": "MET"
+    },
+    "SFTY": {
+      "category": "GAMING",
+      "chain": "BSC",
+      "contractAddress": "0xe9d6d6d7cde5c7d45927f8c37460d932e612c902",
+      "decimals": 18,
+      "name": "Stella Fantasy gaming token",
+      "origins": [
+        "https://bscscan.com/address/0xe9d6d6d7cde5c7d45927f8c37460d932e612c902",
+        "https://www.coingecko.com/en/coins/stella-fantasy-token"
+      ],
+      "symbol": "SFTY"
+    },
+    "CATGIRL": {
+      "category": "NFT",
+      "chain": "BSC",
+      "contractAddress": "0x79ebc9a2ce02277a4b5b3a768b1c0a4ed75bd936",
+      "decimals": 18,
+      "name": "Catgirl NFT Token",
+      "origins": [
+        "https://bscscan.com/address/0x79ebc9a2ce02277a4b5b3a768b1c0a4ed75bd936",
+        "https://www.coingecko.com/en/coins/catgirl"
+      ],
+      "symbol": "CATGIRL"
+    }
+  }
+}
