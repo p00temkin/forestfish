@@ -1047,9 +1047,9 @@ public class EVMUtils {
 				}
 
 				LOGGER.info("------------------------------------------------------------");
-				LOGGER.info("sendTXWithNativeCurrency_LegacyPricingMechanism(): Proceeding with tx using gasPrice: " + Convert.fromWei(gasPrice.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei, gasLimit: " + gasLimit + " units, nodeCallAttemptCount=" + nodeCallAttemptCount); 
+				LOGGER.info("sendTXWithNativeCurrency_LegacyPricingMechanism(): Proceeding with tx using gasPrice: " + Convert.fromWei(gasPrice.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPrice.toString() + " wei), gasLimit: " + gasLimit + " units, nodeCallAttemptCount=" + nodeCallAttemptCount); 
 				LOGGER.info("TX value: " + _evmNativeValue.getVal().setScale(6, RoundingMode.HALF_UP) + " " + _connector.getChaininfo().getNativeCurrency().getSymbol());
-
+				
 				try {
 
 					if (null != _customNonce) {
@@ -1437,6 +1437,13 @@ public class EVMUtils {
 
 	public static BigInteger bumpGasInWeiAccordingly(EVMBlockChainConnector _connector, BigInteger _gasPrice) {
 
+		// leave untouched
+		if (false ||
+				(_connector.getChain() == EVMChain.MANTLE) ||
+				false) {
+			return _gasPrice;
+		}
+		
 		// Additional topups
 		if (_gasPrice.compareTo(BigInteger.valueOf(50L*1000000000L)) > 0) {
 			_gasPrice = _gasPrice.add(new BigInteger("12000000000")); // +12 gwei
@@ -1453,7 +1460,7 @@ public class EVMUtils {
 		} else if (_gasPrice.compareTo(BigInteger.valueOf(1L*1000000000L)) > 0) {
 			_gasPrice = _gasPrice.add(new BigInteger("500000000"));  // +0.5 gwei
 		} else {
-			_gasPrice = _gasPrice.add(new BigInteger("200000000"));  // +0.2 gwei
+			_gasPrice = _gasPrice.add(new BigInteger("10000000"));  // +0.01 gwei
 		}
 
 		// min 1 gwei fixed for selected testnets
@@ -1679,7 +1686,7 @@ public class EVMUtils {
 				}
 
 				LOGGER.info("------------------------------------------------------------");
-				LOGGER.info("sendTXWithNativeCurrency_EIP1559PricingMechanism(): Proceeding with tx using gasPrice: " + Convert.fromWei(gasPrice.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei, gasLimit: " + gasLimit + " units, nodeCallAttemptCount=" + nodeCallAttemptCount); 
+				LOGGER.info("sendTXWithNativeCurrency_EIP1559PricingMechanism(): Proceeding with tx using gasPrice: " + Convert.fromWei(gasPrice.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPrice.toString() + " wei), gasLimit: " + gasLimit + " units, nodeCallAttemptCount=" + nodeCallAttemptCount); 
 
 				try {
 
@@ -2928,7 +2935,7 @@ public class EVMUtils {
 	}
 
 
-	public static void evmpingpong(EVMChain _chain, String wallet001_name, String _wallet001_privatekey, String wallet002_name, String _wallet002_privatekey, double _nativeCurrencyToSendBackAndForth, int _nrIterations) {
+	public static void evmpingpong(EVMChain _chain, String wallet001_name, String _wallet001_privatekey, String wallet002_name, String _wallet002_privatekey, double _nativeCurrencyToSendBackAndForth, final int _nrIterations) {
 		LOGGER.info("evmpingpong init()");
 		LOGGER.info(" - chain: " + _chain.toString());
 
@@ -2994,6 +3001,8 @@ public class EVMUtils {
 			int rand1 = NumUtils.randomNumWithinRangeAsInt(1, 8);
 			int rand2 = NumUtils.randomNumWithinRangeAsInt(1, 8);
 			LOGGER.info("--> iteration " + i + " rand1: " + rand1 + " rand2: " + rand2);
+			System.out.println("");
+			System.out.println("");
 			
 			/**
 			 * ping()
@@ -3001,7 +3010,8 @@ public class EVMUtils {
 			 */
 			String txhash1 = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism(connector, wallet001.getCredentials(), wallet002.getAddress(), new EVMNativeValue(BigDecimal.valueOf(_nativeCurrencyToSendBackAndForth*rand1), Unit.ETHER), haltOnUnconfirmedTX);
 			LOGGER.info("PING TX completed with tx hash: " + txhash1);
-
+			System.out.println("");
+			
 			SystemUtils.sleepInSeconds(rand1*100);
 			
 			/**
@@ -3010,6 +3020,7 @@ public class EVMUtils {
 			 */
 			String txhash2 = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism(connector, wallet002.getCredentials(), wallet001.getAddress(), new EVMNativeValue(BigDecimal.valueOf(_nativeCurrencyToSendBackAndForth*rand2), Unit.ETHER), haltOnUnconfirmedTX);
 			LOGGER.info("PONG TX completed with tx hash: " + txhash2);
+			System.out.println("");
 			
 			SystemUtils.sleepInSeconds(rand2*100);
 

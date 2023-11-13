@@ -23,6 +23,7 @@ import crypto.forestfish.enums.evm.EVMPriceMechanism;
 import crypto.forestfish.enums.evm.EthereumERC20Token;
 import crypto.forestfish.enums.evm.EthereumERC721Token;
 import crypto.forestfish.enums.evm.FantomERC20Token;
+import crypto.forestfish.enums.evm.GnosisERC20Token;
 import crypto.forestfish.enums.evm.GoerliERC20Token;
 import crypto.forestfish.enums.evm.GoerliERC721Token;
 import crypto.forestfish.enums.evm.KavaTestERC20Token;
@@ -1688,6 +1689,38 @@ public class BlockchainDetailsEVM {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 
+		// gnosis
+		EVMChainInfo gnosis = new EVMChainInfo(
+				EVMChain.GNOSIS.toString(), 
+				"Gnosis Chain", 
+				100L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Gnosis Gas Token", "xDai", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.gnosischain.com/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://gnosisscan.io/");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://www.gnosisfaucet.com/");
+					this.add("https://bridge.gnosischain.com/");
+					this.add("https://hop.exchange/");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://www.gnosis.io/");
+				}},
+				generateGnosisTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.GNOSIS, gnosis);
+		
 		// lamina1_betanet
 		EVMChainInfo lamina1_betanet = new EVMChainInfo(
 				EVMChain.LAMINA1BETATEST.toString(), 
@@ -3196,6 +3229,38 @@ public class BlockchainDetailsEVM {
 		networks.put(EVMChain.CANTOTEST, cantotest);
 		
 		// taikotest_alpha2
+		EVMChainInfo taikotest_alpha5 = new EVMChainInfo(
+				EVMChain.TAIKOALPHA5TEST.toString(), 
+				"Taiko Ethereum A5 Test Network", 
+				167007L, 
+				BlockchainType.PUBLIC.toString(), // now alpha3
+				new EVMCurrency("Taiko A5 Test Token", "ETH", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://taiko-jolnir.blockpi.network/v1/rpc/public");
+					this.add("https://rpc.jolnir.taiko.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.jolnir.taiko.xyz");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://bridge.jolnir.taiko.xyz/");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://taiko.xyz");
+					this.add("https://chainlist.org/chain/167007");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.TAIKOALPHA5TEST, taikotest_alpha5);
+		
+		// taikotest_alpha2
 		EVMChainInfo taikotest_alpha2 = new EVMChainInfo(
 				EVMChain.TAIKOALPHA2TEST.toString(), 
 				"Taiko Ethereum A2 Test Network", 
@@ -4465,9 +4530,17 @@ public class BlockchainDetailsEVM {
 					this.add("https://rpc2.fantom.network");
 					this.add("https://rpcapi.fantom.network");
 					this.add("https://fantom-mainnet.public.blastapi.io");
-
-					//this.add("https://rpc.fantom.network"); // invalid cert
-					//this.add("https://rpc3.fantom.network"); // unstable
+					this.add("https://rpcapi.fantom.network");
+					this.add("https://endpoints.omniatech.io/v1/fantom/mainnet/public");
+					this.add("https://fantom-pokt.nodies.app");
+					this.add("https://rpc.fantom.network");
+					this.add("https://rpc3.fantom.network");
+					this.add("https://1rpc.io/ftm");
+					this.add("https://fantom.blockpi.network/v1/rpc/public");					
+					this.add("https://fantom.publicnode.com");
+					this.add("https://rpc.fantom.gateway.fm");
+					this.add("https://fantom.api.onfinality.io/public	");
+					this.add("https://fantom.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -4501,6 +4574,9 @@ public class BlockchainDetailsEVM {
 					this.add("https://fantom-testnet.public.blastapi.io");
 					this.add("https://rpc.testnet.fantom.network");
 					this.add("https://rpc.ankr.com/fantom_testnet");
+					this.add("https://endpoints.omniatech.io/v1/fantom/testnet/public");
+					this.add("https://fantom-testnet.publicnode.com");
+					this.add("https://fantom.api.onfinality.io/public");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -7741,6 +7817,43 @@ public class BlockchainDetailsEVM {
 					this.add("https://explorer.testnet.mantle.xyz/token/0xbAF72402f98f16e77638Ce5FCC5689CD1627E8ff/");
 				}});
 		tokens.put(MantleTestnetERC20Token.USDC.toString(), usdc);
+	
+		return new ERC20TokenIndex(tokens);
+	}
+
+	@SuppressWarnings("serial")
+	public static ERC20TokenIndex generateGnosisTokenIndex() {
+	
+		HashMap<String, EVMERC20TokenInfo> tokens = new HashMap<>();
+	
+		// sDAI
+		EVMERC20TokenInfo sdai = new EVMERC20TokenInfo(
+				GnosisERC20Token.sDAI.toString(), 
+				"0xaf204776c7245bf4147c2612bf6e5972ee483701",
+				"Savings xDAI", 
+				18,
+				TokenCategory.STABLECOIN.toString(),
+				EVMChain.GNOSIS.toString(),
+				new ArrayList<String>() {{
+					this.add("https://agave.finance/sdai/");
+					this.add("https://www.coingecko.com/en/coins/savings-xdai");
+					this.add("https://gnosisscan.io/address/0xaf204776c7245bf4147c2612bf6e5972ee483701");
+				}});
+		tokens.put(GnosisERC20Token.sDAI.toString(), sdai);
+	
+		// WXDAI
+		EVMERC20TokenInfo wxdai = new EVMERC20TokenInfo(
+				GnosisERC20Token.WXDAI.toString(), 
+				"0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+				"Wrapped xDAI token", 
+				18,
+				TokenCategory.DEFI.toString(),
+				EVMChain.GNOSIS.toString(),
+				new ArrayList<String>() {{
+					this.add("https://gnosisscan.io/address/0xe91d153e0b41518a2ce8dd3d7944fa863463a97d");
+					this.add("https://www.coingecko.com/en/coins/wrapped-xdai");
+				}});
+		tokens.put(GnosisERC20Token.WXDAI.toString(), wxdai);
 	
 		return new ERC20TokenIndex(tokens);
 	}
