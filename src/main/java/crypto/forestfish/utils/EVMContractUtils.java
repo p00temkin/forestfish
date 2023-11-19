@@ -30,6 +30,7 @@ public class EVMContractUtils {
 		boolean allInfoOK = false;
 		ERC721ContractInfo result = new ERC721ContractInfo();
 
+		boolean tx_attempt = false;
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while (!allInfoOK && (nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -79,7 +80,7 @@ public class EVMContractUtils {
 				SystemUtils.sleepInSeconds(1);
 
 				// RPC call exceptions (readonly)
-				EVMProviderException evmE = EVMUtils.analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth);
+				EVMProviderException evmE = EVMUtils.analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = EVMUtils.actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -420,6 +421,8 @@ public class EVMContractUtils {
 	public static ArrayList<Integer> getERC721TokenIdsOwnedBy(EVMBlockChainConnector _connector, String account_address, EVMERC721TokenInfo tokenInfo, boolean _haltOnFailedCall) {
 		String meth = "getERC721TokenIdsOwnedBy()";
 		ArrayList<Integer> tokenIds = new ArrayList<Integer>();
+		
+		boolean tx_attempt = false;
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -459,7 +462,7 @@ public class EVMContractUtils {
 					return tokenIds;
 				} else {
 					// RPC call exceptions (readonly)
-					EVMProviderException evmE = EVMUtils.analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth);
+					EVMProviderException evmE = EVMUtils.analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 					if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 					EVMProviderExceptionActionState evmAS = EVMUtils.actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 					if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 

@@ -1689,6 +1689,97 @@ public class BlockchainDetailsEVM {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 
+		// manta
+		EVMChainInfo manta = new EVMChainInfo(
+				EVMChain.MANTA.toString(), 
+				"Manta Pacific Mainnet", 
+				169L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Manta Gas Token", "ETH", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://pacific-rpc.manta.network/http");
+					this.add("https://1rpc.io/manta");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://pacific-explorer.manta.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo insert faucet>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://manta.network");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.MANTA, manta);
+		
+		// zkatana_test
+		EVMChainInfo zkatana_test = new EVMChainInfo(
+				EVMChain.ZKATANATEST.toString(), 
+				"zKatana Testnet", 
+				1261120L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("zKatana Gas Token", "ETH", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.startale.com/zkatana");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://zkatana.explorer.startale.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo insert faucet>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://portal.astar.network");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ZKATANATEST, zkatana_test);
+		
+		// openfabric_test
+		EVMChainInfo openfabric_test = new EVMChainInfo(
+				EVMChain.OPENFABRICTEST.toString(), 
+				"OpenFabric Testnet", 
+				185947263L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("OpenFabric Gas Token", "tstOFN", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.openfabric.dev");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.openfabric.dev/");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo insert faucet>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://openfabric.dev");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.OPENFABRICTEST, openfabric_test);
+		
 		// gnosis
 		EVMChainInfo gnosis = new EVMChainInfo(
 				EVMChain.GNOSIS.toString(), 
@@ -3241,7 +3332,7 @@ public class BlockchainDetailsEVM {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://taiko-jolnir.blockpi.network/v1/rpc/public");
-					this.add("https://rpc.jolnir.taiko.xyz");
+					//this.add("https://rpc.jolnir.taiko.xyz"); // old account balance reply but latestblocknr?  
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -4570,13 +4661,11 @@ public class BlockchainDetailsEVM {
 				null, // enforced min gasprice
 				"300000", //300k units
 				new ArrayList<String>() {{
-					this.add("https://fantom.api.onfinality.io/public");
 					this.add("https://fantom-testnet.public.blastapi.io");
 					this.add("https://rpc.testnet.fantom.network");
 					this.add("https://rpc.ankr.com/fantom_testnet");
 					this.add("https://endpoints.omniatech.io/v1/fantom/testnet/public");
 					this.add("https://fantom-testnet.publicnode.com");
-					this.add("https://fantom.api.onfinality.io/public");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)

@@ -1,9 +1,10 @@
 package crypto.forestfish.enums;
 
 public enum ExceptionType {
-    RECOVERABLE,
+    NODE_RECOVERABLE,
+    NODE_UNSTABLE,
+    TX_MIGHT_BE_PENDING,
+    TX_RESENT,
     FATAL,
-    IGNORE,
-    MOVEON,
     UNKNOWN
 }

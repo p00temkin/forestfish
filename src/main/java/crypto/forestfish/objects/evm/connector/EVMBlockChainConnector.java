@@ -179,6 +179,7 @@ public class EVMBlockChainConnector {
 			}
 
 			boolean nondead_winner_found = false;
+			int nodescancounter = 0;
 			while (!nondead_winner_found) {
 
 				HashMap<String, Long> candidate_blockstate = new HashMap<>();
@@ -228,16 +229,20 @@ public class EVMBlockChainConnector {
 						LOGGER.info("node URL " + winner + " seems best option for " + this.chain + ", response_time=" + minDiff + " ms");
 						nondead_winner_found = true;
 					} else {
-						LOGGER.info("We need to re-run, found dead nodes (" + deadnodes.size() + ") in our list ..");
+						LOGGER.info("We need to re-run, found dead nodes (" + deadnodes.size() + ") in our list of candidates (" + this.getChaininfo().getNodeURLs().size() + ") .. [nodescancounter: " + nodescancounter + "]");
 						LOGGER.info("deadnodes: " + deadnodes.keySet());
 						if (this.getChaininfo().getNodeURLs().size() == deadnodes.size()) {
 							LOGGER.error("All RPC node candidates are dead?");
 							SystemUtils.halt();
 						}
+						if (nodescancounter > 10) {
+							LOGGER.error("All RPC node candidates are dead? Giving up after 10 scans");
+							SystemUtils.halt();
+						}
 					}
 
 				}
-
+				nodescancounter++;
 			}
 
 		}

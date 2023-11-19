@@ -2063,7 +2063,7 @@ public class AVMUtils {
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
-			exceptionType = ExceptionType.RECOVERABLE;
+			exceptionType = ExceptionType.NODE_RECOVERABLE;
 			timeout = true;
 		} else if (false ||
 				_ex.getMessage().contains(URLUtils.extractURLHostnameFromURL(_relayNode.getUrl())) ||
@@ -2074,7 +2074,7 @@ public class AVMUtils {
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
-			exceptionType = ExceptionType.RECOVERABLE;
+			exceptionType = ExceptionType.NODE_RECOVERABLE;
 			timeout = true;
 		} else if (false ||
 				(_ex.getMessage().contains("Failed to connect")) ||
@@ -2086,14 +2086,14 @@ public class AVMUtils {
 			// java.net.SocketException: Connection reset
 			// javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
 			LOGGER.warn("Got a connection reset from nodeURL " + _relayNode.getUrl() + ".. will not retry, move on to next node");
-			exceptionType = ExceptionType.IGNORE;	
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
 				_ex.getMessage().contains("UnknownHostException") ||
 				_ex.getMessage().contains("No such host is known") ||
 				false) {
 			LOGGER.info("Unable to resolve host using nodeURL " + _relayNode.getUrl() + ".. will not retry and switch provider, move on to next node");
-			exceptionType = ExceptionType.IGNORE;	
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 1;
 			switchNode = true;
@@ -2102,11 +2102,11 @@ public class AVMUtils {
 			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().contains("404;")) {
 			LOGGER.warn("Got a 404 non JSON response from nodeURL " + _relayNode.getUrl() + ".. will not retry, move on to next node");
-			exceptionType = ExceptionType.IGNORE;	
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("Invalid API Token")) {
 			LOGGER.warn("Got an invalid API key error from relay node " + _relayNode.getUrl() + ".. will not retry, move on to next node");
-			exceptionType = ExceptionType.IGNORE;	
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("Invalid response received: 429")) {
 			if (false ||
@@ -2114,12 +2114,12 @@ public class AVMUtils {
 					_ex.getMessage().contains("You have sent too many requests in a given amount of time") ||
 					false) {
 				LOGGER.info("Node limit reached for nodeURL " + _relayNode.getUrl() + ", we should probably cool down: " + _ex.getMessage());
-				exceptionType = ExceptionType.IGNORE;	
+				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;		
 			} else {
 				LOGGER.error("Generic 429 error from nodeURL " + _relayNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeProviderException() .. ");
 				LOGGER.info("429 error noted for nodeURL " + _relayNode.getUrl() + ": " + _ex.getMessage() + ", lets try again");
-				exceptionType = ExceptionType.IGNORE;	
+				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
 			}
 		} else {
@@ -2151,7 +2151,7 @@ public class AVMUtils {
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
-			exceptionType = ExceptionType.RECOVERABLE;
+			exceptionType = ExceptionType.NODE_RECOVERABLE;
 			timeout = true;
 		} else if (false ||
 				_ex.getMessage().contains(URLUtils.extractURLHostnameFromURL(_indexerNode.getUrl())) ||
@@ -2162,7 +2162,7 @@ public class AVMUtils {
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
-			exceptionType = ExceptionType.RECOVERABLE;
+			exceptionType = ExceptionType.NODE_RECOVERABLE;
 			timeout = true;
 		} else if (false ||
 				(_ex.getMessage().contains("Failed to connect")) ||
@@ -2174,14 +2174,14 @@ public class AVMUtils {
 			// java.net.SocketException: Connection reset
 			// javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
 			LOGGER.warn("Got a connection reset from nodeURL " + _indexerNode.getUrl() + ".. will not retry, move on to next node");
-			exceptionType = ExceptionType.IGNORE;	
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
 				_ex.getMessage().contains("UnknownHostException") ||
 				_ex.getMessage().contains("No such host is known") ||
 				false) {
 			LOGGER.info("Unable to resolve host using nodeURL " + _indexerNode.getUrl() + ".. will not retry and switch provider, move on to next node");
-			exceptionType = ExceptionType.IGNORE;	
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 1;
 			switchNode = true;
@@ -2190,12 +2190,12 @@ public class AVMUtils {
 			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().contains("404;")) {
 			LOGGER.warn("Got a 404 non JSON response from nodeURL " + _indexerNode.getUrl() + ".. will not retry, move on to next node");
-			exceptionType = ExceptionType.IGNORE;	
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("invalid value on parameter")) {
 			// https://node.testnet.algoexplorerapi.io: {"message":"invalid value on parameter 'limit'"}
 			LOGGER.warn("Got an invalid value on parameter response from indexer node " + _indexerNode.getUrl() + ".. will not retry, move on to next node");
-			exceptionType = ExceptionType.IGNORE;	
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("Invalid response received: 429")) {
 			if (false ||
@@ -2203,12 +2203,12 @@ public class AVMUtils {
 					_ex.getMessage().contains("You have sent too many requests in a given amount of time") ||
 					false) {
 				LOGGER.info("Node limit reached for nodeURL " + _indexerNode.getUrl() + ", we should probably cool down: " + _ex.getMessage());
-				exceptionType = ExceptionType.IGNORE;	
+				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;		
 			} else {
 				LOGGER.error("Generic 429 error from nodeURL " + _indexerNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeIndexerException() .. ");
 				LOGGER.info("429 error noted for nodeURL " + _indexerNode.getUrl() + ": " + _ex.getMessage() + ", lets try again");
-				exceptionType = ExceptionType.IGNORE;	
+				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
 			}
 		} else {
@@ -2241,7 +2241,7 @@ public class AVMUtils {
 			//connector.selectRandomNodeURL(_connector.getNode_url());
 		}
 		if ( true && 
-				(_avmE.getExceptionType() != ExceptionType.RECOVERABLE) && 
+				(_avmE.getExceptionType() != ExceptionType.NODE_RECOVERABLE) && 
 				_haltOnUnconfirmedTX &&
 				true) {
 			LOGGER.info("haltOnUnconfirmedTX is set to true, and we have an unrecoverable exception");
@@ -2273,7 +2273,7 @@ public class AVMUtils {
 			connector.reinitializeConnector();
 		}
 		if ( true && 
-				(_avmE.getExceptionType() != ExceptionType.RECOVERABLE) && 
+				(_avmE.getExceptionType() != ExceptionType.NODE_RECOVERABLE) && 
 				_haltOnUnconfirmedTX &&
 				true) {
 			LOGGER.info("haltOnUnconfirmedTX is set to true, and we have an unrecoverable exception");

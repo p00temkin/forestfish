@@ -54,6 +54,7 @@ public enum EVMChain {
 	OPBNB,
 	MANTLE,
 	GNOSIS,
+	MANTA,
 	
 	// Test nets
 	SHARDEUMLIBERTY1xTEST,
@@ -108,6 +109,8 @@ public enum EVMChain {
 	ZORATEST,
 	OPBNBTEST,
 	MANTLETEST,
+	OPENFABRICTEST,
+	ZKATANATEST,
 	
 	// Beta nets
 	LAMINA1BETATEST,
