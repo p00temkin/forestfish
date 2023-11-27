@@ -137,7 +137,7 @@ public class EVMContractUtilsTest {
 	@Test
 	public void testgetABIFunctionsERC721_GMI_Polygon() {
 		
-		EVMBlockChainConnector connector = new EVMBlockChainConnector(EVMChain.POLYGON);
+		EVMBlockChainConnector connector = new EVMBlockChainConnector(EVMChain.POLYGON, true);
 		BigInteger latestBlockNR = EVMUtils.getLatestBlockNumber(connector);
 		assertTrue("Ensure sane ETH blocknr", latestBlockNR.longValue() > 1L);
 		LOGGER.info("latestBlockNR: " + latestBlockNR);

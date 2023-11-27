@@ -22,7 +22,7 @@ public class EVMBlockChainConnector {
 	private Web3j provider_instance;
 
 	private HashMap<String, Boolean> deadnodes = new HashMap<>();
-	
+
 	// call defaults
 	int callRetryThreshold = 3;
 	int confirmTimeInSecondsBeforeRetry = 20;
@@ -30,7 +30,7 @@ public class EVMBlockChainConnector {
 
 	// tx defaults
 	int txRetryThreshold = 3;
-	
+
 	public EVMBlockChainConnector(EVMChain _chain, String _forced_nodeURL) {
 		super();
 		this.chain = _chain;
@@ -57,25 +57,25 @@ public class EVMBlockChainConnector {
 		}
 	}
 
-	public EVMBlockChainConnector(EVMChain _chain) {
+	public EVMBlockChainConnector(EVMChain _chain, boolean _haltOnRPCNodeSelectionFail) {
 		super();
 		this.chain = _chain;
 		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
-		selectRandomNodeURL();
+		selectRandomNodeURL(_haltOnRPCNodeSelectionFail);
 	}
 
-	public EVMBlockChainConnector(EVMChain _chain, boolean _nodeOptimized) {
+	public EVMBlockChainConnector(EVMChain _chain, boolean _nodeOptimized, boolean _haltOnRPCNodeSelectionFail) {
 		super();
 		this.chain = _chain;
 		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
 		if (_nodeOptimized) {
-			selectSpeedyNodeURL();
+			selectSpeedyNodeURL(_haltOnRPCNodeSelectionFail);
 		} else {
-			selectRandomNodeURL();
+			selectRandomNodeURL(_haltOnRPCNodeSelectionFail);
 		}
 	}
 
-	public void selectRandomNodeURL() {
+	public void selectRandomNodeURL(boolean _haltOnRPCNodeSelectionFail) {
 		// verify and select RPC connection
 		LOGGER.info("We need to get 1 of these candidates working, gonna go random:");
 		int candindex = 1;
@@ -102,6 +102,15 @@ public class EVMBlockChainConnector {
 				LOGGER.info("Failed attempt using node " + candidate + ", randomAttemptCounter=" + randomAttemptCounter);
 			}
 			randomAttemptCounter++;
+		}
+
+		if (!selection_complete) {
+			if (_haltOnRPCNodeSelectionFail) {
+				LOGGER.error("Unable to get an RPC connection for chain " + this.chain);
+				SystemUtils.halt();
+			} else {
+				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain);
+			}
 		}
 	}
 
@@ -162,15 +171,29 @@ public class EVMBlockChainConnector {
 		return null;
 	}
 
-	public void selectSpeedyNodeURL() {
+	public void selectSpeedyNodeURL(boolean _haltOnRPCNodeSelectionFail) {
 		// verify and select RPC connection
 		String winner = "";
 		if (this.chaininfo.getNodeURLs().size() == 1) {
-			winner = this.chaininfo.getNodeURLs().get(0);
-			this.current_nodeURL = winner;
-			LOGGER.info("We only have one node candidate so lets move forward with " + winner);
+
+			// verify that the one we have works though
+			String candidate = this.getChaininfo().getNodeURLs().get(0);
+			Web3j web3j_cand = Web3j.build(new HttpService(candidate));
+			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand);
+			if ( (null != latestblocknr) && (latestblocknr>0L)) {
+				winner = this.chaininfo.getNodeURLs().get(0);
+				this.current_nodeURL = winner;
+				LOGGER.info("We only have one node candidate (and it works fine) so lets move forward with " + winner);
+			} else {
+				if (_haltOnRPCNodeSelectionFail) {
+					LOGGER.error("Unable to get an RPC connection for chain " + this.chain);
+					SystemUtils.halt();
+				} else {
+					LOGGER.warn("Unable to get an RPC connection for chain " + this.chain);
+				}
+			}
 		} else {
-			
+
 			LOGGER.info("We need to get 1 of these candidates working, gonna optimize:");
 			int candindex = 1;
 			for (String nodeURL: this.chaininfo.getNodeURLs()) {
@@ -246,7 +269,18 @@ public class EVMBlockChainConnector {
 			}
 
 		}
-		this.provider_instance = Web3j.build(new HttpService(winner));
+
+		if ("".equals(winner)) {
+			if (_haltOnRPCNodeSelectionFail) {
+				LOGGER.error("Unable to get an RPC connection for chain " + this.chain);
+				SystemUtils.halt();
+			} else {
+				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain);
+			}
+		} else {
+			this.provider_instance = Web3j.build(new HttpService(winner));
+		}
+
 	}
 
 	public EVMChainInfo getChaininfo() {

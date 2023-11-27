@@ -1527,7 +1527,7 @@ public class EVMUtils {
 	public static String sendTXWithERC20_LegacyPricingMechanism(EVMBlockChainConnector _connector, Credentials _creds, String _target_address, String _erc20ContractAddress, BigInteger _amountERC20InWEI, boolean _haltOnUnconfirmedTX) {
 		String meth = "sendTXWithERC20_LegacyPricingMechanism()";
 		String hash = null;
-		
+
 		boolean tx_attempt = true;
 		boolean confirmedTransaction = false;
 		int nodeCallAttemptCount = 0;
@@ -2227,12 +2227,12 @@ public class EVMUtils {
 		return idx.getNetworks().get(_shortname);
 	}
 
-	public static EVMBlockChainConnector getEVMChainConnector(EVMChain _shortname) {
-		return new EVMBlockChainConnector(_shortname);
+	public static EVMBlockChainConnector getEVMChainConnector(EVMChain _shortname, boolean _haltOnRPCNodeSelectionFail) {
+		return new EVMBlockChainConnector(_shortname, _haltOnRPCNodeSelectionFail);
 	}
 
-	public static EVMBlockChainConnector getEVMChainConnector(EVMChain _shortname, boolean nodeOptimized) {
-		return new EVMBlockChainConnector(_shortname, nodeOptimized);
+	public static EVMBlockChainConnector getEVMChainConnector(EVMChain _shortname, boolean nodeOptimized, boolean _haltOnRPCNodeSelectionFail) {
+		return new EVMBlockChainConnector(_shortname, nodeOptimized, _haltOnRPCNodeSelectionFail);
 	}
 
 	public static EVMBlockChainConnector getEVMChainConnector(EVMChain _shortname, String _forced_nodeURL) {
@@ -2343,28 +2343,32 @@ public class EVMUtils {
 		for (EVMChain chain: EVMChain.values()) {
 			if (_debug) System.out.println("chain: " + chain);
 
-			/**
-			 * Verify RPC node connectivity
-			 */
-			EVMBlockChainConnector connector_temp = _ultra_connector.getConnectors().get(chain);
-			if (null == connector_temp) {
-				LOGGER.debug("We dont have a valid connector for chain " + chain);
-			} else {
-				BigInteger latestBlockNr = EVMUtils.getLatestBlockNumberOpportunistic(connector_temp);
-				if (null == latestBlockNr) {
-					LOGGER.warn("Seems we cant get a good connection to the chain " + chain);
+			EVMChainInfo chainInfo = EVMUtils.getEVMChainInfo(chain);
+			if (BlockchainType.valueOf(chainInfo.getType()) == _ultra_connector.getChainType()) {
+
+				/**
+				 * Verify RPC node connectivity
+				 */
+				EVMBlockChainConnector connector_temp = _ultra_connector.getConnectors().get(chain);
+				if (null == connector_temp) {
+					LOGGER.warn("We dont have a valid connector for chain " + chain);
 					LOGGER.info("Skipping and will move on ..");
+					LOGGER.info("or attempt to reconnect? ..");
+					SystemUtils.halt();
 				} else {
+					BigInteger latestBlockNr = EVMUtils.getLatestBlockNumberOpportunistic(connector_temp);
+					if (null == latestBlockNr) {
+						LOGGER.warn("Seems we cant get a good connection to the chain " + chain);
+						LOGGER.info("Skipping and will move on ..");
+					} else {
 
-					if (_debug) LOGGER.info("We have a valid connector for chain " + chain +", latestBlockNr=" + latestBlockNr);
+						if (_debug) LOGGER.info("We have a valid connector for chain " + chain +", latestBlockNr=" + latestBlockNr);
 
-					HashMap<String, EVMAccountBalance> erc20tokens = new HashMap<>();
-					HashMap<String, EVMNftAccountBalance> erc721tokens = new HashMap<>();
-					HashMap<String, EVMNftAccountBalance> erc1155tokens = new HashMap<>();
-					EVMAccountBalance native_balance = null;
+						HashMap<String, EVMAccountBalance> erc20tokens = new HashMap<>();
+						HashMap<String, EVMNftAccountBalance> erc721tokens = new HashMap<>();
+						HashMap<String, EVMNftAccountBalance> erc1155tokens = new HashMap<>();
+						EVMAccountBalance native_balance = null;
 
-					EVMChainInfo chainInfo = EVMUtils.getEVMChainInfo(chain);
-					if (BlockchainType.valueOf(chainInfo.getType()) == _ultra_connector.getChainType()) {
 						EVMBlockChainConnector connector = _ultra_connector.getConnectors().get(chain);
 
 						if (null != connector) {
@@ -2455,7 +2459,6 @@ public class EVMUtils {
 					}
 				}
 			}
-
 		}
 
 		return new EVMPortfolio(_account_addr, chainportfolio, System.currentTimeMillis()/1000L);
@@ -2919,75 +2922,75 @@ public class EVMUtils {
 	}
 
 	@SuppressWarnings("serial")
-	public static void checkEthPolyPortfolio(String publicaddress) {
+	public static void checkEthPolyPortfolio(String _publicaddress, boolean _haltOnRPCNodeSelectionFail) {
 		LOGGER.info("checkEthPolyPortfolio init()");
-		LOGGER.info(" - account: " + publicaddress);
+		LOGGER.info(" - account: " + _publicaddress);
 
 		// Launch RPC node connectors for POLYGON/ETHEREUM
 		EVMBlockChainUltraConnector ultra_connector = new EVMBlockChainUltraConnector(BlockchainType.PUBLIC,
 				new HashMap<String, Boolean>() {{
 					this.put(EVMChain.POLYGON.toString(), true);
 					this.put(EVMChain.ETHEREUM.toString(), true);
-				}});
+				}}, _haltOnRPCNodeSelectionFail);
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, publicaddress);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
 	}
 
-	public static void checkFullPortfolio(String publicaddress) {
+	public static void checkFullPortfolio(String _publicaddress, boolean _haltOnRPCNodeSelectionFail) {
 		LOGGER.info("checkFullPortfolio init()");
-		LOGGER.info(" - account: " + publicaddress);
+		LOGGER.info(" - account: " + _publicaddress);
 
 		// Launch RPC node connectors for all known chains
-		EVMBlockChainUltraConnector ultra_connector = new EVMBlockChainUltraConnector(BlockchainType.PUBLIC);
+		EVMBlockChainUltraConnector ultra_connector = new EVMBlockChainUltraConnector(BlockchainType.PUBLIC, _haltOnRPCNodeSelectionFail);
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, publicaddress);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
 	}
 
 	@SuppressWarnings("serial")
-	public static void checkLocalPortfolio(String publicaddress, EVMChain chain) {
+	public static void checkLocalPortfolio(String _publicaddress, EVMChain _chain, boolean _haltOnRPCNodeSelectionFail) {
 		LOGGER.info("checkLocalPortfolio init()");
-		LOGGER.info(" - account: " + publicaddress);
+		LOGGER.info(" - account: " + _publicaddress);
 
 		if (true &&
-				!chain.toString().contains("GANACHE") &&
-				!chain.toString().contains("HARDHAT") &&
+				!_chain.toString().contains("GANACHE") &&
+				!_chain.toString().contains("HARDHAT") &&
 				true) {
 			LOGGER.error("You sure you are connecting to a local ganache/hardhat chain?");
-			LOGGER.error("Selected chain: " + chain);
+			LOGGER.error("Selected chain: " + _chain);
 			SystemUtils.halt();
 		}
 
 		// Launch RPC node connectors for LOCAL networks
 		EVMBlockChainUltraConnector ultra_connector = new EVMBlockChainUltraConnector(BlockchainType.LOCAL,
 				new HashMap<String, Boolean>() {{
-					this.put(chain.toString(), true);
-				}});
+					this.put(_chain.toString(), true);
+				}}, _haltOnRPCNodeSelectionFail);
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, publicaddress);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
 	}
 
 
-	public static void evmpingpong(EVMChain _chain, String wallet001_name, String _wallet001_privatekey, String wallet002_name, String _wallet002_privatekey, double _nativeCurrencyToSendBackAndForth, final int _nrIterations) {
+	public static void evmpingpong(EVMChain _chain, String wallet001_name, String _wallet001_privatekey, String wallet002_name, String _wallet002_privatekey, double _nativeCurrencyToSendBackAndForth, final int _nrIterations, boolean _haltOnRPCNodeSelectionFail) {
 		LOGGER.info("evmpingpong init()");
 		LOGGER.info(" - chain: " + _chain.toString());
 
 		boolean haltOnUnconfirmedTX = true;
-		EVMBlockChainConnector connector = new EVMBlockChainConnector(_chain);
+		EVMBlockChainConnector connector = new EVMBlockChainConnector(_chain, _haltOnRPCNodeSelectionFail);
 
 		BigInteger latestBlockNR = EVMUtils.getLatestBlockNumber(connector);
 		LOGGER.info("latestBlockNR: " + latestBlockNR);

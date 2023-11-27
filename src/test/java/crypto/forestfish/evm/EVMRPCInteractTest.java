@@ -22,7 +22,7 @@ public class EVMRPCInteractTest {
 	@Test
 	public void testRPCInteract_ETH() {
 		
-		EVMBlockChainConnector connector = new EVMBlockChainConnector(EVMChain.ETHEREUM);
+		EVMBlockChainConnector connector = new EVMBlockChainConnector(EVMChain.ETHEREUM, true);
 		BigInteger latestBlockNR = EVMUtils.getLatestBlockNumber(connector);
 		assertTrue("Ensure sane ETH blocknr", latestBlockNR.longValue() > 1L);
 		LOGGER.info("latestBlockNR: " + latestBlockNR);
@@ -39,7 +39,7 @@ public class EVMRPCInteractTest {
 	@Test
 	public void testRPCInteract_POLYGON() {
 		
-		EVMBlockChainConnector connector = new EVMBlockChainConnector(EVMChain.POLYGON);
+		EVMBlockChainConnector connector = new EVMBlockChainConnector(EVMChain.POLYGON, true);
 		BigInteger latestBlockNR = EVMUtils.getLatestBlockNumber(connector);
 		assertTrue("Ensure sane ETH blocknr", latestBlockNR.longValue() > 1L);
 		LOGGER.info("latestBlockNR: " + latestBlockNR);

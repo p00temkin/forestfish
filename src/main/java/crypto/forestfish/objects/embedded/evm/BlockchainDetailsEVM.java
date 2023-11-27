@@ -2919,7 +2919,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.SATOSHICHAIN.toString(), 
 				"SatoshiChain Mainnet", 
 				12009L, 
-				BlockchainType.PUBLIC.toString(), 
+				BlockchainType.BORKED.toString(), 
 				new EVMCurrency("SATS Token", "SATS", 18), 
 				EVMPriceMechanism.EIP1559.toString(),
 				"550030000000000", //550030 gwei, recommended 550k+ gwei default?
@@ -2938,6 +2938,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://faucet.satoshichain.io/");
 				}},
 				new ArrayList<String>() {{
+					this.add("https://satoshichain.medium.com/important-announcement-regarding-satoshichain-transitioning-forward-cf320190f2dc");
 					this.add("https://satoshix.io/");
 				}},
 				generateDummyTokenIndex(),
@@ -2949,7 +2950,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.SATOSHICHAINTEST.toString(), 
 				"SatoshiChain Testnet", 
 				5758L, 
-				BlockchainType.PUBLIC.toString(), // not ready
+				BlockchainType.BORKED.toString(), // not ready
 				new EVMCurrency("SATS Token", "SATS", 18), 
 				EVMPriceMechanism.EIP1559.toString(),
 				"550030000000000", //550030 gwei, recommended 550k+ gwei default?
@@ -2968,6 +2969,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://faucet.satoshichain.io/");
 				}},
 				new ArrayList<String>() {{
+					this.add("https://satoshichain.medium.com/important-announcement-regarding-satoshichain-transitioning-forward-cf320190f2dc");
 					this.add("https://satoshix.io/");
 				}},
 				generateDummyTokenIndex(),

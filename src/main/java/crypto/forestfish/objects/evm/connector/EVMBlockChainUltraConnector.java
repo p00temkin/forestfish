@@ -18,7 +18,7 @@ public class EVMBlockChainUltraConnector {
 	private HashMap<EVMChain, EVMBlockChainConnector> connectors = new HashMap<>();
 	private BlockchainType chainType;
 
-	public EVMBlockChainUltraConnector(BlockchainType _chainType) {
+	public EVMBlockChainUltraConnector(BlockchainType _chainType, boolean _haltOnRPCNodeSelectionFail) {
 		super();
 		
 		this.chainType = _chainType;
@@ -32,14 +32,14 @@ public class EVMBlockChainUltraConnector {
 			}
 			if (BlockchainType.valueOf(chainInfo.getType()) == chainType) {
 				LOGGER.info("Finding optimal node for public EVM blockchain " + chain);
-				EVMBlockChainConnector connector = new EVMBlockChainConnector(chain, true);
+				EVMBlockChainConnector connector = new EVMBlockChainConnector(chain, _haltOnRPCNodeSelectionFail);
 				connectors.put(chain, connector);
 			}
 		}
 
 	}
 
-	public EVMBlockChainUltraConnector(BlockchainType _chainType, HashMap<String, Boolean> _chainlimit) {
+	public EVMBlockChainUltraConnector(BlockchainType _chainType, HashMap<String, Boolean> _chainlimit, boolean _haltOnRPCNodeSelectionFail) {
 		super();
 		
 		this.chainType = _chainType;
@@ -55,7 +55,7 @@ public class EVMBlockChainUltraConnector {
 				EVMChainInfo chainInfo = EVMUtils.getEVMChainInfo(chain);
 				if (BlockchainType.valueOf(chainInfo.getType()) == chainType) {
 					LOGGER.info("Adding optimal node for public EVM blockchain " + chain);
-					EVMBlockChainConnector connector = new EVMBlockChainConnector(chain, true);
+					EVMBlockChainConnector connector = new EVMBlockChainConnector(chain, _haltOnRPCNodeSelectionFail);
 					connectors.put(chain, connector);
 				}
 			}
