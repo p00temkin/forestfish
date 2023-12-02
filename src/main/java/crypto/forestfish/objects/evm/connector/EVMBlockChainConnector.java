@@ -31,7 +31,7 @@ public class EVMBlockChainConnector {
 	// tx defaults
 	int txRetryThreshold = 3;
 
-	public EVMBlockChainConnector(EVMChain _chain, String _forced_nodeURL) {
+	public EVMBlockChainConnector(EVMChain _chain, String _forced_nodeURL, boolean _haltOnRPCNodeSelectionFail) {
 		super();
 		this.chain = _chain;
 		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
@@ -54,6 +54,15 @@ public class EVMBlockChainConnector {
 				LOGGER.info("Failed attempt using node " + _forced_nodeURL + ", randomAttemptCounter=" + randomAttemptCounter);
 			}
 			randomAttemptCounter++;
+		}
+		
+		if (!initialization_complete) {
+			if (_haltOnRPCNodeSelectionFail) {
+				LOGGER.error("Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
+				SystemUtils.halt();
+			} else {
+				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
+			}
 		}
 	}
 

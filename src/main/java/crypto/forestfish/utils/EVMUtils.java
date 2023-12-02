@@ -1848,11 +1848,13 @@ public class EVMUtils {
 				(_ex.getMessage().contains("Connection reset")) ||
 				(_ex.getMessage().contains("No route to host")) ||
 				(_ex.getMessage().contains("closed")) ||
+				(_ex.getMessage().contains("connection refused")) ||
 				(_ex.getMessage().contains("Remote host terminated the handshake")) ||
 				false) {
 			// java.net.ConnectException: Failed to connect to
 			// java.net.SocketException: Connection reset
 			// javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
+			//  https://rpc.startale.com/zkatana: "rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 10.65.132.186:50071: connect: connection refused"
 			LOGGER.warn("Got a connection reset from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -2235,8 +2237,8 @@ public class EVMUtils {
 		return new EVMBlockChainConnector(_shortname, nodeOptimized, _haltOnRPCNodeSelectionFail);
 	}
 
-	public static EVMBlockChainConnector getEVMChainConnector(EVMChain _shortname, String _forced_nodeURL) {
-		return new EVMBlockChainConnector(_shortname, _forced_nodeURL);
+	public static EVMBlockChainConnector getEVMChainConnector(EVMChain _shortname, String _forced_nodeURL, boolean _haltOnRPCNodeSelectionFail) {
+		return new EVMBlockChainConnector(_shortname, _forced_nodeURL, _haltOnRPCNodeSelectionFail);
 	}
 
 	public static String makeSignedRequest(String _hexData, int _txRetryThreshold, int _confirmTimeInSecondsBeforeRetry, EVMBlockChainConnector _connector, Credentials _creds, String _contractAddress, boolean _haltOnUnconfirmedTX) {
@@ -3072,7 +3074,7 @@ public class EVMUtils {
 			LOGGER.info("PONG TX completed with tx hash: " + txhash2);
 			System.out.println("");
 
-			SystemUtils.sleepInSeconds(rand2*100);
+			if (i !=_nrIterations) SystemUtils.sleepInSeconds(rand2*100);
 
 		}
 

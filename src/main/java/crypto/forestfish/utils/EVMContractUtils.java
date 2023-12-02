@@ -75,10 +75,6 @@ public class EVMContractUtils {
 			} catch (Exception ex) {
 				LOGGER.warn("Unable to grab ERC721ContractInfo for " + _erc721_contract_address + ", nodeCallAttemptCount=" + nodeCallAttemptCount);
 
-				System.out.println("x: " + ex.getMessage());
-				System.exit(1);
-				SystemUtils.sleepInSeconds(1);
-
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = EVMUtils.analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node

@@ -90,6 +90,7 @@ public class AVMUtils {
 	public static final Long accountMinBalanceBase_microAlgo = 100000L; // Account holding ALGO, no asas etc..
 
 	public static AVMAccountBalance getAccountNativeBalance(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -113,7 +114,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the chain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -152,6 +153,7 @@ public class AVMUtils {
 	}
 
 	public static String getASARawJSONResponse(AVMBlockChainConnector _connector, Long _assetID) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -176,12 +178,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the chain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static Boolean checkIfASAExists(AVMBlockChainConnector _connector, Long _assetID) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -204,12 +207,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static ArrayList<MetaDataEntry> getASAConfigTransactionNotes(AVMBlockChainConnector _connector, Long _assetID) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		ArrayList<MetaDataEntry> result = new ArrayList<MetaDataEntry>();
@@ -257,12 +261,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchaino " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return result;
 	}
 
 	public static String getASALatestConfigTransactionNote(AVMBlockChainConnector _connector, Long _assetID) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -304,12 +309,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static AVMAccountTxSummary getTransactionSummaryForAccount(AVMBlockChainConnector _connector, String _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 
@@ -355,12 +361,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static AVMNFTStandard identifyARCStandard(AVMBlockChainConnector _connector, Long assetID) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -384,7 +391,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -475,6 +482,7 @@ public class AVMUtils {
 	}
 
 	public static ARC3Asset getARC3Info(AVMBlockChainConnector _connector, Long _assetID) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -494,7 +502,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -534,6 +542,7 @@ public class AVMUtils {
 	}
 
 	public static ARC69Asset getARC69Info(AVMBlockChainConnector _connector, Long _assetID) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -553,7 +562,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -594,6 +603,7 @@ public class AVMUtils {
 	}
 
 	public static ARC19Asset getARC19Info(AVMBlockChainConnector _connector, Long _assetID) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -613,7 +623,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -654,6 +664,7 @@ public class AVMUtils {
 	}
 
 	public static String getChainGenesis(AVMBlockChainConnector _connector) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -673,12 +684,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static Long getLastRound(AVMBlockChainConnector _connector) {
+		String meth = "getLastRound()";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -703,12 +715,12 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
-		SystemUtils.halt();
-		return null;
+		LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
+		return null; // intentional null response on fail here
 	}
 
 	public static Long getIndexerHealthCheck(AVMBlockChainConnector _connector) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -728,12 +740,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static List<AssetHolding> getASAOwnershipInfoForAccount(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -753,12 +766,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static List<ApplicationLocalState> getLocalStateInfoForAccount(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -778,12 +792,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static Long getTotalAppsOptedInForAccount(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -803,12 +818,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static Long getTotalAssetsOptedInForAccount(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -828,12 +844,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static Boolean holdsAssets(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -877,12 +894,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return true;
 	}
 
 	public static Long getTotalCreatedAppsForAccount(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -902,12 +920,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static Boolean isAccountRekeyed(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -931,12 +950,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static Boolean getRekeyAddressForAccount(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
@@ -960,12 +980,13 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
 
 	public static Long calculateMinimumBalanceForASAOwnedByAccount(AVMBlockChainConnector _connector, Address _address) {
+		String meth = "calculateMinimumBalanceForASAOwnedByAccount()";
 		Long minBalance = 0L;
 
 		int nodeCallAttemptCount = 0;
@@ -1027,7 +1048,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error("Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -2102,6 +2123,11 @@ public class AVMUtils {
 			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().contains("404;")) {
 			LOGGER.warn("Got a 404 non JSON response from nodeURL " + _relayNode.getUrl() + ".. will not retry, move on to next node");
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
+			switchNode = true;
+		} else if (_ex.getMessage().contains("503")) {
+			LOGGER.warn("Got a 503 non JSON response from nodeURL " + _relayNode.getUrl() + ".. will not retry, move on to next node");
+			// https://node.algoexplorerapi.io: <html><body><h1>503 Service  Service Unavailable</h1>No server is available to handle this request..
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("Invalid API Token")) {
@@ -3702,8 +3728,7 @@ public class AVMUtils {
 								asa_tokens_diff.put(asa_token_id, new AVMNftAccountBalance(token_balance_diff.toString(), false, token_balance.getName(), token_balance.getSymbol()));
 								chain_portfolio_diff.setArctokens(asa_tokens_diff); 
 							} else {
-								System.out.println("We have no official ARC ASA token info for " + asa_token_id.toString());
-								System.exit(1);
+								LOGGER.warn("We have no official ARC ASA token info for " + asa_token_id.toString());
 							}
 
 						} else if (token_balance_diff.compareTo(BigInteger.ZERO) < 0) {
@@ -3739,8 +3764,7 @@ public class AVMUtils {
 									asa_tokens_diff.put(asa_token_id, new AVMNftAccountBalance(token_balance_diff.toString(), false, token_balance.getName(), token_balance.getSymbol()));
 									chain_portfolio_diff.setArctokens(asa_tokens_diff); 
 								} else {
-									System.out.println("We have no official ARC ASA token info for " + asa_token_id.toString());
-									System.exit(1);
+									LOGGER.warn("We have no official ARC ASA token info for " + asa_token_id.toString());
 								}
 
 							} else {
