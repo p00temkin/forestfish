@@ -16,7 +16,7 @@ public class MoralisUtils {
 	public static String mapEVMChainToMoralisChainAlias(EVMChain chain) {
 		String chainAlias;
 		switch (chain) {
-		case ETHEREUM:  chainAlias = "eth";
+		case ETH:  chainAlias = "eth";
 		break;
 		case POLYGON:  chainAlias = "polygon";
 		break;

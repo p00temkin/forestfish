@@ -15,7 +15,7 @@ public class Policy {
 	@SuppressWarnings("serial")
 	private HashMap<String, Boolean> blockchains_enabled = new HashMap<String, Boolean>() {{
 		this.put(EVMChain.POLYGON.toString(), true);
-		this.put(EVMChain.ETHEREUM.toString(), true);
+		this.put(EVMChain.ETH.toString(), true);
 	}};
 	
 	// geoip access policy

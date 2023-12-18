@@ -3,11 +3,11 @@
   "erc721tokens": {
     "BORED_APE": {
       "category": "GAMING",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
       "description": "Bored Ape NFT",
       "linked_tokens": [
-        "ETHEREUM:APECOIN"
+        "ETH:APECOIN"
       ],
       "mintBlock": 0,
       "origins": [
@@ -18,7 +18,7 @@
     },
     "ENS_DOMAIN": {
       "category": "NAMESERVICE",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85",
       "description": "Ethereum Name Service Domain NFT",
       "linked_tokens": [],
@@ -31,7 +31,7 @@
     },
     "LUCHADORES": {
       "category": "GAMING",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x8b4616926705fb61e9c4eeac07cd946a5d4b0760",
       "description": "Luchadores game NFT",
       "linked_tokens": [
@@ -46,7 +46,7 @@
     },
     "WWW_LAND": {
       "category": "GAMING",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0xa1d4657e0e6507d5a94d06da93e94dc7c8c44b51",
       "description": "World Wide Webb game NFT",
       "linked_tokens": [],
@@ -59,7 +59,7 @@
     },
     "UNSTOPPABLE_DOMAIN": {
       "category": "NAMESERVICE",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x049aba7510f45ba5b64ea9e658e342f904db358d",
       "description": "Unstoppable Domains NFT",
       "linked_tokens": [],

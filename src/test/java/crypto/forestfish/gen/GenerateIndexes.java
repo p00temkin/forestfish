@@ -1,4 +1,4 @@
-package crypto.forestfish.utils;
+package crypto.forestfish.gen;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import crypto.forestfish.objects.embedded.evm.BlockchainDetailsEVM;
 import crypto.forestfish.objects.evm.model.erc20.ERC20TokenIndex;
 import crypto.forestfish.objects.evm.model.nft.EVMNFTIndex;
+import crypto.forestfish.utils.FilesUtils;
+import crypto.forestfish.utils.JSONUtils;
 
 public class GenerateIndexes {
 

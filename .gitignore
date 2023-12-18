@@ -4,6 +4,7 @@ bin
 *.sh
 *.jar
 *.pl
+*.swp
 *.bak
 node_modules
 package-lock.json

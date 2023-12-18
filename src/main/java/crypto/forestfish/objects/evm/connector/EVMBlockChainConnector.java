@@ -44,7 +44,7 @@ public class EVMBlockChainConnector {
 			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, _forced_nodeURL, web3j_cand);
 			//System.out.println("latestblocknr: " + latestblocknr);
 			long resp = System.currentTimeMillis() - init;
-			if ( (null != latestblocknr) && (latestblocknr>0L)) {
+			if ((null != latestblocknr) && (latestblocknr>0L)) {
 				LOGGER.info("node URL " + _forced_nodeURL + " looks fine for " + this.chain);
 				LOGGER.info("latestblock='" + latestblocknr + "', response_time=" + resp + " ms");
 				this.provider_instance = web3j_cand;

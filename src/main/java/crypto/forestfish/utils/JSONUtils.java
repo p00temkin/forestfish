@@ -121,13 +121,13 @@ public class JSONUtils {
 			pojo = mapper.readValue(jsonSTR, valueType);
 		} catch (JsonParseException e) {
 			LOGGER.error("Unable to parse JSON: " + e.getClass() + ": " + e.getMessage(), e);
-			LOGGER.error("JSON string for above error: " + jsonSTR);
+			LOGGER.error("JSON string for above error: " + StringsUtils.cutAndPadStringTo50(jsonSTR));
 		} catch (JsonMappingException e) {
 			LOGGER.error("Unable to map JSON: " + e.getClass() + ": " + e.getMessage(), e);
-			LOGGER.error("JSON string for above error: " + jsonSTR);
+			LOGGER.error("JSON string for above error: " + StringsUtils.cutAndPadStringTo50(jsonSTR));
 		} catch (IOException e) {
 			LOGGER.error("IO exception during JSON parsing: " + e.getClass() + ": " + e.getMessage(), e);
-			LOGGER.error("JSON string for above error: " + jsonSTR);
+			LOGGER.error("JSON string for above error: " + StringsUtils.cutAndPadStringTo50(jsonSTR));
 		}
 		return pojo;
 	}

@@ -67,6 +67,12 @@ Next, add a reference to this dependency in your new project pom.xml:
 - Improved Ethereum and Algorand support
 - Burst/Signum and more
 
+### Credits
+- Web3 Labs for creating web3j: https://www.web3labs.com/web3j-sdk
+- Headlong project for all things ABI: https://github.com/esaulpaugh/headlong
+- ChainList for keeping embedded public EVM nodes up-to-date: https://chainlist.org/
+- Algorand for their epic dev docs: https://developer.algorand.org/docs/
+
 ### Support/Donate
 
 To support this project directly:

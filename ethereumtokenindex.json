@@ -2,7 +2,7 @@
   "tokens": {
     "APECOIN": {
       "category": "GAMING",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x4d224452801aced8b2f0aebe155379bb5d594381",
       "decimals": 18,
       "name": "Bored Ape game token",
@@ -14,7 +14,7 @@
     },
     "CULT": {
       "category": "MEME",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0xf0f9d895aca5c8678f706fb8216fa22957685a13",
       "decimals": 18,
       "name": "The CULT DAO token",
@@ -26,7 +26,7 @@
     },
     "VIDYA": {
       "category": "GAMING",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x3d3d35bb9bec23b06ca00fe472b50e7a4c692c30",
       "decimals": 18,
       "name": "VIDYA token",
@@ -38,7 +38,7 @@
     },
     "TRAC": {
       "category": "SUPPLYCHAIN",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0xaa7a9ca87d3694b5755f213b5d04094b8d0f0a6f",
       "decimals": 18,
       "name": "OriginTrail token",
@@ -50,7 +50,7 @@
     },
     "USDT": {
       "category": "STABLECOIN",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
       "decimals": 6,
       "name": "Tether stablecoin token",
@@ -62,7 +62,7 @@
     },
     "SERUM": {
       "category": "DEFI",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x476c5e26a75bd202a9683ffd34359c0cc15be0ff",
       "decimals": 18,
       "name": "Serum token",
@@ -74,7 +74,7 @@
     },
     "DINU": {
       "category": "MEME",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0xbb1ee07d6c7baeb702949904080eb61f5d5e7732",
       "decimals": 18,
       "name": "The Dogey-Inu token",
@@ -86,7 +86,7 @@
     },
     "DAI": {
       "category": "STABLECOIN",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x6b175474e89094c44da98b954eedeac495271d0f",
       "decimals": 18,
       "name": "DAI stablecoin token",
@@ -98,7 +98,7 @@
     },
     "DOBE": {
       "category": "MEME",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0xe7ab45162f5979f09b0bda1cc7dfc97c270ea3d5",
       "decimals": 18,
       "name": "The Dobermann token",
@@ -110,7 +110,7 @@
     },
     "DOJO": {
       "category": "MEME",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x180dae91d6d56235453a892d2e56a3e40ba81df8",
       "decimals": 18,
       "name": "The DOJO token",
@@ -122,7 +122,7 @@
     },
     "FWB": {
       "category": "SOCIAL",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x35bd01fc9d6d5d81ca9e055db88dc49aa2c699a8",
       "decimals": 18,
       "name": "Friends With Benefits token",
@@ -134,7 +134,7 @@
     },
     "JINDOGE": {
       "category": "MEME",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x3f4cd830543db25254ec0f05eac058d4d6e86166",
       "decimals": 18,
       "name": "The Jindoge token",
@@ -146,7 +146,7 @@
     },
     "JSHIBA": {
       "category": "MEME",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x1426cc6d52d1b14e2b3b1cb04d57ea42b39c4c7c",
       "decimals": 18,
       "name": "The Jomon Shiba token",
@@ -158,7 +158,7 @@
     },
     "NB": {
       "category": "MEME",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x20be82943e8d9c682580e11d424ec15db95b4a24",
       "decimals": 18,
       "name": "The No Bull token",
@@ -170,7 +170,7 @@
     },
     "SHUSHKY": {
       "category": "MEME",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x236d53148f83706c3d670064809577385f923a75",
       "decimals": 18,
       "name": "The Siberian Husky token",
@@ -182,7 +182,7 @@
     },
     "TEST": {
       "category": "TEST",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x2b591e99afe9f32eaa6214f7b7629768c40eeb39",
       "decimals": 18,
       "name": "TEST token",
@@ -193,7 +193,7 @@
     },
     "SOS": {
       "category": "NFT",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x3b484b82567a09e2588a13d54d032153f0c0aee0",
       "decimals": 18,
       "name": "The OpenDAO SOS token",
@@ -205,7 +205,7 @@
     },
     "UNIDX": {
       "category": "DEFI",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x95b3497bbcccc46a8f45f5cf54b0878b39f8d96c",
       "decimals": 18,
       "name": "UniDex token",
@@ -217,7 +217,7 @@
     },
     "XOR": {
       "category": "UNKNOWN",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0x40fd72257597aa14c7231a7b1aaa29fce868f677",
       "decimals": 18,
       "name": "The SORA token",
@@ -229,7 +229,7 @@
     },
     "USDC": {
       "category": "STABLECOIN",
-      "chain": "ETHEREUM",
+      "chain": "ETH",
       "contractAddress": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
       "decimals": 6,
       "name": "USDC stablecoin token",

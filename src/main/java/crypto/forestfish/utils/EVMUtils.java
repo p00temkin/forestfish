@@ -1897,6 +1897,7 @@ public class EVMUtils {
 				_ex.getMessage().contains("Invalid response received") ||
 				_ex.getMessage().contains("out of range") ||
 				false) {
+			// org.web3j.protocol.exceptions.ClientConnectionException: Invalid response received: 403; {"message":"Forbidden"}
 			// org.web3j.protocol.exceptions.ClientConnectionException: Invalid response received: 521; 
 			// https://zksync.drpc.org: Numeric value (4294935296) out of range of int (-2147483648 - 2147483647) at [Source: (ByteArrayInputStream); line: 1, column: 79] (through reference chain: org.web3j.protocol.core.methods.response.EthGasPrice["error"]->org.web3j.protocol.core.Response$Error["code"])"
 			LOGGER.info("Got an unknown/invalid RPC reply from nodeURL " + _nodeURL + ".. will not retry, move on to next node. ex: " + _ex.getMessage());
@@ -2029,7 +2030,7 @@ public class EVMUtils {
 		} else if (_ex.getMessage().toLowerCase().contains("nonce too low")) {
 			// INTERNAL_ERROR: nonce too low
 			LOGGER.warn("Got nonce too low from nodeURL " + _nodeURL + ".. this usually means you screwed up when passing a custom nonce");
-			if (_chain == EVMChain.BASETEST) {
+			if (_chain == EVMChain.BASEGOERLITEST) {
 				LOGGER.info("This does happen from time to time on the BASE test network though, lets retry");
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
@@ -2932,7 +2933,7 @@ public class EVMUtils {
 		EVMBlockChainUltraConnector ultra_connector = new EVMBlockChainUltraConnector(BlockchainType.PUBLIC,
 				new HashMap<String, Boolean>() {{
 					this.put(EVMChain.POLYGON.toString(), true);
-					this.put(EVMChain.ETHEREUM.toString(), true);
+					this.put(EVMChain.ETH.toString(), true);
 				}}, _haltOnRPCNodeSelectionFail);
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 

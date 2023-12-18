@@ -18,6 +18,7 @@ public enum ArbitrumONEERC20Token {
 	// Game
 	MAGIC,
 	DMT,
+	WINR,
 	
 	// Stables
 	USDC,
