@@ -30,6 +30,7 @@ import crypto.forestfish.enums.evm.KavaTestERC20Token;
 import crypto.forestfish.enums.evm.KlaytnKIP7Token;
 import crypto.forestfish.enums.evm.LineaERC20Token;
 import crypto.forestfish.enums.evm.LineaERC721Token;
+import crypto.forestfish.enums.evm.MantaERC20Token;
 import crypto.forestfish.enums.evm.MantleERC20Token;
 import crypto.forestfish.enums.evm.MantleERC721Token;
 import crypto.forestfish.enums.evm.MantleTestnetERC20Token;
@@ -1207,50 +1208,22 @@ public class BlockchainDetailsEVM {
 	}
 
 	@SuppressWarnings("serial")
-	public static ERC20TokenIndex generateCeloTokenIndex() {
+	public static ERC20TokenIndex generateMantaTokenIndex() {
 
 		HashMap<String, EVMERC20TokenInfo> tokens = new HashMap<>();
 
-		// cUSD
-		EVMERC20TokenInfo cusd = new EVMERC20TokenInfo(
-				CeloERC20Token.cUSD.toString(), 
-				"0x765DE816845861e75A25fCA122bb6898B8B1282a",
-				"CELO USD stable token", 
+		// stone
+		EVMERC20TokenInfo stone = new EVMERC20TokenInfo(
+				MantaERC20Token.STONE.toString(), 
+				"0xEc901DA9c68E90798BbBb74c11406A32A70652C3",
+				"StakeStone Ether (STONE) token", 
 				18,
-				TokenCategory.STABLECOIN.toString(),
-				EVMChain.CELO.toString(),
+				TokenCategory.DEFI.toString(),
+				EVMChain.MANTA.toString(),
 				new ArrayList<String>() {{
-					this.add("https://explorer.celo.org/token/0x765DE816845861e75A25fCA122bb6898B8B1282a");
-					this.add("https://www.coingecko.com/en/coins/celo-dollar");
+					this.add("https://pacific-explorer.manta.network/address/0xEc901DA9c68E90798BbBb74c11406A32A70652C3");
 				}});
-		tokens.put(CeloERC20Token.cUSD.toString(), cusd);
-
-		EVMERC20TokenInfo zerocasino = new EVMERC20TokenInfo(
-				CeloERC20Token.ZEROCASINO.toString(), 
-				"0xbccEc3bfd4639440b1714a502bb3940F407b890A",
-				"0CASINO token", 
-				18,
-				TokenCategory.TEST.toString(),
-				EVMChain.CELO.toString(),
-				new ArrayList<String>() {{
-					this.add("https://explorer.celo.org/token/0xbccEc3bfd4639440b1714a502bb3940F407b890A");
-				}});
-		tokens.put(CeloERC20Token.ZEROCASINO.toString(), zerocasino);
-
-		// test
-		/*
-		EVMERC20TokenInfo test = new EVMERC20TokenInfo(
-				CeloERC20Token.TEST.toString(), 
-				"0xbccEc3bfd4639440b1714a502bb3940F407b890A",
-				"TEST token", 
-				18,
-				TokenCategory.TEST.toString(),
-				EVMChain.CELO.toString(),
-				new ArrayList<String>() {{
-					this.add("https://explorer.celo.org/token/0xMOJO");
-				}});
-		tokens.put(CeloERC20Token.TEST.toString(), test);
-		 */
+		tokens.put(MantaERC20Token.STONE.toString(), stone);
 
 		return new ERC20TokenIndex(tokens);
 	}
@@ -1689,13 +1662,133 @@ public class BlockchainDetailsEVM {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 		
+		// cmrangers
+		EVMChainInfo cmrangers = new EVMChainInfo(
+				EVMChain.CMRANGERS.toString(), 
+				"Rangers Protocol ConnectorManager", 
+				38400L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Rangers Protocol ConnectorManager Gas Token", "cmRPG", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"9000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://cm.rangersprotocol.com/api/jsonrpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.rangersprotocol.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://bridge.rangersprotocol.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://rangersprotocol.com");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.CMRANGERS, cmrangers);
+		
+		// cmrangers_test
+		EVMChainInfo cmrangers_test = new EVMChainInfo(
+				EVMChain.CMRANGERSTEST.toString(), 
+				"Rangers ConnectorManager Testnet", 
+				38401L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Rangers ConnectorManager Testnet Token Gas Token", "ttRPG", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"9000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://robin-cm.rangersprotocol.com/api/jsonrpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://robin-rangersscan.rangersprotocol.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://bridge.rangersprotocol.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://rangersprotocol.com");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.CMRANGERSTEST, cmrangers_test);
+		
+		// rangers_test
+		EVMChainInfo rangers_test = new EVMChainInfo(
+				EVMChain.RANGERSTEST.toString(), 
+				"Rangers Protocol Testnet Robin", 
+				9527L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Rangers Protocol Testnet Robin Gas Token", "tRPG", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"9000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://mainnet.rangersprotocol.com/api/jsonrpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.rangersprotocol.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://bridge.rangersprotocol.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://rangersprotocol.com");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.RANGERSTEST, rangers_test);
+		
+		// rangers
+		EVMChainInfo rangers = new EVMChainInfo(
+				EVMChain.RANGERS.toString(), 
+				"Rangers Protocol Mainnet", 
+				2025L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Rangers Protocol Mainnet Gas Token", "RPG", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"9000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://mainnet.rangersprotocol.com/api/jsonrpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.rangersprotocol.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://bridge.rangersprotocol.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://rangersprotocol.com");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.RANGERS, rangers);
+		
 		// siberium_test
 		EVMChainInfo siberium_test = new EVMChainInfo(
 				EVMChain.SIBERIUMTEST.toString(), 
 				"Siberium Test Network", 
 				111000L, 
 				BlockchainType.PUBLIC.toString(),
-				new EVMCurrency("Siberium Testnet Gas Token", "SIBR", 18), 
+				new EVMCurrency("Siberium Test Network Gas Token", "SIBR", 18), 
 				EVMPriceMechanism.EIP1559.toString(),
 				"1000000000", //1 gwei
 				null, // enforced min gasprice
@@ -1718,6 +1811,37 @@ public class BlockchainDetailsEVM {
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.SIBERIUMTEST, siberium_test);
+		
+		// rari_test
+		EVMChainInfo rari_test = new EVMChainInfo(
+				EVMChain.RARITEST.toString(), 
+				"RARI Testnet", 
+				1918988905L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("RARI Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://testnet.rpc.rarichain.org/http");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.rarichain.org/");
+				}},
+				new ArrayList<String>() {{
+					this.add("Arbitrum Sepolia -> Rari: https://bridge.rarichain.org/");
+					this.add("https://info.rarichain.org/faucet");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://info.rarichain.org/");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.RARITEST, rari_test);
 		
 		// siberium
 		EVMChainInfo siberium = new EVMChainInfo(
@@ -1930,7 +2054,8 @@ public class BlockchainDetailsEVM {
 					this.add("https://sepolia-explorer.arbitrum.io");
 				}},
 				new ArrayList<String>() {{
-					this.add("<todo>");
+					this.add("https://bwarelabs.com/faucets/arbitrum-sepolia");
+					this.add("Sepolia -> Arbitrum Sepolia: https://bridge.arbitrum.io/?l2ChainId=421614");
 				}},
 				new ArrayList<String>() {{
 					this.add("https://chainlist.org/chain/421614");
@@ -2061,12 +2186,42 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.JOC, joc);
 		
+		// zkfair
+		EVMChainInfo zkfair = new EVMChainInfo(
+				EVMChain.ZKFAIR.toString(), 
+				"ZKFair Mainnet", 
+				42766L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("ZKFair Mainnet Gas Token", "USDC", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.zkfair.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.zkfair.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://wallet.zkfair.io/");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://zkfair.io");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ZKFAIR, zkfair);
+		
 		// zkfair_test
 		EVMChainInfo zkfair_test = new EVMChainInfo(
 				EVMChain.ZKFAIRTEST.toString(), 
 				"ZKFair Testnet", 
 				43851L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node gone
 				new EVMCurrency("ZKFair Testnet Gas Token", "USDC", 18), 
 				EVMPriceMechanism.EIP1559.toString(),
 				"1000000000", //1 gwei
@@ -2242,7 +2397,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://manta.network");
 				}},
-				generateDummyTokenIndex(),
+				generateMantaTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.MANTA, manta);
 		
@@ -2333,7 +2488,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://www.gnosis.io/");
 				}},
-				generateGnosisTokenIndex(),
+				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.GNOSISTEST, gnosis_test);
 		
@@ -2363,7 +2518,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://immutable.com");
 				}},
-				generateGnosisTokenIndex(),
+				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.IMMUTABLEZKEVMTEST, immutable_test);
 		
@@ -2423,7 +2578,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://eosnetwork.com");
 				}},
-				generateGnosisTokenIndex(),
+				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.EOSEVM, eos);
 		
@@ -2658,6 +2813,67 @@ public class BlockchainDetailsEVM {
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.ZORA, zora);
+		
+		// kroma
+		EVMChainInfo kroma = new EVMChainInfo(
+				EVMChain.KROMA.toString(), 
+				"Kroma Mainnet", 
+				255L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Kroma Gas Token", "ETH", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://api.kroma.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://blockscout.kroma.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://kroma.network/bridge");
+					this.add("https://owlto.finance/?to=Kroma");
+				}},
+				new ArrayList<String>() {{
+					this.add("kroma.network");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.KROMA, kroma);
+		
+		// kroma sepolia
+		EVMChainInfo kromasep = new EVMChainInfo(
+				EVMChain.KROMASEPOLIATEST.toString(), 
+				"Kroma Sepolia", 
+				2358L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Kroma Sepolia Gas Token", "ETH", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://api.sepolia.kroma.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://blockscout.sepolia.kroma.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://kroma.network/bridge");
+				}},
+				new ArrayList<String>() {{
+					this.add("kroma.network");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.KROMASEPOLIATEST, kromasep);
 		
 		// zora sepolia
 		EVMChainInfo zorasep = new EVMChainInfo(
@@ -3679,10 +3895,6 @@ public class BlockchainDetailsEVM {
 					this.add("https://scroll-testnet-public.unifra.io");
 					this.add("https://1rpc.io/scroll/sepolia");
 					this.add("https://scroll-sepolia.chainstacklabs.com");
-					this.add("https://rpc-sepolia.rockx.com");
-					this.add("https://rpc.sepolia.ethpandaops.io");
-					this.add("https://sepolia.gateway.tenderly.co");
-					this.add("https://ethereum-sepolia.publicnode.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -4552,7 +4764,7 @@ public class BlockchainDetailsEVM {
 				null, // enforced min gasprice
 				"300000", //300k units
 				new ArrayList<String>() {{
-					this.add("https://rollux.rpc.tanenbaum.io");
+					//this.add("https://rollux.rpc.tanenbaum.io"); // ??
 					this.add("https://rpc.tanenbaum.io");
 					this.add("https://syscoin-tanenbaum-evm.publicnode.com");
 				}}, 
@@ -9260,6 +9472,55 @@ public class BlockchainDetailsEVM {
 					this.add("https://www.coingecko.com/en/coins/wrapped-xdai");
 				}});
 		tokens.put(GnosisERC20Token.WXDAI.toString(), wxdai);
+	
+		return new ERC20TokenIndex(tokens);
+	}
+
+	@SuppressWarnings("serial")
+	public static ERC20TokenIndex generateCeloTokenIndex() {
+	
+		HashMap<String, EVMERC20TokenInfo> tokens = new HashMap<>();
+	
+		// cUSD
+		EVMERC20TokenInfo cusd = new EVMERC20TokenInfo(
+				CeloERC20Token.cUSD.toString(), 
+				"0x765DE816845861e75A25fCA122bb6898B8B1282a",
+				"CELO USD stable token", 
+				18,
+				TokenCategory.STABLECOIN.toString(),
+				EVMChain.CELO.toString(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.celo.org/token/0x765DE816845861e75A25fCA122bb6898B8B1282a");
+					this.add("https://www.coingecko.com/en/coins/celo-dollar");
+				}});
+		tokens.put(CeloERC20Token.cUSD.toString(), cusd);
+	
+		EVMERC20TokenInfo zerocasino = new EVMERC20TokenInfo(
+				CeloERC20Token.ZEROCASINO.toString(), 
+				"0xbccEc3bfd4639440b1714a502bb3940F407b890A",
+				"0CASINO token", 
+				18,
+				TokenCategory.TEST.toString(),
+				EVMChain.CELO.toString(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.celo.org/token/0xbccEc3bfd4639440b1714a502bb3940F407b890A");
+				}});
+		tokens.put(CeloERC20Token.ZEROCASINO.toString(), zerocasino);
+	
+		// test
+		/*
+		EVMERC20TokenInfo test = new EVMERC20TokenInfo(
+				CeloERC20Token.TEST.toString(), 
+				"0xbccEc3bfd4639440b1714a502bb3940F407b890A",
+				"TEST token", 
+				18,
+				TokenCategory.TEST.toString(),
+				EVMChain.CELO.toString(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.celo.org/token/0xMOJO");
+				}});
+		tokens.put(CeloERC20Token.TEST.toString(), test);
+		 */
 	
 		return new ERC20TokenIndex(tokens);
 	}

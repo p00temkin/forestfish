@@ -11,7 +11,6 @@ import java.util.HexFormat;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.bouncycastle.crypto.digests.SHA512tDigest;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -328,11 +327,12 @@ public class AVMUtils {
 				// Transactions are returned oldest to newest. Max 10000
 				Response<TransactionsResponse> respCall = _connector.getIndexer_instance()
 						.lookupAccountTransactions(createAddressFromSTR(_address))
-						.limit(Long.MAX_VALUE)
+						//.limit(Long.MAX_VALUE) // setting this will lead to timeout for some indexers
 						.execute();
 				if (!respCall.isSuccessful()) {
-					LOGGER.debug(_connector.getChain() + " getTransactionSummaryForAccount() respCall.message(): " + respCall.message());
-					
+					LOGGER.warn(_connector.getChain() + " getTransactionSummaryForAccount() respCall.message(): " + respCall.message());
+					System.exit(1);
+
 					// indexer exceptions (readonly)
 					AVMIndexerException avmE = analyzeIndexerException(_connector.getChain(), _connector.getIndexerNode(), new Exception(respCall.message()));
 					AVMIndexerExceptionActionState avmEAS = actAndGetStateAVMIndexerException(avmE, _connector, false);
@@ -1296,7 +1296,7 @@ public class AVMUtils {
 
 		boolean tx_submitted = false;
 		String txid = null;
-		
+
 		// Sanitycheck
 		if (!AVMUtils.isValidAlgorandAddress(_target_address.toString())) {
 			LOGGER.info("Target address is not valid: " + _target_address.toString());
@@ -2080,7 +2080,7 @@ public class AVMUtils {
 				false) {
 			// java.net.SocketTimeoutException: connect timed out
 			// java.net.SocketTimeoutException: Read timed out
-			LOGGER.info("Got a timeout .. will retry .. ex: " + _ex.getMessage());
+			LOGGER.info("Got a timeout against relaynode " + _relayNode.getUrl() + " .. will retry .. ex: " + _ex.getMessage());
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
@@ -2173,7 +2173,7 @@ public class AVMUtils {
 				false) {
 			// java.net.SocketTimeoutException: connect timed out
 			// java.net.SocketTimeoutException: Read timed out
-			LOGGER.info("Got a timeout .. will retry .. ex: " + _ex.getMessage());
+			LOGGER.info("Got a timeout against indexer " + _indexerNode.getUrl() + " .. will retry .. ex: " + _ex.getMessage());
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
@@ -3005,28 +3005,28 @@ public class AVMUtils {
 	public static boolean isValidAlgorandAddressSimple(String _address) {
 		return ALGO_ADDRESS_PATTERN.matcher(_address).matches();
 	}
-	
-	
-    private static final char[] ALGORAND_BASE32_MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
-    private static final int[] DECODE_MAP = new int[128];
 
-    static {
-        for (int i = 0; i < DECODE_MAP.length; i++) {
-            DECODE_MAP[i] = -1;
-        }
-        for (int i = 0; i < ALGORAND_BASE32_MAP.length; i++) {
-            DECODE_MAP[ALGORAND_BASE32_MAP[i]] = i;
-        }
-    }
-    
-    public static boolean isValidAlgorandAddress(String _address) {
-        try {
-            new Address(_address);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+
+	private static final char[] ALGORAND_BASE32_MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
+	private static final int[] DECODE_MAP = new int[128];
+
+	static {
+		for (int i = 0; i < DECODE_MAP.length; i++) {
+			DECODE_MAP[i] = -1;
+		}
+		for (int i = 0; i < ALGORAND_BASE32_MAP.length; i++) {
+			DECODE_MAP[ALGORAND_BASE32_MAP[i]] = i;
+		}
+	}
+
+	public static boolean isValidAlgorandAddress(String _address) {
+		try {
+			new Address(_address);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public static AVMNFTStandard identifyARCStandardFromMetadata(String metadata_json) {
 
@@ -3163,6 +3163,8 @@ public class AVMUtils {
 								boolean accounts_holds_assets = false;
 
 								if (null != connector.getIndexer_instance()) {
+
+									if (_debug) System.out.println("Getting tx summary on network ");
 									txCount = AVMUtils.getTransactionSummaryForAccount(connector, _account_addr).getTxcount();
 
 									/**
@@ -3562,7 +3564,11 @@ public class AVMUtils {
 				} else {
 					sb.append(StringsUtils.cutAndPadStringToN(chain + " balance", native_name_offset) + StringsUtils.cutAndPadStringToN(" (" + NumUtils.round(native_balance.getBalanceInALGO(),2) + " " + chainInfo.getNativeCurrency().getSymbol() + ")", symbol_char_offset) + "\n");
 				}
-				sb.append(StringsUtils.cutAndPadStringToN(" - txCount: " + chain_portfolio.getTxCount(), 20) + "\n");
+				if (chain_portfolio.getTxCount() == 1000L) {
+					sb.append(StringsUtils.cutAndPadStringToN(" - txCount: " + chain_portfolio.getTxCount(), 20) + "++\n");
+				} else {
+					sb.append(StringsUtils.cutAndPadStringToN(" - txCount: " + chain_portfolio.getTxCount(), 20) + "\n");	
+				}
 				sb.append(breakline + "\n");
 
 				/**
@@ -3688,7 +3694,7 @@ public class AVMUtils {
 						} else {
 							AVMNftAccountBalance token_balance_ref = chain_portfolio_ref.getNfttokens().get(asa_token_id.toString());
 							if (token_balance_ref == null) {
-								token_balance_refBI = new BigInteger("");
+								token_balance_refBI = new BigInteger("0");
 							} else {
 								token_balance_refBI = new BigInteger(token_balance_ref.getBalance());
 							}

@@ -2020,6 +2020,10 @@ public class EVMUtils {
 			// Invalid chain id.
 			LOGGER.warn("Got invalid chain id from nodeURL " + _nodeURL + ".. will not retry since this usually means you need to top up the account");
 			exceptionType = ExceptionType.FATAL;	
+		} else if (_ex.getMessage().toLowerCase().contains("exceeds block gas limit")) {
+			// https://rpc.test.siberium.net: exceeds block gas limit
+			LOGGER.warn("Got \"exceeds block gas limit\" from nodeURL " + _nodeURL + ".. will not retry since this usually means you need to adjust your gas limit");
+			exceptionType = ExceptionType.FATAL;
 		} else if (false ||
 				_ex.getMessage().toLowerCase().contains("insufficient funds") ||
 				_ex.getMessage().toLowerCase().contains("insufficient balance") ||
@@ -2067,7 +2071,9 @@ public class EVMUtils {
 		} else if (false ||
 				_ex.getMessage().contains("No content to map due to end-of-input") ||
 				_ex.getMessage().contains("Cannot deserialize value of type") ||
+				_ex.getMessage().contains("Invalid") ||
 				false) {
+			// https://rpc.sepolia.ethpandaops.io: "Invalid"
 			// com.fasterxml.jackson.databind.exc.MismatchedInputException: No content to map due to end-of-input
 			// Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)
 			LOGGER.warn("Got a bad response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
@@ -2354,10 +2360,8 @@ public class EVMUtils {
 				 */
 				EVMBlockChainConnector connector_temp = _ultra_connector.getConnectors().get(chain);
 				if (null == connector_temp) {
-					LOGGER.warn("We dont have a valid connector for chain " + chain);
-					LOGGER.info("Skipping and will move on ..");
-					LOGGER.info("or attempt to reconnect? ..");
-					SystemUtils.halt();
+					LOGGER.debug("We dont have a valid connector for chain " + chain);
+					LOGGER.debug("Skipping and will move on ..");
 				} else {
 					BigInteger latestBlockNr = EVMUtils.getLatestBlockNumberOpportunistic(connector_temp);
 					if (null == latestBlockNr) {
