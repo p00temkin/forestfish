@@ -49,6 +49,7 @@ import crypto.forestfish.enums.evm.PulsechainERC20Token;
 import crypto.forestfish.enums.evm.ScrollERC20Token;
 import crypto.forestfish.enums.evm.WemixERC20Token;
 import crypto.forestfish.enums.evm.ZKEVMERC20Token;
+import crypto.forestfish.enums.evm.ZKFairERC20Token;
 import crypto.forestfish.enums.evm.ZKSyncEraERC721Token;
 import crypto.forestfish.enums.evm.ZkSyncERC20Token;
 import crypto.forestfish.objects.evm.model.chain.EVMChainIndex;
@@ -180,400 +181,22 @@ public class BlockchainDetailsEVM {
 	}
 
 	@SuppressWarnings("serial")
-	public static ERC20TokenIndex generateBitkubTokenIndex() {
+	public static ERC20TokenIndex generateZKFairTokenIndex() {
 
 		HashMap<String, EVMERC20TokenInfo> tokens = new HashMap<>();
 
-		// wrapped bitkub (KKUB)
-		EVMERC20TokenInfo kkub = new EVMERC20TokenInfo(
-				BitkubKAP20Token.KKUB.toString(), 
-				"0x67eBD850304c70d983B2d1b93ea79c7CD6c3F6b5",
-				"Wrapped KUB (KKUB) token", 
+		// zkfair
+		EVMERC20TokenInfo zkfair = new EVMERC20TokenInfo(
+				ZKFairERC20Token.ZKFAIR.toString(), 
+				"0x1cD3E2A23C45A690a18Ed93FD1412543f464158F",
+				"ZKFair token", 
 				18,
-				TokenCategory.DEFI.toString(),
-				EVMChain.BITKUB.toString(),
+				TokenCategory.DAO.toString(),
+				EVMChain.ZKFAIR.toString(),
 				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x67eBD850304c70d983B2d1b93ea79c7CD6c3F6b5/token-transfers");
+					this.add("https://scan.zkfair.io/address/0x1cD3E2A23C45A690a18Ed93FD1412543f464158F");
 				}});
-		tokens.put(BitkubKAP20Token.KKUB.toString(), kkub);
-
-		// mmv diamon LP
-		EVMERC20TokenInfo diamonLP = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_DIAMON_LP.toString(), 
-				"0x7Bf51541208A70b784006eF7Bd6F774F4012Cd38",
-				"Morning Moon Village diamon LP", 
-				18,
-				TokenCategory.DEFI.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x7Bf51541208A70b784006eF7Bd6F774F4012Cd38/token-transfers");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_DIAMON_LP.toString(), diamonLP);
-
-		// mmv rag
-		EVMERC20TokenInfo mmv_rag = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_RAG.toString(), 
-				"0x1F14690e6c7D02fCeB67c6b818aa2C093e16fe27",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.DEFI.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x1F14690e6c7D02fCeB67c6b818aa2C093e16fe27/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_RAG.toString(), mmv_rag);
-
-		// mmv leather piece
-		EVMERC20TokenInfo mmv_leather_piece = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_LEATHER_PIECE.toString(), 
-				"0x15aa87eb74069d3800f8e75A93FC04fda79AA24d",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.DEFI.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x15aa87eb74069d3800f8e75A93FC04fda79AA24d/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_LEATHER_PIECE.toString(), mmv_leather_piece);
-
-		// mmv white button mushroom
-		EVMERC20TokenInfo mmv_white_button_mushroom = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_WBUTTON_MUSHROOM.toString(), 
-				"0xcb74a1A9dB4285E97D4dE8aa4B61cd10277Ab479",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xcb74a1A9dB4285E97D4dE8aa4B61cd10277Ab479/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_WBUTTON_MUSHROOM.toString(), mmv_white_button_mushroom);
-
-		// mmv tomato soup
-		EVMERC20TokenInfo mmv_tomato_soup = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_TOMATOSOUP.toString(), 
-				"0xbE46a81D181069aC0Ff18F4F7239Df10422E6DC3",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xbE46a81D181069aC0Ff18F4F7239Df10422E6DC3/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_TOMATOSOUP.toString(), mmv_tomato_soup);
-
-		// mmv tomato seed
-		EVMERC20TokenInfo mmv_tomato_seed = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_TOMATOSEED.toString(), 
-				"0xe991151Bf43bD712beAC33e5cFF2580841c9b440",
-				"Morning Moon Village game item", 
-				18,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xe991151Bf43bD712beAC33e5cFF2580841c9b440/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_TOMATOSEED.toString(), mmv_tomato_seed);
-
-		// mmv stir fried cabbage
-		EVMERC20TokenInfo mmv_sf_cabbage = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_SF_CABBAGE.toString(), 
-				"0xc2990515610028139f68016b321a0c36a5101104",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xc2990515610028139f68016b321a0c36a5101104/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_SF_CABBAGE.toString(), mmv_sf_cabbage);
-
-		// mmv silver key
-		EVMERC20TokenInfo mmv_silver_key = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_SILVERKEY.toString(), 
-				"0x73d05f935534918bbc87cb353928cb957ed03697",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x73d05f935534918bbc87cb353928cb957ed03697/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_SILVERKEY.toString(), mmv_silver_key);
-
-		// mmv shitake mushroom
-		EVMERC20TokenInfo mmv_shitake_mushroom = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_SHITAKE_MUSHROOM.toString(), 
-				"0xd3b314b101b26fa2bd19df0d845a632d72c4fc44",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xd3b314b101b26fa2bd19df0d845a632d72c4fc44/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_SHITAKE_MUSHROOM.toString(), mmv_shitake_mushroom);
-
-		// mmv salad
-		EVMERC20TokenInfo mmv_salad = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_SALAD.toString(), 
-				"0x2944d051dc66669e04629b827ae9e3ebcb1e48d9",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x2944d051dc66669e04629b827ae9e3ebcb1e48d9/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_SALAD.toString(), mmv_salad);
-
-		// mmv lumi
-		EVMERC20TokenInfo mmv_lumi = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_LUMI.toString(), 
-				"0x95013dcb6a561e6c003aed9c43fb8b64008aa361",
-				"Morning Moon Village game item", 
-				18,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x95013dcb6a561e6c003aed9c43fb8b64008aa361/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_LUMI.toString(), mmv_lumi);
-
-		// mmv king trumpet mushroom
-		EVMERC20TokenInfo mmv_king_trumpet_mushroom = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_KTRUMPET_MUSHROOM.toString(), 
-				"0xc14f24835efe355106ab8725488f16f93c8c5f96",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xc14f24835efe355106ab8725488f16f93c8c5f96/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_KTRUMPET_MUSHROOM.toString(), mmv_king_trumpet_mushroom);
-
-		// mmv honey
-		EVMERC20TokenInfo mmv_honey = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_HONEY.toString(), 
-				"0x575d7bfdbdf255d5741571334f159d903de1544f",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x575d7bfdbdf255d5741571334f159d903de1544f/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_HONEY.toString(), mmv_honey);
-
-		// mmv greenapple
-		EVMERC20TokenInfo mmv_greenapple = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_GREENAPPLE.toString(), 
-				"0x417e28bd41cd45d9f996b69450f81b02821a6d64",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x417e28bd41cd45d9f996b69450f81b02821a6d64/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_GREENAPPLE.toString(), mmv_greenapple);
-
-		// mmv driedapple
-		EVMERC20TokenInfo mmv_driedapple = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_DRIEDAPPLE.toString(), 
-				"0xb035c229903a0cff939be36b532d8c11204e6837",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xb035c229903a0cff939be36b532d8c11204e6837/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_DRIEDAPPLE.toString(), mmv_driedapple);
-
-		// mmv corn soup
-		EVMERC20TokenInfo mmv_cornsoup = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_CORNSOUP.toString(), 
-				"0x2b09ae76dfc601210407560502b340e104787b34",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x2b09ae76dfc601210407560502b340e104787b34/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_CORNSOUP.toString(), mmv_cornsoup);
-
-		// mmv corn seed
-		EVMERC20TokenInfo mmv_cornseed = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_CORNSEED.toString(), 
-				"0xe27aebed61be207e83fc05fbc408420c737881da",
-				"Morning Moon Village game item", 
-				18,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xe27aebed61be207e83fc05fbc408420c737881da/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_CORNSEED.toString(), mmv_cornseed);
-
-		// mmv carrot seed
-		EVMERC20TokenInfo mmv_carrotseed = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_CARROTSEED.toString(), 
-				"0x7b263d648fff39142abecb07a1bb85297e09982d",
-				"Morning Moon Village game item", 
-				18,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x7b263d648fff39142abecb07a1bb85297e09982d/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_CARROTSEED.toString(), mmv_carrotseed);
-
-		// mmv cabbage seed
-		EVMERC20TokenInfo mmv_cabbageseed = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_CABBAGESEED.toString(), 
-				"0x1f8b5af0ec97c44b24366b36c40f2d4aca2c73e2",
-				"Morning Moon Village game item", 
-				18,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x1f8b5af0ec97c44b24366b36c40f2d4aca2c73e2/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_CABBAGESEED.toString(), mmv_cabbageseed);
-
-		// green herb
-		EVMERC20TokenInfo mmv_greenherb = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_GREENHERB.toString(), 
-				"0xde496524c30c460922e7810ddc6c806c0e2c5354",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xde496524c30c460922e7810ddc6c806c0e2c5354/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_GREENHERB.toString(), mmv_greenherb);
-
-		// lesser health potion
-		EVMERC20TokenInfo mmv_lhealth_potion = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_LHEALTHPOTION.toString(), 
-				"0xe66f21d817af8f99129af6023332dd7b37503b9d",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xe66f21d817af8f99129af6023332dd7b37503b9d/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_LHEALTHPOTION.toString(), mmv_lhealth_potion);
-
-		// health potion
-		EVMERC20TokenInfo mmv_health_potion = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_HEALTHPOTION.toString(), 
-				"0xbd60c8caf6e22907576d9e363ab1f91b43aaf769",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xbd60c8caf6e22907576d9e363ab1f91b43aaf769/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_HEALTHPOTION.toString(), mmv_health_potion);
-
-		// silver key
-		EVMERC20TokenInfo mmv_silverkey = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_LHEALTHPOTION.toString(), 
-				"0xe66f21d817af8f99129af6023332dd7b37503b9d",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xe66f21d817af8f99129af6023332dd7b37503b9d/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_LHEALTHPOTION.toString(), mmv_silverkey);
-
-		// red herb
-		EVMERC20TokenInfo mmv_redherb = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_REDHERB.toString(), 
-				"0x3F69C740456150268C5e23bD05a2A10Bf9e5c3CB",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x3F69C740456150268C5e23bD05a2A10Bf9e5c3CB/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_REDHERB.toString(), mmv_redherb);
-
-		// mmv banana
-		EVMERC20TokenInfo mmv_banana = new EVMERC20TokenInfo(
-				BitkubKAP20Token.MMV_BANANA.toString(), 
-				"0x0944882cf373adc8c3de740821fb14c8669e89eb",
-				"Morning Moon Village game item", 
-				0,
-				TokenCategory.GAMING.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x0944882cf373adc8c3de740821fb14c8669e89eb/token-transfers");
-					this.add("https://morningmoonvillage.com/");
-				}});
-		tokens.put(BitkubKAP20Token.MMV_BANANA.toString(), mmv_banana);
-
-		// bitkub peg USDT
-		EVMERC20TokenInfo usdt = new EVMERC20TokenInfo(
-				BitkubKAP20Token.USDT.toString(), 
-				"0x7d984c24d2499d840eb3b7016077164e15e5faa6",
-				"Morning Moon Village game item", 
-				18,
-				TokenCategory.STABLECOIN.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0x7d984c24d2499d840eb3b7016077164e15e5faa6/token-transfers");
-				}});
-		tokens.put(BitkubKAP20Token.USDT.toString(), usdt);
-
-		// test
-		/*
-		EVMERC20TokenInfo test = new EVMERC20TokenInfo(
-				BitkubKAP20Token.TEST.toString(), 
-				"0x2b591e99afe9f32eaa6214f7b7629768c40eeb39",
-				//"0x2b591e99afe9f32eaa6214f7b7629768c40eeb39", // HEX :)
-				"TEST token", 
-				18,
-				TokenCategory.TEST.toString(),
-				EVMChain.BITKUB.toString(),
-				new ArrayList<String>() {{
-					this.add("https://www.bkcscan.com/tokens/0xMOJO");
-				}});
-		tokens.put(BitkubKAP20Token.TEST.toString(), test);
-		 */
+		tokens.put(ZKFairERC20Token.ZKFAIR.toString(), zkfair);
 
 		return new ERC20TokenIndex(tokens);
 	}
@@ -1848,7 +1471,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.SIBERIUM.toString(), 
 				"Siberium Network", 
 				111111L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // all nodes gone
 				new EVMCurrency("Siberium Network Gas Token", "SIBR", 18), 
 				EVMPriceMechanism.EIP1559.toString(),
 				"1000000000", //1 gwei
@@ -1873,6 +1496,256 @@ public class BlockchainDetailsEVM {
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.SIBERIUM, siberium);
+		
+		// flare_test
+		EVMChainInfo flare_test = new EVMChainInfo(
+				EVMChain.FLARECOSTONTEST.toString(), 
+				"Flare Testnet Coston", 
+				16L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Flare Testnet Coston Gas Token", "CFLR", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://coston-api.flare.network/ext/bc/C/rpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://coston-explorer.flare.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/16");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.FLARECOSTONTEST, flare_test);
+		
+		// flare_test2
+		EVMChainInfo flare_test2 = new EVMChainInfo(
+				EVMChain.FLARECOSTON2TEST.toString(), 
+				"Flare Testnet Coston2", 
+				114L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Flare Testnet Coston2 Gas Token", "C2FLR", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://coston2-api.flare.network/ext/bc/C/rpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://coston2-explorer.flare.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/114");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.FLARECOSTON2TEST, flare_test2);
+		
+		// flare
+		EVMChainInfo flare = new EVMChainInfo(
+				EVMChain.FLARE.toString(), 
+				"Flare Mainnet", 
+				14L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Flare Mainnet Gas Token", "FLR", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://flare.public-rpc.com");
+					this.add("https://flare-api.flare.network/ext/C/rpc");
+					this.add("https://rpc.ftso.au/flare");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://flare-explorer.flare.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/14");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.FLARE, flare);
+		
+		// xdc
+		EVMChainInfo xdc = new EVMChainInfo(
+				EVMChain.XDC.toString(), 
+				"XDC Network", 
+				50L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Flare Mainnet Gas Token", "XDC", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.xdcrpc.com");
+					this.add("https://erpc.xinfin.network");
+					this.add("https://rpc.xinfin.network");
+					this.add("https://rpc1.xinfin.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://xdcscan.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/50");
+					this.add("https://xinfin.network/#stats");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.XDC, xdc);
+		
+		// xdc_test
+		EVMChainInfo xdc_test = new EVMChainInfo(
+				EVMChain.XDCAPOTHEMTEST.toString(), 
+				"XDC Apothem Network", 
+				51L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("XDC Apothem Network Gas Token", "TXDC", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.apothem.network");
+					this.add("https://erpc.apothem.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://apothem.xinfinscan.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/51");
+					this.add("https://xinfin.network/");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.XDCAPOTHEMTEST, xdc_test);
+		
+		// telos
+		EVMChainInfo telos = new EVMChainInfo(
+				EVMChain.TELOS.toString(), 
+				"Telos EVM Mainnet", 
+				40L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Telos EVM Mainnet Gas Token", "TLOS", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc1.us.telos.net/evm");
+					this.add("https://mainnet.telos.net/evm");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://teloscan.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/40");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.TELOS, telos);
+		
+		// telos_test
+		EVMChainInfo telos_test = new EVMChainInfo(
+				EVMChain.TELOSTEST.toString(), 
+				"Telos EVM Testnet", 
+				41L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Telos EVM Testnet Gas Token", "TLOS", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://testnet.telos.net/evm");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://testnet.teloscan.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/41");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.TELOSTEST, telos_test);
+		
+		// shibachain
+		EVMChainInfo shibachain = new EVMChainInfo(
+				EVMChain.SHIBACHAIN.toString(), 
+				"ShibaChain", 
+				27L, 
+				BlockchainType.BORKED.toString(), // nodes dead
+				new EVMCurrency("ShibaChain Gas Token", "SHIB", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"1000000000", //1 gwei
+				null, // enforced min gasprice
+				"32000000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.shibchain.org");
+					this.add("https://rpc.shibachain.net");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://exp.shibchain.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/27");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.SHIBACHAIN, shibachain);
 		
 		// dogechain
 		EVMChainInfo dogechain = new EVMChainInfo(
@@ -2212,7 +2085,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://zkfair.io");
 				}},
-				generateDummyTokenIndex(),
+				generateZKFairTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.ZKFAIR, zkfair);
 		
@@ -3315,7 +3188,7 @@ public class BlockchainDetailsEVM {
 				null, // enforced min gasprice
 				"21000", //only give enough to enable transfers .. 
 				new ArrayList<String>() {{
-					this.add("https://rpc.test.btcs.network");
+					this.add("https://rpc.test.btcs.network/");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -3332,7 +3205,698 @@ public class BlockchainDetailsEVM {
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.CORETEST, coredao_test);
-
+		
+		// rootstock_test
+		EVMChainInfo rootstock_test = new EVMChainInfo(
+				EVMChain.ROOTSTOCKTEST.toString(), 
+				"Rootstock Testnet", 
+				31L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Rootstock Gas Token", "tRBTC", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://public-node.testnet.rsk.co");
+					this.add("https://mycrypto.testnet.rsk.co");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.testnet.rsk.co");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://www.rsk.co");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ROOTSTOCKTEST, rootstock_test);
+		
+		// rootstock
+		EVMChainInfo rootstock = new EVMChainInfo(
+				EVMChain.ROOTSTOCK.toString(), 
+				"Rootstock Mainnet", 
+				30L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Rootstock Gas Token", "RBTC", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://public-node.rsk.co");
+					this.add("https://mycrypto.rsk.co");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.rsk.co");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://www.rsk.co");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ROOTSTOCK, rootstock);
+		
+		// quadrans
+		EVMChainInfo quadrans = new EVMChainInfo(
+				EVMChain.QUADRANS.toString(), 
+				"Quadrans Blockchain", 
+				10946L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Quadrans Gas Token", "QDC", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.quadrans.io");
+					this.add("https://rpcna.quadrans.io");
+					this.add("https://rpceu.quadrans.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.quadrans.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://quadrans.io");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.QUADRANS, quadrans);
+		
+		// quadrans_test
+		EVMChainInfo quadrans_test = new EVMChainInfo(
+				EVMChain.QUADRANSTEST.toString(), 
+				"Quadrans Blockchain Testnet", 
+				10947L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Quadrans Gas Token", "tQDC", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpctest.quadrans.io");
+					this.add("https://rpctest2.quadrans.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.testnet.quadrans.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://quadrans.io");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.QUADRANSTEST, quadrans_test);
+		
+		// torus_test
+		EVMChainInfo torus_test = new EVMChainInfo(
+				EVMChain.TORUSTEST.toString(), 
+				"Torus Mainnet", 
+				8194L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Torus Mainnet Gas Token", "TTQF", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.testnet.toruschain.com");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://testnet.toruscan.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://toruschain.com");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.TORUSTEST, torus_test);
+		
+		// torus
+		EVMChainInfo torus = new EVMChainInfo(
+				EVMChain.TORUS.toString(), 
+				"Torus Mainnet", 
+				8192L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Torus Mainnet Gas Token", "TQF", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.toruschain.com");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://toruscan.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://toruschain.com");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.TORUS, torus);
+		
+		// fibonacci
+		EVMChainInfo fibonacci = new EVMChainInfo(
+				EVMChain.FIBONACCI.toString(), 
+				"Fibonacci Mainnet", 
+				12306L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Fibonacci Mainnet Gas Token", "FIBO", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://node1.fibo-api.asia");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.fibochain.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://fibochain.org");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.FIBONACCI, fibonacci);
+		
+		// mind
+		EVMChainInfo mind = new EVMChainInfo(
+				EVMChain.MIND.toString(), 
+				"Mind Smart Chain Mainnet", 
+				9996L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Mind Smart Chain Mainnet Gas Token", "MIND", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc-msc.mindchain.info");
+					this.add("https://rpc-msc.mindchain.info/");
+					this.add("https://seednode.mindchain.info");
+					this.add("https://archive.mindchain.info/");
+					this.add("https://mind-smart-chain.rpc.thirdweb.com");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://mainnet.mindscan.info");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://mindscan.info");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.MIND, mind);
+		
+		// mind_test
+		EVMChainInfo mind_test = new EVMChainInfo(
+				EVMChain.MINDTEST.toString(), 
+				"Mind Smart Chain Testnet", 
+				9977L, 
+				BlockchainType.BORKED.toString(), // single node dead
+				new EVMCurrency("Mind Smart Chain Testnet Gas Token", "tMIND", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://testnet-msc.mindchain.info/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://mainnet.mindscan.info");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://mindscan.info");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.MINDTEST, mind_test);
+		
+		// hypra
+		EVMChainInfo hypra = new EVMChainInfo(
+				EVMChain.HYPRA.toString(), 
+				"Hypra Mainnet", 
+				622277L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Hypra Mainnet Gas Token", "HYP", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.hypra.network");
+					this.add("https://rpc.rthcentral.org");
+					this.add("https://hypra.rpc.thirdweb.com");
+					this.add("https://rpc.rethereum.org");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.hypra.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://hypra.network");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.HYPRA, hypra);
+		
+		// soma_test
+		EVMChainInfo soma_test = new EVMChainInfo(
+				EVMChain.SOMATEST.toString(), 
+				"SOMA Network Testnet", 
+				2323L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("SOMA Network Testnet Gas Token", "tSMA", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://data-testnet-v1.somanetwork.io/");
+					this.add("https://testnet-au-server-2.somanetwork.io");
+					this.add("https://testnet-au-server-1.somanetwork.io");
+					this.add("https://testnet-sg-server-1.somanetwork.io");
+					this.add("https://testnet-sg-server-2.somanetwork.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://testnet.somascan.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://somanetwork.io");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.SOMATEST, soma_test);
+		
+		// rotw_test
+		EVMChainInfo rotw_test = new EVMChainInfo(
+				EVMChain.ROTWTEST.toString(), 
+				"Rise of the Warbots Testnet", 
+				7777L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Rise of the Warbots Testnet Gas Token", "NMAC", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://testnet1.rotw.games");
+					this.add("https://testnet1.riseofthewarbots.com");
+					this.add("https://testnet2.riseofthewarbots.com");
+					this.add("https://testnet3.riseofthewarbots.com");
+					this.add("https://testnet4.riseofthewarbots.com");
+					this.add("https://testnet5.riseofthewarbots.com");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://testnet.avascan.info/blockchain/2mZ9doojfwHzXN3VXDQELKnKyZYxv7833U8Yq5eTfFx3hxJtiy");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://riseofthewarbots.com/");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ROTWTEST, rotw_test);
+		
+		// quartzunique
+		EVMChainInfo uniquequartz = new EVMChainInfo(
+				EVMChain.QUARTZUNIQUE.toString(), 
+				"Quartz by Unique", 
+				8881L, 
+				BlockchainType.BORKED.toString(), // online but borked
+				new EVMCurrency("Quartz by Unique Gas Token", "QTZ", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc-quartz.unique.network");
+					this.add("https://eu-rpc-quartz.unique.network");
+					this.add("https://asia-rpc-quartz.unique.network");
+					this.add("https://us-rpc-quartz.unique.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://uniquescan.io/quartz");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("unique.network");
+					this.add("https://www.coingecko.com/en/coins/unique-network");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.QUARTZUNIQUE, uniquequartz);
+		
+		// unique
+		EVMChainInfo unique = new EVMChainInfo(
+				EVMChain.UNIQUE.toString(), 
+				"Unique", 
+				8880L, 
+				BlockchainType.BORKED.toString(), // online but borked
+				new EVMCurrency("Unique Gas Token", "UNQ", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.unique.network");
+					this.add("https://eu-rpc.unique.network");
+					this.add("https://asia-rpc.unique.network");
+					this.add("https://us-rpc.unique.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://uniquescan.io/unique");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("unique.network");
+					this.add("https://www.coingecko.com/en/coins/unique-network");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.UNIQUE, unique);
+		
+		// ontology_test
+		EVMChainInfo ontology_test = new EVMChainInfo(
+				EVMChain.ONTOLOGYTEST.toString(), 
+				"Ontology Testnet", 
+				5851L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Ontology Mainnet Gas Token", "ONG", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://polaris1.ont.io:10339");
+					this.add("http://polaris1.ont.io:20339");
+					this.add("http://polaris2.ont.io:20339");
+					this.add("http://polaris3.ont.io:20339");
+					this.add("http://polaris4.ont.io:20339");
+					this.add("https://polaris2.ont.io:10339");
+					this.add("https://polaris3.ont.io:10339");
+					this.add("https://polaris4.ont.io:10339");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.ont.io/testnet");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://ont.io/");
+					this.add("https://www.coingecko.com/en/coins/ontology");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ONTOLOGYTEST, ontology_test);
+		
+		// ontology
+		EVMChainInfo ontology = new EVMChainInfo(
+				EVMChain.ONTOLOGY.toString(), 
+				"Ontology Mainnet", 
+				58L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Ontology Mainnet Gas Token", "UNQ", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://dappnode1.ont.io:10339");
+					this.add("http://dappnode1.ont.io:20339");
+					this.add("http://dappnode2.ont.io:20339");
+					this.add("http://dappnode3.ont.io:20339");
+					this.add("http://dappnode4.ont.io:20339");
+					this.add("https://dappnode2.ont.io:10339");
+					this.add("https://dappnode3.ont.io:10339");
+					this.add("https://dappnode4.ont.io:10339");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.ont.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://ont.io/");
+					this.add("https://www.coingecko.com/en/coins/ontology");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ONTOLOGY, ontology);
+		
+		// edgeware
+		EVMChainInfo edgeware = new EVMChainInfo(
+				EVMChain.EDGEWARE.toString(), 
+				"Unique", 
+				2021L, 
+				BlockchainType.BORKED.toString(), // online but weird
+				new EVMCurrency("Unique Gas Token", "UNQ", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://mainnet2.edgewa.re/evm");
+					this.add("https://edgeware-evm.jelliedowl.net");
+					this.add("https://mainnet3.edgewa.re/evm");
+					this.add("https://mainnet4.edgewa.re/evm");
+					this.add("https://mainnet5.edgewa.re/evm");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://edgscan.live");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://www.edgeware.io/");
+					this.add("https://www.coingecko.com/en/coins/edgeware");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.EDGEWARE, edgeware);
+		
+		// bitgert
+		EVMChainInfo bitgert = new EVMChainInfo(
+				EVMChain.BITGERT.toString(), 
+				"Bitgert Mainnet", 
+				32520L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Bitgert Mainnet Gas Token", "Brise", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.icecreamswap.com");
+					this.add("https://mainnet-rpc.brisescan.com");
+					this.add("https://chainrpc.com");
+					this.add("https://serverrpc.com");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.hypra.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://brisescan.com");
+					this.add("https://www.coingecko.com/en/coins/bitgert");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.BITGERT, bitgert);
+		
+		// eluvio
+		EVMChainInfo eluvio = new EVMChainInfo(
+				EVMChain.ELUVIO.toString(), 
+				"Eluvio Content Fabric", 
+				955305L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Eluvio Content Fabric Gas Token", "ELV", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://host-76-74-28-226.contentfabric.io/eth");
+					this.add("https://host-76-74-29-35.contentfabric.io/eth/");
+					this.add("https://host-154-14-211-98.contentfabric.io/eth/");
+					this.add("https://host-154-14-192-66.contentfabric.io/eth/");
+					this.add("https://host-64-235-250-98.contentfabric.io/eth/");
+					this.add("https://host-76-74-28-232.contentfabric.io/eth/");
+					this.add("https://host-76-74-29-2.contentfabric.io/eth/");
+					this.add("https://host-76-74-29-8.contentfabric.io/eth/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.hypra.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://explorer.eluv.io");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ELUVIO, eluvio);
+		
+		// defichain
+		EVMChainInfo defichain = new EVMChainInfo(
+				EVMChain.DEFICHAIN.toString(), 
+				"DeFiChain EVM Network Mainnet", 
+				1130L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("DeFiChain Gas Token", "DFI", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://dmc.mydefichain.com/mainnet");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://meta.defichain.com/");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://defichain.com/");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.DEFICHAIN, defichain);
+		
+		// defichain_test
+		EVMChainInfo defichain_test = new EVMChainInfo(
+				EVMChain.DEFICHAINTEST.toString(), 
+				"DeFiChain EVM Network Mainnet", 
+				1131L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("DeFiChain Testnet Gas Token", "DFI", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://dmc.mydefichain.com/testnet");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://meta.defichain.com/");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://defichain.com/");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.DEFICHAINTEST, defichain_test);
+		
 		// coredao
 		EVMChainInfo coredao = new EVMChainInfo(
 				EVMChain.CORE.toString(), 
@@ -3345,7 +3909,7 @@ public class BlockchainDetailsEVM {
 				null, // enforced min gasprice
 				"21000", //only give enough to enable transfers .. 
 				new ArrayList<String>() {{
-					this.add("https://rpc.coredao.org");
+					this.add("https://rpc.coredao.org/");
 					this.add("https://rpc-core.icecreamswap.com");	
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
@@ -3768,6 +4332,11 @@ public class BlockchainDetailsEVM {
 					this.add("https://etc.rivet.link");
 					this.add("https://etc.etcdesktop.com");
 					this.add("https://etc.mytokenpocket.vip");
+					this.add("https://besu-at.etc-network.info");
+					this.add("https://besu-de.etc-network.info");
+					this.add("https://geth-at.etc-network.info");
+					this.add("https://geth-de.etc-network.info");
+					this.add("https://rpc.etcinscribe.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -4007,6 +4576,39 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.PULSECHAIN, pulsechain);
 
+		// pulsechain4_test
+		EVMChainInfo pulsechain4_test = new EVMChainInfo(
+				EVMChain.PULSECHAIN4TEST.toString(), 
+				"PulseChain Testnet v4", 
+				943L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("PulseChain Testnet Token", "tPLS", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. crazy usage atm
+				new ArrayList<String>() {{
+					this.add("https://pulsetest-s.projectpi.xyz");
+					this.add("https://rpc.v4.testnet.pulsechain.com");
+					this.add("https://pulsechain-testnet.publicnode.com");
+					this.add("https://rpc-testnet-pulsechain.g4mm4.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.v4.testnet.pulsechain.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("faucet-todo");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://pulsechain.com/");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.PULSECHAIN4TEST, pulsechain4_test);
+		
 		// satoshichain
 		EVMChainInfo satoshichain = new EVMChainInfo(
 				EVMChain.SATOSHICHAIN.toString(), 
@@ -4291,7 +4893,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.ZILLIQA.toString(), 
 				"Zilliqa Mainnet", 
 				32769L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node down
 				new EVMCurrency("Zilliqa Gas Token", "ZIL", 18), 
 				EVMPriceMechanism.EIP1559.toString(),
 				"30000000000", //30 gwei
@@ -4479,6 +5081,7 @@ public class BlockchainDetailsEVM {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://sapphire.oasis.io");
+					this.add("https://1rpc.io/oasis/sapphire");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -9313,6 +9916,32 @@ public class BlockchainDetailsEVM {
 				}});
 		tokens.put(MantleERC20Token.USDT.toString(), usdt);
 	
+		// WMNT
+		EVMERC20TokenInfo wmnt = new EVMERC20TokenInfo(
+				MantleERC20Token.WMNT.toString(), 
+				"0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8",
+				"Wrapped MANTLE token", 
+				18,
+				TokenCategory.DEFI.toString(),
+				EVMChain.MANTLE.toString(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.mantle.xyz/token/0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8");
+				}});
+		tokens.put(MantleERC20Token.WMNT.toString(), wmnt);
+		
+		// METH
+		EVMERC20TokenInfo meth = new EVMERC20TokenInfo(
+				MantleERC20Token.METH.toString(), 
+				"0xcDA86A272531e8640cD7F1a92c01839911B90bb0",
+				"Wrapped ETH token", 
+				18,
+				TokenCategory.DEFI.toString(),
+				EVMChain.MANTLE.toString(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.mantle.xyz/token/0xcDA86A272531e8640cD7F1a92c01839911B90bb0/token-transfers");
+				}});
+		tokens.put(MantleERC20Token.METH.toString(), meth);
+		
 		// WETH
 		EVMERC20TokenInfo weth = new EVMERC20TokenInfo(
 				MantleERC20Token.WETH.toString(), 
@@ -9520,6 +10149,405 @@ public class BlockchainDetailsEVM {
 					this.add("https://explorer.celo.org/token/0xMOJO");
 				}});
 		tokens.put(CeloERC20Token.TEST.toString(), test);
+		 */
+	
+		return new ERC20TokenIndex(tokens);
+	}
+
+	@SuppressWarnings("serial")
+	public static ERC20TokenIndex generateBitkubTokenIndex() {
+	
+		HashMap<String, EVMERC20TokenInfo> tokens = new HashMap<>();
+	
+		// wrapped bitkub (KKUB)
+		EVMERC20TokenInfo kkub = new EVMERC20TokenInfo(
+				BitkubKAP20Token.KKUB.toString(), 
+				"0x67eBD850304c70d983B2d1b93ea79c7CD6c3F6b5",
+				"Wrapped KUB (KKUB) token", 
+				18,
+				TokenCategory.DEFI.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x67eBD850304c70d983B2d1b93ea79c7CD6c3F6b5/token-transfers");
+				}});
+		tokens.put(BitkubKAP20Token.KKUB.toString(), kkub);
+	
+		// mmv diamon LP
+		EVMERC20TokenInfo diamonLP = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_DIAMON_LP.toString(), 
+				"0x7Bf51541208A70b784006eF7Bd6F774F4012Cd38",
+				"Morning Moon Village diamon LP", 
+				18,
+				TokenCategory.DEFI.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x7Bf51541208A70b784006eF7Bd6F774F4012Cd38/token-transfers");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_DIAMON_LP.toString(), diamonLP);
+	
+		// mmv rag
+		EVMERC20TokenInfo mmv_rag = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_RAG.toString(), 
+				"0x1F14690e6c7D02fCeB67c6b818aa2C093e16fe27",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.DEFI.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x1F14690e6c7D02fCeB67c6b818aa2C093e16fe27/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_RAG.toString(), mmv_rag);
+	
+		// mmv leather piece
+		EVMERC20TokenInfo mmv_leather_piece = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_LEATHER_PIECE.toString(), 
+				"0x15aa87eb74069d3800f8e75A93FC04fda79AA24d",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.DEFI.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x15aa87eb74069d3800f8e75A93FC04fda79AA24d/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_LEATHER_PIECE.toString(), mmv_leather_piece);
+	
+		// mmv white button mushroom
+		EVMERC20TokenInfo mmv_white_button_mushroom = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_WBUTTON_MUSHROOM.toString(), 
+				"0xcb74a1A9dB4285E97D4dE8aa4B61cd10277Ab479",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xcb74a1A9dB4285E97D4dE8aa4B61cd10277Ab479/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_WBUTTON_MUSHROOM.toString(), mmv_white_button_mushroom);
+	
+		// mmv tomato soup
+		EVMERC20TokenInfo mmv_tomato_soup = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_TOMATOSOUP.toString(), 
+				"0xbE46a81D181069aC0Ff18F4F7239Df10422E6DC3",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xbE46a81D181069aC0Ff18F4F7239Df10422E6DC3/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_TOMATOSOUP.toString(), mmv_tomato_soup);
+	
+		// mmv tomato seed
+		EVMERC20TokenInfo mmv_tomato_seed = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_TOMATOSEED.toString(), 
+				"0xe991151Bf43bD712beAC33e5cFF2580841c9b440",
+				"Morning Moon Village game item", 
+				18,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xe991151Bf43bD712beAC33e5cFF2580841c9b440/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_TOMATOSEED.toString(), mmv_tomato_seed);
+	
+		// mmv stir fried cabbage
+		EVMERC20TokenInfo mmv_sf_cabbage = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_SF_CABBAGE.toString(), 
+				"0xc2990515610028139f68016b321a0c36a5101104",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xc2990515610028139f68016b321a0c36a5101104/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_SF_CABBAGE.toString(), mmv_sf_cabbage);
+	
+		// mmv silver key
+		EVMERC20TokenInfo mmv_silver_key = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_SILVERKEY.toString(), 
+				"0x73d05f935534918bbc87cb353928cb957ed03697",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x73d05f935534918bbc87cb353928cb957ed03697/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_SILVERKEY.toString(), mmv_silver_key);
+	
+		// mmv shitake mushroom
+		EVMERC20TokenInfo mmv_shitake_mushroom = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_SHITAKE_MUSHROOM.toString(), 
+				"0xd3b314b101b26fa2bd19df0d845a632d72c4fc44",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xd3b314b101b26fa2bd19df0d845a632d72c4fc44/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_SHITAKE_MUSHROOM.toString(), mmv_shitake_mushroom);
+	
+		// mmv salad
+		EVMERC20TokenInfo mmv_salad = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_SALAD.toString(), 
+				"0x2944d051dc66669e04629b827ae9e3ebcb1e48d9",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x2944d051dc66669e04629b827ae9e3ebcb1e48d9/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_SALAD.toString(), mmv_salad);
+	
+		// mmv lumi
+		EVMERC20TokenInfo mmv_lumi = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_LUMI.toString(), 
+				"0x95013dcb6a561e6c003aed9c43fb8b64008aa361",
+				"Morning Moon Village game item", 
+				18,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x95013dcb6a561e6c003aed9c43fb8b64008aa361/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_LUMI.toString(), mmv_lumi);
+	
+		// mmv king trumpet mushroom
+		EVMERC20TokenInfo mmv_king_trumpet_mushroom = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_KTRUMPET_MUSHROOM.toString(), 
+				"0xc14f24835efe355106ab8725488f16f93c8c5f96",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xc14f24835efe355106ab8725488f16f93c8c5f96/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_KTRUMPET_MUSHROOM.toString(), mmv_king_trumpet_mushroom);
+	
+		// mmv honey
+		EVMERC20TokenInfo mmv_honey = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_HONEY.toString(), 
+				"0x575d7bfdbdf255d5741571334f159d903de1544f",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x575d7bfdbdf255d5741571334f159d903de1544f/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_HONEY.toString(), mmv_honey);
+	
+		// mmv greenapple
+		EVMERC20TokenInfo mmv_greenapple = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_GREENAPPLE.toString(), 
+				"0x417e28bd41cd45d9f996b69450f81b02821a6d64",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x417e28bd41cd45d9f996b69450f81b02821a6d64/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_GREENAPPLE.toString(), mmv_greenapple);
+	
+		// mmv driedapple
+		EVMERC20TokenInfo mmv_driedapple = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_DRIEDAPPLE.toString(), 
+				"0xb035c229903a0cff939be36b532d8c11204e6837",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xb035c229903a0cff939be36b532d8c11204e6837/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_DRIEDAPPLE.toString(), mmv_driedapple);
+	
+		// mmv corn soup
+		EVMERC20TokenInfo mmv_cornsoup = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_CORNSOUP.toString(), 
+				"0x2b09ae76dfc601210407560502b340e104787b34",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x2b09ae76dfc601210407560502b340e104787b34/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_CORNSOUP.toString(), mmv_cornsoup);
+	
+		// mmv corn seed
+		EVMERC20TokenInfo mmv_cornseed = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_CORNSEED.toString(), 
+				"0xe27aebed61be207e83fc05fbc408420c737881da",
+				"Morning Moon Village game item", 
+				18,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xe27aebed61be207e83fc05fbc408420c737881da/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_CORNSEED.toString(), mmv_cornseed);
+	
+		// mmv carrot seed
+		EVMERC20TokenInfo mmv_carrotseed = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_CARROTSEED.toString(), 
+				"0x7b263d648fff39142abecb07a1bb85297e09982d",
+				"Morning Moon Village game item", 
+				18,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x7b263d648fff39142abecb07a1bb85297e09982d/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_CARROTSEED.toString(), mmv_carrotseed);
+	
+		// mmv cabbage seed
+		EVMERC20TokenInfo mmv_cabbageseed = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_CABBAGESEED.toString(), 
+				"0x1f8b5af0ec97c44b24366b36c40f2d4aca2c73e2",
+				"Morning Moon Village game item", 
+				18,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x1f8b5af0ec97c44b24366b36c40f2d4aca2c73e2/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_CABBAGESEED.toString(), mmv_cabbageseed);
+	
+		// green herb
+		EVMERC20TokenInfo mmv_greenherb = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_GREENHERB.toString(), 
+				"0xde496524c30c460922e7810ddc6c806c0e2c5354",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xde496524c30c460922e7810ddc6c806c0e2c5354/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_GREENHERB.toString(), mmv_greenherb);
+	
+		// lesser health potion
+		EVMERC20TokenInfo mmv_lhealth_potion = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_LHEALTHPOTION.toString(), 
+				"0xe66f21d817af8f99129af6023332dd7b37503b9d",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xe66f21d817af8f99129af6023332dd7b37503b9d/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_LHEALTHPOTION.toString(), mmv_lhealth_potion);
+	
+		// health potion
+		EVMERC20TokenInfo mmv_health_potion = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_HEALTHPOTION.toString(), 
+				"0xbd60c8caf6e22907576d9e363ab1f91b43aaf769",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xbd60c8caf6e22907576d9e363ab1f91b43aaf769/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_HEALTHPOTION.toString(), mmv_health_potion);
+	
+		// silver key
+		EVMERC20TokenInfo mmv_silverkey = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_LHEALTHPOTION.toString(), 
+				"0xe66f21d817af8f99129af6023332dd7b37503b9d",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xe66f21d817af8f99129af6023332dd7b37503b9d/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_LHEALTHPOTION.toString(), mmv_silverkey);
+	
+		// red herb
+		EVMERC20TokenInfo mmv_redherb = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_REDHERB.toString(), 
+				"0x3F69C740456150268C5e23bD05a2A10Bf9e5c3CB",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x3F69C740456150268C5e23bD05a2A10Bf9e5c3CB/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_REDHERB.toString(), mmv_redherb);
+	
+		// mmv banana
+		EVMERC20TokenInfo mmv_banana = new EVMERC20TokenInfo(
+				BitkubKAP20Token.MMV_BANANA.toString(), 
+				"0x0944882cf373adc8c3de740821fb14c8669e89eb",
+				"Morning Moon Village game item", 
+				0,
+				TokenCategory.GAMING.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x0944882cf373adc8c3de740821fb14c8669e89eb/token-transfers");
+					this.add("https://morningmoonvillage.com/");
+				}});
+		tokens.put(BitkubKAP20Token.MMV_BANANA.toString(), mmv_banana);
+	
+		// bitkub peg USDT
+		EVMERC20TokenInfo usdt = new EVMERC20TokenInfo(
+				BitkubKAP20Token.USDT.toString(), 
+				"0x7d984c24d2499d840eb3b7016077164e15e5faa6",
+				"Morning Moon Village game item", 
+				18,
+				TokenCategory.STABLECOIN.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0x7d984c24d2499d840eb3b7016077164e15e5faa6/token-transfers");
+				}});
+		tokens.put(BitkubKAP20Token.USDT.toString(), usdt);
+	
+		// test
+		/*
+		EVMERC20TokenInfo test = new EVMERC20TokenInfo(
+				BitkubKAP20Token.TEST.toString(), 
+				"0x2b591e99afe9f32eaa6214f7b7629768c40eeb39",
+				//"0x2b591e99afe9f32eaa6214f7b7629768c40eeb39", // HEX :)
+				"TEST token", 
+				18,
+				TokenCategory.TEST.toString(),
+				EVMChain.BITKUB.toString(),
+				new ArrayList<String>() {{
+					this.add("https://www.bkcscan.com/tokens/0xMOJO");
+				}});
+		tokens.put(BitkubKAP20Token.TEST.toString(), test);
 		 */
 	
 		return new ERC20TokenIndex(tokens);

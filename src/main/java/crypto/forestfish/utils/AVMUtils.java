@@ -2130,6 +2130,11 @@ public class AVMUtils {
 			// https://node.algoexplorerapi.io: <html><body><h1>503 Service  Service Unavailable</h1>No server is available to handle this request..
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
+		} else if (_ex.getMessage().contains("go offline on")) {
+			LOGGER.warn("Got an offline notice from nodeURL " + _relayNode.getUrl() + ".. will not retry, move on to next node");
+			// https://testnet-algorand.api.purestake.io/idx2: PureStakes Algorand API service and GoalSeeker Block Explorer will go offline on January 1, 2024. Please check the Algorand Foundation website for alternative solutions. For Algorand infrastructure and node hosting services, please consider OpsLayer.com
+			exceptionType = ExceptionType.NODE_UNSTABLE;
+			switchNode = true;
 		} else if (_ex.getMessage().contains("Invalid API Token")) {
 			LOGGER.warn("Got an invalid API key error from relay node " + _relayNode.getUrl() + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	

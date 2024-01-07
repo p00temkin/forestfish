@@ -1884,11 +1884,13 @@ public class EVMUtils {
 		} else if (false ||
 				(_ex.getMessage().contains("500") && _ex.getMessage().toLowerCase().contains("internal")) ||
 				(_ex.getMessage().toLowerCase().contains("internal error")) ||
+				(_ex.getMessage().toLowerCase().contains("internal_error")) ||
 				false) {
 			// <center><h1>500 Internal Server Error</h1></center>
 			// 500; internal error
 			// Internal error
 			// 500; Internal Server Error
+			// https://rpc.velaverse.io: Received fatal alert: internal_error
 			LOGGER.warn("Got a 500 internal server error response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -1910,10 +1912,6 @@ public class EVMUtils {
 			switchNode = true;
 		} else if (_ex.getMessage().contains("503")) {
 			// 503; <html><body><h1>503 Service Unavailable</h1>
-			LOGGER.warn("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
-			exceptionType = ExceptionType.NODE_UNSTABLE;	
-			switchNode = true;
-		} else if (_ex.getMessage().contains("503 Service Temporarily Unavailable")) {
 			// <center><h1>503 Service Temporarily Unavailable</h1></center>
 			LOGGER.warn("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
@@ -1921,6 +1919,11 @@ public class EVMUtils {
 		} else if (_ex.getMessage().contains("unexpected")) {
 			// java.io.IOException: unexpected end of stream on
 			LOGGER.warn("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
+			switchNode = true;
+		} else if (_ex.getMessage().contains("protocol_version")) {
+			// https://smart.zeniq.network:9545: "javax.net.ssl.SSLHandshakeException: Received fatal alert: protocol_version"
+			LOGGER.warn("Got a SSL Protocol vereion issue from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("mempool is full")) {
@@ -1933,6 +1936,11 @@ public class EVMUtils {
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 10;
+			switchNode = true;
+		} else if (_ex.getMessage().contains("Unsupported")) {
+			// https://taycan-rpc.hupayx.io:8545: javax.net.ssl.SSLException: Unsupported or unrecognized SSL message
+			LOGGER.warn("Got an invalid SSL cert from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("PKIX path")) {
 			// javax.net.ssl.SSLHandshakeException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException

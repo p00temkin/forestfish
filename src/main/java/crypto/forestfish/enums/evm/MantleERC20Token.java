@@ -4,6 +4,10 @@ public enum MantleERC20Token {
 	
 	// Defi
 	WETH,
+	WMNT,
+	
+	// Staked
+	METH,
 	
 	// LP
 	

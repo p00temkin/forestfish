@@ -1,4 +1,4 @@
-package crypto.forestfish.gen;
+package crypto.forestfish.evm;
 
 import java.util.HashMap;
 
@@ -61,6 +61,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Scroll Alpha Testnet", EVMChain.SCROLLALPHATEST);
 			this.put("Arbitrum Goerli", EVMChain.ARBITRUMGOERLITEST);
 			this.put("Japan Open Chain Mainnet", EVMChain.JOC);
+			this.put("Japan Open Chain Testnet", EVMChain.JOCTEST);
 			this.put("Arbitrum Sepolia", EVMChain.ARBITRUMSEPOLIATEST);
 			this.put("Milkomeda A1 Testnet", EVMChain.MILKOMEDAA1TEST);
 			this.put("Milkomeda C1 Testnet", EVMChain.MILKOMEDAC1TEST);
@@ -138,6 +139,44 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Kava Testnet", EVMChain.KAVATEST); 
 			this.put("Kava", EVMChain.KAVA); 
 			this.put("Syscoin Tanenbaum Testnet", EVMChain.SYSCOINTEST);
+			this.put("Flare Mainnet", EVMChain.FLARE); 
+			this.put("Flare Testnet Coston", EVMChain.FLARECOSTONTEST); 
+			this.put("Flare Testnet Coston2", EVMChain.FLARECOSTON2TEST); 
+			this.put("ShibaChain", EVMChain.SHIBACHAIN); 
+			this.put("Ethereum Classic", EVMChain.ETC); 
+			this.put("XDC Network", EVMChain.XDC); 
+			this.put("XDC Apothem Network", EVMChain.XDCAPOTHEMTEST);
+			this.put("Telos EVM Mainnet", EVMChain.TELOS);
+			this.put("Telos EVM Testnet", EVMChain.TELOSTEST);
+			this.put("Polygon zkEVM", EVMChain.ZKEVM);
+			this.put("Core Blockchain Mainnet", EVMChain.CORE);
+			this.put("Core Blockchain Testnet", EVMChain.CORETEST);
+			this.put("Rangers Protocol Mainnet", EVMChain.RANGERS);
+			this.put("Rangers Protocol Testnet", EVMChain.RANGERSTEST);
+			this.put("Kroma Sepolia", EVMChain.KROMASEPOLIATEST);
+			this.put("DeFiChain EVM Network Mainnet", EVMChain.DEFICHAIN);
+			this.put("DeFiChain EVM Network Testnet", EVMChain.DEFICHAINTEST);
+			this.put("Torus Mainnet", EVMChain.TORUS);
+			this.put("Torus Testnet", EVMChain.TORUSTEST);
+			this.put("Quadrans Blockchain", EVMChain.QUADRANS);
+			this.put("Quadrans Blockchain Testnet", EVMChain.QUADRANSTEST);
+			this.put("Rootstock Mainnet", EVMChain.ROOTSTOCK);
+			this.put("Rootstock Testnet", EVMChain.ROOTSTOCKTEST);
+			this.put("PulseChain Testnet v4", EVMChain.PULSECHAIN4TEST);
+			this.put("ZKFair Mainnet", EVMChain.ZKFAIR);
+			this.put("Hypra Mainnet", EVMChain.HYPRA);
+			this.put("Eluvio Content Fabric", EVMChain.ELUVIO);
+			this.put("Bitgert Mainnet", EVMChain.BITGERT);
+			this.put("Mind Smart Chain Mainnet", EVMChain.MIND);
+			this.put("Mind Smart Chain Testnet", EVMChain.MINDTEST);
+			this.put("Unique", EVMChain.UNIQUE);
+			this.put("Quartz by Unique", EVMChain.QUARTZUNIQUE);
+			this.put("Rise of the Warbots Testnet", EVMChain.ROTWTEST);
+			this.put("SOMA Network Testnet", EVMChain.SOMATEST);
+			this.put("Edgeware EdgeEVM Mainnet", EVMChain.EDGEWARE);
+			this.put("Ontology Mainnet", EVMChain.ONTOLOGY);
+			this.put("Ontology Testnet", EVMChain.ONTOLOGYTEST);
+						
 			//this.put("DeBank Testnet", EVMChain.GNOSIS); // single dead node
 			//this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST); //dead nodes only
 			//this.put("ZetaChain Mainnet", EVMChain.ZE); // not live yet
@@ -196,11 +235,28 @@ public class CheckNewEVMNodeCandidates {
 						}
 
 						if (newnode_count > 0) {
-							LOGGER.info("Add the new " + newnode_count + " nodes for " + evmchain.toString() + " in BlockchainDetailsEVM and re-run");
+							LOGGER.info("Add the new " + newnode_count + " nodes for EVMChain." + evmchain.toString() + " in BlockchainDetailsEVM and re-run");
 							SystemUtils.halt();
 						}
 					} else {
-						LOGGER.info("Skipping chain: " + eece.getName());
+						
+						int nodeCount = 0;
+						int activeNodeCount = 0;
+						for (String nodeURL: eece.getRpc()) {
+							if (nodeURL.startsWith("http")) {
+								if (!nodeURL.contains("API_KEY")) {
+									nodeCount++;
+									Web3j web3j_cand = Web3j.build(new HttpService(nodeURL));
+									Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(evmchain, nodeURL, web3j_cand);
+									if ((null != latestblocknr) && (latestblocknr>0L)) {
+										activeNodeCount++;
+									}
+								}
+							}
+						}
+						
+						if (activeNodeCount != 0) LOGGER.info("Skipping active/candidate chain: " + eece.getName() + " [activeNodeCount: " + activeNodeCount + "/" + nodeCount + "]");
+						SystemUtils.sleepInSeconds(5);
 					}	
 			}
 

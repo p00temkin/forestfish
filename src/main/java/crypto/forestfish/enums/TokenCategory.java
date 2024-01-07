@@ -3,6 +3,7 @@ package crypto.forestfish.enums;
 public enum TokenCategory {
 	
 	// Chain
+	DAO,
 	CHAINMASCOT,
 	
 	// Defi
