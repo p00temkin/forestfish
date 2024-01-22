@@ -1106,7 +1106,6 @@ public class EVMUtils {
 							System.out.println("txE.getExceptionType(): " + txE.getExceptionType());
 							System.out.println("exception message: " + response.getError().getMessage());
 
-
 							if (txE.isNodeInteraction()) nodeCallAttemptCount++; 
 							if (txE.isSleepBeforeRetry()) SystemUtils.sleepInSeconds(txE.getSleepTimeInSecondsRecommended());
 							if (txE.getExceptionType() == ExceptionType.FATAL) SystemUtils.halt();
@@ -1230,7 +1229,7 @@ public class EVMUtils {
 								}
 							}
 
-							if (_haltOnUnconfirmedTX) {
+							if (!confirmedTransaction && _haltOnUnconfirmedTX) {
 								LOGGER.error("We cant just continue with the tx here, instructed to halt on unconfirmed tx.");
 								SystemUtils.halt();
 							} else {

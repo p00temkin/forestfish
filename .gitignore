@@ -13,3 +13,4 @@ package-lock.json
 .avm/*
 .evm
 .evm/*
+skipped*
