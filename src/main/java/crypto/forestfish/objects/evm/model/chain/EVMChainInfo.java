@@ -15,6 +15,7 @@ public class EVMChainInfo {
 	private String priceMechanism;
 	private String fallbackGasPriceInWEI;
 	private String enforcedMinGasPriceInWEI = null;
+	private int confirmationTimeinSeconds = 30;
 	private String fallbackGasLimitInUnits;
     private ArrayList<String> nodeURLs = new ArrayList<String>();
     private ArrayList<String> archivenodeURLs = new ArrayList<String>();
@@ -30,7 +31,7 @@ public class EVMChainInfo {
 		super();
 	}
 
-	public EVMChainInfo(String _shortName, String _chainName, Long _chainId, String _type, EVMCurrency _nativeCurrency, String _priceMechanism, String _fallbackGasPriceInWEI, String _enforcedMinGasPriceInWEI, String _fallbackGasLimitInUnits, ArrayList<String> _nodeURLs, ArrayList<String> _archivenodeURLs, ArrayList<String> _flashbotnodeURLs, ArrayList<String> _flashbotrelaynodeURLs, ArrayList<String> _blockexplorerURLs, ArrayList<String> _faucets, ArrayList<String> _origins, ERC20TokenIndex _tokenIndex, EVMNFTIndex _nftindex) {
+	public EVMChainInfo(String _shortName, String _chainName, Long _chainId, String _type, EVMCurrency _nativeCurrency, String _priceMechanism, int confirmationTimeinSeconds, String _fallbackGasPriceInWEI, String _enforcedMinGasPriceInWEI, String _fallbackGasLimitInUnits, ArrayList<String> _nodeURLs, ArrayList<String> _archivenodeURLs, ArrayList<String> _flashbotnodeURLs, ArrayList<String> _flashbotrelaynodeURLs, ArrayList<String> _blockexplorerURLs, ArrayList<String> _faucets, ArrayList<String> _origins, ERC20TokenIndex _tokenIndex, EVMNFTIndex _nftindex) {
 		super();
 		this.shortName = _shortName;
 		this.chainName = _chainName;
@@ -38,6 +39,7 @@ public class EVMChainInfo {
 		this.type = _type;
 		this.nativeCurrency = _nativeCurrency;
 		this.priceMechanism = _priceMechanism;
+		this.confirmationTimeinSeconds = confirmationTimeinSeconds;
 		this.fallbackGasPriceInWEI = _fallbackGasPriceInWEI;
 		this.enforcedMinGasPriceInWEI = _enforcedMinGasPriceInWEI;
 		this.fallbackGasLimitInUnits = _fallbackGasLimitInUnits;
@@ -194,6 +196,14 @@ public class EVMChainInfo {
 
 	public void setArchivenodeURLs(ArrayList<String> archivenodeURLs) {
 		this.archivenodeURLs = archivenodeURLs;
+	}
+
+	public int getConfirmationTimeinSeconds() {
+		return confirmationTimeinSeconds;
+	}
+
+	public void setConfirmationTimeinSeconds(int confirmationTimeinSeconds) {
+		this.confirmationTimeinSeconds = confirmationTimeinSeconds;
 	}
 	
 }

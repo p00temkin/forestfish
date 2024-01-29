@@ -1147,8 +1147,8 @@ public class EVMUtils {
 						}
 
 						// At least give it a few seconds
-						LOGGER.info("Giving transaction an initial 30 seconds to get a confirmation ..");
-						SystemUtils.sleepInSeconds(30);
+						LOGGER.info("Giving transaction an initial " + _connector.getChaininfo().getConfirmationTimeinSeconds() + " seconds to get a confirmation ..");
+						SystemUtils.sleepInSeconds(_connector.getChaininfo().getConfirmationTimeinSeconds());
 
 						// Wait for a successful transaction
 						if (null != response.getTransactionHash()) {
@@ -1679,8 +1679,8 @@ public class EVMUtils {
 		}
 	}
 
-	public static String sendTXWithNativeCurrency_EIP1559PricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, int _initialConfirmTimeInSeconds, String _strGasLimit, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX, BigInteger _customNonce) {
-		return sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _initialConfirmTimeInSeconds, _strGasLimit, _evmNativeValue, _haltOnUnconfirmedTX, null);
+	public static String sendTXWithNativeCurrency_EIP1559PricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
+		return sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _connector.getChaininfo().getConfirmationTimeinSeconds(), _connector.getChaininfo().getFallbackGasLimitInUnits(), _evmNativeValue, _haltOnUnconfirmedTX, null);
 	}
 
 	public static String sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(EVMBlockChainConnector _connector, Credentials _creds, String _target_address, int _initialConfirmTimeInSeconds, String _strGasLimit, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX, BigInteger _customNonce) {
@@ -1725,9 +1725,6 @@ public class EVMUtils {
 
 				try {
 
-					System.out.println("TODO");
-					SystemUtils.halt();
-
 					BigInteger maxPriorityFeePerGas = gasLimit;
 					BigInteger maxFeePerGas = BigInteger.valueOf(3_100_000_000L);
 
@@ -1743,12 +1740,18 @@ public class EVMUtils {
 							).send();
 
 					hash = transactionReceipt.getTransactionHash();
-					LOGGER.info("Transaction complete with txhash: " + hash + " at blocknr " + transactionReceipt.getBlockNumber() + " spent gas: " + transactionReceipt.getGasUsed().toString() + " units, effective gas price: " + transactionReceipt.getEffectiveGasPrice());
+					LOGGER.info("Transaction complete with txhash: " + hash + " at blocknr " + transactionReceipt.getBlockNumber() + " spent gas: " + transactionReceipt.getGasUsed().toString() + " units");
 					confirmedTransaction = true;
-
-				} catch (Exception e) {
-					LOGGER.error("unknown transaction error: " + e.getMessage());
-					SystemUtils.halt();
+					
+				} catch (Exception ex) {
+					// RPC tx exceptions (readwrite)
+					EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+					if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+					EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
+					if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
+					if (evmE.isTimeout()) timeoutNoted = true;
+					if (evmEAS.isIncreaseGasPrice()) increaseGasPriceInWEI = increaseGasPriceInWEI.add(evmEAS.getSuggestedGasPriceIncreaseInWEI());
+					if (evmEAS.isNewEVMBlockChainConnector()) _connector = evmEAS.getConnector();
 				}
 			} catch (Exception ex) {
 				// RPC tx exceptions (readwrite)
@@ -2096,6 +2099,13 @@ public class EVMUtils {
 				_ex.getMessage().contains("intrinsic gas too low") ||
 				false) {
 			LOGGER.warn("Gas price likely too low, update your min gas calculations for " + _chain + ", exception: " + _ex.getMessage());
+			nodeInteraction = true;
+			exceptionType = ExceptionType.FATAL;
+		} else if (false ||
+				_ex.getMessage().contains("legacy transaction is not supported") ||
+				false) {
+			// https://rpc.ankr.com/filecoin_testnet: legacy transaction is not supported
+			LOGGER.warn("Legacy transaction not supported, need to switch to EIP1559 for chain " + _chain + ", exception: " + _ex.getMessage());
 			nodeInteraction = true;
 			exceptionType = ExceptionType.FATAL;
 		} else if (_ex.getMessage().contains("Invalid response received: 429")) {
@@ -3191,6 +3201,19 @@ public class EVMUtils {
 	public static EVMPortfolioSimple createEVMPortfolioSimple(EVMPortfolio _evm_portfolio) {
 		if (null == _evm_portfolio) return null;
 		return new EVMPortfolioSimple(_evm_portfolio.getAccount_address(), _evm_portfolio.getChainportfolio());
+	}
+
+	public static String sendTX(EVMBlockChainConnector connector, Credentials cred, String wolfwallet001_address, EVMNativeValue val_to_withdraw, boolean haltOnUnconfirmedTX) {
+		String txhash = null;
+		if ("LEGACY".equals(connector.getChaininfo().getPriceMechanism())) {
+			txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism(connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
+		} else if ("EIP1559".equals(connector.getChaininfo().getPriceMechanism())) {
+			txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism(connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
+		} else {
+			LOGGER.error("Unable to handle pricing mechanism named: " + connector.getChaininfo().getPriceMechanism());
+			SystemUtils.halt();
+		}
+		return txhash;
 	}
 
 }

@@ -136,7 +136,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Dogechain Mainnet", EVMChain.DOGECHAIN);
 			this.put("Dogechain Testnet", EVMChain.DOGECHAINTEST);
 			this.put("WEMIX3.0 Testnet", EVMChain.WEMIXTEST);
-			this.put("Metis Goerli Testnet", EVMChain.METISSTARDUSTTEST);
+			this.put("Metis Goerli Testnet", EVMChain.METISGOERLITEST);
 			this.put("Boba BNB Mainnet", EVMChain.BOBABNB); 
 			this.put("Siberium Network", EVMChain.SIBERIUM);
 			this.put("Siberium Test Network", EVMChain.SIBERIUMTEST); 
@@ -184,8 +184,30 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Bifrost Mainnet", EVMChain.BIFROST);
 			this.put("Bifrost Testnet", EVMChain.BIFROSTTEST);
 			this.put("Fibonacci Mainnet", EVMChain.FIBONACCI);
-			//this.put("W3Gamez Holesky Testnet", EVMChain.WEB3GAMEZTEST);
-
+			this.put("W3Gamez Holesky Testnet", EVMChain.W3GAMEZTEST);
+			this.put("EIOB Mainnet", EVMChain.EIOB);
+			this.put("Kinto Mainnet", EVMChain.KINTO);
+			this.put("LiquidLayer Mainnet", EVMChain.LIQUIDLAYER);
+			this.put("LiquidLayer Testnet", EVMChain.LIQUIDLAYERTEST);
+			this.put("Jono11 Subnet", EVMChain.JONO11);
+			this.put("Jono12 Subnet", EVMChain.JONO12);
+			this.put("ZKAmoeba Testnet", EVMChain.ZKAMOEBATEST);
+			this.put("Filecoin - Mainnet", EVMChain.FILECOIN);
+			this.put("Filecoin - Calibration testnet", EVMChain.FILECOINCALIBRATIONTEST);
+			this.put("Eclipse Subnet", EVMChain.ECLIPSETEST);
+			this.put("Innovator Chain", EVMChain.INOV8);
+			this.put("ZKAmoeba Testnet", EVMChain.ZKAMOEBATEST);
+			this.put("Mordor Testnet", EVMChain.ETCMORDORTEST);
+			this.put("Manta Pacific Mainnet", EVMChain.MANTA);
+			this.put("Metis Andromeda Mainnet", EVMChain.METIS);
+			this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST);
+			this.put("Metis Stardust Testnet", EVMChain.METISSTARDUSTTEST);
+			this.put("Alph Network", EVMChain.ALPH);
+			this.put("Berachain Artio", EVMChain.BERACHAINARTIOTEST);
+			this.put("Nexa Block", EVMChain.NEXABLOCKTEST);
+			this.put("Blast Sepolia Testnet", EVMChain.BLASTSEPOLIATEST);
+			this.put("Bitfinity Network Testnet", EVMChain.BITFINITYTEST);
+			
 			//this.put("DeBank Testnet", EVMChain.GNOSIS); // single dead node
 			//this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST); //dead nodes only
 			//this.put("ZetaChain Mainnet", EVMChain.ZE); // not live yet
@@ -773,7 +795,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("xxxxxxxx", true);
 			this.put("xxxxxxxx", true);
 			this.put("xxxxxxxx", true);
-			
+
 		}};
 
 		HashMap<String, Boolean> skipchains = new HashMap<String, Boolean>() {{
@@ -794,7 +816,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("LaChain", true);
 			this.put("Orderly Mainnet", true);
 			this.put("Neurochain Mainnet", true);
-			this.put("Filecoin - Mainnet", true);
 			this.put("Shiden", true);
 			this.put("LaTestnet", true);
 			this.put("Optimism Goerli Testnet", true);
@@ -858,12 +879,26 @@ public class CheckNewEVMNodeCandidates {
 			this.put("QuarkChain Mainnet Shard 5", true);
 			this.put("QuarkChain Mainnet Shard 6", true);
 			this.put("QuarkChain Mainnet Shard 7", true);
-			this.put("Filecoin - Calibration testnet", true);
 			this.put("Bear Network Chain Mainnet", true);
 			this.put("Posichain Mainnet Shard 0", true);
 			this.put("quarkblockchain", true);
 			this.put("Pego Network", true);
 			this.put("Harmony Mainnet Shard 0", true);
+
+			// add?
+			this.put("Fuse Mainnet", true);
+			this.put("Fuse Sparknet", true);
+			this.put("Rollux Mainnet", true);
+			this.put("Blast Mainnet", true);
+			this.put("Oasys Mainnet", true);
+			this.put("zkSync Mainnet", true);
+			this.put("Klaytn Testnet Baobab", true);
+			this.put("X1 Devnet", true);
+			this.put("X1 Network", true);
+			this.put("EOS EVM Network", true);
+			this.put("EOS EVM Network Testnet", true);
+			this.put("Beam Testnet", true);
+			this.put("Immutable zkEVM", true);
 			
 			// single node
 			this.put("Expanse Network", true);
@@ -881,7 +916,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("CoinEx Smart Chain Mainnet", true);
 			this.put("CoinEx Smart Chain Testnet", true);
 			this.put("GoChain", true);
-			this.put("Mordor Testnet", true);
 			this.put("Hoo Smart Chain", true);
 			this.put("IDChain Mainnet", true);
 			this.put("PrimusChain mainnet", true);
@@ -895,8 +929,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Coinbit Mainnet", true);
 			this.put("Uptick Mainnet", true);
 			this.put("ENULS Testnet", true);
-			this.put("Fuse Mainnet", true);
-			this.put("Fuse Sparknet", true);
 			this.put("Huobi ECO Chain Mainnet", true);
 			this.put("ProtoJumbo Testnet", true);
 			this.put("iExec Sidechain", true);
@@ -906,7 +938,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("ShimmerEVM", true);
 			this.put("Six Protocol Testnet", true);
 			this.put("AIOZ Network", true);
-			this.put("Manta Pacific Mainnet", true);
 			this.put("AME Chain Mainnet", true);
 			this.put("Seele Mainnet", true);
 			this.put("BMC Testnet", true);
@@ -920,9 +951,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Scalind Testnet", true);
 			this.put("LACHAIN Testnet", true);
 			this.put("Deamchain Testnet", true);
-			this.put("Blast Mainnet", true);
 			this.put("Energy Web Chain", true);
-			this.put("Oasys Mainnet", true);
 			this.put("Neonlink Mainnet", true);
 			this.put("High Performance Blockchain", true);
 			this.put("EgonCoin Mainnet", true);
@@ -933,7 +962,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Omax Mainnet", true);
 			this.put("KCC Mainnet", true);
 			this.put("KCC Testnet", true);
-			this.put("zkSync Mainnet", true);
 			this.put("DFK Chain Test", true);
 			this.put("Theta Mainnet", true);
 			this.put("Theta Testnet", true);
@@ -950,9 +978,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Gear Zero Network Mainnet", true);
 			this.put("F(x)Core Mainnet Network", true);
 			this.put("Candle", true);
-			this.put("Rollux Mainnet", true);
 			this.put("MetaChain Mainnet", true);
-			this.put("Metis Stardust Testnet", true);
 			this.put("Acala Mandala Testnet TC9", true);
 			this.put("Karura Network Testnet", true);
 			this.put("Acala Network Testnet", true);
@@ -989,7 +1015,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("eLiberty Mainnet", true);
 			this.put("5ireChain Thunder", true);
 			this.put("Wanchain Testnet", true);
-			this.put("Klaytn Testnet Baobab", true);
 			this.put("Tectum Emission Token", true);
 			this.put("T-EKTA", true);
 			this.put("Newton Testnet", true);
@@ -999,7 +1024,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("ShimmerEVM Testnet", true);
 			this.put("Mintara Testnet", true);
 			this.put("Mintara Mainnet", true);
-			this.put("Metis Andromeda Mainnet", true);
 			this.put("BLXq Testnet", true);
 			this.put("BLXq Mainnet", true);
 			this.put("AmStar Testnet", true);
@@ -1110,7 +1134,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("BlackFort Exchange Network Testnet", true);
 			this.put("Globel Chain", true);
 			this.put("Venidium Mainnet", true);
-			this.put("Mantle Sepolia Testnet", true);
 			this.put("Humanode Mainnet", true);
 			this.put("VEX EVM TESTNET", true);
 			this.put("Nahmii Mainnet", true);
@@ -1141,7 +1164,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Hela Official Runtime Mainnet", true);
 			this.put("Storagechain Mainnet", true);
 			this.put("Storagechain Testnet", true);
-			this.put("Alph Network", true);
 			this.put("TMY Chain", true);
 			this.put("MARO Blockchain Mainnet", true);
 			this.put("XANAChain", true);
@@ -1170,13 +1192,10 @@ public class CheckNewEVMNodeCandidates {
 			this.put("BRC Chain Mainnet", true);
 			this.put("Step Testnet", true);
 			this.put("Credit Smart Chain", true);
-			this.put("Beam Testnet", true);
-			this.put("Immutable zkEVM", true);
 			this.put("Phoenix Mainnet", true);
 			this.put("Humanode Testnet 5 Israfel", true);
 			this.put("Immutable zkEVM Devnet", true);
 			this.put("LoopNetwork Mainnet", true);
-			this.put("EOS EVM Network Testnet", true);
 			this.put("Genesys Mainnet", true);
 			this.put("IRIShub Testnet", true);
 			this.put("AirDAO Mainnet", true);
@@ -1184,7 +1203,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Redstone Holesky Testnet", true);
 			this.put("G8Chain Mainnet", true);
 			this.put("Palette Chain Testnet", true);
-			this.put("EOS EVM Network", true);
 			this.put("Smart Trade Networks", true);
 			this.put("G8Chain Testnet", true);
 			this.put("MXC zkEVM Mainnet", true);
@@ -1274,8 +1292,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Bitica Chain Mainnet", true);
 			this.put("Alaya Mainnet", true);
 			this.put("Decimal Smart Chain Testnet", true);
-			this.put("X1 Devnet", true);
-			this.put("X1 Network", true);
 			this.put("PlatON Mainnet", true);
 			this.put("Mas Mainnet", true);
 			this.put("Reapchain Mainnet", true);
@@ -1386,7 +1402,19 @@ public class CheckNewEVMNodeCandidates {
 				HashMap<String, Boolean> forestfish_nodes = new HashMap<>();
 				if (null != evmchain) {
 					EVMChainInfo chaininfo = EVMUtils.getEVMChainInfo(evmchain);
-
+					if (null == chaininfo) {
+						LOGGER.error("chaininfo is null for evmchain " + evmchain + "?");
+						SystemUtils.halt();
+					}
+					if (null == chaininfo.getChainId()) {
+						LOGGER.error("chaininfo id is null?");
+						SystemUtils.halt();
+					}
+					if (null == eece.getChainId()) {
+						LOGGER.error("eece chaininfo id is null?");
+						SystemUtils.halt();
+					}
+					
 					// Sanitycheck
 					if (!chaininfo.getChainId().equals(eece.getChainId())) {
 						LOGGER.warn("Incorrect chain ID for " + chaininfo.getChainName() + "?");
@@ -1448,11 +1476,21 @@ public class CheckNewEVMNodeCandidates {
 
 						if (activeNodeCount == 1) {
 							System.out.println("NEW active/candidate chain: " + eece.getName() + " [activeNodeCount: " + activeNodeCount + "/" + nodeCount + "]");
+							System.out.println("  - chainid   : " + eece.getChainId());
+							System.out.println("  - explorers : " + eece.getExplorers());
+							System.out.println("  - faucets   : " + eece.getFaucets());
+							System.out.println("  - rpcs      : " + eece.getRpc());
+							System.out.println("  - currency  : " + eece.getNativeCurrency().getSymbol());
 							
 							// temp
 							FilesUtils.appendToFileUNIXNoException("this.put(\"" + eece.getName() + "\", true);", "skipped_chains.singlenode");
 						} else if (activeNodeCount > 1) {
 							System.out.println("NEW multinode active/candidate chain: " + eece.getName() + " [activeNodeCount: " + activeNodeCount + "/" + nodeCount + "]");
+							System.out.println("  - chainid   : " + eece.getChainId());
+							System.out.println("  - explorers : " + eece.getExplorers());
+							System.out.println("  - faucets   : " + eece.getFaucets());
+							System.out.println("  - rpcs      : " + eece.getRpc());
+							System.out.println("  - currency  : " + eece.getNativeCurrency().getSymbol());
 							
 							// temp
 							FilesUtils.appendToFileUNIXNoException("this.put(\"" + eece.getName() + "\", true);", "skipped_chains.multinode");
