@@ -237,7 +237,18 @@ public class EVMUtils {
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
 			requestCount++;
 			try {
-				EthGetBalance ethGetBalance = _connector.getProvider_instance().ethGetBalance(_address, DefaultBlockParameterName.PENDING).send();
+				EthGetBalance ethGetBalance = null;
+				
+				ethGetBalance = _connector.getProvider_instance().ethGetBalance(_address, DefaultBlockParameterName.PENDING).send();
+				if (null == ethGetBalance.getResult()) {
+					// chains such as BERACHAIN will not respond to PENDING, needs FINALIZED
+					ethGetBalance = _connector.getProvider_instance().ethGetBalance(_address, DefaultBlockParameterName.FINALIZED).send();
+				}
+				if (null == ethGetBalance.getResult()) {
+					LOGGER.warn("Unable to get a proper balance response");
+					return null;
+				}
+				
 				BigInteger balanceWEI = ethGetBalance.getBalance();
 				BigDecimal balanceETH = Convert.fromWei(ethGetBalance.getBalance().toString(), Unit.ETHER);
 				BigDecimal balanceInGWEI = Convert.fromWei(ethGetBalance.getBalance().toString(), Unit.GWEI);
@@ -1871,7 +1882,7 @@ public class EVMUtils {
 			switchNode = true;
 		} else if (_ex.getMessage().contains("must be in format")) {
 			// https://github.com/web3j/web3j/issues/1643
-			LOGGER.info("Likely issue getting gas price (or generic response decode error) from nodeURL " + _nodeURL + ".. will not retry, move on to next node. Error message: " + _ex.getMessage());
+			LOGGER.info("Response decode error from nodeURL " + _nodeURL + ", did you use PENDING+.getBalance() on BERACHAIN? ill not retry, move on to next node. Error message: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("No value present")) {

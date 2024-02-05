@@ -12,10 +12,10 @@ import crypto.forestfish.objects.evm.model.nft.EVMNFTIndex;
 import crypto.forestfish.utils.FilesUtils;
 import crypto.forestfish.utils.JSONUtils;
 
-public class GenerateIndexes {
+public class GenerateEVMIndexes {
 
 	@SuppressWarnings("unused")
-	private static final Logger LOGGER = LoggerFactory.getLogger(GenerateIndexes.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GenerateEVMIndexes.class);
 	
 	@Test
 	public void generateEVMChainIndexJSON() {

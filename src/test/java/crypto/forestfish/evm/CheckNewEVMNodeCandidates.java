@@ -207,6 +207,33 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Nexa Block", EVMChain.NEXABLOCKTEST);
 			this.put("Blast Sepolia Testnet", EVMChain.BLASTSEPOLIATEST);
 			this.put("Bitfinity Network Testnet", EVMChain.BITFINITYTEST);
+			this.put("Cosvm Mainnet", EVMChain.COSVM);
+			this.put("BST Chain", EVMChain.BSTCHAIN);
+			this.put("AlveyChain Mainnet", EVMChain.ALVEYCHAIN);
+			this.put("Ancient8", EVMChain.ANCIENT8);
+			this.put("Ancient8 Testnet", EVMChain.ANCIENT8TEST);
+			this.put("Ancient8 Testnet", EVMChain.ANCIENT8TEST);
+			this.put("MAPO Makalu", EVMChain.MAPPROTOCOLTEST);
+			this.put("MAP Protocol", EVMChain.MAPPROTOCOL);
+			this.put("BEVM Testnet", EVMChain.BEVMTEST);
+			this.put("Puppynet Shibarium", EVMChain.SHIBARIUMPUPPYNETTEST);
+			this.put("DOID", EVMChain.DOID);
+			this.put("DOID Testnet", EVMChain.DOIDTEST);
+			this.put("BPX Blockchain", EVMChain.BPX);
+			this.put("Lovely Network Testnet", EVMChain.LOVELYTEST);
+			this.put("Lovely Network Mainnet", EVMChain.LOVELY);
+			this.put("Mint Testnet", EVMChain.MINTTEST);
+			this.put("ZetaChain Mainnet", EVMChain.ZETA);
+			this.put("Vrcscan Mainnet", EVMChain.VRCSCAN);
+			this.put("Xenon Chain Testnet", EVMChain.XENONTEST);
+			this.put("Lisk Sepolia Testnet", EVMChain.LISKTEST);
+			this.put("MetaDAP Enterprise Mainnet", EVMChain.METADAP);
+			this.put("MetaDAP Enterprise Testnet", EVMChain.METADAPTEST);
+			this.put("Bloom Genesis Testnet", EVMChain.BLOOMTEST);
+			this.put("Bloom Genesis Mainnet", EVMChain.BLOOM);
+			this.put("Sei Devnet", EVMChain.SEITEST);
+			this.put("PowerGold", EVMChain.AURORAPOWERGOLD);
+			this.put("Syndr L3 Sepolia", EVMChain.SYNDRTEST);
 			
 			//this.put("DeBank Testnet", EVMChain.GNOSIS); // single dead node
 			//this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST); //dead nodes only
@@ -901,6 +928,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Immutable zkEVM", true);
 			
 			// single node
+			this.put("All About Healthy", true); // scam
 			this.put("Expanse Network", true);
 			this.put("ThaiChain", true);
 			this.put("Diode Prenet", true);
@@ -1349,7 +1377,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Plian Testnet Main", true);
 			this.put("SmartMesh Mainnet", true);
 			this.put("Excelon Mainnet", true);
-			this.put("Ancient8 Testnet", true);
 			this.put("Aquachain", true);
 			this.put("Autonity Bakerloo (Barada) Testnet", true);
 			this.put("Autonity Piccadilly (Barada) Testnet", true);

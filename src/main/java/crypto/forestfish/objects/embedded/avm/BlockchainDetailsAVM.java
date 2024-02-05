@@ -54,8 +54,8 @@ public class BlockchainDetailsAVM {
 					this.add(new AlgoRelayNode("https://mainnet-api.algonode.network", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					this.add(new AlgoRelayNode("https://mainnet-api.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					this.add(new AlgoRelayNode("https://xna-mainnet-api.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
-					this.add(new AlgoRelayNode("https://node.algoexplorerapi.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					
+					//this.add(new AlgoRelayNode("https://node.algoexplorerapi.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key")); // gone
 					//this.add(new AlgoRelayNode("https://mainnet-algorand.api.purestake.io/ps2", 443, "<api-key>", "X-API-Key")); // custom
 					//https://algo.getblock.io/05259d72-ef42-41e1-9c3c-5b.../mainnet/ // custom
 					//https://quicknode.com // custom
@@ -68,7 +68,7 @@ public class BlockchainDetailsAVM {
 					//this.add(new AlgoIndexerNode("https://mainnet-algorand.api.purestake.io/idx2", 443, "<api-key>", "X-API-Key")); // custom
 				}}, 
 				new ArrayList<String>() {{
-					this.add("https://algoexplorer.io");
+					//this.add("https://algoexplorer.io");
 					this.add("https://goalseeker.purestake.io/algorand/mainnet");
 				}},
 				new ArrayList<String>() {{
@@ -91,7 +91,8 @@ public class BlockchainDetailsAVM {
 				new AVMCurrency("ALGO", "ALGO", 6), 
 				new ArrayList<AlgoRelayNode>() {{
 					this.add(new AlgoRelayNode("https://testnet-api.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
-					this.add(new AlgoRelayNode("https://node.testnet.algoexplorerapi.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					
+					//this.add(new AlgoRelayNode("https://node.testnet.algoexplorerapi.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key")); // gone
 					// <no longer available>, https://replit.com/@Algorand/Getting-Started-with-JavaScript#index.js // custom
 					//this.add(new AlgoRelayNode("https://academy-algod.dev.aws.algodev.network", 443, "2f3203f21e738a1de6110eba6984f9d03e5a95d7a577b34616854064cf2c0e7b", "X-Algo-API-Token")); // custom 
 					//this.add(new AlgoRelayNode("https://testnet-algorand.api.purestake.io/ps2", 443, "<api-key>", "X-API-Key")); // custom
