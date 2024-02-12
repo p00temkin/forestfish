@@ -119,6 +119,8 @@ public enum EVMChain {
 	METADAP,
 	BLOOM,
 	AURORAPOWERGOLD,
+	DYMENSION,
+	MERLIN,
 	
 	// Testnet
 	SHARDEUMLIBERTY1xTEST,
@@ -244,6 +246,7 @@ public enum EVMChain {
 	BLOOMTEST,
 	SEITEST,
 	SYNDRTEST,
+	TIMETEST,
 
 	// Beta nets
 	LAMINA1BETATEST,

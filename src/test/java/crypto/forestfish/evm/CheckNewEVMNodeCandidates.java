@@ -234,6 +234,9 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Sei Devnet", EVMChain.SEITEST);
 			this.put("PowerGold", EVMChain.AURORAPOWERGOLD);
 			this.put("Syndr L3 Sepolia", EVMChain.SYNDRTEST);
+			this.put("Dymension", EVMChain.DYMENSION);
+			this.put("Elizabeth Testnet", EVMChain.TIMETEST);
+			this.put("Merlin Mainnet", EVMChain.MERLIN);
 			
 			//this.put("DeBank Testnet", EVMChain.GNOSIS); // single dead node
 			//this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST); //dead nodes only

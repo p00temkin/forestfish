@@ -4463,6 +4463,97 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.VRCSCAN, vrcscan);
 		
+		// dym
+		EVMChainInfo dym = new EVMChainInfo(
+				EVMChain.DYMENSION.toString(), 
+				"Dymension", 
+				1100L, 
+				BlockchainType.PUBLIC.toString(), // unstable
+				new EVMCurrency("Dymension Gas Token", "DYM", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://dymension-evm.blockpi.network/v1/rpc/public");
+					this.add("https://dymension.liquify/json-rpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://dym.fyi");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://portal.dymension.xyz/");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.DYMENSION, dym);
+		
+		// timetest
+		EVMChainInfo timetest = new EVMChainInfo(
+				EVMChain.TIMETEST.toString(), 
+				"Elizabeth Testnet", 
+				2731L, 
+				BlockchainType.PUBLIC.toString(), // unstable
+				new EVMCurrency("Elizabeth Testnet Gas Token", "TIME", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://testnet-rpc.timenetwork.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://testnet-scanner.timenetwork.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://anttime.net/");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.TIMETEST, timetest);
+		
+		// merlin
+		EVMChainInfo merlin = new EVMChainInfo(
+				EVMChain.MERLIN.toString(), 
+				"Merlin Mainnet", 
+				4200L, 
+				BlockchainType.PUBLIC.toString(), // unstable
+				new EVMCurrency("Merlin Mainnet Gas Token", "TIME", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", //only give enough to enable transfers .. 
+				new ArrayList<String>() {{
+					this.add("https://rpc.merlinchain.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.merlinchain.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://merlinchain.io");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.MERLIN, merlin);
+		
 		// xenon_test
 		EVMChainInfo xenon_test = new EVMChainInfo(
 				EVMChain.XENONTEST.toString(), 
