@@ -3227,4 +3227,10 @@ public class EVMUtils {
 		return txhash;
 	}
 
+	public static String getHexPrivateKeyFromCred(Credentials _cred) {
+		String hex = _cred.getEcKeyPair().getPrivateKey().toString(16);
+		while (hex.length() < 64) hex = "0" + hex;
+		return hex;
+	}
+
 }

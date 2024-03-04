@@ -2,7 +2,6 @@ package crypto.forestfish.objects.evm;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.security.SecureRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ public class EVMLocalWallet {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EVMLocalWallet.class);
 
+	@SuppressWarnings("unused")
 	private static final int PRIVATE_KEY_RADIX = 16;
 
 	private String walletName;

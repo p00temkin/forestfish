@@ -91,7 +91,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Bitkub Chain Testnet", EVMChain.BITKUBTEST);
 			this.put("Oasis Sapphire", EVMChain.OASISSAPPHIRE);
 			this.put("Oasis Sapphire Testnet", EVMChain.OASISSAPPHIRETEST);
-			this.put("Astar zkEVM", EVMChain.ASTARZKEVM);
+			//this.put("Astar zkEVM", EVMChain.ASTARZKEVM);
 			this.put("Evmos", EVMChain.EVMOS);
 			this.put("Evmos Testnet", EVMChain.EVMOSTEST);
 			this.put("Base", EVMChain.BASE);
@@ -144,8 +144,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Kava", EVMChain.KAVA); 
 			this.put("Syscoin Tanenbaum Testnet", EVMChain.SYSCOINTEST);
 			this.put("Flare Mainnet", EVMChain.FLARE); 
-			this.put("Flare Testnet Coston", EVMChain.FLARECOSTONTEST); 
-			this.put("Flare Testnet Coston2", EVMChain.FLARECOSTON2TEST); 
 			this.put("ShibaChain", EVMChain.SHIBACHAIN); 
 			this.put("Ethereum Classic", EVMChain.ETC); 
 			this.put("XDC Network", EVMChain.XDC); 
@@ -237,6 +235,59 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Dymension", EVMChain.DYMENSION);
 			this.put("Elizabeth Testnet", EVMChain.TIMETEST);
 			this.put("Merlin Mainnet", EVMChain.MERLIN);
+			this.put("ZKSats Mainnet", EVMChain.ZKSATS);
+			this.put("Syndicate Frame Chain", EVMChain.FRAMECHAIN);
+			this.put("Nexa Mainnet Block", EVMChain.NEXA);
+			this.put("Nexa Testnet Block", EVMChain.NEXATEST);
+			this.put("unreal", EVMChain.UNREAL);
+			this.put("Plume Testnet", EVMChain.PLUMETEST);
+			this.put("Swan Saturn Testnet", EVMChain.SWANCHAINTEST);
+			this.put("Viridis Testnet", EVMChain.VIRIDISTEST);
+			this.put("Viridis Mainnet", EVMChain.VIRIDIS);
+			this.put("CheckDot Blockchain Devnet", EVMChain.CHECKDOTTEST);
+			this.put("Karak Mainnet", EVMChain.KARAK);
+			this.put("Karak Testnet", EVMChain.KARAKTEST);
+			this.put("Polygon zkEVM Cardona Testnet", EVMChain.POLYGONCARDONATEST);
+			this.put("Emoney Network Testnet", EVMChain.EMONEYTEST);
+			this.put("Orenium Testnet Protocol", EVMChain.ORENIUMTEST);
+			this.put("Dela Sepolia Testnet", EVMChain.DELATEST);
+			this.put("Aternos", EVMChain.ATERNOS);
+			this.put("C4EI", EVMChain.C4EI);
+			this.put("Vanguard", EVMChain.VANGUARD);
+			this.put("Hizoco mainnet", EVMChain.HIZOCO);
+			this.put("GitSwarm Test Network", EVMChain.GITSWARMTEST);
+			this.put("Songbird Testnet Coston", EVMChain.FLARECOSTONTEST);
+			this.put("Flare Testnet Coston", EVMChain.FLARECOSTONTEST); 
+			this.put("Flare Testnet Coston2", EVMChain.FLARECOSTON2TEST); 
+			this.put("Rupaya Testnet", EVMChain.RUPAYATEST); 
+			this.put("Hybrid Testnet", EVMChain.HYBRIDTEST); 
+			this.put("MetaChain Istanbul", EVMChain.METACHAIN);
+			this.put("Vitruveo Mainnet", EVMChain.VITRUVEO);
+			this.put("Whitechain", EVMChain.WHITECHAIN);
+			this.put("Whitechain Testnet", EVMChain.WHITECHAINTEST);
+			this.put("Selendra Network Testnet", EVMChain.SELENDRATEST);
+			this.put("Selendra Network Mainnet", EVMChain.SELENDRA);
+			this.put("Gold Chain", EVMChain.GOLD);
+			this.put("Vitruveo Testnet", EVMChain.VITRUVEOTEST);
+			this.put("KONET Mainnet", EVMChain.KONET);
+			this.put("Titan (TKX) Testnet", EVMChain.TITANTEST);
+			this.put("Decentraconnect Social", EVMChain.DECENTRACONNECT);
+			this.put("AlveyChain Testnet", EVMChain.ALVEYCHAINTEST);
+			this.put("GUNZ Testnet", EVMChain.GUNZTEST);
+			this.put("Masa Testnet", EVMChain.MASATEST);
+			this.put("Bitlayer Testnet", EVMChain.BITLAYERTEST);
+			this.put("Fraxtal", EVMChain.FRAXTAL);
+			this.put("Runic Chain Testnet", EVMChain.RUNICTEST);
+			this.put("Ethereum Inscription Mainnet", EVMChain.ETHEREUMINS);
+			this.put("APEX Testnet", EVMChain.APEXTEST);
+			this.put("Blast", EVMChain.BLAST);
+			this.put("Auroria Testnet", EVMChain.AURORIATEST);
+			this.put("DeepL Mainnet", EVMChain.DEEPL);
+			this.put("DeepL Testnet", EVMChain.DEEPLTEST);
+			this.put("Tiltyard Mainnet Subnet", EVMChain.TILTYARD);
+			this.put("Astar zKyoto", EVMChain.ASTARZKYOTO);
+			this.put("Autonity Bakerloo (Sumida) Testnet", EVMChain.AUTONITYTEST);
+			
 			
 			//this.put("DeBank Testnet", EVMChain.GNOSIS); // single dead node
 			//this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST); //dead nodes only
@@ -825,7 +876,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("xxxxxxxx", true);
 			this.put("xxxxxxxx", true);
 			this.put("xxxxxxxx", true);
-
 		}};
 
 		HashMap<String, Boolean> skipchains = new HashMap<String, Boolean>() {{
@@ -929,7 +979,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("EOS EVM Network Testnet", true);
 			this.put("Beam Testnet", true);
 			this.put("Immutable zkEVM", true);
-			
+
 			// single node
 			this.put("All About Healthy", true); // scam
 			this.put("Expanse Network", true);
@@ -1444,7 +1494,7 @@ public class CheckNewEVMNodeCandidates {
 						LOGGER.error("eece chaininfo id is null?");
 						SystemUtils.halt();
 					}
-					
+
 					// Sanitycheck
 					if (!chaininfo.getChainId().equals(eece.getChainId())) {
 						LOGGER.warn("Incorrect chain ID for " + chaininfo.getChainName() + "?");
@@ -1477,7 +1527,7 @@ public class CheckNewEVMNodeCandidates {
 					}
 
 					if (newnode_count > 0) {
-						LOGGER.info("Add the new " + newnode_count + " nodes for EVMChain." + evmchain.toString() + " in BlockchainDetailsEVM and re-run");
+						LOGGER.info("Add the new " + newnode_count + " nodes for networks.put(EVMChain." + evmchain.toString() + " in BlockchainDetailsEVM and re-run");
 						SystemUtils.halt();
 					}
 				} else {
@@ -1511,7 +1561,7 @@ public class CheckNewEVMNodeCandidates {
 							System.out.println("  - faucets   : " + eece.getFaucets());
 							System.out.println("  - rpcs      : " + eece.getRpc());
 							System.out.println("  - currency  : " + eece.getNativeCurrency().getSymbol());
-							
+
 							// temp
 							FilesUtils.appendToFileUNIXNoException("this.put(\"" + eece.getName() + "\", true);", "skipped_chains.singlenode");
 						} else if (activeNodeCount > 1) {
@@ -1521,9 +1571,76 @@ public class CheckNewEVMNodeCandidates {
 							System.out.println("  - faucets   : " + eece.getFaucets());
 							System.out.println("  - rpcs      : " + eece.getRpc());
 							System.out.println("  - currency  : " + eece.getNativeCurrency().getSymbol());
-							
+
 							// temp
 							FilesUtils.appendToFileUNIXNoException("this.put(\"" + eece.getName() + "\", true);", "skipped_chains.multinode");
+						}
+
+						String chain_shortname = null;
+						String chain_enum = null;
+
+						if (false ||
+								eece.getName().contains("Test") ||
+								eece.getName().contains("Devnet") ||
+								false) {
+							chain_shortname = eece.getName().split(" ")[0].toLowerCase() + "_test";
+							chain_enum = eece.getName().split(" ")[0].toUpperCase() + "TEST";
+						} else {
+							chain_shortname = eece.getName().split(" ")[0].toLowerCase();
+							chain_enum = eece.getName().split(" ")[0].toUpperCase();
+						}
+
+						// grab 1 explorer
+						String explorer = "<TODO>";
+						if (null != eece.getExplorers()) {
+							for (HashMap<String, String> hm: eece.getExplorers()) {
+								explorer = hm.get("url");
+							}
+						}
+						
+						// grab 1 faucet
+						String faucet = "<TODO>";
+						if (null != eece.getFaucets()) {
+							for (String s: eece.getFaucets()) {
+								faucet = s;
+							}
+						}
+
+						if (activeNodeCount >= 1) {
+							System.out.println("");
+							System.out.println("		// " + chain_shortname + "\n"
+									+ "		EVMChainInfo " + chain_shortname + " = new EVMChainInfo(\n"
+									+ "				EVMChain." + chain_enum + ".toString(), \n"
+									+ "				\"" + eece.getName() + "\", \n"
+									+ "				" + eece.getChainId() + "L, \n"
+									+ "				BlockchainType.PUBLIC.toString(),\n"
+									+ "				new EVMCurrency(\"" + eece.getName() + " Gas Token\", \"" + eece.getNativeCurrency().getSymbol() + "\", 18), \n"
+									+ "				EVMPriceMechanism.LEGACY.toString(),30,\n"
+									+ "				\"30000000000\", //30 gwei\n"
+									+ "				null, // enforced min gasprice\n"
+									+ "				\"300000\", //300k units\n"
+									+ "				new ArrayList<String>() {{\n"
+									+ "					this.add(\"" + eece.getRpc().get(0) + "\");\n"
+									+ "				}}, \n"
+									+ "				new ArrayList<String>(), // archive nodes (if available)\n"
+									+ "				new ArrayList<String>(),\n"
+									+ "				new ArrayList<String>(),\n"
+									+ "				new ArrayList<String>() {{\n"
+									+ "					this.add(\"" + explorer + "\");\n"
+									+ "				}},\n"
+									+ "				new ArrayList<String>() {{\n"
+									+ "					this.add(\"" + faucet + "\");\n"
+									+ "				}},\n"
+									+ "				new ArrayList<String>() {{\n"
+									+ "					this.add(\"https://chainlist.org/chain/" + eece.getChainId() + "\");\n"
+									+ "				}},\n"
+									+ "				generateDummyTokenIndex(),\n"
+									+ "				generateDummyNFTIndex());\n"
+									+ "		networks.put(EVMChain." + chain_enum + ", " + chain_shortname + ");");
+							System.out.println("");
+							
+							// Add one entry at a time
+							SystemUtils.halt();
 						}
 
 					}

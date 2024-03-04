@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.web3j.crypto.Credentials;
 
 import com.esaulpaugh.headlong.abi.Function;
+import com.esaulpaugh.headlong.abi.Single;
 import com.esaulpaugh.headlong.abi.Tuple;
 
 import crypto.forestfish.enums.evm.EVMChain;
@@ -119,7 +120,7 @@ public class EVMUtilsTest {
 	public void testEncodeABI3() {
 		Function func = new Function("baz(uint256[])");
 		BigInteger[] bigints = new BigInteger[] { BigInteger.valueOf(7), BigInteger.valueOf(8), BigInteger.valueOf(9) };
-		Tuple args = Tuple.singleton(bigints);
+		Tuple args = Single.of(bigints);
 		ByteBuffer bb = func.encodeCall(args);
 		System.out.println(Function.formatCall(bb.array())); 
 		String hexStr = CryptUtils.encodeHexString(bb.array());

@@ -11,6 +11,7 @@ import org.web3j.crypto.Credentials;
 
 import com.esaulpaugh.headlong.abi.Address;
 import com.esaulpaugh.headlong.abi.Function;
+import com.esaulpaugh.headlong.abi.Single;
 import com.esaulpaugh.headlong.abi.Tuple;
 import com.esaulpaugh.headlong.util.FastHex;
 
@@ -394,7 +395,7 @@ public class EVMContractUtils {
 			String input_type = func.getInputs().get(0).getCanonicalType();
 			if ("string".equals(input_type)) {
 				// 1 input string
-				Tuple function_args = Tuple.singleton(_arg);
+				Tuple function_args = Single.of(_arg);
 				ByteBuffer bb = func.encodeCall(function_args);
 				function_args_hex = "0x" + CryptUtils.encodeHexString(bb.array());
 			} else {
