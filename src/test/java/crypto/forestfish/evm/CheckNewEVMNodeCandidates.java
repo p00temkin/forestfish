@@ -286,12 +286,20 @@ public class CheckNewEVMNodeCandidates {
 			this.put("DeepL Testnet", EVMChain.DEEPLTEST);
 			this.put("Tiltyard Mainnet Subnet", EVMChain.TILTYARD);
 			this.put("Astar zKyoto", EVMChain.ASTARZKYOTO);
-			this.put("Autonity Bakerloo (Sumida) Testnet", EVMChain.AUTONITYTEST);
-			
+			this.put("Autonity Bakerloo (Sumida) Testnet", EVMChain.AUTONITYBAKERLOOTEST);
+			this.put("Autonity Piccadilly (Sumida) Testnet", EVMChain.AUTONITYPICCADILLYTEST);
+			this.put("FlowEVM PreviewNet", EVMChain.FLOWEVM);
+			this.put("inEVM Mainnet", EVMChain.INEVM);
+			this.put("Astar zkEVM", EVMChain.ASTARZKEVM);
+			this.put("CrossFi Testnet", EVMChain.CROSSFITEST);
+			this.put("DisChain", EVMChain.DISCHAIN);
+			this.put("ZetaChain Mainnet", EVMChain.ZETA);
+			this.put("zkLink Nova Mainnet", EVMChain.ZKLINK);
+			this.put("zkLink Nova Goerli Testnet", EVMChain.ZKLINKTEST);
 			
 			//this.put("DeBank Testnet", EVMChain.GNOSIS); // single dead node
 			//this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST); //dead nodes only
-			//this.put("ZetaChain Mainnet", EVMChain.ZE); // not live yet
+			
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
@@ -1431,8 +1439,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("SmartMesh Mainnet", true);
 			this.put("Excelon Mainnet", true);
 			this.put("Aquachain", true);
-			this.put("Autonity Bakerloo (Barada) Testnet", true);
-			this.put("Autonity Piccadilly (Barada) Testnet", true);
 			this.put("Frame Testnet", true);
 			this.put("T.E.A.M Blockchain", true);
 			this.put("Gather Mainnet Network", true);

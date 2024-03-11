@@ -1296,7 +1296,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-testnet.runic.build");
 				}}, 
@@ -1326,7 +1326,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.etins.org");
 				}}, 
@@ -1356,7 +1356,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.frax.com");
 				}}, 
@@ -1852,7 +1852,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://api.kon-wallet.com");
 				}}, 
@@ -1882,7 +1882,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://titan-testnet-json-rpc-1.tokenize-dev.com");
 					this.add("https://titan-testnet-json-rpc-2.tokenize-dev.com");
@@ -1913,7 +1913,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.decentraconnect.io");
 				}}, 
@@ -1943,7 +1943,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet-rpc.alvey.io");
 				}}, 
@@ -2131,7 +2131,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
 				null, // enforced min gasprice
-				"32000000", //only give enough to enable transfers .. 
+				"21000", //only give enough to enable transfers .. 
 				new ArrayList<String>() {{
 					this.add("https://testnet.liquidlayer.network");
 				}}, 
@@ -2807,7 +2807,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.XAITEST.toString(), 
 				"Xai Orbit Goerli Testnet", 
 				47279324479L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // nodes gone
 				new EVMCurrency("XAI Testnet Gas Token", "GETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
@@ -3030,7 +3030,7 @@ public class BlockchainDetailsEVM {
 				null, // enforced min gasprice
 				"21000", //only give enough to enable transfers .. 
 				new ArrayList<String>() {{
-					this.add("https://1rpc.io/xxx");
+					this.add("https://1rpc.io/gnosis");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -3216,7 +3216,8 @@ public class BlockchainDetailsEVM {
 				5000L, 
 				BlockchainType.PUBLIC.toString(),
 				new EVMCurrency("Mantle Gas Token", "MNT", 18), 
-				EVMPriceMechanism.LEGACY.toString(),30,
+				EVMPriceMechanism.LEGACY.toString(),
+				30,
 				"1000000000", //1 gwei
 				null, // enforced min gasprice
 				"21000", //only give enough to enable transfers .. 
@@ -3251,11 +3252,12 @@ public class BlockchainDetailsEVM {
 				"Mantle Testnet", 
 				5001L, 
 				BlockchainType.PUBLIC.toString(),
-				new EVMCurrency("Mantle Gas Token", "MNT", 18), 
-				EVMPriceMechanism.LEGACY.toString(),30,
+				new EVMCurrency("Mantle Testnet Gas Token", "MNT", 18), 
+				EVMPriceMechanism.EIP1559.toString(),
+				30,
 				"1000000000", //1 gwei
 				null, // enforced min gasprice
-				"21000", //only give enough to enable transfers .. 
+				"99000000", // mantle needs crazy thresholds for some reason
 				new ArrayList<String>() {{
 					this.add("https://rpc.testnet.mantle.xyz");
 				}}, 
@@ -3486,7 +3488,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://sepolia.explorer.zora.energy");
 				}},
 				new ArrayList<String>() {{
-					this.add("https://bridge.zora.energy/");
+					this.add("https://testnet.bridge.zora.energy/");
 				}},
 				new ArrayList<String>() {{
 					this.add("https://zora.energy");
@@ -4703,6 +4705,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://dymension-evm.blockpi.network/v1/rpc/public");
 					this.add("https://dymension.liquify/json-rpc");
+					this.add("https://dymension-evm-rpc.publicnode.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -5759,7 +5762,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.OPTIMISMGOERLITEST.toString(), 
 				"Optimism Goerli Testnet", 
 				420L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // disc
 				new EVMCurrency("Optimism Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -5892,10 +5895,8 @@ public class BlockchainDetailsEVM {
 				"21000", //only give enough to enable transfers .. 
 				new ArrayList<String>() {{
 					this.add("https://zetachain-athens-evm.blockpi.network/v1/rpc/public");
-					this.add("https://rpc.ankr.com/zetachain_evm_athens_testnet");
-
-					// https://www.zetachain.com/docs/reference/api/
-					this.add("https://rpc.ankr.com/zetachain_evm_testnet");
+					//this.add("https://rpc.ankr.com/zetachain_evm_athens_testnet");
+					//this.add("https://rpc.ankr.com/zetachain_evm_testnet"); // https://www.zetachain.com/docs/reference/api/
 					//this.add("https://api.athens2.zetachain.com/evm"); // gives incorrect nonce quite often
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
@@ -5915,6 +5916,36 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.ZETAATHENSTEST, zetachain_athens_testnet);
 
+		// inevm
+		EVMChainInfo inevm = new EVMChainInfo(
+				EVMChain.INEVM.toString(), 
+				"inEVM Mainnet", 
+				2525L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("inEVM Mainnet Gas Token", "INJ", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://mainnet.rpc.inevm.com/http");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/2525");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.INEVM, inevm);
+		
 		// kava
 		EVMChainInfo kava = new EVMChainInfo(
 				EVMChain.KAVA.toString(), 
@@ -5934,6 +5965,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://kava-evm.publicnode.com");
 					this.add("https://evm.kava-rpc.com");
 					this.add("https://rpc.ankr.com/kava_evm");
+					this.add("https://kava-evm-rpc.publicnode.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -6261,6 +6293,8 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://public-01.mainnet.thebifrost.io/rpc");
 					this.add("https://public-02.mainnet.thebifrost.io/rpc");
+					this.add("https://public-01.mainnet.bifrostnetwork.com/rpc");
+					this.add("https://public-02.mainnet.bifrostnetwork.com/rpc");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -6308,6 +6342,128 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.XODEX, xodex);
 
+		// dischain
+		EVMChainInfo dischain = new EVMChainInfo(
+				EVMChain.DISCHAIN.toString(), 
+				"DisChain", 
+				513100L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("DisChain Gas Token", "DIS", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.dischain.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://www.oklink.com/dis");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/513100");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.DISCHAIN, dischain);
+		
+		// zklink
+		EVMChainInfo zklink = new EVMChainInfo(
+				EVMChain.ZKLINK.toString(), 
+				"zkLink Nova Mainnet", 
+				810180L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("zkLink Nova Mainnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.zklink.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.zklink.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/810180");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ZKLINK, zklink);
+		
+
+		// zklink_test
+		EVMChainInfo zklink_test = new EVMChainInfo(
+				EVMChain.ZKLINKTEST.toString(), 
+				"zkLink Nova Goerli Testnet", 
+				810182L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("zkLink Nova Goerli Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://goerli.rpc.zklink.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://goerli.explorer.zklink.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/810182");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ZKLINKTEST, zklink_test);
+		
+		// autonity_piccadilly_test
+		EVMChainInfo autonity_piccadilly_test = new EVMChainInfo(
+				EVMChain.AUTONITYPICCADILLYTEST.toString(), 
+				"Autonity Piccadilly (Sumida) Testnet", 
+				65100002L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Autonity Piccadilly (Sumida) Testnet Gas Token", "ATN", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc1.piccadilly.autonity.org/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://piccadilly.autonity.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/65100002");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.AUTONITYPICCADILLYTEST, autonity_piccadilly_test);
+
+		
 		// bifrost_test
 		EVMChainInfo bifrost_test = new EVMChainInfo(
 				EVMChain.BIFROSTTEST.toString(), 
@@ -6322,6 +6478,8 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://public-01.testnet.thebifrost.io/rpc");
 					this.add("https://public-02.testnet.thebifrost.io/rpc");
+					this.add("https://public-01.testnet.bifrostnetwork.com/rpc");
+					this.add("https://public-02.testnet.bifrostnetwork.com/rpc");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -6412,7 +6570,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000",
 				new ArrayList<String>() {{
 					this.add("https://rpc.testnet.rupaya.io");
 				}}, 
@@ -6477,7 +6635,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet-rpc.buildonhybrid.com");
 				}}, 
@@ -6569,7 +6727,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://zkevm-rpc.com");
 					this.add("https://rpc.polygon-zkevm.gateway.fm");
@@ -6601,7 +6759,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.public.zkevm-test.net");
 				}}, 
@@ -6631,7 +6789,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnetrpc.ethoprotocol.com/");
 				}}, 
@@ -6656,12 +6814,12 @@ public class BlockchainDetailsEVM {
 				EVMChain.BASEGOERLITEST.toString(), 
 				"Base Goerli Test Network", 
 				84531L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // discont
 				new EVMCurrency("Base Goerli Test Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://goerli.base.org");
 					this.add("https://base-goerli.public.blastapi.io");
@@ -6697,7 +6855,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://dimension-evm-rpc.xpla.dev");
 				}}, 
@@ -6727,7 +6885,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://subnets.avax.network/beam/testnet/rpc");
 				}}, 
@@ -6757,7 +6915,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-frame.syndicate.io");
 				}}, 
@@ -6788,7 +6946,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.unreal.gelato.digital");
 				}}, 
@@ -6818,7 +6976,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-nodes.nexablockscan.io");
 				}}, 
@@ -6849,7 +7007,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-testnet-nodes.nexablockscan.io");
 				}}, 
@@ -6880,7 +7038,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://plume-testnet.rpc.caldera.xyz/http");
 				}}, 
@@ -6910,7 +7068,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://saturn-rpc.swanchain.io");
 				}}, 
@@ -6940,7 +7098,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.vitruveo.xyz");
 				}}, 
@@ -6970,7 +7128,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.whitechain.io");
 				}}, 
@@ -7000,7 +7158,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc0-testnet.selendra.org");
 					this.add("https://rpc1-testnet.selendra.org");
@@ -7031,7 +7189,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://subnets.avax.network/beam/mainnet/rpc");
 					this.add("https://build.onbeam.com/rpc");
@@ -7062,7 +7220,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://gitswarm.com:2096");
 				}}, 
@@ -7092,7 +7250,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://hizoco.net/rpc");
 				}}, 
@@ -7122,7 +7280,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://mainnet-rpc.vrd.network");
 				}}, 
@@ -7152,7 +7310,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet-rpc.vrd.network");
 				}}, 
@@ -7182,7 +7340,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://devnet.checkdot.io");
 				}}, 
@@ -7212,7 +7370,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet.emoney.network/");
 				}}, 
@@ -7242,7 +7400,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.aternoschain.com");
 				}}, 
@@ -7273,7 +7431,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.c4ei.net");
 				}}, 
@@ -7303,7 +7461,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-vanguard.vanarchain.com");
 				}}, 
@@ -7333,7 +7491,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.karak.network");
 				}}, 
@@ -7363,7 +7521,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.cardona.zkevm-rpc.com");
 				}}, 
@@ -7394,7 +7552,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://goerli.node1.karak.network");
 				}}, 
@@ -7424,7 +7582,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-testnet.whitechain.io");
 				}}, 
@@ -7454,7 +7612,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc0.selendra.org");
 					this.add("https://rpc1.selendra.org");
@@ -7485,9 +7643,10 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-dev-testnet.orenium.org/");
+					this.add("https://rpc-testnet.orenium.org/");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -7515,7 +7674,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://sepolia-dela.deperp.com");
 				}}, 
@@ -7545,7 +7704,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://api.zilliqa.com");
 				}}, 
@@ -7575,7 +7734,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://dev-api.zilliqa.com");
 				}}, 
@@ -7605,9 +7764,11 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://sepolia.optimism.io");
+					this.add("https://optimism-sepolia.blockpi.network/v1/rpc/public");
+					this.add("https://public.stackup.sh/api/v1/node/optimism-sepolia");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -7635,7 +7796,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://sepolia.base.org");
 					this.add("https://base-sepolia-rpc.publicnode.com");
@@ -7666,7 +7827,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://subnets.avax.network/masatestne/testnet/rpc");
 				}}, 
@@ -7696,7 +7857,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet-rpc.bitlayer.org");
 				}}, 
@@ -7726,7 +7887,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet.sapphire.oasis.dev");
 				}}, 
@@ -7756,7 +7917,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet.emerald.oasis.dev/");
 				}}, 
@@ -7786,7 +7947,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://sapphire.oasis.io");
 					this.add("https://1rpc.io/oasis/sapphire");
@@ -7817,7 +7978,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://emerald.oasis.dev");
 					this.add("https://1rpc.io/oasis/emerald");
@@ -7848,7 +8009,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc1.oasischain.io");
 					this.add("https://rpc2.oasischain.io");
@@ -7880,7 +8041,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://canto.gravitychain.io");
 					this.add("https://canto.slingshot.finance/");
@@ -7890,6 +8051,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://mainnode.plexnode.org:8545");
 					this.add("https://canto.gravitychain.io/");
 					this.add("https://jsonrpc.canto.nodestake.top/");
+					this.add("https://canto-rpc.ansybl.io");
 
 					//this.add("https://canto.neobase.one/"); // dead
 				}}, 
@@ -7951,7 +8113,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://taiko-jolnir.blockpi.network/v1/rpc/public");
 					//this.add("https://rpc.jolnir.taiko.xyz"); // old account balance reply but latestblocknr?  
@@ -7983,7 +8145,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.a2.taiko.xyz");
 				}}, 
@@ -8013,7 +8175,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.test.taiko.xyz");
 				}}, 
@@ -8035,7 +8197,7 @@ public class BlockchainDetailsEVM {
 
 		// taikotest_alpha
 		EVMChainInfo taikotest_alpha = new EVMChainInfo(
-				EVMChain.TAIKOALPHATEST.toString(), 
+				EVMChain.TAIKOALPHATEST1.toString(), 
 				"Taiko Ethereum A1 Test Network", 
 				167003L, 
 				BlockchainType.BORKED.toString(), // endpoints/explorers from docs no longer resolve
@@ -8043,7 +8205,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://l2rpc.a1.taiko.xyz");
 				}}, 
@@ -8061,7 +8223,7 @@ public class BlockchainDetailsEVM {
 				}},
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
-		networks.put(EVMChain.TAIKOALPHATEST, taikotest_alpha);
+		networks.put(EVMChain.TAIKOALPHATEST1, taikotest_alpha);
 
 		// syscoin_test
 		EVMChainInfo syscoin_test = new EVMChainInfo(
@@ -8073,7 +8235,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					//this.add("https://rollux.rpc.tanenbaum.io"); // ??
 					this.add("https://rpc.tanenbaum.io");
@@ -8107,7 +8269,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.syscoin.org");
 					this.add("https://syscoin-evm.publicnode.com");
@@ -8143,7 +8305,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-mainnet-cardano-evm.c1.milkomeda.com");
 				}}, 
@@ -8174,7 +8336,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-mainnet-algorand-rollup.a1.milkomeda.com");
 				}}, 
@@ -8206,7 +8368,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-devnet-algorand-rollup.a1.milkomeda.com");
 				}}, 
@@ -8238,7 +8400,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"101000000000", //101 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://api.test.wemix.com");
 				}}, 
@@ -8268,7 +8430,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"101000000000", //101 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://api.wemix.com");
 				}}, 
@@ -8299,7 +8461,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://arb1.arbitrum.io/rpc");
 					this.add("https://arbitrum.llamarpc.com");
@@ -8336,7 +8498,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://evm.shibuya.astar.network");
 				}}, 
@@ -8366,7 +8528,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://astar.public.blastapi.io");
 					this.add("https://evm.astar.network");
@@ -8403,7 +8565,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-testnet.apexlayer.xyz");
 				}}, 
@@ -8433,7 +8595,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://auroria.rpc.stratisevm.com");
 				}}, 
@@ -8463,7 +8625,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.deeplnetwork.org");
 				}}, 
@@ -8493,7 +8655,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet.deeplnetwork.org");
 				}}, 
@@ -8523,7 +8685,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://subnets.avax.network/tiltyard/mainnet/rpc");
 				}}, 
@@ -8553,7 +8715,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.startale.com/zkyoto");
 					this.add("https://rpc.zkyoto.gelato.digital");
@@ -8573,10 +8735,101 @@ public class BlockchainDetailsEVM {
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.ASTARZKYOTO, astarzkyoto);
+		
 
-		// autonity_test
-		EVMChainInfo autonity_test = new EVMChainInfo(
-				EVMChain.AUTONITYTEST.toString(), 
+		// crossfi_test
+		EVMChainInfo crossfi_test = new EVMChainInfo(
+				EVMChain.CROSSFITEST.toString(), 
+				"CrossFi Testnet", 
+				4157L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("CrossFi Testnet Gas Token", "XFI", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.testnet.ms");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.testnet.ms");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/4157");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.CROSSFITEST, crossfi_test);
+		
+		// astar zkevm
+		EVMChainInfo astarzkevm = new EVMChainInfo(
+				EVMChain.ASTARZKEVM.toString(), 
+				"Astar zkEVM", 
+				3776L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Astar zkEVM Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.startale.com/astar-zkevm");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://astar-zkevm.explorer.startale.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/3776");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ASTARZKEVM, astarzkevm);
+
+		// gitgo_test
+		EVMChainInfo gitgo_test = new EVMChainInfo(
+				EVMChain.GITGOTEST.toString(), 
+				"GitGo Testnet", 
+				31337L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"21000", // pure tx
+				new ArrayList<String>() {{
+					this.add("https://odindev.gitgo.cloud/rpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://odindev.gitgo.cloud");
+				}},
+				new ArrayList<String>() {{
+					this.add("<faucet todo>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://odindev.gitgo.cloud");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.GITGOTEST, gitgo_test);
+		
+		// autonity_bakerloo_test
+		EVMChainInfo autonity_bakerloo_test = new EVMChainInfo(
+				EVMChain.AUTONITYBAKERLOOTEST.toString(), 
 				"Autonity Bakerloo (Sumida) Testnet", 
 				65010002L, 
 				BlockchainType.PUBLIC.toString(),
@@ -8584,7 +8837,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc1.bakerloo.autonity.org/");
 				}}, 
@@ -8602,7 +8855,7 @@ public class BlockchainDetailsEVM {
 				}},
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
-		networks.put(EVMChain.AUTONITYTEST, autonity_test);		// autonity_test
+		networks.put(EVMChain.AUTONITYBAKERLOOTEST, autonity_bakerloo_test);
 		
 		// blast
 		EVMChainInfo blast = new EVMChainInfo(
@@ -8614,7 +8867,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.blast.io");
 					this.add("https://rpc.ankr.com/blast");
@@ -8648,7 +8901,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://evmos-json-rpc.agoranodes.com");
 					this.add("https://json-rpc.evmos.blockhunters.org");
@@ -8686,7 +8939,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://eth.bd.evmos.dev:8545");
 					this.add("https://evmos-testnet.lava.build");
@@ -8717,7 +8970,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				"31000000000", // 30 gwei threshold for miner.gasprice/txpool.pricelimit, enforced since Oct 2021: https://medium.com/stakingbits/polygon-minimum-gas-fee-is-now-30-gwei-to-curb-spam-8bd4313c83a2
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://polygon-rpc.com/");
 					this.add("https://rpc-mainnet.matic.quiknode.pro");
@@ -8773,7 +9026,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				"31000000000", // some mumbai nodes actually implement the 30 gwei min threshold as mainnet (see polygon object)
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-mumbai.maticvigil.com");
 					this.add("https://rpc.ankr.com/polygon_mumbai");
@@ -8813,7 +9066,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"250000000", //0.25 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://mainnet.era.zksync.io");
 					this.add("https://zksync.drpc.org");
@@ -8846,7 +9099,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"2100000", // 21k not enough for pure tx
 				new ArrayList<String>() {{
 					this.add("https://sepolia.era.zksync.dev");
 				}}, 
@@ -8874,10 +9127,11 @@ public class BlockchainDetailsEVM {
 				23011913L, 
 				BlockchainType.PUBLIC.toString(),
 				new EVMCurrency("Stylus Sepolia Test Token", "ETH", 18), 
-				EVMPriceMechanism.LEGACY.toString(),30,
+				EVMPriceMechanism.LEGACY.toString(),
+				30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"210000", // 21k+ needed for pure tx
 				new ArrayList<String>() {{
 					this.add("https://stylus-testnet.arbitrum.io/rpc");
 				}}, 
@@ -8907,7 +9161,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"); 
 					this.add("https://rpc.ankr.com/eth_ropsten");
@@ -8938,7 +9192,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.sepolia.org"); 
 					this.add("https://rpc2.sepolia.org"); 
@@ -9017,7 +9271,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
 					this.add("https://rpc.ankr.com/eth_goerli");
@@ -9060,7 +9314,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://api.avax-test.network/ext/bc/C/rpc");
 					this.add("https://avalanche-fuji-c-chain.publicnode.com");
@@ -9095,7 +9349,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.ankr.com/eth_rinkeby");
 					this.add("https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161	");
@@ -9126,7 +9380,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
 					this.add("https://kovan.poa.network");
@@ -9157,7 +9411,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"2000000000000", // 2000 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://evm-t3.cronos.org");
 				}}, 
@@ -9187,12 +9441,13 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://cronosrpc-1.xstaking.sg");
 					this.add("https://evm.cronos.org");
 					this.add("https://cronos.blockpi.network/v1/rpc/public");
 					this.add("https://cronos-evm.publicnode.com");
+					this.add("https://cronos-evm-rpc.publicnode.com");
 					//this.add("https://cronos-rpc.elk.finance"); // dead
 					//this.add("https://cronos-rpc.heavenswail.one"); // dead
 
@@ -9213,6 +9468,36 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.CRONOS, cronos);
 
+		// flowevm
+		EVMChainInfo flowevm = new EVMChainInfo(
+				EVMChain.FLOWEVM.toString(), 
+				"FlowEVM PreviewNet", 
+				646L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("FlowEVM PreviewNet Gas Token", "FLOW", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://previewnet.evm.nodes.onflow.org");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://previewnet.flowdiver.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://previewnet-faucet.onflow.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/646");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.FLOWEVM, flowevm);
+		
 		// eth
 		EVMChainInfo eth = new EVMChainInfo(
 				EVMChain.ETH.toString(), 
@@ -9223,7 +9508,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
 					this.add("https://eth-mainnet.public.blastapi.io");
@@ -9283,7 +9568,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://api.avax.network/ext/bc/C/rpc");
 					this.add("https://rpc.ankr.com/avalanche");
@@ -9319,7 +9604,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.gunz.dev/ext/bc/ryk9vkvNuKtewME2PeCgybo9sdWXGmCkBrrx4VPuZPdVdAak8/rpc");
 				}}, 
@@ -9349,7 +9634,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://bnb.boba.network");
 					this.add("https://boba-bnb.gateway.tenderly.co/");
@@ -9382,7 +9667,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://lightning-replica.boba.network");
 					this.add("https://replica.boba.network");
@@ -9421,7 +9706,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rinkeby.boba.network");
 				}}, 
@@ -9451,12 +9736,9 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://testnet.bnb.boba.network");
-					this.add("https://boba-bnb.gateway.tenderly.co/");
-					this.add("https://gateway.tenderly.co/public/boba-bnb");
-					this.add("https://replica.bnb.boba.network");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -9484,7 +9766,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.bitkubchain.io");
 				}}, 
@@ -9514,7 +9796,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-testnet.bitkubchain.io");
 				}}, 
@@ -9544,7 +9826,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.api.moonbeam.network");
 					this.add("https://rpc.ankr.com/moonbeam");
@@ -9580,7 +9862,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://moonriver.unitedbloc.com:2000");
 					this.add("https://moonriver.public.blastapi.io");
@@ -9615,7 +9897,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://istanbul-rpc.metachain.dev");
 				}}, 
@@ -9645,7 +9927,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.mainnet.taraxa.io");
 				}}, 
@@ -9677,7 +9959,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.testnet.taraxa.io");
 				}}, 
@@ -9709,7 +9991,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.ftm.tools");
 					this.add("https://fantom-mainnet.gateway.pokt.network/v1/lb/62759259ea1b320039c9e7ac");
@@ -9756,7 +10038,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://fantom-testnet.public.blastapi.io");
 					this.add("https://rpc.testnet.fantom.network");
@@ -9791,7 +10073,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://chain-rpc.gold.dev");
 				}}, 
@@ -9821,7 +10103,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://api.harmony.one");
 					this.add("https://harmony-0-rpc.gateway.pokt.network");
@@ -9856,7 +10138,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					//this.add("https://rpc.ether1.org"); // discontinued
 					this.add("https://rpc.ethoprotocol.com");
@@ -9935,7 +10217,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://data-seed-prebsc-1-s1.binance.org:8545");
 					this.add("https://data-seed-prebsc-1-s2.binance.org:8545");
@@ -9978,7 +10260,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://andromeda.metis.io/?owner=1088");
 					this.add("https://metis-mainnet.public.blastapi.io");
@@ -10009,7 +10291,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://goerli.gateway.metisdevops.link");
 				}}, 
@@ -10040,7 +10322,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-nodes.nexablockscan.io ");
 				}}, 
@@ -10070,7 +10352,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-testnet-nodes.nexablockscan.io");
 				}}, 
@@ -10100,7 +10382,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://artio.rpc.berachain.com");
 					this.add("https://rpc.ankr.com/berachain_testnet");
@@ -10131,7 +10413,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://sepolia.rpc.metisdevops.link");
 				}}, 
@@ -10162,7 +10444,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://stardust.metis.io/?owner=588");
 				}}, 
@@ -10193,7 +10475,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.alph.network");
 				}}, 
@@ -10224,7 +10506,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://www.shibrpc.com");
 				}}, 
@@ -10254,7 +10536,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://mainnet.aurora.dev");
 					this.add("https://1rpc.io/aurora");
@@ -10288,7 +10570,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://endpoints.omniatech.io/v1/aurora/testnet/public");
 					this.add("https://1rpc.io/aurora");
@@ -10320,7 +10602,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("http://127.0.0.1:8545");
 				}}, 
@@ -10350,7 +10632,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("http://127.0.0.1:7545");
 				}}, 
@@ -10380,7 +10662,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("http://127.0.0.1:8545");
 				}}, 
@@ -10410,7 +10692,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("http://127.0.0.1:7545");
 				}}, 
@@ -10440,7 +10722,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://localhost");
 				}}, 
@@ -10470,7 +10752,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("http://127.0.0.1:8545");
 					this.add("http://127.0.0.1:8545/rpc");
@@ -10501,7 +10783,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://forno.celo.org");
 				}}, 
@@ -10531,7 +10813,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://base.blockpi.network/v1/rpc/public");
 					this.add("https://developer-access-mainnet.base.org/");
@@ -10572,7 +10854,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://test-rpc.vitruveo.xyz");
 				}}, 
@@ -10602,7 +10884,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://public-node-api.klaytnapi.com/v1/cypress");
 					this.add("https://klaytn.blockpi.network/v1/rpc/public");
@@ -10637,7 +10919,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://public-node.api.boraportal.io/bora/mainnet"); // fails to reply to node rpc version
 				}}, 
@@ -10667,7 +10949,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://liberty10.shardeum.org");
 				}}, 
@@ -10697,7 +10979,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://liberty20.shardeum.org");
 				}}, 
@@ -10727,7 +11009,7 @@ public class BlockchainDetailsEVM {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"300000", //300k units
+				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://sphinx.shardeum.org/");
 				}}, 

@@ -1002,8 +1002,7 @@ public class EVMUtils {
 	public static String sendTXWithNativeCurrency(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, String _strGasLimit, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
 		String meth = "sendTXWithNativeCurrency()";
 		if (EVMPriceMechanism.valueOf(_connector.getChaininfo().getPriceMechanism()) == EVMPriceMechanism.EIP1559) {
-			return sendTXWithNativeCurrency_LegacyPricingMechanism(_connector, _from_wallet_credentials, _target_address, _evmNativeValue, _haltOnUnconfirmedTX);
-			//return sendTXWithNativeCurrency_EIP1559PricingMechanism(connector, from_wallet, target_address, initialConfirmTimeInSeconds, evmNativeValue);
+			return sendTXWithNativeCurrency_EIP1559PricingMechanism(_connector, _from_wallet_credentials, _target_address, _evmNativeValue, _haltOnUnconfirmedTX);
 		} else if (EVMPriceMechanism.valueOf(_connector.getChaininfo().getPriceMechanism()) == EVMPriceMechanism.LEGACY) {
 			return sendTXWithNativeCurrency_LegacyPricingMechanism(_connector, _from_wallet_credentials, _target_address, _evmNativeValue, _haltOnUnconfirmedTX);
 		} else {
@@ -1522,6 +1521,16 @@ public class EVMUtils {
 			// intrinsic gas too low with double so lets go
 			_gasPrice = _gasPrice.add(new BigInteger("9000000000")); // add 9 gwei
 		}
+		
+		// debug for selected testnets
+		/*
+		if (false ||
+				(_connector.getChain() == EVMChain.MANTLETEST) ||
+				false) {
+			// intrinsic gas too low with double so lets go
+			_gasPrice = _gasPrice.add(new BigInteger("2000000000000")); // add 2000 gwei
+		}
+		*/
 
 		return _gasPrice;
 	}
@@ -1860,6 +1869,7 @@ public class EVMUtils {
 				(_ex.getMessage().contains("Failed to connect")) ||
 				(_ex.getMessage().contains("Connection reset")) ||
 				(_ex.getMessage().contains("No route to host")) ||
+				(_ex.getMessage().contains("no such host")) ||
 				(_ex.getMessage().contains("closed")) ||
 				(_ex.getMessage().contains("connection refused")) ||
 				(_ex.getMessage().contains("Remote host terminated the handshake")) ||
@@ -1867,7 +1877,8 @@ public class EVMUtils {
 			// java.net.ConnectException: Failed to connect to
 			// java.net.SocketException: Connection reset
 			// javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
-			//  https://rpc.startale.com/zkatana: "rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 10.65.132.186:50071: connect: connection refused"
+			// https://rpc.startale.com/zkatana: "rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 10.65.132.186:50071: connect: connection refused"
+			// https://endpoints.omniatech.io/v1/op/goerli/public: "Post "https://goerli-sequencer.optimism.io": dial tcp: lookup goerli-sequencer.optimism.io on 127.0.0.53:53: no such host"
 			LOGGER.warn("Got a connection reset from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -1880,8 +1891,12 @@ public class EVMUtils {
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 1;
 			switchNode = true;
-		} else if (_ex.getMessage().contains("must be in format")) {
+		} else if (false ||
+				_ex.getMessage().contains("must be in format") ||
+				_ex.getMessage().contains("method to deserialize") ||
+				false) {
 			// https://github.com/web3j/web3j/issues/1643
+			// https://endpoints.omniatech.io/v1/op/goerli/public: "Cannot construct instance of `org.web3j.protocol.core.methods.response.EthSendTransaction` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value ('^....
 			LOGGER.info("Response decode error from nodeURL " + _nodeURL + ", did you use PENDING+.getBalance() on BERACHAIN? ill not retry, move on to next node. Error message: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -1989,6 +2004,10 @@ public class EVMUtils {
 			LOGGER.warn("Got accessed denied from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
+		} else if (_ex.getMessage().contains("exceeds the configured cap")) {
+			// https://testnet.liquidlayer.network: tx fee (19.58 ether) exceeds the configured cap (1.00 ether)
+			LOGGER.warn("Tx fee issue response from nodeURL " + _nodeURL + ".. will not retry, fix your code");
+			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().contains("Transaction receipt was not generated after 600 seconds for transaction")) {
 			// Transaction receipt was not generated after 600 seconds for transaction
 			LOGGER.warn("Missing tx receipt from nodeURL " + _nodeURL + ".. will not retry, we dont know how to poll for the tx id");
