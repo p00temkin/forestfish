@@ -1014,11 +1014,11 @@ public class EVMUtils {
 		return null;
 	}
 
-	public static String sendTXWithNativeCurrency_LegacyPricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
-		return sendTXWithNativeCurrency_LegacyPricingMechanism_CustomNonce(_connector, _from_wallet_credentials, _target_address, _evmNativeValue, _haltOnUnconfirmedTX, null, false);
+	private static String sendTXWithNativeCurrency_LegacyPricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
+		return sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _evmNativeValue, _haltOnUnconfirmedTX, null, false);
 	}
 
-	public static String sendTXWithNativeCurrency_LegacyPricingMechanism_CustomNonce(EVMBlockChainConnector _connector, Credentials _creds, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX, BigInteger _customNonce, boolean _forceIncreaseGas) {
+	private static String sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(EVMBlockChainConnector _connector, Credentials _creds, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX, BigInteger _customNonce, boolean _forceIncreaseGas) {
 		String meth = "sendTXWithNativeCurrency_LegacyPricingMechanism_CustomNonce()";
 		String hash = null;
 		Boolean timeoutNoted = false;
@@ -1399,16 +1399,30 @@ public class EVMUtils {
 
 				EthGetTransactionCount ethGetTransactionCount_latest = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.LATEST).send();
 				BigInteger nonce_latest =  ethGetTransactionCount_latest.getTransactionCount();
+				
+				EthGetTransactionCount ethGetTransactionCount_finalized = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.FINALIZED).send();
+				BigInteger nonce_finalized =  ethGetTransactionCount_finalized.getTransactionCount();
 
 				if (nonce_pending.compareTo(nonce_latest) == 0) {
-					LOGGER.info("checkForPendingTransactions() - No pending tx for " + _address + ", all good to proceed (nonce=" + nonce_pending.longValue() + ", requestCount=" + requestCount + ")");
-					return new PendingTxStatus(false, nonce_latest, nonce_pending, 0L);
+					
+					if (nonce_pending.compareTo(nonce_finalized) == 0) {
+						LOGGER.info("checkForPendingTransactions() - No pending tx for " + _address + ", all good to proceed (nonce=" + nonce_pending.longValue() + ", nonce_finalized=" + nonce_finalized.longValue() + ", requestCount=" + requestCount + ")");
+						return new PendingTxStatus(false, nonce_latest, nonce_pending, nonce_finalized, 0L);
+					} else {
+						LOGGER.warn("We have pending (possibly stuck) transaction:");
+						LOGGER.warn(" - nonce_pending: " + nonce_pending.longValue());
+						LOGGER.warn(" - nonce_latest: " + nonce_latest.longValue());
+						LOGGER.warn(" - nonce_finalized: " + nonce_finalized.longValue());
+						Long nonce_diff = nonce_pending.subtract(nonce_finalized).longValue();
+						return new PendingTxStatus(true, nonce_latest, nonce_pending, nonce_finalized, nonce_diff);
+					}
 				} else {
 					LOGGER.warn("We have pending (possibly stuck) transaction:");
 					LOGGER.warn(" - nonce_pending: " + nonce_pending.longValue());
 					LOGGER.warn(" - nonce_latest: " + nonce_latest.longValue());
+					LOGGER.warn(" - nonce_finalized: " + nonce_finalized.longValue());
 					Long nonce_diff = nonce_pending.subtract(nonce_latest).longValue();
-					return new PendingTxStatus(true, nonce_latest, nonce_pending, nonce_diff);
+					return new PendingTxStatus(true, nonce_latest, nonce_pending, nonce_finalized, nonce_diff);
 				}
 
 			} catch (Exception ex) {
@@ -1449,8 +1463,11 @@ public class EVMUtils {
 				EthGetTransactionCount ethGetTransactionCount_latest = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.LATEST).send();
 				BigInteger nonce_latest =  ethGetTransactionCount_latest.getTransactionCount();
 
+				EthGetTransactionCount ethGetTransactionCount_finalized = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.FINALIZED).send();
+				BigInteger nonce_finalized =  ethGetTransactionCount_finalized.getTransactionCount();
+
 				if (nonce_pending.compareTo(nonce_latest) == 0) {
-					LOGGER.info("No pending tx for " + _address + ", all good to proceed (nonce=" + nonce_pending.longValue() + ", requestCount=" + requestCount + ")");
+					LOGGER.info("brieflyWaitForPendingTransactionsToClear() - No pending tx for " + _address + ", all good to proceed (nonce=" + nonce_pending.longValue() + ", nonce_finalized=" + nonce_finalized.longValue() + ", requestCount=" + requestCount + ")");
 					return true;
 				} else {
 					LOGGER.info("We are waiting for pending (possibly stuck) transaction:");
@@ -1699,11 +1716,15 @@ public class EVMUtils {
 		}
 	}
 
-	public static String sendTXWithNativeCurrency_EIP1559PricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
-		return sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _connector.getChaininfo().getConfirmationTimeinSeconds(), _connector.getChaininfo().getFallbackGasLimitInUnits(), _evmNativeValue, _haltOnUnconfirmedTX, null);
+	private static String sendTXWithNativeCurrency_EIP1559PricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
+		return sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _connector.getChaininfo().getConfirmationTimeinSeconds(), _connector.getChaininfo().getFallbackGasLimitInUnits(), _evmNativeValue, _haltOnUnconfirmedTX, null, false);
+	}
+	
+	private static String sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX, BigInteger _customNonce, boolean _forceIncreaseGas) {
+		return sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _connector.getChaininfo().getConfirmationTimeinSeconds(), _connector.getChaininfo().getFallbackGasLimitInUnits(), _evmNativeValue, _haltOnUnconfirmedTX, _customNonce, _forceIncreaseGas);
 	}
 
-	public static String sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(EVMBlockChainConnector _connector, Credentials _creds, String _target_address, int _initialConfirmTimeInSeconds, String _strGasLimit, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX, BigInteger _customNonce) {
+	private static String sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(EVMBlockChainConnector _connector, Credentials _creds, String _target_address, int _initialConfirmTimeInSeconds, String _strGasLimit, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX, BigInteger _customNonce, boolean _forceIncreaseGas) {
 		String meth = "sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce()";
 		String hash = null;
 		boolean confirmedTransaction = false;
@@ -1741,7 +1762,7 @@ public class EVMUtils {
 				}
 
 				LOGGER.info("------------------------------------------------------------");
-				LOGGER.info("sendTXWithNativeCurrency_EIP1559PricingMechanism(): Proceeding with tx using gasPrice: " + Convert.fromWei(gasPrice.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPrice.toString() + " wei), gasLimit: " + gasLimit + " units, nodeCallAttemptCount=" + nodeCallAttemptCount); 
+				LOGGER.info("sendTXWithNativeCurrency_EIP1559PricingMechanism(): Proceeding with tx using gasPrice: " + Convert.fromWei(gasPrice.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPrice.toString() + " wei), gasLimit: " + gasLimit + " units, nodeCallAttemptCount=" + nodeCallAttemptCount + "nonce: " + nc_state.getStatus().getNonce_latest()); 
 
 				try {
 
@@ -2956,7 +2977,7 @@ public class EVMUtils {
 		}
 
 		// perform the reset
-		String txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism_CustomNonce(_connector, _cred, _cred.getAddress(), val, false, nonce, true);
+		String txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(_connector, _cred, _cred.getAddress(), val, false, nonce, true);
 		return txhash;
 	}
 
@@ -3233,14 +3254,32 @@ public class EVMUtils {
 		return new EVMPortfolioSimple(_evm_portfolio.getAccount_address(), _evm_portfolio.getChainportfolio());
 	}
 
-	public static String sendTX(EVMBlockChainConnector connector, Credentials cred, String wolfwallet001_address, EVMNativeValue val_to_withdraw, boolean haltOnUnconfirmedTX) {
+	public static String sendTX(EVMBlockChainConnector _connector, Credentials cred, String wolfwallet001_address, EVMNativeValue val_to_withdraw, boolean haltOnUnconfirmedTX) {
 		String txhash = null;
-		if ("LEGACY".equals(connector.getChaininfo().getPriceMechanism())) {
-			txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism(connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
-		} else if ("EIP1559".equals(connector.getChaininfo().getPriceMechanism())) {
-			txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism(connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
+				
+		// force custom behavior for chain?
+		if (_connector.getChain() == EVMChain.MANTLETEST) {
+			PendingTxStatus pendingTX = checkForPendingTransactions(_connector, cred.getAddress());
+			if (pendingTX.getNonce_diff() == 0L) {
+				Long nonce_to_use = pendingTX.getNonce_finalized().longValue();
+				LOGGER.info("Since we are dealing with " + _connector.getChain().toString() + " going to set nonce to " + nonce_to_use);
+				if ("LEGACY".equals(_connector.getChaininfo().getPriceMechanism())) {
+					txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
+				} else if ("EIP1559".equals(_connector.getChaininfo().getPriceMechanism())) {
+					txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
+				} else {
+					LOGGER.error("Unable to handle pricing mechanism named: " + _connector.getChaininfo().getPriceMechanism());
+					SystemUtils.halt();
+				}
+			}	
+		}
+		
+		if ("LEGACY".equals(_connector.getChaininfo().getPriceMechanism())) {
+			txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
+		} else if ("EIP1559".equals(_connector.getChaininfo().getPriceMechanism())) {
+			txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
 		} else {
-			LOGGER.error("Unable to handle pricing mechanism named: " + connector.getChaininfo().getPriceMechanism());
+			LOGGER.error("Unable to handle pricing mechanism named: " + _connector.getChaininfo().getPriceMechanism());
 			SystemUtils.halt();
 		}
 		return txhash;

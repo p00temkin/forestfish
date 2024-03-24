@@ -2042,6 +2042,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://api.node.glif.io/");
 					this.add("https://rpc.ankr.com/filecoin");
 					this.add("https://filfox.info/rpc/v1");
+					this.add("https://filecoin.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -2186,7 +2187,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.INOV8.toString(), 
 				"Innovator Chain", 
 				129L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node unstable
 				new EVMCurrency("Innovator Chain Gas Token", "INOV8", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
@@ -2210,6 +2211,36 @@ public class BlockchainDetailsEVM {
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.INOV8, innovatorchain);
+		
+		// degen
+		EVMChainInfo degen = new EVMChainInfo(
+				EVMChain.DEGEN.toString(), 
+				"Degen Chain", 
+				666666666L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Degen Chain Gas Token", "DEGEN", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.degen.tips");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/666666666");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.DEGEN, degen);
 
 		// liquidlayer
 		EVMChainInfo liquidlayer = new EVMChainInfo(
@@ -2322,6 +2353,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://rpc1.us.telos.net/evm");
 					this.add("https://mainnet.telos.net/evm");
+					this.add("https://telos.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -2352,6 +2384,7 @@ public class BlockchainDetailsEVM {
 				"32000000", //only give enough to enable transfers .. 
 				new ArrayList<String>() {{
 					this.add("https://testnet.telos.net/evm");
+					this.add("https://telos-testnet.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -2940,6 +2973,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://pacific-rpc.manta.network/http");
 					this.add("https://1rpc.io/manta");
+					this.add("https://manta-pacific.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -2956,6 +2990,36 @@ public class BlockchainDetailsEVM {
 				generateMantaTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.MANTA, manta);
+		
+		// filefilego
+		EVMChainInfo filefilego = new EVMChainInfo(
+				EVMChain.FILEFILEGO.toString(), 
+				"FileFileGo", 
+				191L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("FileFileGo Gas Token", "FFG", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.filefilego.com/rpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/191");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.FILEFILEGO, filefilego);
 
 		// zkatana_test
 		EVMChainInfo zkatana_test = new EVMChainInfo(
@@ -3251,8 +3315,9 @@ public class BlockchainDetailsEVM {
 				EVMChain.MANTLETEST.toString(), 
 				"Mantle Testnet", 
 				5001L, 
-				BlockchainType.PUBLIC.toString(),
-				new EVMCurrency("Mantle Testnet Gas Token", "MNT", 18), 
+				BlockchainType.BORKED.toString(), // nonce incorrect at times
+				new EVMCurrency("Mantle Testnet Gas Token", "MNT", 18),
+				//EVMPriceMechanism.LEGACY.toString(),
 				EVMPriceMechanism.EIP1559.toString(),
 				30,
 				"1000000000", //1 gwei
@@ -3326,6 +3391,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://opbnb-mainnet-rpc.bnbchain.org");
 					this.add("https://opbnb-mainnet.nodereal.io/v1/e9a36765eb8a40b9bd12e680a1fd2bc5");
 					this.add("https://opbnb-rpc.publicnode.com");
+					this.add("https://opbnb.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -4544,7 +4610,7 @@ public class BlockchainDetailsEVM {
 				"MetaDAP Enterprise Testnet", 
 				119139L, 
 				BlockchainType.BORKED.toString(), // unstable
-				new EVMCurrency("MetaDAP Enterprise Testnet Gas Token", "DOID", 18), 
+				new EVMCurrency("MetaDAP Enterprise Testnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
@@ -4574,7 +4640,7 @@ public class BlockchainDetailsEVM {
 				"MetaDAP Enterprise Mainnet", 
 				91120L, 
 				BlockchainType.PUBLIC.toString(), // unstable
-				new EVMCurrency("MetaDAP Enterprise Mainnet Gas Token", "DOID", 18), 
+				new EVMCurrency("MetaDAP Enterprise Mainnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
@@ -4603,7 +4669,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.DOID.toString(), 
 				"DOID", 
 				53277L, 
-				BlockchainType.PUBLIC.toString(), // unstable
+				BlockchainType.BORKED.toString(), // unstable
 				new EVMCurrency("DOID Gas Token", "DOID", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -5644,6 +5710,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://rpc.coredao.org/");
 					this.add("https://rpc-core.icecreamswap.com");	
+					this.add("https://core.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -5739,6 +5806,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://optimism.publicnode.com");
 					this.add("https://optimism.gateway.tenderly.co");
 					this.add("https://optimism-rpc.publicnode.com");
+					this.add("https://optimism.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -5966,6 +6034,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://evm.kava-rpc.com");
 					this.add("https://rpc.ankr.com/kava_evm");
 					this.add("https://kava-evm-rpc.publicnode.com");
+					this.add("https://kava.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -5984,6 +6053,66 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.KAVA, kava);
 
+		// atleta_test
+		EVMChainInfo atleta_test = new EVMChainInfo(
+				EVMChain.ATLETATEST.toString(), 
+				"Atleta Testnet", 
+				2340L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Atleta Testnet Gas Token", "ATLA", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://atleta-testnet-rpc.quark.blue:9944");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("http://185.234.69.18/?rpc=wss%3A%2F%2Fatleta-testnet-rpc.quark.blue%3A9944#/explorer");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://faucet.atleta.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/2340");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ATLETATEST, atleta_test);
+		
+		// hychain
+		EVMChainInfo hychain = new EVMChainInfo(
+				EVMChain.HYCHAIN.toString(), 
+				"HYCHAIN", 
+				2911L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("HYCHAIN Gas Token", "TOPIA", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.hychain.com/http");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.hychain.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/2911");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.HYCHAIN, hychain);
+		
 		// kavatest
 		EVMChainInfo kavatest = new EVMChainInfo(
 				EVMChain.KAVATEST.toString(), 
@@ -5997,6 +6126,7 @@ public class BlockchainDetailsEVM {
 				"30000", //only give enough to enable transfers .. gas limit too low: 21000 (gas limit) < 21596 (intrinsic gas): out of gas:gas limit too low: 21000 (gas limit) < 21596 (intrinsic gas): out of gas:gas limit too low: 21000 (gas limit) < 21596 (intrinsic gas): out of gas:
 				new ArrayList<String>() {{
 					this.add("https://evm.testnet.kava.io");
+					this.add("https://kava-testnet.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -6732,6 +6862,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://zkevm-rpc.com");
 					this.add("https://rpc.polygon-zkevm.gateway.fm");
 					this.add("https://rpc.ankr.com/polygon_zkevm");
+					this.add("https://polygon-zkevm.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -6749,6 +6880,96 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.ZKEVM, zkevm);
 
+		// doric
+		EVMChainInfo doric = new EVMChainInfo(
+				EVMChain.DORIC.toString(), 
+				"Doric Network", 
+				1717L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Doric Network Gas Token", "DRC", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://mainnet.doric.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.doric.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/1717");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.DORIC, doric);
+
+		// reya
+		EVMChainInfo reya = new EVMChainInfo(
+				EVMChain.REYA.toString(), 
+				"Reya Network", 
+				1729L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Reya Network Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.reya.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.reya.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/1729");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.REYA, reya);
+		
+		// hubble
+		EVMChainInfo hubble = new EVMChainInfo(
+				EVMChain.HUBBLE.toString(), 
+				"Hubble Exchange", 
+				1992L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Hubble Exchange Gas Token", "USDC", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.hubble.exchange");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.hubble.exchange");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/1992");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.HUBBLE, hubble);
+		
 		// zkevmtest
 		EVMChainInfo zkevmtest = new EVMChainInfo(
 				EVMChain.ZKEVMTEST.toString(), 
@@ -6762,6 +6983,7 @@ public class BlockchainDetailsEVM {
 				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc.public.zkevm-test.net");
+					this.add("https://polygon-zkevm-testnet.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -6941,7 +7163,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.UNREAL.toString(), 
 				"Unreal", 
 				18231L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node unstable
 				new EVMCurrency("Unreal Gas Token", "NEXB", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -6979,6 +7201,7 @@ public class BlockchainDetailsEVM {
 				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://rpc-nodes.nexablockscan.io");
+					this.add("https://rpc-nodes-delta.nexablockscan.io");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -6997,6 +7220,67 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.NEXA, nexa);
 
+
+		// larissa
+		EVMChainInfo larissa = new EVMChainInfo(
+				EVMChain.LARISSA.toString(), 
+				"Larissa Chain", 
+				9898L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Larissa Chain Gas Token", "LRS", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.larissa.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.larissa.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/9898");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.LARISSA, larissa);
+		
+		// bevm
+		EVMChainInfo bevm = new EVMChainInfo(
+				EVMChain.BEVM.toString(), 
+				"BEVM Mainnet", 
+				11501L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("BEVM Mainnet Gas Token", "BTC", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc-mainnet-1.bevm.io/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan-mainnet.bevm.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/11501");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.BEVM, bevm);
+		
 		// nexa_test
 		EVMChainInfo nexa_test = new EVMChainInfo(
 				EVMChain.NEXATEST.toString(), 
@@ -7245,7 +7529,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.HIZOCO.toString(), 
 				"Hizoco mainnet", 
 				80096L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node unstable
 				new EVMCurrency("Hizoco mainnet Gas Token", "HZC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -7365,7 +7649,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.EMONEYTEST.toString(), 
 				"Emoney Network Testnet", 
 				4544L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single unstable node
 				new EVMCurrency("Emoney Network Testnet Gas Token", "EMYC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -7451,10 +7735,10 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.C4EI, c4ei);
 
-		// vanguard
-		EVMChainInfo vanguard = new EVMChainInfo(
-				EVMChain.VANGUARD.toString(), 
-				"Vanguard", 
+		// vanguard_test
+		EVMChainInfo vanguard_test = new EVMChainInfo(
+				EVMChain.VANGUARDTEST.toString(), 
+				"Vanguard Testnet", 
 				78600L, 
 				BlockchainType.PUBLIC.toString(),
 				new EVMCurrency("Vanguard Gas Token", "VG", 18), 
@@ -7479,7 +7763,7 @@ public class BlockchainDetailsEVM {
 				}},
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
-		networks.put(EVMChain.VANGUARD, vanguard);
+		networks.put(EVMChain.VANGUARDTEST, vanguard_test);
 
 		// karak
 		EVMChainInfo karak = new EVMChainInfo(
@@ -7516,7 +7800,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.POLYGONCARDONATEST.toString(), 
 				"Polygon zkEVM Cardona Testnet", 
 				2442L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // unstable single node
 				new EVMCurrency("Polygon zkEVM Cardona Testnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -7647,6 +7931,9 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://rpc-dev-testnet.orenium.org/");
 					this.add("https://rpc-testnet.orenium.org/");
+					this.add("https://rpc-orc.oredex.finance");
+					this.add("https://testnet-rpc.oredex.finance");
+					this.add("https://oredex-node.oredex.finance");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -8620,7 +8907,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.DEEPL.toString(), 
 				"DeepL Mainnet", 
 				222555L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node unstable
 				new EVMCurrency("DeepL Mainnet Gas Token", "DEEPL", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8650,7 +8937,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.DEEPLTEST.toString(), 
 				"DeepL Testnet", 
 				222666L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node unstable
 				new EVMCurrency("DeepL Testnet Gas Token", "DEEPL", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8742,7 +9029,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.CROSSFITEST.toString(), 
 				"CrossFi Testnet", 
 				4157L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // unstable single node
 				new EVMCurrency("CrossFi Testnet Gas Token", "XFI", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8796,7 +9083,7 @@ public class BlockchainDetailsEVM {
 				generateDummyTokenIndex(),
 				generateDummyNFTIndex());
 		networks.put(EVMChain.ASTARZKEVM, astarzkevm);
-
+		
 		// gitgo_test
 		EVMChainInfo gitgo_test = new EVMChainInfo(
 				EVMChain.GITGOTEST.toString(), 
@@ -8987,6 +9274,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://polygon.api.onfinality.io/public");
 					this.add("https://polygon.gateway.tenderly.co");
 					this.add("https://polygon-bor-rpc.publicnode.com");
+					this.add("https://polygon.drpc.org");
 
 					//this.add("https://matic-mainnet.chainstacklabs.com");
 					//this.add("https://polygon-mainnet-public.unifra.io");
@@ -9089,6 +9377,36 @@ public class BlockchainDetailsEVM {
 				generateZKSyncEraNFTIndex());
 		networks.put(EVMChain.ZKSYNCERA, zksyncera);
 
+		// soraai_test
+		EVMChainInfo soraai_test = new EVMChainInfo(
+				EVMChain.SORAAITEST.toString(), 
+				"SoraAI Testnet", 
+				145L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("SoraAI Testnet Gas Token", "SETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc-testnet.soraai.bot");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.soraai.bot");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/145");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.SORAAITEST, soraai_test);
+		
 		// zksynceratest
 		EVMChainInfo zksynceratest = new EVMChainInfo(
 				EVMChain.ZKSYNCERASEPOLIATEST.toString(), 
@@ -9102,6 +9420,7 @@ public class BlockchainDetailsEVM {
 				"2100000", // 21k not enough for pure tx
 				new ArrayList<String>() {{
 					this.add("https://sepolia.era.zksync.dev");
+					this.add("https://zksync-sepolia.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -9401,6 +9720,72 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.KOVANTEST, kovan);
 
+		// maxi_test
+		EVMChainInfo maxi_test = new EVMChainInfo(
+				EVMChain.MAXITEST.toString(), 
+				"MAXI Chain Testnet", 
+				898L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("MAXI Chain Testnet Gas Token", "MAXI", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc-testnet.maxi.network");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://testnet.maxi.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://faucet.maxi.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/898");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.MAXITEST, maxi_test);
+		
+		// qitmeer
+		EVMChainInfo qitmeer = new EVMChainInfo(
+				EVMChain.QITMEER.toString(), 
+				"Qitmeer Network Mainnet", 
+				813L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Qitmeer Network Mainnet Gas Token", "MEER", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://evm-dataseed1.meerscan.io");
+					this.add("https://evm-dataseed2.meerscan.io");
+					this.add("https://evm-dataseed3.meerscan.io");
+					this.add("https://evm-dataseed.meerscan.com");
+					this.add("https://qng.rpc.qitmeer.io");
+					this.add("https://mainnet.meerlabs.com");
+					this.add("https://rpc.dimai.ai");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://qng.meerscan.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/813");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.QITMEER, qitmeer);
+		
 		// cronostest
 		EVMChainInfo cronostest = new EVMChainInfo(
 				EVMChain.CRONOSTEST.toString(), 
@@ -9414,6 +9799,7 @@ public class BlockchainDetailsEVM {
 				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://evm-t3.cronos.org");
+					this.add("https://cronos-testnet.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -9448,6 +9834,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://cronos.blockpi.network/v1/rpc/public");
 					this.add("https://cronos-evm.publicnode.com");
 					this.add("https://cronos-evm-rpc.publicnode.com");
+					this.add("https://cronos.drpc.org");
 					//this.add("https://cronos-rpc.elk.finance"); // dead
 					//this.add("https://cronos-rpc.heavenswail.one"); // dead
 
@@ -9528,7 +9915,8 @@ public class BlockchainDetailsEVM {
 					this.add("https://rpc.mevblocker.io/noreverts");
 					this.add("https://rpc.mevblocker.io/fullprivacy");
 					this.add("https://eth1.lava.build/lava-referer-2d782cbf-8784-4606-a25b-f91e98729c71/");
-
+					this.add("https://eth.drpc.org");
+					
 					//this.add("https://main-rpc.linkpool.io"); // invalid cert
 					//this.add("https://main-light.eth.linkpool.io"); // invalid cert
 					//this.add("https://api.mycryptoapi.com/eth"); // consistent 403
@@ -9673,6 +10061,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://replica.boba.network");
 					this.add("https://boba-ethereum.gateway.tenderly.co");
 					this.add("https://gateway.tenderly.co/public/boba-ethereum");
+					this.add("https://boba-eth.drpc.org");
 
 					//this.add("https://boba-mainnet.gateway.pokt.network/v1/lb/623ad21b20354900396fed7f"); // timeout
 					this.add("https://mainnet.boba.network"); // was temp stuck at block 951796
@@ -9835,6 +10224,8 @@ public class BlockchainDetailsEVM {
 					this.add("https://moonbeam.api.onfinality.io/public");
 					this.add("https://moonbeam.publicnode.com");
 					this.add("https://moonbeam-rpc.publicnode.com");
+					this.add("https://moonbeam.drpc.org");
+					
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -9870,6 +10261,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://moonriver.api.onfinality.io/public");
 					this.add("https://moonriver.publicnode.com");
 					this.add("https://moonriver-rpc.publicnode.com");
+					this.add("https://moonriver.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -10046,6 +10438,7 @@ public class BlockchainDetailsEVM {
 					this.add("https://endpoints.omniatech.io/v1/fantom/testnet/public");
 					this.add("https://fantom-testnet.publicnode.com");
 					this.add("https://fantom-testnet-rpc.publicnode.com");
+					this.add("https://fantom-testnet.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -10063,6 +10456,219 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.FANTOMTEST, fantomtest);
 
+		// sic_test
+		EVMChainInfo sic_test = new EVMChainInfo(
+				EVMChain.SICTEST.toString(), 
+				"SIC Testnet", 
+				5102L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("SIC Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc-sic-testnet-zvr7tlkzsi.t.conduit.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorerl2new-sic-testnet-zvr7tlkzsi.t.conduit.xyz");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/5102");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.SICTEST, sic_test);
+		
+		// coordinape_test
+		EVMChainInfo coordinape_test = new EVMChainInfo(
+				EVMChain.COORDINAPETEST.toString(), 
+				"Coordinape Testnet", 
+				5103L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Coordinape Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc-coordinape-testnet-vs9se3oc4v.t.conduit.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/5103");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.COORDINAPETEST, coordinape_test);
+		
+		// charmverse_test
+		EVMChainInfo charmverse_test = new EVMChainInfo(
+				EVMChain.CHARMVERSETEST.toString(), 
+				"Charmverse Testnet", 
+				5104L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Charmverse Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc-charmverse-testnet-g6blnaebes.t.conduit.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/5104");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.CHARMVERSETEST, charmverse_test);
+		
+		// superloyalty_test
+		EVMChainInfo superloyalty_test = new EVMChainInfo(
+				EVMChain.SUPERLOYALTYTEST.toString(), 
+				"Superloyalty Testnet", 
+				5105L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Superloyalty Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc-superloyalty-testnet-1m5gwjbsv1.t.conduit.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/5105");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.SUPERLOYALTYTEST, superloyalty_test);
+		
+		// orenium
+		EVMChainInfo orenium = new EVMChainInfo(
+				EVMChain.ORENIUM.toString(), 
+				"Orenium Mainnet Protocol", 
+				7778L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Orenium Mainnet Protocol Gas Token", "ORE", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://validator-mainnet.orenium.org");
+					this.add("https://rpc-oracle-mainnet.orenium.org");
+					this.add("https://portalmainnet.orenium.org");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://oreniumscan.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/7778");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.ORENIUM, orenium);
+		
+		// iota
+		EVMChainInfo iota = new EVMChainInfo(
+				EVMChain.IOTA.toString(), 
+				"IOTA EVM", 
+				8822L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("IOTA EVM Gas Token", "IOTA", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://json-rpc.evm.iotaledger.net");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://iota-evm.blockscout.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/8822");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.IOTA, iota);
+		
+		// superlumio
+		EVMChainInfo superlumio = new EVMChainInfo(
+				EVMChain.SUPERLUMIO.toString(), 
+				"SuperLumio", 
+				8866L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("SuperLumio Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://mainnet.lumio.io/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.lumio.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/8866");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.SUPERLUMIO, superlumio);
+
+		
 		// gold
 		EVMChainInfo gold = new EVMChainInfo(
 				EVMChain.GOLD.toString(), 
@@ -10264,6 +10870,7 @@ public class BlockchainDetailsEVM {
 				new ArrayList<String>() {{
 					this.add("https://andromeda.metis.io/?owner=1088");
 					this.add("https://metis-mainnet.public.blastapi.io");
+					this.add("https://metis.drpc.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -10286,7 +10893,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.METISGOERLITEST.toString(), 
 				"Metis Goerli Testnet", 
 				599L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // no more?
 				new EVMCurrency("Metis Goerli Test Token", "METIS", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10408,7 +11015,7 @@ public class BlockchainDetailsEVM {
 				EVMChain.METISSEPOLIATEST.toString(), 
 				"Metis Sepolia Testnet", 
 				59901L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node shaky at best
 				new EVMCurrency("Metis Sepolia Test Token", "METIS", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10434,12 +11041,72 @@ public class BlockchainDetailsEVM {
 				generateDummyNFTIndex());
 		networks.put(EVMChain.METISSEPOLIATEST, metissepolia_test);	
 
+		// viction_test
+		EVMChainInfo viction_test = new EVMChainInfo(
+				EVMChain.VICTIONTEST.toString(), 
+				"Viction Testnet", 
+				89L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Viction Testnet Gas Token", "VIC", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc-testnet.viction.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/89");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.VICTIONTEST, viction_test);
+		
+		// viction
+		EVMChainInfo viction = new EVMChainInfo(
+				EVMChain.VICTION.toString(), 
+				"Viction", 
+				88L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Viction Gas Token", "VIC", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.viction.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/88");
+				}},
+				generateDummyTokenIndex(),
+				generateDummyNFTIndex());
+		networks.put(EVMChain.VICTION, viction);
+		
 		// metisstardust_test
 		EVMChainInfo metisstardust_test = new EVMChainInfo(
 				EVMChain.METISSTARDUSTTEST.toString(), 
 				"Metis Stardust Testnet", 
 				588L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node unstable
 				new EVMCurrency("Metis Test Token", "METIS", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei

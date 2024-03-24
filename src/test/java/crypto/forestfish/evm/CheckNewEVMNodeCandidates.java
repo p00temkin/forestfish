@@ -253,7 +253,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Dela Sepolia Testnet", EVMChain.DELATEST);
 			this.put("Aternos", EVMChain.ATERNOS);
 			this.put("C4EI", EVMChain.C4EI);
-			this.put("Vanguard", EVMChain.VANGUARD);
+			this.put("Vanguard", EVMChain.VANGUARDTEST);
 			this.put("Hizoco mainnet", EVMChain.HIZOCO);
 			this.put("GitSwarm Test Network", EVMChain.GITSWARMTEST);
 			this.put("Songbird Testnet Coston", EVMChain.FLARECOSTONTEST);
@@ -296,6 +296,27 @@ public class CheckNewEVMNodeCandidates {
 			this.put("ZetaChain Mainnet", EVMChain.ZETA);
 			this.put("zkLink Nova Mainnet", EVMChain.ZKLINK);
 			this.put("zkLink Nova Goerli Testnet", EVMChain.ZKLINKTEST);
+			this.put("Degen Chain Gas Token", EVMChain.DEGEN);
+			this.put("Viction", EVMChain.VICTION);
+			this.put("Viction Testnet", EVMChain.VICTIONTEST);
+			this.put("SoraAI Testnet", EVMChain.SORAAITEST);
+			this.put("FileFileGo", EVMChain.FILEFILEGO);
+			this.put("Qitmeer Network Mainnet", EVMChain.QITMEER);
+			this.put("MAXI Chain Testnet", EVMChain.MAXITEST);
+			this.put("Doric Network", EVMChain.DORIC);
+			this.put("Reya Network", EVMChain.REYA);
+			this.put("Hubble Exchange", EVMChain.HUBBLE);
+			this.put("Atleta Testnet", EVMChain.ATLETATEST);
+			this.put("HYCHAIN", EVMChain.HYCHAIN);
+			this.put("SIC Testnet", EVMChain.SICTEST);
+			this.put("Coordinape Testnet", EVMChain.COORDINAPETEST);
+			this.put("Charmverse Testnet", EVMChain.CHARMVERSETEST);
+			this.put("Superloyalty Testnet", EVMChain.SUPERLOYALTYTEST);
+			this.put("Orenium Mainnet Protocol", EVMChain.ORENIUM);
+			this.put("IOTA EVM", EVMChain.IOTA);
+			this.put("SuperLumio", EVMChain.SUPERLUMIO);
+			this.put("Larissa Chain", EVMChain.LARISSA);
+			this.put("BEVM Mainnet", EVMChain.BEVM);
 			
 			//this.put("DeBank Testnet", EVMChain.GNOSIS); // single dead node
 			//this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST); //dead nodes only
@@ -1533,7 +1554,7 @@ public class CheckNewEVMNodeCandidates {
 					}
 
 					if (newnode_count > 0) {
-						LOGGER.info("Add the new " + newnode_count + " nodes for networks.put(EVMChain." + evmchain.toString() + " in BlockchainDetailsEVM and re-run");
+						LOGGER.info("Add the new " + newnode_count + " nodes for networks.put(EVMChain." + evmchain.toString() + ", in BlockchainDetailsEVM and re-run");
 						SystemUtils.halt();
 					}
 				} else {
@@ -1655,6 +1676,7 @@ public class CheckNewEVMNodeCandidates {
 
 		} else {
 			LOGGER.error("Unable to get a proper JSON reply");
+			SystemUtils.halt();
 		}
 
 		LOGGER.info("fin.all.rpc.nodes.up.to.date");
