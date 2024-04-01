@@ -317,8 +317,33 @@ public class CheckNewEVMNodeCandidates {
 			this.put("SuperLumio", EVMChain.SUPERLUMIO);
 			this.put("Larissa Chain", EVMChain.LARISSA);
 			this.put("BEVM Mainnet", EVMChain.BEVM);
+			this.put("HYCHAIN Testnet", EVMChain.HYCHAINTEST);
+			this.put("Swamps L2", EVMChain.SWAMPS);
+			this.put("Electroneum Mainnet", EVMChain.ELECTRONEUM);
+			this.put("Amoy", EVMChain.AMOYTEST);
+			this.put("Global Trust Network", EVMChain.GLOBAL);
+			this.put("Creditcoin Testnet", EVMChain.CREDITCOINTEST);
+			this.put("Stratis Mainnet", EVMChain.STRATIS);
+			this.put("Galadriel Testnet", EVMChain.GALADRIELTEST);
+			this.put("Manta Pacific Sepolia Testnet", EVMChain.MANTASEPOLIATEST);
+			this.put("Stability Testnet", EVMChain.STABILITYTEST);
+			this.put("0xHash Testnet", EVMChain.HASHTEST);
+			this.put("Degen Chain", EVMChain.DEGEN);
+			this.put("CamDL Testnet", EVMChain.CAMDLTEST);
+			this.put("TAPROOT Mainnet", EVMChain.TAPROOT);
+			this.put("Egochain", EVMChain.EGOCHAIN);
+			this.put("Arcturus Testneet", EVMChain.ARCTURUSTEST);
+			this.put("Espento Mainnet", EVMChain.ESPENTO);
+			this.put("Santiment Intelligence Network", EVMChain.SANTIMENT);
+			this.put("Quantum Network", EVMChain.QUANTUM);
+			this.put("CAGA crypto Ankara testnet", EVMChain.CAGA);
+			this.put("Unit Zero Stagenet", EVMChain.UNIT0TEST);
+			this.put("re.al", EVMChain.REAL);
+			this.put("YMTECH-BESU Testnet", EVMChain.YMTECHBESUTEST);
+			this.put("Galadriel Devnet", EVMChain.GALADRIELTEST);
+			this.put("Hemi Sepolia", EVMChain.HEMI);
+			this.put("DeBank Sepolia Testnet", EVMChain.DEBANKTEST);
 			
-			//this.put("DeBank Testnet", EVMChain.GNOSIS); // single dead node
 			//this.put("Mantle Sepolia Testnet", EVMChain.MANTLESEPOLIATEST); //dead nodes only
 			
 		}};

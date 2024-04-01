@@ -238,7 +238,7 @@ public class EVMUtils {
 			requestCount++;
 			try {
 				EthGetBalance ethGetBalance = null;
-				
+
 				ethGetBalance = _connector.getProvider_instance().ethGetBalance(_address, DefaultBlockParameterName.PENDING).send();
 				if (null == ethGetBalance.getResult()) {
 					// chains such as BERACHAIN will not respond to PENDING, needs FINALIZED
@@ -248,7 +248,7 @@ public class EVMUtils {
 					LOGGER.warn("Unable to get a proper balance response");
 					return null;
 				}
-				
+
 				BigInteger balanceWEI = ethGetBalance.getBalance();
 				BigDecimal balanceETH = Convert.fromWei(ethGetBalance.getBalance().toString(), Unit.ETHER);
 				BigDecimal balanceInGWEI = Convert.fromWei(ethGetBalance.getBalance().toString(), Unit.GWEI);
@@ -835,8 +835,9 @@ public class EVMUtils {
 						}
 					}
 					if ( true && 
-							((txE.getExceptionType() != ExceptionType.NODE_RECOVERABLE) || (txE.getExceptionType() != ExceptionType.NODE_UNSTABLE)) && 
-							_haltOnUnconfirmedTX &&
+							(txE.getExceptionType() != ExceptionType.NODE_RECOVERABLE) && // we cant recover with this node
+							!txE.isSwitchNode() && // we have an issue that cant be solved by switching node
+							_haltOnUnconfirmedTX && // we are not supposed to blindly continue
 							true) {
 						LOGGER.info(meth + " haltOnUnconfirmedTX is set to true, and we have an unrecoverable exception");
 						SystemUtils.halt();
@@ -1127,8 +1128,9 @@ public class EVMUtils {
 								}
 							}
 							if ( true && 
-									((txE.getExceptionType() != ExceptionType.NODE_RECOVERABLE) || (txE.getExceptionType() != ExceptionType.NODE_UNSTABLE)) && 
-									_haltOnUnconfirmedTX &&
+									(txE.getExceptionType() != ExceptionType.NODE_RECOVERABLE) && // we cant recover with this node
+									!txE.isSwitchNode() && // we have an issue that cant be solved by switching node
+									_haltOnUnconfirmedTX && // we are not supposed to blindly continue
 									true) {
 								LOGGER.info(meth + " haltOnUnconfirmedTX is set to true, and we have an unrecoverable exception");
 								SystemUtils.halt();
@@ -1388,45 +1390,84 @@ public class EVMUtils {
 	public static PendingTxStatus checkForPendingTransactions(EVMBlockChainConnector _connector, String _address) {
 		String meth = "checkForPendingTransactions()";
 		boolean allInfoOK = false;
+		boolean debug = false;
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
 		while (!allInfoOK && (nodeCallAttemptCount<10) && (requestCount<20)) {
 			requestCount++;
+
+			BigInteger nonce_pending = null;
+			BigInteger nonce_latest = null;
+			BigInteger nonce_finalized = null;
+
 			try {
 				EthGetTransactionCount ethGetTransactionCount_pending = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.PENDING).send();
-				BigInteger nonce_pending =  ethGetTransactionCount_pending.getTransactionCount();
+				nonce_pending =  ethGetTransactionCount_pending.getTransactionCount();
+				if (debug) System.out.println("nonce_pending:" + nonce_pending);
 
 				EthGetTransactionCount ethGetTransactionCount_latest = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.LATEST).send();
-				BigInteger nonce_latest =  ethGetTransactionCount_latest.getTransactionCount();
-				
-				EthGetTransactionCount ethGetTransactionCount_finalized = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.FINALIZED).send();
-				BigInteger nonce_finalized =  ethGetTransactionCount_finalized.getTransactionCount();
+				nonce_latest =  ethGetTransactionCount_latest.getTransactionCount();
+				if (debug) System.out.println("nonce_latest:" + nonce_latest);
+
+				// FINALIZED nonce unsupported on specific chains
+				if (false ||
+						(_connector.getChain() == EVMChain.OASISEMERALDTEST) ||
+						(_connector.getChain() == EVMChain.FANTOMTEST) ||
+						(_connector.getChain() == EVMChain.LIQUIDLAYERTEST) ||
+						(_connector.getChain() == EVMChain.TORUSTEST) ||
+						(_connector.getChain() == EVMChain.ETCMORDORTEST) ||
+						(_connector.getChain() == EVMChain.BASESEPOLIATEST) ||
+						false) {
+					LOGGER.info("Skip getting FINALIZED nonce, not supported on " + _connector.getChain());
+				} else {
+					try {
+					if (debug) System.out.println("getting finalized nonce ..");
+					EthGetTransactionCount ethGetTransactionCount_finalized = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.FINALIZED).send();
+					nonce_finalized =  ethGetTransactionCount_finalized.getTransactionCount();
+					if (debug) System.out.println("nonce_finalized:" + nonce_finalized);
+					} catch (Exception e) {
+						// if LATEST and PENDING works then perhaps FINALIZED is not supported?
+						if ((null != nonce_latest) && (null != nonce_pending) ) {
+							LOGGER.warn("exception: " + e.getMessage());
+							LOGGER.warn("Unable to grab finalized nonce for chain " + _connector.getChain().toString() + ", perhaps not supported?");
+							if (debug) System.out.println("nonce_pending:" + nonce_pending);
+							if (debug) System.out.println("nonce_latest:" + nonce_latest);
+						}
+					}
+				}
 
 				if (nonce_pending.compareTo(nonce_latest) == 0) {
-					
-					if (nonce_pending.compareTo(nonce_finalized) == 0) {
-						LOGGER.info("checkForPendingTransactions() - No pending tx for " + _address + ", all good to proceed (nonce=" + nonce_pending.longValue() + ", nonce_finalized=" + nonce_finalized.longValue() + ", requestCount=" + requestCount + ")");
-						return new PendingTxStatus(false, nonce_latest, nonce_pending, nonce_finalized, 0L);
+					if (null != nonce_finalized) {
+						if (nonce_pending.compareTo(nonce_finalized) == 0) {
+							LOGGER.info("checkForPendingTransactions() - No pending tx for " + _address + ", all good to proceed (nonce=" + nonce_pending.longValue() + ", nonce_finalized=" + nonce_finalized.longValue() + ", requestCount=" + requestCount + ")");
+							return new PendingTxStatus(false, nonce_latest, nonce_pending, nonce_finalized, 0L);
+						} else {
+							LOGGER.warn("We have pending (possibly stuck) transaction:");
+							LOGGER.warn(" - nonce_pending: " + nonce_pending.longValue());
+							LOGGER.warn(" - nonce_latest: " + nonce_latest.longValue());
+							LOGGER.warn(" - nonce_finalized: " + nonce_finalized.longValue());
+							Long nonce_diff = nonce_pending.subtract(nonce_finalized).longValue();
+							return new PendingTxStatus(true, nonce_latest, nonce_pending, nonce_finalized, nonce_diff);
+						}
 					} else {
-						LOGGER.warn("We have pending (possibly stuck) transaction:");
-						LOGGER.warn(" - nonce_pending: " + nonce_pending.longValue());
-						LOGGER.warn(" - nonce_latest: " + nonce_latest.longValue());
-						LOGGER.warn(" - nonce_finalized: " + nonce_finalized.longValue());
-						Long nonce_diff = nonce_pending.subtract(nonce_finalized).longValue();
-						return new PendingTxStatus(true, nonce_latest, nonce_pending, nonce_finalized, nonce_diff);
+						return new PendingTxStatus(false, nonce_latest, nonce_pending, nonce_finalized, 0L);
 					}
 				} else {
 					LOGGER.warn("We have pending (possibly stuck) transaction:");
-					LOGGER.warn(" - nonce_pending: " + nonce_pending.longValue());
-					LOGGER.warn(" - nonce_latest: " + nonce_latest.longValue());
-					LOGGER.warn(" - nonce_finalized: " + nonce_finalized.longValue());
+					LOGGER.warn(" - nonce_pending  : " + nonce_pending.longValue());
+					LOGGER.warn(" - nonce_latest   : " + nonce_latest.longValue());
+					if (null != nonce_finalized) LOGGER.warn(" - nonce_finalized: " + nonce_finalized.longValue());
 					Long nonce_diff = nonce_pending.subtract(nonce_latest).longValue();
 					return new PendingTxStatus(true, nonce_latest, nonce_pending, nonce_finalized, nonce_diff);
 				}
 
 			} catch (Exception ex) {
-				LOGGER.warn("Unable to grab pending/latest nonce for " + _address + ", requestCount=" + requestCount);
+				LOGGER.warn("ex: " + ex.getMessage());
+				LOGGER.warn("Unable to grab pending/latest/finalized nonce for " + _address + ", requestCount=" + requestCount);
+				if (debug) System.out.println("nonce_pending:" + nonce_pending);
+				if (debug) System.out.println("nonce_latest:" + nonce_latest);
+				if (debug) System.out.println("nonce_finalized:" + nonce_finalized);
 				SystemUtils.sleepInSeconds(1);
 
 				// RPC call exceptions (readonly)
@@ -1438,7 +1479,7 @@ public class EVMUtils {
 			}
 		}
 
-		LOGGER.error("Unable to get nonce state for " + _address + ", exiting ..");
+		LOGGER.error("Unable to get nonce state for " + _address + " on " + _connector.getChain() + ", exiting ..");
 		SystemUtils.halt();
 		return null;
 	}
@@ -1538,7 +1579,7 @@ public class EVMUtils {
 			// intrinsic gas too low with double so lets go
 			_gasPrice = _gasPrice.add(new BigInteger("9000000000")); // add 9 gwei
 		}
-		
+
 		// debug for selected testnets
 		/*
 		if (false ||
@@ -1547,7 +1588,7 @@ public class EVMUtils {
 			// intrinsic gas too low with double so lets go
 			_gasPrice = _gasPrice.add(new BigInteger("2000000000000")); // add 2000 gwei
 		}
-		*/
+		 */
 
 		return _gasPrice;
 	}
@@ -1687,8 +1728,9 @@ public class EVMUtils {
 						}
 					}
 					if ( true && 
-							((evmE.getExceptionType() != ExceptionType.NODE_RECOVERABLE) || (evmE.getExceptionType() != ExceptionType.NODE_UNSTABLE)) && 
-							_haltOnUnconfirmedTX &&
+							(evmE.getExceptionType() != ExceptionType.NODE_RECOVERABLE) && // we cant recover with this node
+							!evmE.isSwitchNode() && // we have an issue that cant be solved by switching node
+							_haltOnUnconfirmedTX && // we are not supposed to blindly continue
 							true) {
 						LOGGER.info(meth + " haltOnUnconfirmedTX is set to true, and we have an unrecoverable exception");
 						SystemUtils.halt();
@@ -1719,7 +1761,7 @@ public class EVMUtils {
 	private static String sendTXWithNativeCurrency_EIP1559PricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
 		return sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _connector.getChaininfo().getConfirmationTimeinSeconds(), _connector.getChaininfo().getFallbackGasLimitInUnits(), _evmNativeValue, _haltOnUnconfirmedTX, null, false);
 	}
-	
+
 	private static String sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX, BigInteger _customNonce, boolean _forceIncreaseGas) {
 		return sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _connector.getChaininfo().getConfirmationTimeinSeconds(), _connector.getChaininfo().getFallbackGasLimitInUnits(), _evmNativeValue, _haltOnUnconfirmedTX, _customNonce, _forceIncreaseGas);
 	}
@@ -1783,7 +1825,7 @@ public class EVMUtils {
 					hash = transactionReceipt.getTransactionHash();
 					LOGGER.info("Transaction complete with txhash: " + hash + " at blocknr " + transactionReceipt.getBlockNumber() + " spent gas: " + transactionReceipt.getGasUsed().toString() + " units");
 					confirmedTransaction = true;
-					
+
 				} catch (Exception ex) {
 					// RPC tx exceptions (readwrite)
 					EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
@@ -1887,14 +1929,25 @@ public class EVMUtils {
 			}
 			timeout = true;
 		} else if (false ||
+				(_ex.getMessage().contains("rate limit exceeded")) ||
+				false) {
+			// https://polygon-mumbai.gateway.tenderly.co: Invalid response received: 429; {"id":48275,"jsonrpc":"2.0","error":{"code":-32005,"message":"rate limit exceeded"}}
+			LOGGER.warn("Got rate limited by nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
+			switchNode = true;
+		} else if (false ||
 				(_ex.getMessage().contains("Failed to connect")) ||
 				(_ex.getMessage().contains("Connection reset")) ||
 				(_ex.getMessage().contains("No route to host")) ||
 				(_ex.getMessage().contains("no such host")) ||
 				(_ex.getMessage().contains("closed")) ||
 				(_ex.getMessage().contains("connection refused")) ||
+				(_ex.getMessage().contains("stream was reset")) ||
 				(_ex.getMessage().contains("Remote host terminated the handshake")) ||
+				(_ex.getMessage().contains("handshakefailure")) ||
 				false) {
+			// https://rpc.degen.tips, response: "javax.net.ssl.SSLHandshakeException: Received fatal alert: handshakefailure"
+			// okhttp3.internal.http2.StreamResetException: stream was reset: CANCEL
 			// java.net.ConnectException: Failed to connect to
 			// java.net.SocketException: Connection reset
 			// javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
@@ -1918,7 +1971,14 @@ public class EVMUtils {
 				false) {
 			// https://github.com/web3j/web3j/issues/1643
 			// https://endpoints.omniatech.io/v1/op/goerli/public: "Cannot construct instance of `org.web3j.protocol.core.methods.response.EthSendTransaction` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value ('^....
-			LOGGER.info("Response decode error from nodeURL " + _nodeURL + ", did you use PENDING+.getBalance() on BERACHAIN? ill not retry, move on to next node. Error message: " + _ex.getMessage());
+			LOGGER.info("Response decode error from nodeURL " + _nodeURL + ", did you use PENDING+getBalance() on BERACHAIN? Or FINALIZED+getNonce() on a chain which does not support it? ill not retry, move on to next node. Error message: " + _ex.getMessage());
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
+			switchNode = true;
+		} else if (false ||
+				_ex.getMessage().contains("Cannot read field \"signum") ||
+				false) {
+			// https://fantom-testnet.public.blastapi.io, response: "Cannot read field "signum" because "val" is null"
+			LOGGER.info("Response decode error from nodeURL " + _nodeURL + ", did you use FINALIZED+getNonce() on a chain which does not support it? ill not retry, move on to next node. Error message: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("No value present")) {
@@ -2173,7 +2233,7 @@ public class EVMUtils {
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
 			} else {
-				LOGGER.error("Generic 429 error from nodeURL " + _nodeURL + ": " + _ex.getMessage() + ", update analyzeProviderException() .. ");
+				LOGGER.error("Generic 429 error from nodeURL " + _nodeURL + ": " + _ex.getMessage() + ", update " + meth + " .. ");
 				LOGGER.info("429 error noted for nodeURL " + _nodeURL + ": " + _ex.getMessage() + ", lets try again");
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
@@ -2222,8 +2282,9 @@ public class EVMUtils {
 				_errorMessage.toLowerCase().contains("server_error") ||
 				false) {
 			// Internal error
-			LOGGER.info("Got a 500 internal error for nodeURL " + _nodeURL + ".. ex: " + _errorMessage);
+			LOGGER.info("Got a 500 internal error for nodeURL " + _nodeURL + ".. ex: " + _errorMessage + ", will switch node");
 			nodeInteraction = true;
+			switchNode = true;
 			exceptionType = ExceptionType.NODE_UNSTABLE;
 		} else if (false ||
 				_errorMessage.toLowerCase().contains("invalid parameters: tx") ||
@@ -3256,7 +3317,7 @@ public class EVMUtils {
 
 	public static String sendTX(EVMBlockChainConnector _connector, Credentials cred, String wolfwallet001_address, EVMNativeValue val_to_withdraw, boolean haltOnUnconfirmedTX) {
 		String txhash = null;
-				
+
 		// force custom behavior for chain?
 		if (_connector.getChain() == EVMChain.MANTLETEST) {
 			PendingTxStatus pendingTX = checkForPendingTransactions(_connector, cred.getAddress());
@@ -3273,7 +3334,7 @@ public class EVMUtils {
 				}
 			}	
 		}
-		
+
 		if ("LEGACY".equals(_connector.getChaininfo().getPriceMechanism())) {
 			txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
 		} else if ("EIP1559".equals(_connector.getChaininfo().getPriceMechanism())) {
