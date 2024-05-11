@@ -63,5 +63,9 @@ public class PendingTxStatus {
 		this.nonce_finalized = nonce_finalized;
 	}
 
+	@Override
+	public String toString() {
+		return "ispending: " + this.isPending() + " nonce_latest: " + this.getNonce_latest() + " nonce_pending: " + this.getNonce_pending();
+	}
 }
 

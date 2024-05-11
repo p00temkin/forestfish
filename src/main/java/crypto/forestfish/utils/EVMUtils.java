@@ -265,7 +265,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -309,7 +309,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -344,7 +344,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 		//return new EVMNftAccountBalance(new BigInteger("0").toString(), true);
@@ -423,7 +423,7 @@ public class EVMUtils {
 				if (evmEAS.isNewEVMBlockChainConnector()) _connector = evmEAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -455,7 +455,7 @@ public class EVMUtils {
 						SystemUtils.sleepInSeconds(3);
 					}
 				} else {
-					System.out.println("transactionAttemptCount is " + txAttemptCount + ", is this account running txs in paralell? Lets do an early exit ..");
+					System.out.println("transactionAttemptCount is " + txAttemptCount + ", is this account running txs in parallel? Lets do an early exit ..");
 					return new NonceCheckStatus(pendingTX, true);
 				}
 			} else {
@@ -535,7 +535,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -609,7 +609,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -662,7 +662,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -686,7 +686,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -719,7 +719,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -743,7 +743,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -1010,7 +1010,7 @@ public class EVMUtils {
 			LOGGER.error("Unable to comply with price mechanism named: " + _connector.getChaininfo().getPriceMechanism());
 			SystemUtils.halt();
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain, out of retries .. ABORT!");
+		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 		SystemUtils.halt();
 		return null;
 	}
@@ -1175,10 +1175,13 @@ public class EVMUtils {
 								receiptPollCounter++;
 
 								if (receiptPollCounter>20) {
-									LOGGER.warn("Unable to grab tx receipt for " + response.getTransactionHash());
+									LOGGER.warn("Unable to grab a tx receipt for " + response.getTransactionHash());
 								}
 							}
 						}
+						
+						// Finally just check if the tx is still pending
+						
 
 
 					} else {
@@ -1229,10 +1232,12 @@ public class EVMUtils {
 							LOGGER.info("Lets do 100x poll for status of " + te.getTransactionHash().get() + " for chain " + _connector.getChain() + " ..");
 
 							int receiptPollCounter = 0;
+							String txhash = "";
 							while (!confirmedTransaction && receiptPollCounter<100) {
 								EthGetTransactionReceipt ethGetTransactionReceipt = _connector.getProvider_instance().ethGetTransactionReceipt(te.getTransactionHash().get()).send();
 								LOGGER.info("ethGetTransactionReceipt: " + ethGetTransactionReceipt.getTransactionReceipt().isPresent() + " for txhash " + te.getTransactionHash().get());
 								SystemUtils.sleepInSeconds(10);
+								if ("".equals(txhash)) txhash = te.getTransactionHash().get();
 								if (ethGetTransactionReceipt.getTransactionReceipt().isPresent()) confirmedTransaction = true;
 								receiptPollCounter++;
 
@@ -1240,16 +1245,34 @@ public class EVMUtils {
 									LOGGER.warn("Unable to grab tx receipt for " + te.getTransactionHash().get());
 								}
 							}
+							
+							LOGGER.info("Lets check if our nonce is still pending");
+							PendingTxStatus pendingTX = checkForPendingTransactions(_connector, _creds.getAddress());
+							LOGGER.info("hmpf. " + pendingTX.toString());
+							
+							int pendingCounter = 0;
+							while (pendingTX.isPending() && (pendingCounter <= 100)) {
+								LOGGER.info("We have a pending TX so the tx went through .. lets wait another 100x10 seconds");
+								pendingCounter++;
+								SystemUtils.sleepInSeconds(10);
+								pendingTX = checkForPendingTransactions(_connector, _creds.getAddress());
+							}
+							
+							if ( (pendingCounter>0) && !pendingTX.isPending()) {
+								LOGGER.error("OK so the tx could have been removed from the mempool but check the tx again? txhash: " + txhash);
+								LOGGER.error("Blockchain is " + _connector.getChain().toString());
+								SystemUtils.halt();
+							}
 
 							if (!confirmedTransaction && _haltOnUnconfirmedTX) {
-								LOGGER.error("We cant just continue with the tx here, instructed to halt on unconfirmed tx.");
+								LOGGER.error("We cant just continue with the tx here, instructed to halt on unconfirmed tx. Blockchain is " + _connector.getChain().toString());
 								SystemUtils.halt();
 							} else {
 								return null;
 							}
 						} else {
 							if (_haltOnUnconfirmedTX) {
-								LOGGER.error("We dont even have a txhash to poll status from, instructed to halt on unconfirmed tx. ABORT!");
+								LOGGER.error("We dont even have a txhash to poll status from, instructed to halt on unconfirmed tx. ABORT! Blockchain is " + _connector.getChain().toString());
 								SystemUtils.halt();
 							} else {
 								return null;
@@ -1354,7 +1377,10 @@ public class EVMUtils {
 				BigInteger networkGasPriceInWEI = getCurrentNetworkGasPriceInWEI(_connector);
 				if (withLogOutput) LOGGER.info(StringsUtils.cutAndPadStringToN("Network recommended gasprice", 39) + ": " + Convert.fromWei(networkGasPriceInWEI.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + networkGasPriceInWEI.toString() + " wei)");
 				// By default, 1.2x the recommended network price for testnets
-				if (_connector.getChain().toString().contains("TEST")) {
+				if (true &&
+						_connector.getChain().toString().contains("TEST") &&
+						(_connector.getChain() != EVMChain.JOCTEST) && // tx fee (1.18 ether) exceeds the cofigured cap (1.00 ether)
+						true) {
 					BigInteger gasPriceInWEI20PERC = networkGasPriceInWEI.divide(new BigInteger("5"));
 					gasPriceInWEI = networkGasPriceInWEI.add(gasPriceInWEI20PERC); // increase by x1.2
 					if (withLogOutput) LOGGER.info(StringsUtils.cutAndPadStringToN("1.2x testnet recbumped gasprice", 39) + ": " + Convert.fromWei(gasPriceInWEI.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPriceInWEI.toString() + " wei)");
@@ -1418,6 +1444,7 @@ public class EVMUtils {
 						(_connector.getChain() == EVMChain.TORUSTEST) ||
 						(_connector.getChain() == EVMChain.ETCMORDORTEST) ||
 						(_connector.getChain() == EVMChain.BASESEPOLIATEST) ||
+						(_connector.getChain() == EVMChain.SANTIMENT) ||
 						false) {
 					LOGGER.info("Skip getting FINALIZED nonce, not supported on " + _connector.getChain());
 				} else {
@@ -1538,6 +1565,7 @@ public class EVMUtils {
 		// leave untouched
 		if (false ||
 				(_connector.getChain() == EVMChain.MANTLE) ||
+				(_connector.getChain() == EVMChain.JOCTEST) || // avoid bump for JOCTEST: tx fee (1.18 ether) exceeds the cofigured cap (1.00 ether)
 				false) {
 			return _gasPrice;
 		}
@@ -1638,6 +1666,9 @@ public class EVMUtils {
 					LOGGER.info(StringsUtils.cutAndPadStringToN("Specified gasLimit", 39) + ": " + _connector.getChaininfo().getFallbackGasLimitInUnits() + " units");
 					gasLimit = new BigInteger(_connector.getChaininfo().getFallbackGasLimitInUnits());
 				}
+				LOGGER.info("We x3 the gaslimit for simple token transfers");
+				gasLimit = gasLimit.multiply(BigInteger.valueOf(3)); // x3
+				LOGGER.info(StringsUtils.cutAndPadStringToN("Final gasLimit", 39) + ": " + gasLimit + " units");
 				if (gasPrice.longValue() < 1000000000L) gasPrice = new BigInteger("1000000000"); // 1 gwei
 				gasPrice = bumpGasInWeiAccordingly(_connector, gasPrice);
 
@@ -1945,7 +1976,10 @@ public class EVMUtils {
 				(_ex.getMessage().contains("stream was reset")) ||
 				(_ex.getMessage().contains("Remote host terminated the handshake")) ||
 				(_ex.getMessage().contains("handshakefailure")) ||
+				(_ex.getMessage().contains("handshake_failure")) ||
+				(_ex.getMessage().contains("Unrecognized token")) ||
 				false) {
+			// javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
 			// https://rpc.degen.tips, response: "javax.net.ssl.SSLHandshakeException: Received fatal alert: handshakefailure"
 			// okhttp3.internal.http2.StreamResetException: stream was reset: CANCEL
 			// java.net.ConnectException: Failed to connect to
@@ -1953,6 +1987,7 @@ public class EVMUtils {
 			// javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
 			// https://rpc.startale.com/zkatana: "rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 10.65.132.186:50071: connect: connection refused"
 			// https://endpoints.omniatech.io/v1/op/goerli/public: "Post "https://goerli-sequencer.optimism.io": dial tcp: lookup goerli-sequencer.optimism.io on 127.0.0.53:53: no such host"
+			// https://lbry.nl/rpc, response: "com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'LBRY': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
 			LOGGER.warn("Got a connection reset from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -1994,16 +2029,26 @@ public class EVMUtils {
 				(_ex.getMessage().contains("500") && _ex.getMessage().toLowerCase().contains("internal")) ||
 				(_ex.getMessage().toLowerCase().contains("internal error")) ||
 				(_ex.getMessage().toLowerCase().contains("internal_error")) ||
+				(_ex.getMessage().toLowerCase().contains("Error processing request")) ||
 				false) {
 			// <center><h1>500 Internal Server Error</h1></center>
 			// 500; internal error
 			// Internal error
 			// 500; Internal Server Error
 			// https://rpc.velaverse.io: Received fatal alert: internal_error
+			// https://rpc.ankr.com/filecoin_testnet, response: "Error processing request: failed to lookup Eth Txn 0x7e... as baf...: failed to load the actor: load state tree: failed to load state tree bafy... failed to load hamt node: ipld: could not find
 			LOGGER.warn("Got a 500 internal server error response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
+				_ex.getMessage().contains("RPC is deprecated. Please use another provider") ||
+				false) {
+			//  https://rpc-mumbai.maticvigil.com: org.web3j.protocol.exceptions.ClientConnectionException: Invalid response received: 403; Our Mumbai RPC is deprecated. Please use another provider.
+			LOGGER.info("Got an unknown/invalid RPC reply from nodeURL " + _nodeURL + ".. will not retry, move on to next node. ex: " + _ex.getMessage());
+			exceptionType = ExceptionType.NODE_UNSTABLE;	
+			switchNode = true;
+		} else if (false ||
+				_ex.getMessage().startsWith("stylus-") ||
 				_ex.getMessage().contains("Unexpected character") ||
 				_ex.getMessage().contains("Invalid response received") ||
 				_ex.getMessage().contains("out of range") ||
@@ -2032,7 +2077,7 @@ public class EVMUtils {
 			switchNode = true;
 		} else if (_ex.getMessage().contains("protocol_version")) {
 			// https://smart.zeniq.network:9545: "javax.net.ssl.SSLHandshakeException: Received fatal alert: protocol_version"
-			LOGGER.warn("Got a SSL Protocol vereion issue from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.warn("Got a SSL Protocol Version issue from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("mempool is full")) {
@@ -2087,7 +2132,7 @@ public class EVMUtils {
 			switchNode = true;
 		} else if (_ex.getMessage().contains("exceeds the configured cap")) {
 			// https://testnet.liquidlayer.network: tx fee (19.58 ether) exceeds the configured cap (1.00 ether)
-			LOGGER.warn("Tx fee issue response from nodeURL " + _nodeURL + ".. will not retry, fix your code");
+			LOGGER.warn("Tx fee issue response from nodeURL " + _nodeURL + ".. will not retry, fix your code. Exception: " + _ex.getMessage());
 			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().contains("Transaction receipt was not generated after 600 seconds for transaction")) {
 			// Transaction receipt was not generated after 600 seconds for transaction
