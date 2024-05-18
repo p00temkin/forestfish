@@ -169,8 +169,8 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Hypra Mainnet", EVMChain.HYPRA);
 			this.put("Eluvio Content Fabric", EVMChain.ELUVIO);
 			this.put("Bitgert Mainnet", EVMChain.BITGERT);
-			this.put("Mind Smart Chain Mainnet", EVMChain.MIND);
-			this.put("Mind Smart Chain Testnet", EVMChain.MINDTEST);
+			this.put("Mind Smart Chain Mainnet", EVMChain.MINDSMARTCHAIN);
+			this.put("Mind Smart Chain Testnet", EVMChain.MINDSMARTCHAINTEST);
 			this.put("Unique", EVMChain.UNIQUE);
 			this.put("Quartz by Unique", EVMChain.QUARTZUNIQUE);
 			this.put("Rise of the Warbots Testnet", EVMChain.ROTWTEST);
@@ -401,7 +401,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Nollie Skatechain Testnet", EVMChain.NOLLIETEST);
 			this.put("edeXa Mainnet", EVMChain.EDEXA);
 			this.put("QIE Blockchain", EVMChain.QIE);
-			this.put("Tanssi Demo", EVMChain.TANSSI);
+			this.put("Tanssi Demo", EVMChain.TANSSITEST);
 			this.put("Tangle", EVMChain.TANGLE);
 			this.put("BounceBit Testnet", EVMChain.BOUNCEBITTEST);
 			this.put("BounceBit Mainnet", EVMChain.BOUNCEBIT);
@@ -493,14 +493,41 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Xai Testnet v2", EVMChain.XAITEST2);
 			this.put("Arbitrum Blueberry", EVMChain.ARBITRUMBLUEBERRY);
 			this.put("DCHAIN Testnet", EVMChain.DCHAINTEST);
+			this.put("Mint Mainnet", EVMChain.MINT);
+			this.put("UCHAIN Mainnet", EVMChain.UCHAIN);
+			this.put("Tobe Chain", EVMChain.TOBE);
+			this.put("TAO EVM Testnet", EVMChain.TAOTEST);
+			this.put("Xchain Mainnet", EVMChain.XCHAIN);
+			this.put("Xchain Testnet", EVMChain.XCHAINTEST);
+			this.put("Entangle Mainnet", EVMChain.ENTANGLE);
+			this.put("Entangle Testnet", EVMChain.ENTANGLETEST);
+			this.put("Etherlink Mainnet", EVMChain.ETHERLINK);
+			this.put("Optopia Mainnet", EVMChain.OPTOPIA);
+			this.put("PLYR TAU Testnet", EVMChain.PLYRTEST);
+			this.put("Inoai Network", EVMChain.INOAI);
+			this.put("Chiliz Spicy Testnet", EVMChain.CHILIZTEST);
+			this.put("Chiliz Chain Mainnet", EVMChain.CHILIZ);
+			this.put("Green Chain Testnet", EVMChain.GREENTEST);
+			this.put("Eclat Mainnet", EVMChain.ECLAT);
+			this.put("Mind Smart Chain Testnet", EVMChain.MINDSMARTCHAINTEST);
+			this.put("Mind Network Testnet", EVMChain.MINDTEST);
+			this.put("Eclat Testnet", EVMChain.ECLATTEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
+			
+			this.put("xxxxxxxxxxxxxxxxxxx", true);
+			this.put("xxxxxxxxxxxxxxxxxxx", true);
+			
 			this.put("http://127.0.0.1:8545", true); // local
 			this.put("https://api.metadium.com/dev", true); // incorrectly added as Metadium mainnet node
 			this.put("https://rpc.jolnir.taiko.xyz", true); // old account balance reply but latestblocknr?
 
 			// dns resolve issues
+			this.put("https://testnet.saharalabs.ai", true);
+			this.put("https://rpc_testnet.xfair.ai", true);
+			this.put("https://rpc.taiko.xyz", true);
+			this.put("https://rpc.dcnetio.cloud", true);
 			this.put("https://io-dataseed1.mainnet.edexa.io-market.com/rpc", true);
 			this.put("https://rpc-testnet.syndicate.io", true);
 			this.put("https://rpc-zkevm.thefirechain.com", true);
@@ -1794,6 +1821,7 @@ public class CheckNewEVMNodeCandidates {
 								eece.getName().toLowerCase().contains("devnet") ||
 								eece.getName().toLowerCase().contains("stage") ||
 								eece.getName().toLowerCase().contains("staging") ||
+								eece.getName().toLowerCase().contains("demo") ||
 								eece.getName().toLowerCase().contains("goerli") ||
 								eece.getName().toLowerCase().contains("sepolia") ||
 								eece.getName().toLowerCase().contains("holesky") ||
@@ -1849,8 +1877,8 @@ public class CheckNewEVMNodeCandidates {
 									+ "				new ArrayList<String>() {{\n"
 									+ "					this.add(\"https://chainlist.org/chain/" + eece.getChainId() + "\");\n"
 									+ "				}},\n"
-									+ "				generateDummyTokenIndex(),\n"
-									+ "				generateDummyNFTIndex());\n"
+									+ "				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),\n"
+									+ "				BlockchainTokenDetailsEVM.generateDummyNFTIndex());\n"
 									+ "		networks.put(EVMChain." + chain_enum + ", " + chain_shortname + ");");
 							System.out.println("");
 							System.out.println("");
