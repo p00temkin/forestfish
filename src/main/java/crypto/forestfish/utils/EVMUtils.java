@@ -2527,6 +2527,11 @@ public class EVMUtils {
 			if (_debug) System.out.println("chain: " + chain);
 
 			EVMChainInfo chainInfo = EVMUtils.getEVMChainInfo(chain);
+			if (null == chainInfo) {
+				LOGGER.error("chainInfo cannot be null for " + chain);
+				SystemUtils.halt();
+			}
+			
 			if (BlockchainType.valueOf(chainInfo.getType()) == _ultra_connector.getChainType()) {
 
 				/**

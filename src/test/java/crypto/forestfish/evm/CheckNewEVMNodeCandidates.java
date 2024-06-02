@@ -512,18 +512,77 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Mind Smart Chain Testnet", EVMChain.MINDSMARTCHAINTEST);
 			this.put("Mind Network Testnet", EVMChain.MINDTEST);
 			this.put("Eclat Testnet", EVMChain.ECLATTEST);
+			this.put("EternalCoin Mainnet", EVMChain.ETERNALCOIN);
+			this.put("EthXY", EVMChain.ETHXY);
+			this.put("Gravity Alpha Mainnet", EVMChain.GRAVITY);
+			this.put("Metal L2 Testnet", EVMChain.METALTEST);
+			this.put("Metal L2", EVMChain.METAL);
+			this.put("Panarchy", EVMChain.PANARCHY);
+			this.put("Aleph Zero Testnet", EVMChain.ALEPHTEST);
+			this.put("Sanko", EVMChain.SANKO);
+			this.put("Carbonium Testnet Network", EVMChain.CARBONIUMTEST);
+			this.put("ONIGIRI Subnet", EVMChain.ONIGIRI);
+			this.put("Pools Mainnet", EVMChain.POOLS);
+			this.put("Algen", EVMChain.ALGEN);
+			this.put("Algen Testnet", EVMChain.ALGENTEST);
+			this.put("Algen Layer2", EVMChain.ALGENL2);
+			this.put("Algen Layer2 Testnet", EVMChain.ALGENL2TEST);
+			this.put("Lycan Chain", EVMChain.LYCAN);
+			this.put("Tycooncoin", EVMChain.TYCOONCOIN);
+			this.put("L3X Protocol", EVMChain.L3X);
+			this.put("L3X Protocol Testnet", EVMChain.L3XTEST);
+			this.put("PlayFair Testnet Subnet", EVMChain.PLAYFAIRTEST);
+			this.put("Defi Oracle Meta Mainnet", EVMChain.DEFIORACLE);
+			this.put("DeFiVerse Mainnet", EVMChain.DEFIVERSE);
+			this.put("DeFiVerse Testnet", EVMChain.DEFIVERSETEST);
+			this.put("DCpay Testnet", EVMChain.DCPAYTEST);
+			this.put("Ebi Chain", EVMChain.EBI);
+			this.put("GitAGI Atlas Testnet", EVMChain.GITAGITEST);
+			this.put("LAVITA Mainnet", EVMChain.LAVITA);
+			this.put("Waterfall 8 Test Network", EVMChain.WATERFALLTEST);
+			this.put("ALIENX Hal Testnet", EVMChain.ALIENXTEST);
+			this.put("Swan Proxima Testnet", EVMChain.SWANTEST);
+			this.put("DCHAIN", EVMChain.DCHAIN);
+			this.put("Gravity Alpha Testnet Sepolia", EVMChain.GRAVITYTEST);
+			this.put("Poodl Testnet", EVMChain.POODLTEST);
+			this.put("ZKBase Sepolia Testnet", EVMChain.ZKBASETEST);
+			this.put("Poodl Mainnet", EVMChain.POODL);
+			this.put("AgentLayer Testnet", EVMChain.AGENTLAYERTEST);
+			this.put("Flag Mainnet", EVMChain.FLAG);
+			this.put("Flag Testnet", EVMChain.FLAGTEST);
+			this.put("Ramestta Mainnet", EVMChain.RAMESTTA);
+			this.put("Pingaksha testnet", EVMChain.PINGAKSHATEST);
+			this.put("Settlus Testnet", EVMChain.SETTLUSTEST);
+			this.put("XPLA Verse", EVMChain.XPLAVERSE);
+			this.put("Sei Network", EVMChain.SEI);
+			this.put("Nahmii 3 Mainnet", EVMChain.NAHMII3);
+			this.put("Nahmii 3 Testnet", EVMChain.NAHMII3TEST);
+			this.put("Nahmii 2 Mainnet", EVMChain.NAHMII2);
+			this.put("Aura Mainnet", EVMChain.AURA);
+			this.put("Lorenzo", EVMChain.LORENZO);
+			this.put("Jiritsu Testnet Subnet", EVMChain.JIRITSUTEST);
+			this.put("GEEK Verse Mainnet", EVMChain.GEEK);
+			this.put("Taiko Mainnet", EVMChain.TAIKO);
+			this.put("BIZ Smart Chain Testnet", EVMChain.BIZTEST);
+			this.put("Oraichain Mainnet", EVMChain.ORAICHAIN);
+			this.put("Forma", EVMChain.FORMA);
+			this.put("Forma Sketchpad", EVMChain.FORMASKETCHPAD);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
-			
+
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
-			
+			this.put("xxxxxxxxxxxxxxxxxxx", true);
+			this.put("https://rpc.onenesslabs.io/", true);
+			this.put("https://rpc.mainnet.zkamoeba.com/rpc", true);
+
 			this.put("http://127.0.0.1:8545", true); // local
 			this.put("https://api.metadium.com/dev", true); // incorrectly added as Metadium mainnet node
 			this.put("https://rpc.jolnir.taiko.xyz", true); // old account balance reply but latestblocknr?
 
-			// dns resolve issues
+			// dns resolve issues, lets not retry
+			this.put("https://rpc.chain.namefi.io", true);
 			this.put("https://testnet.saharalabs.ai", true);
 			this.put("https://rpc_testnet.xfair.ai", true);
 			this.put("https://rpc.taiko.xyz", true);
@@ -1840,7 +1899,7 @@ public class CheckNewEVMNodeCandidates {
 								explorer = hm.get("url");
 							}
 						}
-						
+
 						// grab 1 faucet
 						String faucet = "<TODO>";
 						if (null != eece.getFaucets()) {
@@ -1883,7 +1942,7 @@ public class CheckNewEVMNodeCandidates {
 							System.out.println("");
 							System.out.println("");
 							System.out.println("this.put(\"" + eece.getName() + "\", EVMChain." + chain_enum + ");");
-							
+
 							// Add one entry at a time
 							SystemUtils.halt();
 						}

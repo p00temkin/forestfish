@@ -38,29 +38,23 @@ If you want to print out an account portfolio across all EVM chains (similar to 
   System.out.println(output);
    ```
 
-### Building the application
-
-   ```
-   mvn clean package install
-   ```
-
-### How it works
-
-First git clone and install the forestfish library in your local Maven repository
+### Building the library
 
    ```
    git clone https://github.com/p00temkin/forestfish.git
    mvn clean package install
    ```
 
-Next, add a reference to this dependency in your new project pom.xml:
+### Using the library
+
+Maven:
 
    ```
-  <dependency>
-   <groupId>crypto.forestfish</groupId>
-   <artifactId>forestfish</artifactId>
-   <version>0.0.1-SNAPSHOT</version>
-  </dependency>
+	<dependency>
+	  <groupId>crypto.forestfish</groupId>
+	  <artifactId>forestfish</artifactId>
+	  <version>0.2.2</version>
+	</dependency>
    ```
    
 ### Next steps

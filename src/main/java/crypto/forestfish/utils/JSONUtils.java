@@ -32,6 +32,25 @@ public class JSONUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JSONUtils.class);
 
+	public static <T> T createPOJOFromJSONOpportunistic(final String jsonSTR, Class<T> valueType) {
+		ObjectMapper mapper = new ObjectMapper().disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		T pojo = null;
+		try {
+			pojo = mapper.readValue(jsonSTR, valueType);
+		} catch (Exception e) {
+		}
+		return pojo;
+	}
+	
+	public static <T> T createPOJOFromJSONOpportunistic(final String jsonSTR, Class<T> valueType, ObjectMapper mapper) {
+		T pojo = null;
+		try {
+			pojo = mapper.readValue(jsonSTR, valueType);
+		} catch (Exception e) {
+		}
+		return pojo;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static String getFunctionJSONUsingABI(String jsonSTR, String functionName) {
 		String result = "";
