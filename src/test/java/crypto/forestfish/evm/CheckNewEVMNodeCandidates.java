@@ -229,7 +229,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("MetaDAP Enterprise Testnet", EVMChain.METADAPTEST);
 			this.put("Bloom Genesis Testnet", EVMChain.BLOOMTEST);
 			this.put("Bloom Genesis Mainnet", EVMChain.BLOOM);
-			this.put("Sei Devnet", EVMChain.SEITEST);
+			this.put("Sei Devnet", EVMChain.SEIDEVTEST);
 			this.put("PowerGold", EVMChain.AURORAPOWERGOLD);
 			this.put("Syndr L3 Sepolia", EVMChain.SYNDRTEST);
 			this.put("Dymension", EVMChain.DYMENSION);
@@ -260,7 +260,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Flare Testnet Coston", EVMChain.FLARECOSTONTEST); 
 			this.put("Flare Testnet Coston2", EVMChain.FLARECOSTON2TEST); 
 			this.put("Rupaya Testnet", EVMChain.RUPAYATEST); 
-			this.put("Hybrid Testnet", EVMChain.HYBRIDTEST); 
 			this.put("MetaChain Istanbul", EVMChain.METACHAIN);
 			this.put("Vitruveo Mainnet", EVMChain.VITRUVEO);
 			this.put("Whitechain", EVMChain.WHITECHAIN);
@@ -567,13 +566,66 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Oraichain Mainnet", EVMChain.ORAICHAIN);
 			this.put("Forma", EVMChain.FORMA);
 			this.put("Forma Sketchpad", EVMChain.FORMASKETCHPAD);
+			this.put("TSC Mainnet", EVMChain.TSC);
+			this.put("MAXI Chain Mainnet", EVMChain.MAXI);
+			this.put("ITX Mainnet", EVMChain.ITX);
+			this.put("NeuroWeb", EVMChain.NEUROWEB);
+			this.put("GM Network Mainnet", EVMChain.GMNETWORK);
+			this.put("Ham", EVMChain.HAM);
+			this.put("ITX Testnet", EVMChain.ITXTEST);
+			this.put("MO Mainnet", EVMChain.MO);
+			this.put("Space Subnet", EVMChain.SPACE);
+			this.put("Hydra Chain Testnet", EVMChain.HYDRATEST);
+			this.put("OptimusZ7 Mainnet", EVMChain.OPTIMUSZ7);
+			this.put("GLScan", EVMChain.GLSCAN);
+			this.put("TAO EVM Mainnet", EVMChain.TAO);
+			this.put("LayerEdge testnet", EVMChain.LAYEREDGETEST);
+			this.put("Lamina1", EVMChain.LAMINA1);
+			this.put("Lamina1 Identity", EVMChain.LAMINA1IDENTITY);
+			this.put("Niza Chain Mainnet", EVMChain.NIZA);
+			this.put("Niza Chain Testnet", EVMChain.NIZATEST);
+			this.put("Space Subnet Testnet", EVMChain.SPACETEST);
+			this.put("Zircuit Testnet", EVMChain.ZIRCUITTEST);
+			this.put("Citrea Devnet", EVMChain.CITREATEST);
+			this.put("GEEK Verse Testnet", EVMChain.GEEKTEST);
+			this.put("OptimusZ7 Testnet", EVMChain.OPTIMUSZ7TEST);
+			this.put("Form Testnet", EVMChain.FORMTEST);
+			this.put("Orange Chain Testnet", EVMChain.ORANGETEST);
+			this.put("Atlas", EVMChain.ATLAS);
+			this.put("ERAM Mainnet", EVMChain.ERAM);
+			this.put("Lamina1 Testnet", EVMChain.LAMINA1TEST);
+			this.put("Lamina1 Identity Testnet", EVMChain.LAMINA1IDENTITYTEST);
+			this.put("TSC Testnet", EVMChain.TSCTEST);
+			this.put("Eternal Mainnet", EVMChain.ETERNAL);
+			this.put("Treasure Ruby", EVMChain.TREASURE);
+			this.put("MetaLink Network", EVMChain.METALINK);
+			this.put("Volley Mainnet", EVMChain.VOLLEY);
+			this.put("Cuckoo Sepolia", EVMChain.CUCKOOTEST);
+			this.put("Superseed Sepolia Testnet", EVMChain.SUPERSEEDTEST);
+			this.put("COINSEC", EVMChain.COINSEC);
+			this.put("Xterio Testnet", EVMChain.XTERIOTEST);
+			this.put("NumBlock Chain", EVMChain.NUMBLOCK);
+			this.put("Fhenix Helium", EVMChain.FHENIX);
+			this.put("Nal Sepolia Testnet", EVMChain.NALTEST);
+			this.put("GM Network Testnet", EVMChain.GMTEST);
+			this.put("Darwinia Koi Testnet", EVMChain.DARWINIATEST);
+			this.put("Hybrid Testnet", EVMChain.HYBRIDTEST);
+			this.put("Sei Testnet", EVMChain.SEITEST);
+			this.put("BigShortBets Testnet", EVMChain.BIGSHORTBETSTEST);
+			this.put("iChain Testnet", EVMChain.ICHAINTEST);
+			this.put("OX Chain", EVMChain.OX);
+			this.put("Vana Satori Testnet", EVMChain.VANATEST);
+			this.put("COINSEC Network", EVMChain.COINSEC);
+			this.put("Pentagon Testnet", EVMChain.PENTAGONTEST);
+			this.put("Open Campus Codex", EVMChain.OPENCAMPUS);
+			this.put("Supernet Testnet", EVMChain.SUPERNETTEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
 
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
-			this.put("xxxxxxxxxxxxxxxxxxx", true);
+			this.put("http://mainnet.ethstorage.io:9540", true);
 			this.put("https://rpc.onenesslabs.io/", true);
 			this.put("https://rpc.mainnet.zkamoeba.com/rpc", true);
 
@@ -1177,6 +1229,10 @@ public class CheckNewEVMNodeCandidates {
 		}};
 
 		HashMap<String, Boolean> skipchains = new HashMap<String, Boolean>() {{
+
+			// messy
+			this.put("Hybrid Testnet (Deprecated)", true);
+			this.put("Santiment Intelligence Network", true);
 
 			// multinode
 			this.put("Songbird Canary-Network", true);
@@ -1791,40 +1847,46 @@ public class CheckNewEVMNodeCandidates {
 						SystemUtils.halt();
 					}
 
-					// Sanitycheck
-					if (!chaininfo.getChainId().equals(eece.getChainId())) {
-						LOGGER.warn("Incorrect chain ID for " + chaininfo.getChainName() + "?");
-						LOGGER.warn("forestfish ID: " + chaininfo.getChainId());
-						LOGGER.warn("chainlist ID: " + eece.getChainId());
-						SystemUtils.halt();
-					}
+					if (null != skipchains.get(eece.getName())) {
+						// known and skip
+						//System.out.println("Skipping chain: " + eece.getName());
+					} else {
 
-					for (String nodeURL: chaininfo.getNodeURLs()) {
-						if (debug) System.out.println(" - forestfish node: " + nodeURL);
-						forestfish_nodes.put(nodeURL, true);
-					}
-					if (debug) System.out.println("----------------------------------");
-					int newnode_count = 0;
-					for (String nodeURL: eece.getRpc()) {
-						if (nodeURL.startsWith("http")) {
-							if (!nodeURL.contains("API_KEY")) {
-								if (null == forestfish_nodes.get(nodeURL)) {
-									if (null == skipnodeurls.get(nodeURL)) {
-										Web3j web3j_cand = Web3j.build(new HttpService(nodeURL));
-										Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(evmchain, nodeURL, web3j_cand);
-										if ((null != latestblocknr) && (latestblocknr>0L)) {
-											System.out.println("this.add(\"" + nodeURL + "\");");
-											newnode_count++;
+						// Sanitycheck
+						if (!chaininfo.getChainId().equals(eece.getChainId())) {
+							LOGGER.warn("Incorrect chain ID for " + chaininfo.getChainName() + "?");
+							LOGGER.warn("forestfish ID: " + chaininfo.getChainId());
+							LOGGER.warn("chainlist ID: " + eece.getChainId());
+							SystemUtils.halt();
+						}
+
+						for (String nodeURL: chaininfo.getNodeURLs()) {
+							if (debug) System.out.println(" - forestfish node: " + nodeURL);
+							forestfish_nodes.put(nodeURL, true);
+						}
+						if (debug) System.out.println("----------------------------------");
+						int newnode_count = 0;
+						for (String nodeURL: eece.getRpc()) {
+							if (nodeURL.startsWith("http")) {
+								if (!nodeURL.contains("API_KEY")) {
+									if (null == forestfish_nodes.get(nodeURL)) {
+										if (null == skipnodeurls.get(nodeURL)) {
+											Web3j web3j_cand = Web3j.build(new HttpService(nodeURL));
+											Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(evmchain, nodeURL, web3j_cand);
+											if ((null != latestblocknr) && (latestblocknr>0L)) {
+												System.out.println("this.add(\"" + nodeURL + "\");");
+												newnode_count++;
+											}
 										}
 									}
 								}
 							}
 						}
-					}
 
-					if (newnode_count > 0) {
-						LOGGER.info("Add the new " + newnode_count + " nodes for networks.put(EVMChain." + evmchain.toString() + ", in BlockchainDetailsEVM and re-run");
-						SystemUtils.halt();
+						if (newnode_count > 0) {
+							LOGGER.info("Add the new " + newnode_count + " nodes for networks.put(EVMChain." + evmchain.toString() + ", in BlockchainDetailsEVM and re-run");
+							SystemUtils.halt();
+						}
 					}
 				} else {
 
