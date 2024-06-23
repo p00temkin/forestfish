@@ -619,6 +619,16 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Pentagon Testnet", EVMChain.PENTAGONTEST);
 			this.put("Open Campus Codex", EVMChain.OPENCAMPUS);
 			this.put("Supernet Testnet", EVMChain.SUPERNETTEST);
+			this.put("Cuckoo Chain", EVMChain.CUCKOO);
+			this.put("Kyoto", EVMChain.KYOTO);
+			this.put("AILayer Testnet", EVMChain.AILAYERTEST);
+			this.put("AILayer Mainnet", EVMChain.AILAYER);
+			this.put("GTCSCAN", EVMChain.GTCSCAN);
+			this.put("Artela Testnet", EVMChain.ARTELATEST);
+			this.put("Santiment Intelligence Network DEPRECATED", EVMChain.SANTIMENT);
+			this.put("Berachain bArtio", EVMChain.BERACHAINBARTIOTEST);
+			this.put("Zilliqa 2 EVM proto-testnet", EVMChain.ZILLIQA2PTEST);
+			this.put("Autonomys Testnet Nova Domain", EVMChain.AUTONOMYSTEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{

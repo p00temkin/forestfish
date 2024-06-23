@@ -11,6 +11,7 @@ public class EVMProviderException {
 	private int sleepTimeInSecondsRecommended = 5;
 	private ExceptionType exceptionType = ExceptionType.UNKNOWN;
 	private boolean timeout = false;
+	private boolean skiptx = false;
 	
 	public EVMProviderException() {
 		super();
@@ -25,6 +26,8 @@ public class EVMProviderException {
 		this.sleepTimeInSecondsRecommended = _sleepTimeInSecondsRecommended;
 		this.switchNode = _switchNode;
 		this.timeout = _timeout; 
+		
+		if (_exceptionType == ExceptionType.TX_SKIP) skiptx = true;
 	}
 
 	public boolean isNodeInteraction() {
@@ -81,6 +84,14 @@ public class EVMProviderException {
 
 	public void setTimeout(boolean timeout) {
 		this.timeout = timeout;
+	}
+
+	public boolean isSkiptx() {
+		return skiptx;
+	}
+
+	public void setSkiptx(boolean skiptx) {
+		this.skiptx = skiptx;
 	}
 	
 }

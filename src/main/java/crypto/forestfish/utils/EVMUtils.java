@@ -133,6 +133,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly), without connector
 				EVMProviderException evmE = analyzeProviderException(chain, nodeURL, ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++;
 				if (evmE.isSleepBeforeRetry()) {
@@ -167,6 +168,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -192,6 +194,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -220,6 +223,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -259,6 +263,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -303,6 +308,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -338,6 +344,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -415,6 +422,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -529,6 +537,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -603,6 +612,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -629,6 +639,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				System.out.println("exception .. nodeCallAttemptCount=" + nodeCallAttemptCount + " requestCount=" + requestCount);
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -656,6 +667,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -680,6 +692,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -713,6 +726,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -737,6 +751,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -906,6 +921,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -953,6 +969,7 @@ public class EVMUtils {
 				LOGGER.info("ex: " + ex.getMessage());
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -991,6 +1008,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -1049,7 +1067,7 @@ public class EVMUtils {
 
 			}
 
-			// enforce the latest nonce?
+			// enforce the latest nonce
 			/*
 				EthGetTransactionCount ethGetTransactionCount_latest = null;
 				try {
@@ -1058,7 +1076,8 @@ public class EVMUtils {
 					SystemUtils.halt();
 				}
 				_customNonce =  ethGetTransactionCount_latest.getTransactionCount();
-			 */
+				LOGGER.info("We are forcing custom nonce to " + _customNonce);
+			*/
 
 			try {
 
@@ -1179,9 +1198,9 @@ public class EVMUtils {
 								}
 							}
 						}
-						
+
 						// Finally just check if the tx is still pending
-						
+
 
 
 					} else {
@@ -1245,11 +1264,11 @@ public class EVMUtils {
 									LOGGER.warn("Unable to grab tx receipt for " + te.getTransactionHash().get());
 								}
 							}
-							
+
 							LOGGER.info("Lets check if our nonce is still pending");
 							PendingTxStatus pendingTX = checkForPendingTransactions(_connector, _creds.getAddress());
 							LOGGER.info("hmpf. " + pendingTX.toString());
-							
+
 							int pendingCounter = 0;
 							while (pendingTX.isPending() && (pendingCounter <= 100)) {
 								LOGGER.info("We have a pending TX so the tx went through .. lets wait another 100x10 seconds");
@@ -1257,7 +1276,7 @@ public class EVMUtils {
 								SystemUtils.sleepInSeconds(10);
 								pendingTX = checkForPendingTransactions(_connector, _creds.getAddress());
 							}
-							
+
 							if ( (pendingCounter>0) && !pendingTX.isPending()) {
 								LOGGER.error("OK so the tx could have been removed from the mempool but check the tx again? txhash: " + txhash);
 								LOGGER.error("Blockchain is " + _connector.getChain().toString());
@@ -1324,6 +1343,7 @@ public class EVMUtils {
 				} catch (Exception ex) {
 					// RPC tx exceptions (readwrite)
 					EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+					if (evmE.isSkiptx()) requestCount = 100; // early exit
 					if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 					EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 					if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -1334,6 +1354,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -1430,11 +1451,11 @@ public class EVMUtils {
 			try {
 				EthGetTransactionCount ethGetTransactionCount_pending = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.PENDING).send();
 				nonce_pending =  ethGetTransactionCount_pending.getTransactionCount();
-				if (debug) System.out.println("nonce_pending:" + nonce_pending);
+				LOGGER.info("nonce_pending:" + nonce_pending);
 
 				EthGetTransactionCount ethGetTransactionCount_latest = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.LATEST).send();
 				nonce_latest =  ethGetTransactionCount_latest.getTransactionCount();
-				if (debug) System.out.println("nonce_latest:" + nonce_latest);
+				LOGGER.info("nonce_latest:" + nonce_latest);
 
 				// FINALIZED nonce unsupported on specific chains
 				if (false ||
@@ -1445,14 +1466,16 @@ public class EVMUtils {
 						(_connector.getChain() == EVMChain.ETCMORDORTEST) ||
 						(_connector.getChain() == EVMChain.BASESEPOLIATEST) ||
 						(_connector.getChain() == EVMChain.SANTIMENT) ||
+						(_connector.getChain() == EVMChain.KLAYTN) ||
+						(_connector.getChain() == EVMChain.CUCKOOTEST) || // always returns 0
 						false) {
 					LOGGER.info("Skip getting FINALIZED nonce, not supported on " + _connector.getChain());
 				} else {
 					try {
-					if (debug) System.out.println("getting finalized nonce ..");
-					EthGetTransactionCount ethGetTransactionCount_finalized = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.FINALIZED).send();
-					nonce_finalized =  ethGetTransactionCount_finalized.getTransactionCount();
-					if (debug) System.out.println("nonce_finalized:" + nonce_finalized);
+						if (debug) System.out.println("getting finalized nonce ..");
+						EthGetTransactionCount ethGetTransactionCount_finalized = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.FINALIZED).send();
+						nonce_finalized =  ethGetTransactionCount_finalized.getTransactionCount();
+						if (debug) System.out.println("nonce_finalized:" + nonce_finalized);
 					} catch (Exception e) {
 						// if LATEST and PENDING works then perhaps FINALIZED is not supported?
 						if ((null != nonce_latest) && (null != nonce_pending) ) {
@@ -1499,6 +1522,7 @@ public class EVMUtils {
 
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -1549,6 +1573,7 @@ public class EVMUtils {
 
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -1740,6 +1765,7 @@ public class EVMUtils {
 
 				} catch (Exception e) {
 					EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), e, meth, tx_attempt);
+					if (evmE.isSkiptx()) requestCount = 100; // early exit
 					if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 
 					//----------------------------------------------------------------
@@ -1773,6 +1799,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -1841,6 +1868,13 @@ public class EVMUtils {
 
 					BigInteger maxPriorityFeePerGas = gasLimit;
 					BigInteger maxFeePerGas = BigInteger.valueOf(3_100_000_000L);
+					
+					// KLAYTN fixed, https://medium.com/klaytn/using-ethereum-tools-in-klaytn-dc068d48de04
+					if (_connector.getChain() == EVMChain.KLAYTN) {
+						maxPriorityFeePerGas = BigInteger.valueOf(250_000_000_000L); 
+						maxFeePerGas = BigInteger.valueOf(250_000_000_000L); 
+						LOGGER.info("KLAYTN fixed gas pricing, making last minute adjustments");
+					}
 
 					TransactionReceipt transactionReceipt = Transfer.sendFundsEIP1559(
 							_connector.getProvider_instance(), 
@@ -1860,6 +1894,7 @@ public class EVMUtils {
 				} catch (Exception ex) {
 					// RPC tx exceptions (readwrite)
 					EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+					if (evmE.isSkiptx()) requestCount = 100; // early exit
 					if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 					EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 					if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -1870,6 +1905,7 @@ public class EVMUtils {
 			} catch (Exception ex) {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
+				if (evmE.isSkiptx()) requestCount = 100; // early exit
 				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -2138,6 +2174,11 @@ public class EVMUtils {
 			// Transaction receipt was not generated after 600 seconds for transaction
 			LOGGER.warn("Missing tx receipt from nodeURL " + _nodeURL + ".. will not retry, we dont know how to poll for the tx id");
 			exceptionType = ExceptionType.FATAL;	
+		} else if (_ex.getMessage().toLowerCase().contains("invalid gas fee cap")) {
+			// https://public-en-cypress.klaytn.net: "invalid gas fee cap. It must be set to value greater than or equal to baseFee"
+			LOGGER.warn(_func + " EIP1559 special case for KLAYTN: " + _ex.getMessage());
+			nodeInteraction = true;
+			exceptionType = ExceptionType.FATAL;	
 		} else if (false ||
 				_ex.getMessage().toLowerCase().contains("transaction nonce") ||
 				_ex.getMessage().toLowerCase().contains("invalid nonce") ||
@@ -2167,8 +2208,15 @@ public class EVMUtils {
 			LOGGER.warn("Got invalid unit price from " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;	
+		} else if (_ex.getMessage().contains("a legacy transaction must be with a legacy account key")) {
+			// KLAYTN Re-keyed account
+			// https://kaikas.zendesk.com/hc/en-us/articles/6659376472217-I-want-to-change-my-private-key-due-to-suspected-hacking
+			LOGGER.warn("Got KLAYTN specific legacy account error message for from nodeURL " + _nodeURL + ".. will not retry since this means you dont own this account (tx will never get through)");
+			LOGGER.warn("ex: " + _ex.getMessage());
+			exceptionType = ExceptionType.TX_SKIP;
 		} else if (_ex.getMessage().contains("invalid sender")) {
 			LOGGER.warn("Got invalid sender from nodeURL " + _nodeURL + ".. will not retry since this usually means your specified chain/network id is misformed");
+			LOGGER.warn("ex: " + _ex.getMessage());
 			exceptionType = ExceptionType.FATAL;
 		} else if (_ex.getMessage().contains("Unable to determine sync status of node")) {
 			// org.web3j.ens.EnsResolutionException: Unable to determine sync status of node
@@ -2531,7 +2579,7 @@ public class EVMUtils {
 				LOGGER.error("chainInfo cannot be null for " + chain);
 				SystemUtils.halt();
 			}
-			
+
 			if (BlockchainType.valueOf(chainInfo.getType()) == _ultra_connector.getChainType()) {
 
 				/**
