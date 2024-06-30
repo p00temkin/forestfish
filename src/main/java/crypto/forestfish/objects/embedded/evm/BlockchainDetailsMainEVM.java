@@ -1353,6 +1353,66 @@ public class BlockchainDetailsMainEVM {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.PROOF, proof);
 
+		// waterfall
+		EVMChainInfo waterfall = new EVMChainInfo(
+				EVMChain.WATERFALL.toString(), 
+				"Waterfall Network", 
+				181L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Waterfall Network Gas Token", "WATER", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.waterfall.network/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/181");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.WATERFALL, waterfall);
+
+		// binarychain
+		EVMChainInfo binarychain = new EVMChainInfo(
+				EVMChain.BINARYCHAIN.toString(), 
+				"BinaryChain Mainnet", 
+				987L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("BinaryChain Mainnet Gas Token", "BNRY", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.binarychain.org");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.binarychain.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/987");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.BINARYCHAIN, binarychain);
+		
 		// kaichain
 		EVMChainInfo kaichain = new EVMChainInfo(
 				EVMChain.KAICHAIN.toString(), 

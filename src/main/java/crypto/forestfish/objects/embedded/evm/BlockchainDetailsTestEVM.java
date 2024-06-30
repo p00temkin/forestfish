@@ -3471,6 +3471,36 @@ public class BlockchainDetailsTestEVM {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.TAOTEST, tao_test);
 		
+		// binarychain_test
+		EVMChainInfo binarychain_test = new EVMChainInfo(
+				EVMChain.BINARYCHAINTEST.toString(), 
+				"BinaryChain Testnet", 
+				9876L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("BinaryChain Testnet Gas Token", "BNRY", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpctestnet.binarychain.org");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.testnet.binarychain.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://faucet.testnet.binarychain.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/9876");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.BINARYCHAINTEST, binarychain_test);
+		
 		// xchain_test
 		EVMChainInfo xchain_test = new EVMChainInfo(
 				EVMChain.XCHAINTEST.toString(), 
@@ -9276,6 +9306,7 @@ public class BlockchainDetailsTestEVM {
 				new ArrayList<String>() {{
 					this.add("https://bartio.rpc.berachain.com");
 					this.add("https://bera-testnet.nodeinfra.com");
+					this.add("https://bartio.rpc.b-harvest.io");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -9293,6 +9324,35 @@ public class BlockchainDetailsTestEVM {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.BERACHAINBARTIOTEST, berachainbartio_test);
 		
+		// zero_test
+		EVMChainInfo zero_test = new EVMChainInfo(
+				EVMChain.ZEROTEST.toString(), 
+				"Zero Test network", 
+				4457845L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Zero Test network Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"1000000", //1M units
+				new ArrayList<String>() {{
+					this.add("https://rpc.zerion.io/v1/zero-sepolia");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.zero.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://bridge.zero.network/");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/4457845");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.ZEROTEST, zero_test);
 		
 		// berachainartio_test
 		EVMChainInfo berachainartio_test = new EVMChainInfo(

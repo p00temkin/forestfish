@@ -36,8 +36,12 @@ public class EVMAccountBalance {
 	}
 	
 	public String getBalanceInETHPrettyPrint() {
-		if (balanceInETH.startsWith("0.00")) {
-			return "..." + this.balanceInETH;
+		if (false ||
+				balanceInETH.startsWith("0.00") ||
+				balanceInETH.contains("E-") ||
+				false) {
+			return "0";
+			//return "... " + this.balanceInETH;
 		} else {
 			return this.balanceInETH;
 		}

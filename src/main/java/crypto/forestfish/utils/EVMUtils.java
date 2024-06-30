@@ -1033,7 +1033,7 @@ public class EVMUtils {
 		return null;
 	}
 
-	private static String sendTXWithNativeCurrency_LegacyPricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
+	public static String sendTXWithNativeCurrency_LegacyPricingMechanism(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
 		return sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(_connector, _from_wallet_credentials, _target_address, _evmNativeValue, _haltOnUnconfirmedTX, null, false);
 	}
 
@@ -3319,6 +3319,7 @@ public class EVMUtils {
 
 	}
 
+	
 	public static boolean isValidPrivateKey(String _privateKey) {
 
 		if (_privateKey == null || _privateKey.isEmpty()) {
@@ -3413,8 +3414,9 @@ public class EVMUtils {
 		return new EVMPortfolioSimple(_evm_portfolio.getAccount_address(), _evm_portfolio.getChainportfolio());
 	}
 
-	public static String sendTX(EVMBlockChainConnector _connector, Credentials cred, String wolfwallet001_address, EVMNativeValue val_to_withdraw, boolean haltOnUnconfirmedTX) {
+	public static String sendTX(EVMBlockChainConnector _connector, Credentials cred, String to_address, EVMNativeValue val_to_withdraw, boolean haltOnUnconfirmedTX) {
 		String txhash = null;
+		LOGGER.info("sendTX from " + cred.getAddress() + " to " + to_address);
 
 		// force custom behavior for chain?
 		if (_connector.getChain() == EVMChain.MANTLETEST) {
@@ -3423,9 +3425,9 @@ public class EVMUtils {
 				Long nonce_to_use = pendingTX.getNonce_finalized().longValue();
 				LOGGER.info("Since we are dealing with " + _connector.getChain().toString() + " going to set nonce to " + nonce_to_use);
 				if ("LEGACY".equals(_connector.getChaininfo().getPriceMechanism())) {
-					txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
+					txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(_connector, cred, to_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
 				} else if ("EIP1559".equals(_connector.getChaininfo().getPriceMechanism())) {
-					txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
+					txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, cred, to_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
 				} else {
 					LOGGER.error("Unable to handle pricing mechanism named: " + _connector.getChaininfo().getPriceMechanism());
 					SystemUtils.halt();
@@ -3434,9 +3436,9 @@ public class EVMUtils {
 		}
 
 		if ("LEGACY".equals(_connector.getChaininfo().getPriceMechanism())) {
-			txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
+			txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism(_connector, cred, to_address, val_to_withdraw, haltOnUnconfirmedTX);
 		} else if ("EIP1559".equals(_connector.getChaininfo().getPriceMechanism())) {
-			txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism(_connector, cred, wolfwallet001_address, val_to_withdraw, haltOnUnconfirmedTX);
+			txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism(_connector, cred, to_address, val_to_withdraw, haltOnUnconfirmedTX);
 		} else {
 			LOGGER.error("Unable to handle pricing mechanism named: " + _connector.getChaininfo().getPriceMechanism());
 			SystemUtils.halt();

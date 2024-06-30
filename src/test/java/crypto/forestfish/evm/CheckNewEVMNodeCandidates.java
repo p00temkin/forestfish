@@ -629,6 +629,9 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Berachain bArtio", EVMChain.BERACHAINBARTIOTEST);
 			this.put("Zilliqa 2 EVM proto-testnet", EVMChain.ZILLIQA2PTEST);
 			this.put("Autonomys Testnet Nova Domain", EVMChain.AUTONOMYSTEST);
+			this.put("Waterfall Network", EVMChain.WATERFALL);
+			this.put("BinaryChain Mainnet", EVMChain.BINARYCHAIN);
+			this.put("BinaryChain Testnet", EVMChain.BINARYCHAINTEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
