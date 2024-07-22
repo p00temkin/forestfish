@@ -771,7 +771,7 @@ public class BlockchainDetailsTestEVM {
 				EVMChain.VCITYTEST.toString(), 
 				"Vcity Testnet", 
 				20230825L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Vcity Testnet Gas Token", "VCITY", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8920,7 +8920,7 @@ public class BlockchainDetailsTestEVM {
 				EVMChain.MUMBAITEST.toString(), 
 				"Polygon Test Network", 
 				80001L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // deprecated
 				new EVMCurrency("Polygon Test Token", "MATIC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei

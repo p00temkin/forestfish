@@ -6580,7 +6580,7 @@ public class BlockchainDetailsMainEVM {
 				EVMChain.REAL.toString(), 
 				"re.al", 
 				111188L, 
-				BlockchainType.BORKED.toString(), // single node highly rate limited xxx
+				BlockchainType.BORKED.toString(), // single node highly rate limited
 				new EVMCurrency("re.al Gas Token", "reETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei

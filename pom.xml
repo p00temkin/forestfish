@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>crypto.forestfish</groupId>
 	<artifactId>forestfish</artifactId>
-	<version>0.2.8</version>
+	<version>0.2.11</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -58,7 +58,7 @@
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.17.0</version>
+			<version>1.17.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>33.2.0-jre</version>
+			<version>33.2.1-jre</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
@@ -83,27 +83,27 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
-			<version>1.26.1</version>
+			<version>1.26.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.17.1</version>
+			<version>2.17.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.17.1</version>
+			<version>2.17.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>2.0.50</version>
+			<version>2.0.52</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.17.2</version>
+			<version>1.18.1</version>
 		</dependency>
         	<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -127,7 +127,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.2.11</version>
+			<version>1.2.13</version>
 		</dependency>
 
 		<!-- GRAPHLQL -->
@@ -161,7 +161,7 @@
 		<dependency>
 			<groupId>org.web3j</groupId>
 			<artifactId>core</artifactId>
-			<version>4.11.1</version>
+			<version>4.12.0</version>
 		</dependency>
 		<dependency>
 		  <groupId>tech.pegasys</groupId>
@@ -176,12 +176,12 @@
 		<dependency>
 			<groupId>com.esaulpaugh</groupId>
 			<artifactId>headlong</artifactId>
-			<version>11.1.0</version>
+			<version>12.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.klaytn.caver</groupId>
 			<artifactId>core</artifactId>
-			<version>1.11.1-android</version>
+			<version>1.12.2-android</version>
 		</dependency>
 
 		<!-- WEB3 -->
@@ -209,7 +209,7 @@
 		<dependency>
 			<groupId>com.algorand</groupId>
 			<artifactId>algosdk</artifactId>
-			<version>2.4.0</version>
+			<version>2.5.0</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.github.ipld</groupId>
@@ -238,7 +238,7 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.10.1</version>
+			<version>2.11.0</version>
 		</dependency>
 
 		<!-- Test -->
