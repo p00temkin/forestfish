@@ -10,7 +10,7 @@ public class FarcasterUtils {
 	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(FarcasterUtils.class);
 
-	public static FnameLookupResponse getInfoForFID(long _fid) {
+	public static FnameLookupResponse getInfoForFID(Long _fid) {
 		String json = HttpRequestUtils.getBodyUsingGETUrlRequest("https://fnames.farcaster.xyz/transfers?fid=" + _fid);
 		if ((null != json) && json.startsWith("{") && json.endsWith("}")) {
 			FnameLookupResponse fnr = JSONUtils.createPOJOFromJSON(json, FnameLookupResponse.class);

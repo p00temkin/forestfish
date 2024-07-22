@@ -1396,19 +1396,26 @@ public class EVMUtils {
 				if (withLogOutput) LOGGER.info(StringsUtils.cutAndPadStringToN("ADJ network recommended gasprice", 39) + ": " + Convert.fromWei(gasPriceInWEI.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPriceInWEI.toString() + " wei)");
 			} else {
 				BigInteger networkGasPriceInWEI = getCurrentNetworkGasPriceInWEI(_connector);
-				if (withLogOutput) LOGGER.info(StringsUtils.cutAndPadStringToN("Network recommended gasprice", 39) + ": " + Convert.fromWei(networkGasPriceInWEI.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + networkGasPriceInWEI.toString() + " wei)");
+				if (withLogOutput) LOGGER.info(StringsUtils.cutAndPadStringToN("Network recommended gaspr1ce", 39) + ": " + Convert.fromWei(networkGasPriceInWEI.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + networkGasPriceInWEI.toString() + " wei)");
 				// By default, 1.2x the recommended network price for testnets
-				if (true &&
+				if (false ||
+						(_connector.getChain() == EVMChain.JOCTEST) || // tx fee (1.18 ether) exceeds the cofigured cap (1.00 ether)
+						(_connector.getChain() == EVMChain.LITPCHRONICLETEST) || // "gas price too high: 11200000 wei, use at most tx.gasPrice = 1000000 wei"
+						false) {
+					gasPriceInWEI = networkGasPriceInWEI;
+					if (withLogOutput) LOGGER.info(StringsUtils.cutAndPadStringToN("NON bumed gasprice", 39) + ": " + Convert.fromWei(gasPriceInWEI.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPriceInWEI.toString() + " wei)");
+				} else if (true &&
 						_connector.getChain().toString().contains("TEST") &&
-						(_connector.getChain() != EVMChain.JOCTEST) && // tx fee (1.18 ether) exceeds the cofigured cap (1.00 ether)
 						true) {
 					BigInteger gasPriceInWEI20PERC = networkGasPriceInWEI.divide(new BigInteger("5"));
 					gasPriceInWEI = networkGasPriceInWEI.add(gasPriceInWEI20PERC); // increase by x1.2
 					if (withLogOutput) LOGGER.info(StringsUtils.cutAndPadStringToN("1.2x testnet recbumped gasprice", 39) + ": " + Convert.fromWei(gasPriceInWEI.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPriceInWEI.toString() + " wei)");
+					gasPriceInWEI = bumpGasInWeiAccordingly(_connector, gasPriceInWEI);
 				} else {
 					gasPriceInWEI = networkGasPriceInWEI;
+					gasPriceInWEI = bumpGasInWeiAccordingly(_connector, gasPriceInWEI);
 				}
-				gasPriceInWEI = bumpGasInWeiAccordingly(_connector, gasPriceInWEI);
+				
 			}
 
 			// always do the enforced minimum as final check
@@ -1468,6 +1475,7 @@ public class EVMUtils {
 						(_connector.getChain() == EVMChain.SANTIMENT) ||
 						(_connector.getChain() == EVMChain.KLAYTN) ||
 						(_connector.getChain() == EVMChain.CUCKOOTEST) || // always returns 0
+						(_connector.getChain() == EVMChain.B3TEST) || // always returns 0
 						false) {
 					LOGGER.info("Skip getting FINALIZED nonce, not supported on " + _connector.getChain());
 				} else {
@@ -2303,6 +2311,13 @@ public class EVMUtils {
 				_ex.getMessage().contains("intrinsic gas too low") ||
 				false) {
 			LOGGER.warn("Gas price likely too low, update your min gas calculations for " + _chain + ", exception: " + _ex.getMessage());
+			nodeInteraction = true;
+			exceptionType = ExceptionType.FATAL;
+		} else if (false ||
+				_ex.getMessage().contains("gas price too high") ||
+				false) {
+			// https://chain-rpc.litprotocol.com/http, response: "gas price too high: 11200000 wei, use at most tx.gasPrice = 1000000 wei",
+			LOGGER.warn("Gas price likely too high, update your gas calculations for " + _chain + ", exception: " + _ex.getMessage());
 			nodeInteraction = true;
 			exceptionType = ExceptionType.FATAL;
 		} else if (false ||

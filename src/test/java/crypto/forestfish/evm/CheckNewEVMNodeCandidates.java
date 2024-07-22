@@ -285,8 +285,8 @@ public class CheckNewEVMNodeCandidates {
 			this.put("DeepL Testnet", EVMChain.DEEPLTEST);
 			this.put("Tiltyard Mainnet Subnet", EVMChain.TILTYARD);
 			this.put("Astar zKyoto", EVMChain.ASTARZKYOTO);
-			this.put("Autonity Bakerloo (Sumida) Testnet", EVMChain.AUTONITYBAKERLOOTEST);
-			this.put("Autonity Piccadilly (Sumida) Testnet", EVMChain.AUTONITYPICCADILLYTEST);
+			this.put("Autonity Bakerloo (Sumida) Testnet", EVMChain.AUTONITYBAKERLOOSUMIDATEST);
+			this.put("Autonity Piccadilly (Sumida) Testnet", EVMChain.AUTONITYPICCADILLYSUMIDATEST);
 			this.put("FlowEVM PreviewNet", EVMChain.FLOWEVM);
 			this.put("inEVM Mainnet", EVMChain.INEVM);
 			this.put("Astar zkEVM", EVMChain.ASTARZKEVM);
@@ -632,21 +632,95 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Waterfall Network", EVMChain.WATERFALL);
 			this.put("BinaryChain Mainnet", EVMChain.BINARYCHAIN);
 			this.put("BinaryChain Testnet", EVMChain.BINARYCHAINTEST);
+			this.put("CMDAO BBQ Chain", EVMChain.CMDAO);
+			this.put("HongKong Mainnet", EVMChain.HONGKONG);
+			this.put("JaiHo Chain", EVMChain.JAIHO);
+			this.put("Pivotal Mainnet", EVMChain.PIVOTAL);
+			this.put("Lif3 Chain Testnet", EVMChain.LIF3TEST);
+			this.put("Chronicle Vesuvius - Lit Protocol Testnet", EVMChain.LITPCHRONICLEVESUVIUSTEST);
+			this.put("GDCC MAINNET", EVMChain.GDCC);
+			this.put("Lif3 Chain", EVMChain.LIF3);
+			this.put("Oasys Testnet", EVMChain.OASYSTEST);
+			this.put("Incentiv Devnet", EVMChain.INCENTIVTEST);
+			this.put("VeChain", EVMChain.VECHAIN);
+			this.put("Gemchain", EVMChain.GEMCHAIN);
+			this.put("Chronicle - Lit Protocol Testnet", EVMChain.LITPCHRONICLETEST);
+			this.put("Pivotal Sepolia", EVMChain.PIVOTALTEST);
+			this.put("MAZZE Testnet", EVMChain.MAZZETEST);
+			this.put("Gemuchain Testnet", EVMChain.GEMUCHAINTEST);
+			this.put("ABEY Testnet", EVMChain.ABEYTEST);
+			this.put("ABEY Mainnet", EVMChain.ABEY);
+			this.put("Dojima Testnet", EVMChain.DOJIMATEST);
+			this.put("Dojima", EVMChain.DOJIMA);
+			this.put("BlockEx Mainnet", EVMChain.BLOCKEX);
+			this.put("Swan Chain Mainnet", EVMChain.SWAN);
+			this.put("Guru Network Testnet", EVMChain.GURUTEST);
+			this.put("5ireChain Mainnet", EVMChain.FIVEIRECHAIN);
+			this.put("Cycle Network Testnet Jellyfish", EVMChain.CYCLEJELLYFISHTEST);
+			this.put("ZKBase Mainnet", EVMChain.ZKBASE);
+			this.put("StarCHAIN Testnet", EVMChain.STARCHAINTEST);
+			this.put("StarCHAIN", EVMChain.STARCHAIN);
+			this.put("B3 Sepolia Testnet", EVMChain.B3TEST);
+			this.put("The peaq Network", EVMChain.PEAQ);
+			this.put("Netsbo", EVMChain.NETSBO);
+			this.put("LAOS", EVMChain.LAOS);
+			this.put("RACE Mainnet", EVMChain.RACE);
+			this.put("RACE Testnet", EVMChain.RACETEST);
+			this.put("ZetaChain Testnet", EVMChain.ZETACHAINTEST);
+			this.put("Avenium Testnet", EVMChain.AVENIUMTEST);
+			this.put("WeaveVM Testnet", EVMChain.WEAVEVMTEST);
+			this.put("MetaNova Verse", EVMChain.METANOVA);
+			this.put("SatsChain", EVMChain.SATSCHAIN);
+			this.put("KYMTC Mainnet", EVMChain.KYMTC);
+			this.put("PLYR PHI", EVMChain.PLYR);
+			this.put("0G-Newton-Testnet", EVMChain.OGNEWTON);
+			this.put("Onchain Points", EVMChain.ONCHAIN);
+			this.put("BlockX Atlantis Testnet", EVMChain.BLOCKXTEST);
+			this.put("KYMTC Testnet", EVMChain.KYMTCTEST);
+			this.put("Funki", EVMChain.FUNKI);
+			this.put("Metis Sepolia Testnet", EVMChain.METISSEPOLIA2TEST);
+			this.put("Orange Chain Mainnet", EVMChain.ORANGE);
+			this.put("VeChain Testnet", EVMChain.VECHAINTEST);
+			this.put("Chronicle Yellowstone - Lit Protocol Testnet", EVMChain.CHRONICLEYELLOWSTONETEST);
+			this.put("Cipherem Testnet", EVMChain.CIPHEREMTEST);
+			this.put("WABA Chain Testnet", EVMChain.WABATEST);
+			this.put("Nal Mainnet", EVMChain.NAL);
+			this.put("Gobbl Testnet", EVMChain.GOBBLTEST);
+			this.put("Automata Testnet", EVMChain.AUTOMATATEST);
+			this.put("Xterio Chain", EVMChain.XTERIO);
+			this.put("Altar Testnet", EVMChain.ALTARTEST);
+			this.put("ZERO Testnet (Sepolia)", EVMChain.ZEROSEPOLIATEST);
+			this.put("AlienX Mainnet", EVMChain.ALIENX);
+			this.put("NeoX Testnet T3", EVMChain.NEOXT3TEST);
+			this.put("NeoX Testnet T4", EVMChain.NEOXT4TEST);
+			this.put("Mande Network Mainnet", EVMChain.MANDE);
+			this.put("DeepBrainChain Testnet", EVMChain.DEEPBRAINCHAINTEST);
+			this.put("Vcity Testnet", EVMChain.VCITYTEST);
+			this.put("DBK Chain", EVMChain.DBK);
+			this.put("Autonity Bakerloo (Yamuna) Testnet", EVMChain.AUTONITYBAKERLOOYAMUNATEST);
+			this.put("Autonity Piccadilly (Yamuna) Testnet", EVMChain.AUTONITYPICCADILLYYAMUNATEST);
+			this.put("Backstop Testnet", EVMChain.BACKSTOPTEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
 
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
-			this.put("http://mainnet.ethstorage.io:9540", true);
-			this.put("https://rpc.onenesslabs.io/", true);
-			this.put("https://rpc.mainnet.zkamoeba.com/rpc", true);
-
+			this.put("xxxxxxxxxxxxxxxxxxx", true);
+			this.put("xxxxxxxxxxxxxxxxxxx", true);
+			this.put("https://mainnet-l2-ethapi.quarkchain.io", true);
+			this.put("https://testnet-l2-ethapi.quarkchain.io", true);
+			this.put("https://devnet.darwinchain.ai", true);
+			
 			this.put("http://127.0.0.1:8545", true); // local
 			this.put("https://api.metadium.com/dev", true); // incorrectly added as Metadium mainnet node
 			this.put("https://rpc.jolnir.taiko.xyz", true); // old account balance reply but latestblocknr?
 
 			// dns resolve issues, lets not retry
+			this.put("https://sailboat-rpc-mainnet.cyclenetwork.io", true);
+			this.put("http://mainnet.ethstorage.io:9540", true);
+			this.put("https://rpc.onenesslabs.io/", true);
+			this.put("https://rpc.mainnet.zkamoeba.com/rpc", true);
 			this.put("https://rpc.chain.namefi.io", true);
 			this.put("https://testnet.saharalabs.ai", true);
 			this.put("https://rpc_testnet.xfair.ai", true);
