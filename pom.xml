@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>crypto.forestfish</groupId>
 	<artifactId>forestfish</artifactId>
-	<version>0.2.11</version>
+	<version>0.2.13</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -205,11 +205,16 @@
 			<version>1.4.4</version>
 		</dependency>
 
-		<!-- WEB3 ALGORAND -->
+		<!-- WEB3 ALGORAND TON-->
 		<dependency>
 			<groupId>com.algorand</groupId>
 			<artifactId>algosdk</artifactId>
 			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+    		<groupId>io.github.neodix42</groupId>
+    		<artifactId>smartcontract</artifactId>
+    		<version>0.4.7</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.github.ipld</groupId>

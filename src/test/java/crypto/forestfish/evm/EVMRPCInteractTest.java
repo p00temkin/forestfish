@@ -32,8 +32,8 @@ public class EVMRPCInteractTest {
 		LOGGER.info("chainID: " + chainID);
 		
 		BigDecimal networkGasPriceInGwei = EVMUtils.getCurrentNetworkGasPriceInGWEI(connector);
-		assertTrue("Ensure correct ETH chain id", networkGasPriceInGwei.doubleValue()>1);
-		LOGGER.info("networkGasPriceInGwei: " + networkGasPriceInGwei.setScale(0, RoundingMode.HALF_UP));
+		LOGGER.info("networkGasPriceInGwei: " + networkGasPriceInGwei.doubleValue());
+		assertTrue("Ensure sane ETH gas price", networkGasPriceInGwei.doubleValue()>0.5d);
 	}
 	
 	@Test

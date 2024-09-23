@@ -1474,8 +1474,10 @@ public class EVMUtils {
 						(_connector.getChain() == EVMChain.BASESEPOLIATEST) ||
 						(_connector.getChain() == EVMChain.SANTIMENT) ||
 						(_connector.getChain() == EVMChain.KLAYTN) ||
+						(_connector.getChain() == EVMChain.TRON) ||
 						(_connector.getChain() == EVMChain.CUCKOOTEST) || // always returns 0
 						(_connector.getChain() == EVMChain.B3TEST) || // always returns 0
+						(_connector.getChain() == EVMChain.FLUENCESTAGETEST) || // always returns 0
 						false) {
 					LOGGER.info("Skip getting FINALIZED nonce, not supported on " + _connector.getChain());
 				} else {

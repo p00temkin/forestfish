@@ -15,36 +15,66 @@ public class NotificationUtils {
 
 	public static void pushover(String apiTokenUser, String apiTokenApp, String title, String message,
 			MessagePriority messageprio, String url, String urltitle, String selectedSound) {
-
 		if ("".equals(apiTokenUser) || "".equals(apiTokenApp)) {
 			LOGGER.debug("Skipping pushover notification");
 		} else {
+			int retries_left = 10;
+			if (retries_left > 0) {
+				retries_left--;
+				try {
+					PushoverClient client = new PushoverRestClient();   
+					client.pushMessage(PushoverMessage.builderWithApiToken(apiTokenApp)
+							.setUserId(apiTokenUser)
+							.build());
 
-			try {
-				PushoverClient client = new PushoverRestClient();   
-				client.pushMessage(PushoverMessage.builderWithApiToken(apiTokenApp)
-						.setUserId(apiTokenUser)
-						.build());
+					Status result = client.pushMessage(PushoverMessage
+							.builderWithApiToken(apiTokenApp)
+							.setUserId(apiTokenUser)
+							.setMessage(message)
+							.setPriority(messageprio) // HIGH|NORMAL|QUIET
+							.setTitle(title)
+							.setUrl(url)
+							.setTitleForURL(urltitle)
+							.setSound(selectedSound)
+							.build());
 
-				Status result = client.pushMessage(PushoverMessage
-						.builderWithApiToken(apiTokenApp)
-						.setUserId(apiTokenUser)
-						.setMessage(message)
-						.setPriority(messageprio) // HIGH|NORMAL|QUIET
-						.setTitle(title)
-						.setUrl(url)
-						.setTitleForURL(urltitle)
-						.setSound(selectedSound)
-						.build());
+					LOGGER.info(String.format("status: %d, request id: %s", result.getStatus(), result.getRequestId()));
 
-				LOGGER.info(String.format("status: %d, request id: %s", result.getStatus(), result.getRequestId()));
-
-			} catch (Exception e) {
-				System.out.println("Exception: " + e.getMessage());
-				SystemUtils.halt();
+				} catch (Exception e) {
+					System.out.println("Exception: " + e.getMessage());
+					SystemUtils.halt();
+				}
 			}
-
 		}
 	}
 
+	public static void pushover(String apiTokenUser, String apiTokenApp, String title, String message) {
+		if ("".equals(apiTokenUser) || "".equals(apiTokenApp)) {
+			LOGGER.debug("Skipping pushover notification");
+		} else {
+			int retries_left = 10;
+			if (retries_left > 0) {
+				retries_left--;
+				try {
+					PushoverClient client = new PushoverRestClient();   
+					client.pushMessage(PushoverMessage.builderWithApiToken(apiTokenApp)
+							.setUserId(apiTokenUser)
+							.build());
+
+					Status result = client.pushMessage(PushoverMessage
+							.builderWithApiToken(apiTokenApp)
+							.setUserId(apiTokenUser)
+							.setMessage(message)
+							.build());
+
+					LOGGER.info(String.format("status: %d, request id: %s", result.getStatus(), result.getRequestId()));
+
+				} catch (Exception e) {
+					System.out.println("Exception: " + e.getMessage());
+					SystemUtils.halt();
+				}
+			}
+		}
+	}
+	
 }
