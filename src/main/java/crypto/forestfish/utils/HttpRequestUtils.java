@@ -157,6 +157,8 @@ public class HttpRequestUtils {
 		try {
 			Document doc = Jsoup.connect(_url).ignoreContentType(true)
 					.requestBody(jsonBody)
+					.followRedirects(true)
+					.header("Accept", "application/json")
 					.header("Content-Type", "application/json")
 					.header(_customHeaderName, _customHeaderValue)
 					.post();
@@ -173,4 +175,26 @@ public class HttpRequestUtils {
 		return "";
 	}
 	
+	public static String getBodyUsingUrlPOSTRequestWithJsonBodyAndHeaderRAW(String _url, String jsonBody, String _customHeaderName, String _customHeaderValue) {
+		try {
+			Document doc = Jsoup.connect(_url).ignoreContentType(true)
+					.ignoreHttpErrors(true)
+					.requestBody(jsonBody)
+					.followRedirects(true)
+					.header("Accept", "application/json")
+					.header("Content-Type", "application/json")
+					.header(_customHeaderName, _customHeaderValue)
+					.post();
+			String res = Jsoup.parse(doc.toString()).body().text();
+			return res;
+		} catch (ConnectException ce) {
+			LOGGER.warn("Connection exception: " + ce.getMessage());
+		} catch (HttpStatusException he) {
+			LOGGER.warn("HTTP status exception: " + he.getMessage());
+		} catch (IOException e) {
+			LOGGER.warn("e: " + e.getMessage());
+			LOGGER.warn("exception class: " + e.getClass());
+		}
+		return "";
+	}
 }

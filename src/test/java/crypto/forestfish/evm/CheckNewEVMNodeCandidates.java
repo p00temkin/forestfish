@@ -853,6 +853,34 @@ public class CheckNewEVMNodeCandidates {
 			this.put("COTI Testnet", EVMChain.COTITEST);
 			this.put("6Degree of Outreach - Testnet", EVMChain.SIXDEGREETEST);
 			this.put("CryptoX", EVMChain.CRYPTOX);
+			this.put("Citrea Testnet", EVMChain.CITREA2TEST);
+			this.put("DuckChain Mainnet", EVMChain.DUCKCHAIN);
+			this.put("BC Hyper Chain Testnet", EVMChain.BCTEST);
+			this.put("Rails", EVMChain.RAILS);
+			this.put("GDPR Mainnet", EVMChain.GDPR);
+			this.put("Amauti", EVMChain.AMAUTI);
+			this.put("Wirex Pay Mainnet", EVMChain.WIREX);
+			this.put("Superposition", EVMChain.SUPERPOSITION);
+			this.put("GDPR Testnet", EVMChain.GDPRTEST);
+			this.put("Athene Parthenon", EVMChain.ATHENE);
+			this.put("Glide L1 Protocol XP", EVMChain.GLIDEL1);
+			this.put("Glide L2 Protocol XP", EVMChain.GLIDEL2);
+			this.put("NEAR Protocol", EVMChain.NEAR);
+			this.put("NEAR Protocol Testnet", EVMChain.NEARTEST);
+			this.put("Matchain", EVMChain.MATCHAIN);
+			this.put("Matchain Testnet", EVMChain.MATCHAINTEST);
+			this.put("ADF Chain Testnet", EVMChain.ADFTEST);
+			this.put("ADF Chain", EVMChain.ADF);
+			this.put("K2 Mainnet", EVMChain.K2);
+			this.put("Vexon Testnet", EVMChain.VEXONTEST);
+			this.put("Zenchain Testnet", EVMChain.ZENCHAINTEST);
+			this.put("Tabi Testnetv2", EVMChain.TABIV2TEST);
+			this.put("MFEV CHAIN MAINNET", EVMChain.MFEV);
+			this.put("SEC Testnet", EVMChain.SECTEST);
+			this.put("SEC Mainnet", EVMChain.SEC);
+			this.put("Asset Chain Mainnet", EVMChain.ASSET);
+			this.put("Wadzchain Testnet", EVMChain.WADZCHAINTEST);
+			this.put("UBIT SMARTCHAIN MAINNET", EVMChain.UBIT);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
@@ -865,7 +893,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
 			this.put("https://rpc.lemonchain.io", true);
 			this.put("https://rpc.testnet.lemonchain.io", true);
-			
+
 			this.put("https://rpc.nexus.mainnet.apexfusion.org/", true);
 			this.put("https://rpc0.come.boat/", true);
 			this.put("https://node3-mainnet-new.maalscan.io/", true);
@@ -2202,7 +2230,7 @@ public class CheckNewEVMNodeCandidates {
 							chain_shortname = eece.getName().split(" ")[0].toLowerCase().replace("(","").replace(")","");
 							chain_enum = eece.getName().split(" ")[0].toUpperCase().replace("(","").replace(")","");
 						}
-						
+
 						if (chain_shortname.startsWith("6")) chain_shortname = chain_shortname.replaceFirst("6", "SIX");
 						if (chain_enum.startsWith("6")) chain_enum = chain_enum.replaceFirst("6", "SIX");
 
