@@ -454,7 +454,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Unit Zero Testnet", EVMChain.UNIT0TEST);
 			this.put("F(x)Core Testnet Network", EVMChain.FXCORETEST);
 			this.put("Camp Testnet", EVMChain.CAMPTEST);
-			this.put("Odyssey Chain (Testnet)", EVMChain.ODYSSEYTEST);
+			this.put("Odyssey Chain (Testnet)", EVMChain.ODYSSEY1TEST);
 			this.put("MagApe Testnet", EVMChain.MAGAPETEST);
 			this.put("Taiko Hekla L2", EVMChain.TAIKOALPHA7TEST);
 			this.put("Bitlayer Mainnet", EVMChain.BITLAYER);
@@ -881,6 +881,41 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Asset Chain Mainnet", EVMChain.ASSET);
 			this.put("Wadzchain Testnet", EVMChain.WADZCHAINTEST);
 			this.put("UBIT SMARTCHAIN MAINNET", EVMChain.UBIT);
+			this.put("Ethernity", EVMChain.ETHERNITY);
+			this.put("Unichain Sepolia Testnet", EVMChain.UNICHAINTEST);
+			this.put("Galactica-Reticulum", EVMChain.GALACTICARETICULUM);
+			this.put("Open Campus Codex Mainnet", EVMChain.OPEN);
+			this.put("Automata Mainnet", EVMChain.AUTOMATA);
+			this.put("SRICHAIN", EVMChain.SRICHAIN);
+			this.put("MetaBenz CHAIN", EVMChain.METABENZ);
+			this.put("CheeseChain", EVMChain.CHEESECHAIN);
+			this.put("PAYSCAN CHAIN", EVMChain.PAYSCAN);
+			this.put("Lumia Mainnet", EVMChain.LUMIA);
+			this.put("Haust Testnet", EVMChain.HAUSTTEST);
+			this.put("Lumia Testnet", EVMChain.LUMIATEST);
+			this.put("Stenix Mainnet", EVMChain.STENIX);
+			this.put("NERO Testnet", EVMChain.NEROTEST);
+			this.put("SlerfChain Mainnet", EVMChain.SLERFCHAIN);
+			this.put("Game7", EVMChain.GAME7);
+			this.put("exSat Network", EVMChain.EXSAT);
+			this.put("Game7 Testnet", EVMChain.GAME7TEST);
+			this.put("Astra Sepolia", EVMChain.ASTRATEST);
+			this.put("TikTrix Testnet", EVMChain.TIKTRIXTEST);
+			this.put("XCOIN", EVMChain.XCOIN);
+			this.put("exSat Mainnet", EVMChain.EXSAT);
+			this.put("R0AR Chain", EVMChain.R0AR);
+			this.put("Blockfit", EVMChain.BLOCKFIT);
+			this.put("Sorian", EVMChain.SORIAN);
+			this.put("Sorian Testnet", EVMChain.SORIANTEST);
+			this.put("Camp Network Testnet V2", EVMChain.CAMPV2TEST);
+			this.put("Polter Testnet", EVMChain.POLTERTEST);
+			this.put("Zebro Smart Chain", EVMChain.ZEBRO);
+			this.put("exSat Testnet", EVMChain.EXSATTEST);
+			this.put("Odyssey Testnet", EVMChain.ODYSSEYTEST);
+			this.put("Treasure Topaz", EVMChain.TREASURETOPAZ);
+			this.put("R0AR Testnet", EVMChain.R0ARTEST);
+			this.put("Lummio Network", EVMChain.LUMMIO);
+			this.put("Kakarot Starknet Sepolia", EVMChain.KAKAROTSEPOLIATEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
@@ -2224,11 +2259,11 @@ public class CheckNewEVMNodeCandidates {
 								eece.getName().toLowerCase().contains("sepolia") ||
 								eece.getName().toLowerCase().contains("holesky") ||
 								false) {
-							chain_shortname = eece.getName().split(" ")[0].toLowerCase().replace("(","").replace(")","").replace("-","").replace("testnet","") + "_test";
-							chain_enum = eece.getName().split(" ")[0].toUpperCase().replace("(","").replace(")","").replace("-","").replace("TESTNET","") + "TEST";
+							chain_shortname = eece.getName().split(" ")[0].toLowerCase().replace("(","").replace(")","").replace("-","").replace("testnet","").replace("-","") + "_test";
+							chain_enum = eece.getName().split(" ")[0].toUpperCase().replace("(","").replace(")","").replace("-","").replace("TESTNET","").replace("-","") + "TEST";
 						} else {
-							chain_shortname = eece.getName().split(" ")[0].toLowerCase().replace("(","").replace(")","");
-							chain_enum = eece.getName().split(" ")[0].toUpperCase().replace("(","").replace(")","");
+							chain_shortname = eece.getName().split(" ")[0].toLowerCase().replace("(","").replace(")","").replace("-","");
+							chain_enum = eece.getName().split(" ")[0].toUpperCase().replace("(","").replace(")","").replace("-","");
 						}
 
 						if (chain_shortname.startsWith("6")) chain_shortname = chain_shortname.replaceFirst("6", "SIX");

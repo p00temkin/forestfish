@@ -56,10 +56,10 @@ public class HttpRequestUtils {
 		try {
 			URL url = new URL(_imageUrl);
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
-			
+
 			URLConnection connection = url.openConnection();
 			connection.setConnectTimeout(10000); // 10 secs
-			
+
 			try (InputStream stream = connection.getInputStream()) {
 				byte[] buffer = new byte[4096];
 				while (true) {
@@ -95,7 +95,28 @@ public class HttpRequestUtils {
 		}
 		return "";
 	}
-	
+
+	public static String getBodyUsingGETUrlRequestWithCustomHeaderLoop(String _url, String _customHeaderName, String _customHeaderValue) {
+		while (true) {
+			try {
+				Document doc = Jsoup.connect(_url)
+						.ignoreContentType(true)
+						.header(_customHeaderName, _customHeaderValue)
+						.get();
+				String res = Jsoup.parse(doc.toString()).body().text();
+				return res;
+			} catch (ConnectException ce) {
+				LOGGER.warn("Connection exception: " + ce.getMessage());
+			} catch (HttpStatusException he) {
+				LOGGER.warn("HTTP status exception: " + he.getMessage());
+			} catch (IOException e) {
+				LOGGER.warn("e: " + e.getMessage());
+				LOGGER.warn("exception class: " + e.getClass());
+			}
+			SystemUtils.sleepInSeconds(5);
+		}
+	}
+
 	public static String getBodyUsingUrlGETWalletRequestWithJWTToken(String _jwtToken) {
 		try {
 			Document doc = Jsoup.connect("https://frame.syndicate.io/api/v2/getWallets")
@@ -152,7 +173,7 @@ public class HttpRequestUtils {
 		}
 		return "";
 	}
-	
+
 	public static String getBodyUsingUrlPOSTRequestWithJsonBodyAndHeader(String _url, String jsonBody, String _customHeaderName, String _customHeaderValue) {
 		try {
 			Document doc = Jsoup.connect(_url).ignoreContentType(true)
@@ -174,7 +195,7 @@ public class HttpRequestUtils {
 		}
 		return "";
 	}
-	
+
 	public static String getBodyUsingUrlPOSTRequestWithJsonBodyAndHeaderRAW(String _url, String jsonBody, String _customHeaderName, String _customHeaderValue) {
 		try {
 			Document doc = Jsoup.connect(_url).ignoreContentType(true)
@@ -196,5 +217,30 @@ public class HttpRequestUtils {
 			LOGGER.warn("exception class: " + e.getClass());
 		}
 		return "";
+	}
+
+	public static String getBodyUsingUrlPOSTRequestWithJsonBodyAndHeaderRAWLoop(String _url, String jsonBody, String _customHeaderName, String _customHeaderValue) {
+		while (true) {
+			try {
+				Document doc = Jsoup.connect(_url).ignoreContentType(true)
+						.ignoreHttpErrors(true)
+						.requestBody(jsonBody)
+						.followRedirects(true)
+						.header("Accept", "application/json")
+						.header("Content-Type", "application/json")
+						.header(_customHeaderName, _customHeaderValue)
+						.post();
+				String res = Jsoup.parse(doc.toString()).body().text();
+				return res;
+			} catch (ConnectException ce) {
+				LOGGER.warn("Connection exception: " + ce.getMessage());
+			} catch (HttpStatusException he) {
+				LOGGER.warn("HTTP status exception: " + he.getMessage());
+			} catch (IOException e) {
+				LOGGER.warn("e: " + e.getMessage());
+				LOGGER.warn("exception class: " + e.getClass());
+			}
+			SystemUtils.sleepInSeconds(5);
+		}
 	}
 }

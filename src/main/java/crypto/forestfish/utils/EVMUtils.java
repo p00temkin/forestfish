@@ -2076,6 +2076,7 @@ public class EVMUtils {
 				(_ex.getMessage().toLowerCase().contains("internal error")) ||
 				(_ex.getMessage().toLowerCase().contains("internal_error")) ||
 				(_ex.getMessage().toLowerCase().contains("Error processing request")) ||
+				(_ex.getMessage().toLowerCase().contains("expected")) ||
 				false) {
 			// <center><h1>500 Internal Server Error</h1></center>
 			// 500; internal error
@@ -2083,6 +2084,7 @@ public class EVMUtils {
 			// 500; Internal Server Error
 			// https://rpc.velaverse.io: Received fatal alert: internal_error
 			// https://rpc.ankr.com/filecoin_testnet, response: "Error processing request: failed to lookup Eth Txn 0x7e... as baf...: failed to load the actor: load state tree: failed to load state tree bafy... failed to load hamt node: ipld: could not find
+			// https://endpoints.omniatech.io/v1/eth/sepolia/public: "ID1ID2: actual 0x00007b22 != expected 0x00001f8b"
 			LOGGER.warn("Got a 500 internal server error response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
