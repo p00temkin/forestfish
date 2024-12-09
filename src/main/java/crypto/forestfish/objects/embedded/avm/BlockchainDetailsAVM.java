@@ -54,6 +54,7 @@ public class BlockchainDetailsAVM {
 					this.add(new AlgoRelayNode("https://mainnet-api.algonode.network", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					this.add(new AlgoRelayNode("https://mainnet-api.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					this.add(new AlgoRelayNode("https://xna-mainnet-api.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					this.add(new AlgoRelayNode("https:/mainnet-api.4160.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					
 					//this.add(new AlgoRelayNode("https://node.algoexplorerapi.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key")); // gone
 					//this.add(new AlgoRelayNode("https://mainnet-algorand.api.purestake.io/ps2", 443, "<api-key>", "X-API-Key")); // custom
@@ -63,6 +64,7 @@ public class BlockchainDetailsAVM {
 				new ArrayList<AlgoIndexerNode>() {{
 					this.add(new AlgoIndexerNode("https://mainnet-idx.algonode.network", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					this.add(new AlgoIndexerNode("https://mainnet-idx.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					this.add(new AlgoIndexerNode("https:/mainnet-idx.4160.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					
 					//this.add(new AlgoIndexerNode("https://indexer.algoexplorerapi.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key")); // does not allow custom limit settings, {"message":"invalid value on parameter 'limit'"}
 					//this.add(new AlgoIndexerNode("https://mainnet-algorand.api.purestake.io/idx2", 443, "<api-key>", "X-API-Key")); // custom
@@ -91,6 +93,7 @@ public class BlockchainDetailsAVM {
 				new AVMCurrency("ALGO", "ALGO", 6), 
 				new ArrayList<AlgoRelayNode>() {{
 					this.add(new AlgoRelayNode("https://testnet-api.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					this.add(new AlgoRelayNode("https://testnet-api.4160.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
 					
 					//this.add(new AlgoRelayNode("https://node.testnet.algoexplorerapi.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key")); // gone
 					// <no longer available>, https://replit.com/@Algorand/Getting-Started-with-JavaScript#index.js // custom
@@ -99,6 +102,8 @@ public class BlockchainDetailsAVM {
 				}}, 
 				new ArrayList<AlgoIndexerNode>() {{
 					this.add(new AlgoIndexerNode("https://testnet-idx.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					this.add(new AlgoIndexerNode("https://testnet-idx.4160.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					
 					//this.add(new AlgoIndexerNode("https://indexer.testnet.algoexplorerapi.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key")); // does not allow custom limit settings, {"message":"invalid value on parameter 'limit'"}
 					//this.add(new AlgoIndexerNode("https://testnet-algorand.api.purestake.io/idx2", 443, "<api-key>", "X-API-Key")); // custom
 				}}, 
@@ -127,10 +132,14 @@ public class BlockchainDetailsAVM {
 				new AVMCurrency("ALGO", "ALGO", 6), 
 				new ArrayList<AlgoRelayNode>() {{
 					this.add(new AlgoRelayNode("https://betanet-api.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					this.add(new AlgoRelayNode("https://betanet-api.4160.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					
 					//this.add(new AlgoRelayNode("https://betanet-algorand.api.purestake.io/ps2", 443, "<api-key>", "X-API-Key"));
 				}}, 
 				new ArrayList<AlgoIndexerNode>() {{
 					this.add(new AlgoIndexerNode("https://betanet-idx.algonode.cloud", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					this.add(new AlgoIndexerNode("https://betanet-api.4160.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-API-Key"));
+					
 					//this.add(new AlgoIndexerNode("https://betanet-algorand.api.purestake.io/idx2", 443, "<api-key>", "X-API-Key"));
 				}}, 
 				new ArrayList<String>() {{
@@ -187,13 +196,13 @@ public class BlockchainDetailsAVM {
 				"IXnoWtviVVJW5LGivNFc0Dq14V3kqaXuK2u5OQrdVZo=",
 				new AVMCurrency("VOI", "VOI", 6), 
 				new ArrayList<AlgoRelayNode>() {{
-					this.add(new AlgoRelayNode("https://testnet-api.voi.nodly.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
+					this.add(new AlgoRelayNode("https://testnet-api.voi.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
 					
 					//this.add(new AlgoRelayNode("https://voitest-api.k1-fi.a-wallet.net", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token")); // random "Invalid API Token" responses
 					//this.add(new AlgoRelayNode("http://10.0.0.8", 8080, "f0ef3d2b9fa936ffe78adb75c460a308c11de212ad05a137c2955e47b673ccf6", "X-Algo-API-Token")); // custom
 				}}, 
 				new ArrayList<AlgoIndexerNode>() {{
-					this.add(new AlgoIndexerNode("https://testnet-idx.voi.nodly.io", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
+					this.add(new AlgoIndexerNode("https://testnet-idx.voi.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
 				}}, 
 				new ArrayList<String>() {{
 					this.add("https://voitest-explorer.k1-fi.a-wallet.net/dashboard/home");
@@ -208,6 +217,33 @@ public class BlockchainDetailsAVM {
 				generateDummyASAIndex(),
 				generateDummyNFTIndex());
 		networks.put(AVMChain.VOI_TESTNET, voi_testnet);
+		
+		// voi_mainnet
+		AVMChainInfo voi_mainnet = new AVMChainInfo(
+				AVMChain.VOI_MAINNET.toString(), 
+				"Voi Mainet", 
+				BlockchainType.PUBLIC.toString(),
+				"voimain-v1",
+				"r20fSQI8gWe/kFZziNonSPCXLwcQmH/nxROvnnueWOk=",
+				new AVMCurrency("VOI", "VOI", 6), 
+				new ArrayList<AlgoRelayNode>() {{
+					this.add(new AlgoRelayNode("https://mainnet-api.voi.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
+				}}, 
+				new ArrayList<AlgoIndexerNode>() {{
+					this.add(new AlgoIndexerNode("https://testnet-idx.voi.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
+				}}, 
+				new ArrayList<String>() {{
+					this.add("https://avmexplorer.com/");
+				}},
+				new ArrayList<String>() {{
+					this.add("Google form https://forms.gle/Trhib6toVZb6uf2HA");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://voi.network");
+				}},
+				generateDummyASAIndex(),
+				generateDummyNFTIndex());
+		networks.put(AVMChain.VOI_MAINNET, voi_mainnet);
 		
 		return new AVMChainIndex(networks);
 

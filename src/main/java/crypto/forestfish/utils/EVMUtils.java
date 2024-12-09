@@ -649,12 +649,12 @@ public class EVMUtils {
 		return null;
 	}
 
-	public static BigInteger getTransactionCountForAddress(EVMBlockChainConnector _connector, String _account_address) {
+	public static BigInteger getTransactionCountForAddress(EVMBlockChainConnector _connector, String _account_address, boolean _haltOnRPCError) {
 		String meth = "getTransactionCountForAddress()";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
+		while ((nodeCallAttemptCount<3) && (requestCount<5)) {
 			requestCount++;
 			try {
 				EthGetTransactionCount result = new EthGetTransactionCount();
@@ -674,8 +674,10 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_haltOnRPCError) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		}
 		return null;
 	}
 
@@ -684,7 +686,7 @@ public class EVMUtils {
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
+		while ((nodeCallAttemptCount<3) && (requestCount<5)) {
 			requestCount++;
 			try {
 				EthChainId chainId = _connector.getProvider_instance().ethChainId().send();
@@ -717,7 +719,7 @@ public class EVMUtils {
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
+		while ((nodeCallAttemptCount<3) && (requestCount<5)) {
 			requestCount++;
 			try {
 				EthGasPrice gasPrice = _connector.getProvider_instance().ethGasPrice().send();
@@ -743,7 +745,7 @@ public class EVMUtils {
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
+		while ((nodeCallAttemptCount<3) && (requestCount<5)) {
 			requestCount++;
 			try {
 				EthGasPrice gasPrice = _connector.getProvider_instance().ethGasPrice().send();
@@ -1077,7 +1079,7 @@ public class EVMUtils {
 				}
 				_customNonce =  ethGetTransactionCount_latest.getTransactionCount();
 				LOGGER.info("We are forcing custom nonce to " + _customNonce);
-			*/
+			 */
 
 			try {
 
@@ -1415,7 +1417,7 @@ public class EVMUtils {
 					gasPriceInWEI = networkGasPriceInWEI;
 					gasPriceInWEI = bumpGasInWeiAccordingly(_connector, gasPriceInWEI);
 				}
-				
+
 			}
 
 			// always do the enforced minimum as final check
@@ -1878,7 +1880,7 @@ public class EVMUtils {
 
 					BigInteger maxPriorityFeePerGas = gasLimit;
 					BigInteger maxFeePerGas = BigInteger.valueOf(3_100_000_000L);
-					
+
 					// KLAYTN fixed, https://medium.com/klaytn/using-ethereum-tools-in-klaytn-dc068d48de04
 					if (_connector.getChain() == EVMChain.KLAYTN) {
 						maxPriorityFeePerGas = BigInteger.valueOf(250_000_000_000L); 
@@ -1990,6 +1992,29 @@ public class EVMUtils {
 		boolean timeout = false;
 
 		if (false ||
+				(null == _ex) ||
+				((null != _ex) && (null == _ex.getMessage())) ||
+				false) {
+			LOGGER.info("Unable to communicate with nodeURL " + _nodeURL + ".. will not retry and switch provider, move on to next node");
+			exceptionType = ExceptionType.NODE_UNAVAILABLE;	
+			sleepBeforeRetry = true;
+			sleepTimeInSecondsRecommended = 1;
+			switchNode = true;
+		} else if (false ||
+				_ex.getMessage().contains("Network is unreachable") ||
+				false) {
+			// https://rpc.ankr.com/polygon, response: "Network is unreachable"
+			LOGGER.info("Got a network unreachable for nodeURL " + _nodeURL + ".. will sleep extra and retry .. ex: " + _ex.getMessage());
+			nodeInteraction = false;
+			sleepBeforeRetry = true;
+			sleepTimeInSecondsRecommended = 30;
+			if (tx_attempt) {
+				exceptionType = ExceptionType.TX_MIGHT_BE_PENDING;
+			} else {
+				exceptionType = ExceptionType.NODE_RECOVERABLE;
+			}
+			timeout = true;
+		} else if (false ||
 				_ex.getMessage().contains("timeout") ||
 				_ex.getMessage().contains("timed out") ||
 				false) {
@@ -2024,7 +2049,11 @@ public class EVMUtils {
 				(_ex.getMessage().contains("handshakefailure")) ||
 				(_ex.getMessage().contains("handshake_failure")) ||
 				(_ex.getMessage().contains("Unrecognized token")) ||
+				(_ex.getMessage().contains(" expected ")) ||
+				(_ex.getMessage().contains("SSLHandshakeException")) ||
 				false) {
+			// https://rpc.gitagi.org, response: "javax.net.ssl.SSLHandshakeException: Received fatal alert: unrecognized_name"
+			// https://endpoints.omniatech.io/v1/eth/sepolia/public, response: "java.io.IOException: ID1ID2: actual 0xffff8b16 != expected 0x00001f8b"
 			// javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
 			// https://rpc.degen.tips, response: "javax.net.ssl.SSLHandshakeException: Received fatal alert: handshakefailure"
 			// okhttp3.internal.http2.StreamResetException: stream was reset: CANCEL
@@ -2056,7 +2085,14 @@ public class EVMUtils {
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
+				_ex.getMessage().contains("is null") ||
+				false) {
+			LOGGER.info("No proper response from nodeURL " + _nodeURL + ", will not retry and move on to next node");
+			exceptionType = ExceptionType.NODE_UNAVAILABLE;	
+			switchNode = true;
+		} else if (false ||
 				_ex.getMessage().contains("Cannot read field \"signum") ||
+				_ex.getMessage().contains("is null") ||
 				false) {
 			// https://fantom-testnet.public.blastapi.io, response: "Cannot read field "signum" because "val" is null"
 			LOGGER.info("Response decode error from nodeURL " + _nodeURL + ", did you use FINALIZED+getNonce() on a chain which does not support it? ill not retry, move on to next node. Error message: " + _ex.getMessage());
@@ -2579,15 +2615,15 @@ public class EVMUtils {
 		return match;
 	}
 
-	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr) {
-		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, false);
+	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _haltOnRPCNodeSelectionFail) {
+		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, false, _haltOnRPCNodeSelectionFail);
 	}
 
-	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean debug) {
-		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, debug);
+	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean debug, boolean _haltOnRPCNodeSelectionFail) {
+		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, debug, _haltOnRPCNodeSelectionFail);
 	}
 
-	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _checkForNFTs, HashMap<String, Boolean> _erc20_restriction, HashMap<String, Boolean> _nft_restriction, boolean _debug) {
+	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _checkForNFTs, HashMap<String, Boolean> _erc20_restriction, HashMap<String, Boolean> _nft_restriction, boolean _debug, boolean _haltOnRPCError) {
 		HashMap<EVMChain, EVMChainPortfolio> chainportfolio = new HashMap<>();
 
 		for (EVMChain chain: EVMChain.values()) {
@@ -2625,7 +2661,7 @@ public class EVMUtils {
 						EVMBlockChainConnector connector = _ultra_connector.getConnectors().get(chain);
 
 						if (null != connector) {
-							BigInteger txCount = EVMUtils.getTransactionCountForAddress(connector, _account_addr);
+							BigInteger txCount = EVMUtils.getTransactionCountForAddress(connector, _account_addr, _haltOnRPCError);
 
 							/**
 							 * Check native balance
@@ -3188,7 +3224,7 @@ public class EVMUtils {
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
@@ -3203,7 +3239,7 @@ public class EVMUtils {
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
@@ -3231,7 +3267,7 @@ public class EVMUtils {
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
@@ -3275,8 +3311,8 @@ public class EVMUtils {
 		EVMLocalWallet wallet001 = new EVMLocalWallet(wallet001_name, AccountOrigin.PRIVATEKEY, "nopassword", _wallet001_privatekey);
 		EVMLocalWallet wallet002 = new EVMLocalWallet(wallet002_name, AccountOrigin.PRIVATEKEY, "nopassword", _wallet002_privatekey);
 
-		BigInteger preTxCountForWallet001 = EVMUtils.getTransactionCountForAddress(connector, wallet001.getAddress());
-		BigInteger preTxCountForWallet002 = EVMUtils.getTransactionCountForAddress(connector, wallet002.getAddress());
+		BigInteger preTxCountForWallet001 = EVMUtils.getTransactionCountForAddress(connector, wallet001.getAddress(), _haltOnRPCNodeSelectionFail);
+		BigInteger preTxCountForWallet002 = EVMUtils.getTransactionCountForAddress(connector, wallet002.getAddress(), _haltOnRPCNodeSelectionFail);
 
 		String preBalanceWallet001 = EVMUtils.getAccountNativeBalance(connector, wallet001.getAddress()).getBalanceInETH();
 		String preBalanceWallet002 = EVMUtils.getAccountNativeBalance(connector, wallet002.getAddress()).getBalanceInETH();
@@ -3331,14 +3367,14 @@ public class EVMUtils {
 
 		System.out.println("--------------------------------");
 		System.out.println("PRE  - " + wallet001_name + " pub: " + wallet001.getAddress() + " txCount: " + preTxCountForWallet001 + " native balance: " + preBalanceWallet001);
-		System.out.println("POST - " + wallet001_name + " pub: " + wallet001.getAddress() + " txCount: " + EVMUtils.getTransactionCountForAddress(connector, wallet001.getAddress()) + " native balance: " + EVMUtils.getAccountNativeBalance(connector, wallet001.getAddress()).getBalanceInETH());
+		System.out.println("POST - " + wallet001_name + " pub: " + wallet001.getAddress() + " txCount: " + EVMUtils.getTransactionCountForAddress(connector, wallet001.getAddress(), _haltOnRPCNodeSelectionFail) + " native balance: " + EVMUtils.getAccountNativeBalance(connector, wallet001.getAddress()).getBalanceInETH());
 		System.out.println("--------------------------------");
 		System.out.println("PRE  - " + wallet002_name + " pub: " + wallet002.getAddress() + " txCount: " + preTxCountForWallet002 + " native balance: " + preBalanceWallet002);
-		System.out.println("POST - " + wallet002_name + " pub: " + wallet002.getAddress() + " txCount: " + EVMUtils.getTransactionCountForAddress(connector, wallet002.getAddress()) + " native balance: " + EVMUtils.getAccountNativeBalance(connector, wallet002.getAddress()).getBalanceInETH());
+		System.out.println("POST - " + wallet002_name + " pub: " + wallet002.getAddress() + " txCount: " + EVMUtils.getTransactionCountForAddress(connector, wallet002.getAddress(), _haltOnRPCNodeSelectionFail) + " native balance: " + EVMUtils.getAccountNativeBalance(connector, wallet002.getAddress()).getBalanceInETH());
 
 	}
 
-	
+
 	public static boolean isValidPrivateKey(String _privateKey) {
 
 		if (_privateKey == null || _privateKey.isEmpty()) {

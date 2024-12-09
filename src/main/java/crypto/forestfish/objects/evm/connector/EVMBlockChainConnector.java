@@ -94,7 +94,7 @@ public class EVMBlockChainConnector {
 		}
 		boolean selection_complete = false;
 		int randomAttemptCounter = 0;
-		while (!selection_complete && (randomAttemptCounter<=10)) {
+		while (!selection_complete && (randomAttemptCounter<=3)) {
 			String candidate = getRandom_nodeURL_candidate();
 			Web3j web3j_cand = Web3j.build(new HttpService(candidate));
 			long init = System.currentTimeMillis();
@@ -125,7 +125,12 @@ public class EVMBlockChainConnector {
 
 	public void selectRandomNodeURL(String _skipthisNodeURL) {
 		// verify and select RPC connection
-		LOGGER.info("We need to get 1 of these candidates working, gonna go random without " + _skipthisNodeURL);
+		if (null == _skipthisNodeURL) {
+			LOGGER.info("We need to get 1 of these candidates working, gonna go random");
+			_skipthisNodeURL = "";
+		} else {
+			LOGGER.info("We need to get 1 of these candidates working, gonna go random without " + _skipthisNodeURL);
+		}
 		int candindex = 1;
 		for (String nodeURL: this.chaininfo.getNodeURLs()) {
 			LOGGER.info(" #" + candindex + ": " + nodeURL);
@@ -135,7 +140,7 @@ public class EVMBlockChainConnector {
 		if (this.chaininfo.getNodeURLs().size() == 1) morethan1Candidate = false;
 		boolean selection_complete = false;
 		int randomAttemptCounter = 0;
-		while (!selection_complete && (randomAttemptCounter<=10)) {
+		while (!selection_complete && (randomAttemptCounter<=3)) {
 			String candidate = getRandom_nodeURL_candidate();
 			if (morethan1Candidate && _skipthisNodeURL.equals(candidate)) {
 				// lets pick a different node

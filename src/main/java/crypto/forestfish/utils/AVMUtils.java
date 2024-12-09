@@ -2223,7 +2223,10 @@ public class AVMUtils {
 			LOGGER.warn("Got a 404 non JSON response from nodeURL " + _indexerNode.getUrl() + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
-		} else if (_ex.getMessage().contains("invalid value on parameter")) {
+		} else if (false ||
+				_ex.getMessage().contains("invalid value on parameter") ||
+				_ex.getMessage().contains("Cannot read field") ||
+				false) {
 			// https://node.testnet.algoexplorerapi.io: {"message":"invalid value on parameter 'limit'"}
 			LOGGER.warn("Got an invalid value on parameter response from indexer node " + _indexerNode.getUrl() + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	

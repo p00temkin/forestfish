@@ -136,10 +136,18 @@ public class AVMBlockChainConnector {
 	}
 
 	public void reinitializeConnector() {
-		LOGGER.info("connector re-init with relay node " + this.getRelayNode().getUrl());
-		LOGGER.info("connector re-init with indexer node " + this.getIndexerNode().getUrl());
-		this.indexer_instance = new IndexerClient(this.getIndexerNode().getUrl(), this.getIndexerNode().getPort(), this.getIndexerNode().getAuthtoken(), this.getIndexerNode().getAuthtoken_key());
-		this.provider_instance = new AlgodClient(this.getRelayNode().getUrl(), this.getRelayNode().getPort(), this.getRelayNode().getAuthtoken(), this.getRelayNode().getAuthtoken_key());
+		if (null != this.getRelayNode()) {
+			if (null != this.getRelayNode().getUrl()) {
+				LOGGER.info("connector re-init with relay node " + this.getRelayNode().getUrl());
+				this.provider_instance = new AlgodClient(this.getRelayNode().getUrl(), this.getRelayNode().getPort(), this.getRelayNode().getAuthtoken(), this.getRelayNode().getAuthtoken_key());
+			}
+		}
+		if (null != this.getIndexerNode()) {
+			if (null != this.getIndexerNode().getUrl()) {
+				LOGGER.info("connector re-init with indexer node " + this.getIndexerNode().getUrl());
+				this.indexer_instance = new IndexerClient(this.getIndexerNode().getUrl(), this.getIndexerNode().getPort(), this.getIndexerNode().getAuthtoken(), this.getIndexerNode().getAuthtoken_key());
+			}
+		}
 	}
 
 	public AlgoRelayNode selectSpeedyRelayNode() {

@@ -350,7 +350,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("B2 Hub Mainnet", EVMChain.B2HUB);
 			this.put("B2 Mainnet", EVMChain.B2);
 			this.put("Neura Testnet", EVMChain.NEURATEST);
-			this.put("Cronos zkEVM Testnet", EVMChain.CRONOSZKEVMTEST);
 			this.put("zkCandy Sepolia Testnet", EVMChain.ZKCANDYTEST);
 			this.put("Furtheon", EVMChain.FURTHEON);
 			this.put("Syndr L3", EVMChain.SYNDR);
@@ -446,7 +445,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("BOB", EVMChain.BOB);
 			this.put("KaiChain", EVMChain.KAICHAIN);
 			this.put("OPTOPIA Testnet", EVMChain.OPTOPIATEST);
-			this.put("Proof of Play - Apex", EVMChain.PROOF);
+			this.put("Proof of Play - Apex", EVMChain.PROOFAPEX);
 			this.put("ICB Testnet", EVMChain.ICBTEST);
 			this.put("ICB Network", EVMChain.ICB);
 			this.put("BORAchain mainnet", EVMChain.BORACHAIN);
@@ -716,7 +715,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("XL Network Testnet", EVMChain.XLTEST);
 			this.put("SX Rollup", EVMChain.SX);
 			this.put("HashKey Chain Testnet", EVMChain.HASHKEYTEST);
-			this.put("Omni Omega", EVMChain.OMNI);
+			this.put("Omni Omega", EVMChain.OMNIOMEGA);
 			this.put("Kaia Testnet Kairos", EVMChain.KAIATEST);
 			this.put("Bitcoin Protocol Testnet", EVMChain.BITCOINTEST);
 			this.put("ReDeFi Layer 2", EVMChain.REDEFIL2);
@@ -916,19 +915,137 @@ public class CheckNewEVMNodeCandidates {
 			this.put("R0AR Testnet", EVMChain.R0ARTEST);
 			this.put("Lummio Network", EVMChain.LUMMIO);
 			this.put("Kakarot Starknet Sepolia", EVMChain.KAKAROTSEPOLIATEST);
+			this.put("OTC", EVMChain.OTC);
+			this.put("Cronos zkEVM Testnet", EVMChain.CRONOSZKEVMTEST);
+			this.put("BPX Chain", EVMChain.BPX);
+			this.put("Deprecated Cronos zkEVM Testnet", EVMChain.CRONOSZKEVMDEPRECATEDTEST);
+			this.put("Haust Mainnet", EVMChain.HAUST);
+			this.put("Argochain", EVMChain.ARGOCHAIN);
+			this.put("Story Odyssey Testnet", EVMChain.STORYODYSSEYTEST);
+			this.put("Datacore Smart Chain", EVMChain.DATACORE);
+			this.put("PlayBlock", EVMChain.PLAYBLOCK);
+			this.put("Verify testnet", EVMChain.VERIFYTEST);
+			this.put("Swell Network", EVMChain.SWELL);
+			this.put("Swell Network Testnet", EVMChain.SWELLTEST);
+			this.put("Bahamut horizon", EVMChain.BAHAMUT);
+			this.put("Morph", EVMChain.MORPH);
+			this.put("JZERO", EVMChain.JZERO);
+			this.put("Skate Mainnet", EVMChain.SKATE);
+			this.put("Superseed", EVMChain.SUPERSEED);
+			this.put("0XL3", EVMChain.ZEROXL3);
+			this.put("Phron Testnet", EVMChain.PHRONTEST);
+			this.put("KPA Smart Chain Testnet", EVMChain.KPATEST);
+			this.put("Zytron Linea Mainnet", EVMChain.ZYTRON);
+			this.put("Warden Testnet", EVMChain.WARDENTEST);
+			this.put("AEON Chain", EVMChain.AEON);
+			this.put("GameSwift Chain Testnet", EVMChain.GAMESWIFTTEST);
+			this.put("Eventum Testnet", EVMChain.EVENTUMTEST);
+			this.put("Zytron Linea Testnet", EVMChain.ZYTRONTEST);
+			this.put("LocaChain Mainnet", EVMChain.LOCACHAIN);
+			this.put("Rivest Testnet", EVMChain.RIVESTTEST);
+			this.put("ApeChain", EVMChain.APECHAIN);
+			this.put("Sophon", EVMChain.SOPHON);
+			this.put("Titan Sepolia", EVMChain.TITANSEPOLIATEST);
+			this.put("eSync Network Mainnet", EVMChain.ESYNC);
+			this.put("Geist Mainnet", EVMChain.GEIST);
+			this.put("Proof of Play - Boss", EVMChain.PROOFBOSS);
+			this.put("Bionix Testnet", EVMChain.BIONIXTEST);
+			this.put("Unit Zero Mainnet", EVMChain.UNIT);
+			this.put("arena-z", EVMChain.ARENAZ);
+			this.put("IOST Mainnet", EVMChain.IOST);
+			this.put("Mezo Matsnet Testnet", EVMChain.MEZOTEST);
+			this.put("Superposition Testnet", EVMChain.SUPERPOSITIONTEST);
+			this.put("Odyssey Chain Mainnet", EVMChain.ODYSSEY);
+			this.put("Anomaly Andromeda Testnet", EVMChain.ANOMALYTEST);
+			this.put("ZERO Network", EVMChain.ZERO);
+			this.put("Ink Sepolia", EVMChain.INKTEST);
+			this.put("Xphere Testnet", EVMChain.XPHERETEST);
+			this.put("Coinweb BNB shard", EVMChain.COINWEB);
+			this.put("Xterio Chain (ETH)", EVMChain.XTERIO);
+			this.put("Funki Sepolia Testnet", EVMChain.FUNKISEPOLIATEST);
+			this.put("citronus-citro", EVMChain.CITRONUSCITRO);
+			this.put("Reya Cronos", EVMChain.REYACRONOS);
+			this.put("Flame", EVMChain.FLAME);
+			this.put("Accumulate Kermit", EVMChain.ACCUMULATE);
+			this.put("Mekong", EVMChain.MEKONG);
+			this.put("Guru Network", EVMChain.GURU);
+			this.put("Matr1x Testnet", EVMChain.MATR1XTEST);
+			this.put("Prom", EVMChain.PROM);
+			this.put("Omax Testnet", EVMChain.OMAXTEST);
+			this.put("NERO Mainnet", EVMChain.NERO);
+			this.put("PIN", EVMChain.PIN);
+			this.put("Lens Testnet", EVMChain.LENSTEST);
+			this.put("sivo-defi-testnet", EVMChain.SIVODEFITEST);
+			this.put("Betherance", EVMChain.BETHERANCE);
+			this.put("volmex", EVMChain.VOLMEX);
+			this.put("Zeniq", EVMChain.ZENIQ);
+			this.put("Flame Testnet", EVMChain.FLAMETEST);
+			this.put("DaVinci", EVMChain.DAVINCI);
+			this.put("Sonic Mainnet", EVMChain.SONIC);
+			this.put("Omni", EVMChain.OMNI);
+			this.put("GRVT Exchange", EVMChain.GRVT);
+			this.put("GRVT Exchange Testnet", EVMChain.GRVTTEST);
+			this.put("The Widows Mite", EVMChain.THE);
+			this.put("AppChain", EVMChain.APPCHAIN);
+			this.put("Daily Network Mainnet", EVMChain.DAILY);
+			this.put("Daily Network Testnet", EVMChain.DAILYTEST);
+			this.put("Kaia Kairos Testnet", EVMChain.KAIATEST);
+			this.put("BitTorrent Chain Donau", EVMChain.BITTORRENT);
+			this.put("Litheum Test Network", EVMChain.LITHEUMTEST);
+			this.put("Argochain Testnet", EVMChain.ARGOCHAINTEST);
+			this.put("Vana", EVMChain.VANA);
+			this.put("Swellchain", EVMChain.SWELLCHAIN);
+			this.put("Swellchain Testnet", EVMChain.SWELLCHAINTEST);
+			this.put("CrossFi Mainnet", EVMChain.CROSSFI);
+			this.put("Emoney Network Mainnet", EVMChain.EMONEY);
+			this.put("AppChain Testnet", EVMChain.APPCHAINTEST);
+			this.put("Pioneer Zero Chain", EVMChain.PIONEER);
+			this.put("Bool Network Beta Mainnet", EVMChain.BOOL);
+			this.put("Bitharvest Chain Mainnet", EVMChain.BITHARVEST);
+			this.put("EXPchain Testnet", EVMChain.EXPCHAINTEST);
+			this.put("Zilliqa 2 EVM proto-mainnet", EVMChain.ZILLIQA2);
+			this.put("EDU Chain", EVMChain.EDU);
+			this.put("Formicarium", EVMChain.FORMICARIUM);
+			this.put("Reddio Devnet", EVMChain.REDDIOTEST);
+			this.put("Sonic Blaze Testnet", EVMChain.SONICTEST);
+			this.put("AppLayer Testnet", EVMChain.APPLAYERTEST);
+			this.put("Unite", EVMChain.UNITE);
+			this.put("Lux Testnet", EVMChain.LUXTEST);
+			this.put("Lux Mainnet", EVMChain.LUX);
+			this.put("Plume Devnet", EVMChain.PLUMEDEVTEST);
+			this.put("Mitosis Testnet", EVMChain.MITOSISTEST);
+			this.put("Bitharvest Chain Testnet", EVMChain.BITHARVESTTEST);
+			this.put("Wadzchain Mainnet", EVMChain.WADZCHAIN);
+			this.put("Zoo Mainnet", EVMChain.ZOO);
+			this.put("EDU Chain Testnet", EVMChain.EDUTEST);
+			this.put("Unite Testnet", EVMChain.UNITETEST);
+			this.put("Owshen Mainnet", EVMChain.OWSHEN);
+			this.put("Waterfall 9 Test Network", EVMChain.WATERFALL9TEST);
+			this.put("Corn Maizenet", EVMChain.CORN);
+			this.put("Corn Testnet", EVMChain.CORNTEST);
+			this.put("Xone Testnet", EVMChain.XONETEST);
+			this.put("Deriw Devnet", EVMChain.DERIWTEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
+
+			// dns resolve issues, lets not retry
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
 			this.put("xxxxxxxxxxxxxxxxxxx", true);
-			this.put("xxxxxxxxxxxxxxxxxxx", true);
-			this.put("xxxxxxxxxxxxxxxxxxx", true);
+			this.put("https://testnet.1money.network", true);
+			this.put("https://testnet-rpc.electroneum.com", true);
+			this.put("https://mainnet.saharalabs.ai", true);
+			this.put("http://devnet.ethstorage.io:9540", true);
+			this.put("http://testnet.l2.ethstorage.io:9540", true);
+			this.put("http://devnet.l2.ethstorage.io:9540", true);
+			this.put("https://rpc-testnet.xfair.ai", true);
+			this.put("https://rpc-dev-testnet.arvix.network", true);
+			this.put("https://rpc-testnet-market.arvix.network", true);
 			this.put("https://rpc.lemonchain.io", true);
 			this.put("https://rpc.testnet.lemonchain.io", true);
-
 			this.put("https://rpc.nexus.mainnet.apexfusion.org/", true);
 			this.put("https://rpc0.come.boat/", true);
 			this.put("https://node3-mainnet-new.maalscan.io/", true);
@@ -936,12 +1053,9 @@ public class CheckNewEVMNodeCandidates {
 			this.put("https://mainnet-l2-ethapi.quarkchain.io", true);
 			this.put("https://testnet-l2-ethapi.quarkchain.io", true);
 			this.put("https://devnet.darwinchain.ai", true);
-
 			this.put("http://127.0.0.1:8545", true); // local
 			this.put("https://api.metadium.com/dev", true); // incorrectly added as Metadium mainnet node
 			this.put("https://rpc.jolnir.taiko.xyz", true); // old account balance reply but latestblocknr?
-
-			// dns resolve issues, lets not retry
 			this.put("https://sailboat-rpc-mainnet.cyclenetwork.io", true);
 			this.put("http://mainnet.ethstorage.io:9540", true);
 			this.put("https://rpc.onenesslabs.io/", true);
@@ -2173,7 +2287,7 @@ public class CheckNewEVMNodeCandidates {
 						}
 
 						for (String nodeURL: chaininfo.getNodeURLs()) {
-							if (debug) System.out.println(" - forestfish node: " + nodeURL);
+							if (debug) System.out.println(" - existing forestfish node: " + nodeURL);
 							forestfish_nodes.put(nodeURL, true);
 						}
 						if (debug) System.out.println("----------------------------------");
@@ -2182,6 +2296,13 @@ public class CheckNewEVMNodeCandidates {
 							if (nodeURL.startsWith("http")) {
 								if (!nodeURL.contains("API_KEY")) {
 									if (null == forestfish_nodes.get(nodeURL)) {
+
+										if (debug) {
+											for (String k: forestfish_nodes.keySet()) {
+												System.out.println("'" + k + "' is not '" + nodeURL + "'");
+											}
+										}
+
 										if (null == skipnodeurls.get(nodeURL)) {
 											Web3j web3j_cand = Web3j.build(new HttpService(nodeURL));
 											Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(evmchain, nodeURL, web3j_cand);
@@ -2266,6 +2387,8 @@ public class CheckNewEVMNodeCandidates {
 							chain_enum = eece.getName().split(" ")[0].toUpperCase().replace("(","").replace(")","").replace("-","");
 						}
 
+						if (chain_shortname.startsWith("0")) chain_shortname = chain_shortname.replaceFirst("0", "ZERO");
+						if (chain_enum.startsWith("0")) chain_enum = chain_enum.replaceFirst("0", "ZERO");
 						if (chain_shortname.startsWith("6")) chain_shortname = chain_shortname.replaceFirst("6", "SIX");
 						if (chain_enum.startsWith("6")) chain_enum = chain_enum.replaceFirst("6", "SIX");
 
