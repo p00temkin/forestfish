@@ -270,8 +270,12 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 	}
 
@@ -315,8 +319,12 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 	}
 
@@ -351,8 +359,12 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 		//return new EVMNftAccountBalance(new BigInteger("0").toString(), true);
 	}
@@ -431,8 +443,12 @@ public class EVMUtils {
 				if (evmEAS.isNewEVMBlockChainConnector()) _connector = evmEAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 	}
 
@@ -544,8 +560,12 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 	}
 
@@ -619,8 +639,12 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 	}
 
@@ -649,7 +673,7 @@ public class EVMUtils {
 		return null;
 	}
 
-	public static BigInteger getTransactionCountForAddress(EVMBlockChainConnector _connector, String _account_address, boolean _haltOnRPCError) {
+	public static BigInteger getTransactionCountForAddress(EVMBlockChainConnector _connector, String _account_address) {
 		String meth = "getTransactionCountForAddress()";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
@@ -674,9 +698,11 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		if (_haltOnRPCError) {
+		if (_connector.isHaltOnFailedCall()) {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
 		}
 		return null;
 	}
@@ -735,8 +761,12 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 	}
 
@@ -760,8 +790,12 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 	}
 
@@ -1030,8 +1064,12 @@ public class EVMUtils {
 			LOGGER.error("Unable to comply with price mechanism named: " + _connector.getChaininfo().getPriceMechanism());
 			SystemUtils.halt();
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+		}
 		return null;
 	}
 
@@ -2661,7 +2699,7 @@ public class EVMUtils {
 						EVMBlockChainConnector connector = _ultra_connector.getConnectors().get(chain);
 
 						if (null != connector) {
-							BigInteger txCount = EVMUtils.getTransactionCountForAddress(connector, _account_addr, _haltOnRPCError);
+							BigInteger txCount = EVMUtils.getTransactionCountForAddress(connector, _account_addr);
 
 							/**
 							 * Check native balance
@@ -3311,8 +3349,8 @@ public class EVMUtils {
 		EVMLocalWallet wallet001 = new EVMLocalWallet(wallet001_name, AccountOrigin.PRIVATEKEY, "nopassword", _wallet001_privatekey);
 		EVMLocalWallet wallet002 = new EVMLocalWallet(wallet002_name, AccountOrigin.PRIVATEKEY, "nopassword", _wallet002_privatekey);
 
-		BigInteger preTxCountForWallet001 = EVMUtils.getTransactionCountForAddress(connector, wallet001.getAddress(), _haltOnRPCNodeSelectionFail);
-		BigInteger preTxCountForWallet002 = EVMUtils.getTransactionCountForAddress(connector, wallet002.getAddress(), _haltOnRPCNodeSelectionFail);
+		BigInteger preTxCountForWallet001 = EVMUtils.getTransactionCountForAddress(connector, wallet001.getAddress());
+		BigInteger preTxCountForWallet002 = EVMUtils.getTransactionCountForAddress(connector, wallet002.getAddress());
 
 		String preBalanceWallet001 = EVMUtils.getAccountNativeBalance(connector, wallet001.getAddress()).getBalanceInETH();
 		String preBalanceWallet002 = EVMUtils.getAccountNativeBalance(connector, wallet002.getAddress()).getBalanceInETH();
@@ -3367,10 +3405,10 @@ public class EVMUtils {
 
 		System.out.println("--------------------------------");
 		System.out.println("PRE  - " + wallet001_name + " pub: " + wallet001.getAddress() + " txCount: " + preTxCountForWallet001 + " native balance: " + preBalanceWallet001);
-		System.out.println("POST - " + wallet001_name + " pub: " + wallet001.getAddress() + " txCount: " + EVMUtils.getTransactionCountForAddress(connector, wallet001.getAddress(), _haltOnRPCNodeSelectionFail) + " native balance: " + EVMUtils.getAccountNativeBalance(connector, wallet001.getAddress()).getBalanceInETH());
+		System.out.println("POST - " + wallet001_name + " pub: " + wallet001.getAddress() + " txCount: " + EVMUtils.getTransactionCountForAddress(connector, wallet001.getAddress()) + " native balance: " + EVMUtils.getAccountNativeBalance(connector, wallet001.getAddress()).getBalanceInETH());
 		System.out.println("--------------------------------");
 		System.out.println("PRE  - " + wallet002_name + " pub: " + wallet002.getAddress() + " txCount: " + preTxCountForWallet002 + " native balance: " + preBalanceWallet002);
-		System.out.println("POST - " + wallet002_name + " pub: " + wallet002.getAddress() + " txCount: " + EVMUtils.getTransactionCountForAddress(connector, wallet002.getAddress(), _haltOnRPCNodeSelectionFail) + " native balance: " + EVMUtils.getAccountNativeBalance(connector, wallet002.getAddress()).getBalanceInETH());
+		System.out.println("POST - " + wallet002_name + " pub: " + wallet002.getAddress() + " txCount: " + EVMUtils.getTransactionCountForAddress(connector, wallet002.getAddress()) + " native balance: " + EVMUtils.getAccountNativeBalance(connector, wallet002.getAddress()).getBalanceInETH());
 
 	}
 

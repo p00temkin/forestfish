@@ -85,6 +85,8 @@ public class EVMBlockChainConnector {
 	}
 
 	public void selectRandomNodeURL(boolean _haltOnRPCNodeSelectionFail) {
+		this.setHaltOnFailedCall(_haltOnRPCNodeSelectionFail);
+		
 		// verify and select RPC connection
 		LOGGER.info("We need to get 1 of these candidates working, gonna go random:");
 		int candindex = 1;
