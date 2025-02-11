@@ -22,7 +22,7 @@ public class SystemUtils {
 		}
 	}
 
-	public static void sleepInMilliSecondss(int _milliseconds) {
+	public static void sleepInMilliSeconds(int _milliseconds) {
 		try {
 			Thread.sleep(_milliseconds);
 		} catch (InterruptedException e) {

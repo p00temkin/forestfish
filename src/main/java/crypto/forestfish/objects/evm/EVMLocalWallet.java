@@ -25,6 +25,7 @@ public class EVMLocalWallet {
 
 	@SuppressWarnings("unused")
 	private static final int PRIVATE_KEY_RADIX = 16;
+	private static SecureRandom RANDOM = new SecureRandom();
 
 	private String walletName;
 	private String walletPassword;
@@ -52,8 +53,7 @@ public class EVMLocalWallet {
 			} else if (_wallet_origin == AccountOrigin.NEW_LOCALWALLETFILE) {
 
 			        byte[] initialEntropy = new byte[16];
-			        SecureRandom secureRandom = new SecureRandom();
-			        secureRandom.nextBytes(initialEntropy);
+			        RANDOM.nextBytes(initialEntropy);
 			        String generated_mnemonic = MnemonicUtils.generateMnemonic(initialEntropy);
 
 					LOGGER.info("Creating wallet from generated mnemonic \"" + generated_mnemonic + "\"");

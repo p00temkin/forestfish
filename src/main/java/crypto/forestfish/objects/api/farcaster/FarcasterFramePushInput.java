@@ -1,4 +1,4 @@
-package crypto.forestfish.objects.evm.farcaster;
+package crypto.forestfish.objects.api.farcaster;
 
 import crypto.forestfish.objects.evm.farcaster.frame.TrustedData;
 import crypto.forestfish.objects.evm.farcaster.frame.UntrustedData;

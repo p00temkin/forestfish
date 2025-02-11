@@ -166,7 +166,7 @@ public class NetUtils {
 			}
 			es.shutdown();
 			for (final Future<String> f : futures) {
-				if (f.get() != "") {
+				if (!"".equals(f.get())) {
 					activeIps.put(f.get(), true);
 				}
 			}

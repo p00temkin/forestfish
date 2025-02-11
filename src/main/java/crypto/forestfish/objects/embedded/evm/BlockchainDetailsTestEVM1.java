@@ -655,7 +655,7 @@ public class BlockchainDetailsTestEVM1 {
 				EVMChain.NEARTEST.toString(), 
 				"NEAR Protocol Testnet", 
 				398L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // always shows 3780000 gwei for empty wallets?
 				new EVMCurrency("NEAR Protocol Testnet Gas Token", "NEAR", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3130,7 +3130,7 @@ public class BlockchainDetailsTestEVM1 {
 				EVMChain.RARITEST.toString(), 
 				"RARI Testnet", 
 				1918988905L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("RARI Testnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
@@ -9884,7 +9884,7 @@ public class BlockchainDetailsTestEVM1 {
 				EVMChain.COTITEST.toString(), 
 				"COTI Testnet", 
 				7082400L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("COTI Testnet Gas Token", "COTI", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10520,7 +10520,7 @@ public class BlockchainDetailsTestEVM1 {
 
 		// taiko
 		EVMChainInfo taiko7 = new EVMChainInfo(
-				EVMChain.TAIKOALPHA7TEST.toString(), 
+				EVMChain.TAIKOHEKLATEST.toString(), 
 				"Taiko Hekla L2", 
 				167009L, 
 				BlockchainType.PUBLIC.toString(),
@@ -10547,7 +10547,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.TAIKOALPHA7TEST, taiko7);
+		networks.put(EVMChain.TAIKOHEKLATEST, taiko7);
 
 		// fxcore_test
 		EVMChainInfo fxcore_test = new EVMChainInfo(
@@ -13871,6 +13871,7 @@ public class BlockchainDetailsTestEVM1 {
 					this.add("https://ethereum-sepolia.publicnode.com");
 					this.add("https://ethereum-sepolia-rpc.publicnode.com");
 					this.add("https://sepolia.drpc.org");
+					this.add("https://eth-sepolia.g.alchemy.com/v2/WddzdzI2o9S3COdT73d5w6AIogbKq4X-");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)

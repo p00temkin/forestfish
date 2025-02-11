@@ -78,7 +78,7 @@ public class AlgoLocalWallet {
 			}
 		} else {
 
-			if (walletDirectory.listFiles().length != 1) {
+			if ((null != walletDirectory) && (walletDirectory.listFiles().length != 1)) {
 				LOGGER.warn("More than one wallet file? Cannot handle this atm.");
 				SystemUtils.halt();
 			}

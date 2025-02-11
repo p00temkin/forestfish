@@ -359,7 +359,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("UltronSmartchain", EVMChain.ULTRONSMARTCHAIN);
 			this.put("Redstone", EVMChain.REDSTONE);
 			this.put("EthXY Testnet", EVMChain.ETHXYTEST);
-			this.put("Rebus Mainnet", EVMChain.REBUS);
 			this.put("IOTA EVM Testnet", EVMChain.IOTATEST);
 			this.put("B2 Hub Testnet", EVMChain.B2HUBTEST);
 			this.put("B2 Testnet", EVMChain.B2TEST);
@@ -455,7 +454,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Camp Testnet", EVMChain.CAMPTEST);
 			this.put("Odyssey Chain (Testnet)", EVMChain.ODYSSEY1TEST);
 			this.put("MagApe Testnet", EVMChain.MAGAPETEST);
-			this.put("Taiko Hekla L2", EVMChain.TAIKOALPHA7TEST);
+			this.put("Taiko Hekla L2", EVMChain.TAIKOHEKLATEST);
 			this.put("Bitlayer Mainnet", EVMChain.BITLAYER);
 			this.put("HydraDX", EVMChain.HYDRADX);
 			this.put("Zillion Sepolia Testnet", EVMChain.ZILLIONTEST);
@@ -1042,7 +1041,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Evoz Mainnet", EVMChain.EVOZ);
 			this.put("Electra Network", EVMChain.ELECTRA);
 			this.put("Electra Test Network", EVMChain.ELECTRATEST);
-			this.put("Rinia", EVMChain.RINIA);
+			this.put("Rinia", EVMChain.RINIATEST);
 			this.put("Subtensor EVM", EVMChain.SUBTENSOR);
 			this.put("Hyperliquid EVM Testnet", EVMChain.HYPERLIQUIDTEST);
 			this.put("Core Blockchain Testnet2", EVMChain.CORETEST);
@@ -1144,6 +1143,38 @@ public class CheckNewEVMNodeCandidates {
 			this.put("OFFICIAL VASYL TESTNET", EVMChain.OFFICIALTEST);
 			this.put("Turbo", EVMChain.TURBO);
 			this.put("Haust Network Testnet", EVMChain.HAUSTTEST);
+			this.put("ZKcandy Sepolia Testnet", EVMChain.ZKCANDYSEPOLIATEST);
+			this.put("WorldEcoMoney", EVMChain.WORLDECOMONEY);
+			this.put("Rebus Classic Mainnet", EVMChain.REBUSCLASSIC);
+			this.put("Story Aeneid Testnet", EVMChain.STORYAENEIDTEST);
+			this.put("Rebus Mainnet", EVMChain.REBUS);
+			this.put("Monad Testnet", EVMChain.MONADTEST);
+			this.put("XUSD ONE StableChain Mainnet", EVMChain.XUSD);
+			this.put("Citronus", EVMChain.CITRONUS);
+			this.put("Fushuma", EVMChain.FUSHUMA);
+			this.put("Taiko Alethia", EVMChain.TAIKO);
+			this.put("Taiko Hekla", EVMChain.TAIKOHEKLATEST);
+			this.put("Zuux chain testnet", EVMChain.ZUUXTEST);
+			this.put("GPT Testnet", EVMChain.GPTTEST);
+			this.put("OFFICIAL VASYL", EVMChain.VASYL);
+			this.put("ZKcandy Mainnet", EVMChain.ZKCANDY);
+			this.put("AmaxSmartchain", EVMChain.AMAXSMARTCHAIN);
+			this.put("Lydia Coin", EVMChain.LYDIA);
+			this.put("Pho Blockchain Mainnet", EVMChain.PHO);
+			this.put("Pione Chain Mainnet", EVMChain.PIONE);
+			this.put("Nibiru Mainnet", EVMChain.NIBIRU);
+			this.put("Volcano Chain Mainnet", EVMChain.VOLCANO);
+			this.put("BEVM Signet", EVMChain.BEVMSIGNET);
+			this.put("BirdLayer", EVMChain.BIRDLAYER);
+			this.put("Berachain", EVMChain.BERACHAIN);
+			this.put("Lumoz Chain Mainnet", EVMChain.LUMOZ);
+			this.put("Lydia Coin Testnet", EVMChain.LYDIATEST);
+			this.put("CONET Cancun", EVMChain.CONETCANUN);
+			this.put("Block Chain LOL Berachain Testnet", EVMChain.BLOCKTEST);
+			this.put("Privix Chain Mainnet", EVMChain.PRIVIX);
+			this.put("Privix Chain Testnet", EVMChain.PRIVIXTEST);
+			this.put("WITNESS CHAIN", EVMChain.WITNESS);
+
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
@@ -2372,7 +2403,14 @@ public class CheckNewEVMNodeCandidates {
 				LOGGER.error("Unable to parse JSON");
 				SystemUtils.halt();
 			}
+			
 			for (ExtEVMChainEntry eece: arr) {
+				
+				// Fix for typos
+				if (eece.getName().startsWith(" ")) {
+					eece.setName(eece.getName().replaceFirst(" ", ""));
+				}
+				
 				if (debug) System.out.println("chain: " + eece.getName());
 				EVMChain evmchain = chain_map.get(eece.getName());
 
@@ -2424,7 +2462,7 @@ public class CheckNewEVMNodeCandidates {
 
 										if (null == skipnodeurls.get(nodeURL)) {
 											Web3j web3j_cand = Web3j.build(new HttpService(nodeURL));
-											Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(evmchain, nodeURL, web3j_cand);
+											Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(evmchain, nodeURL, web3j_cand, 1);
 											if ((null != latestblocknr) && (latestblocknr>0L)) {
 												System.out.println("this.add(\"" + nodeURL + "\");");
 												newnode_count++;
@@ -2455,7 +2493,7 @@ public class CheckNewEVMNodeCandidates {
 									if (null == skipnodeurls.get(nodeURL)) {
 										nodeCount++;
 										Web3j web3j_cand = Web3j.build(new HttpService(nodeURL));
-										Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(evmchain, nodeURL, web3j_cand);
+										Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(evmchain, nodeURL, web3j_cand, 1);
 										if ((null != latestblocknr) && (latestblocknr>0L)) {
 											activeNodeCount++;
 										}

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -520,4 +521,15 @@ public class StringsUtils {
         }
         return true;
     }
+
+	public static void decodeBase64PNGToFile(String encodedString, final String fileName) throws IOException {
+		Base64 base64 = new Base64();
+		byte[] decodedBytes = base64.decode(encodedString.getBytes());
+		try (FileOutputStream fos = new FileOutputStream(fileName)) {
+			fos.write(decodedBytes);
+		} catch (Exception e) {
+			LOGGER.warn("decodeBase64PNGToFile() exception: " + e.getMessage());
+		}
+	}
+	
 }

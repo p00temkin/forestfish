@@ -32,7 +32,8 @@ public class PolygonscanUtils {
 		int txCount = 0;
 		int page = 0;
 		int resultCount = 1000;
-		while (resultCount >= 1000) {
+		while (resultCount >= 0) {
+			resultCount = resultCount - 1;
 			page++;
 			EVMWalletTxHistoryReply reply = null;
 			String jsonSTR = TCPIPUtils.httpGETContent("https://api.polygonscan.com/api?module=account&action=tokentx&address=" + walletAddress + "&contractaddress=" + erc20contractaddress + "&startblock=1&endblock=99999999&page=" + page + "&offset=10000&sort=asc&apikey=" + apiKey, 10);

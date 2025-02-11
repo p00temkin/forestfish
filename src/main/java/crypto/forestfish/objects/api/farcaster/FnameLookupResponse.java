@@ -1,4 +1,4 @@
-package crypto.forestfish.objects.evm.farcaster;
+package crypto.forestfish.objects.api.farcaster;
 
 import java.util.ArrayList;
 

@@ -715,7 +715,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.NEAR.toString(), 
 				"NEAR Protocol", 
 				397L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // always shows 3780000 gwei for empty wallets?
 				new EVMCurrency("NEAR Protocol Gas Token", "NEAR", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -6727,6 +6727,36 @@ public class BlockchainDetailsMainEVM1 {
 		EVMChainInfo rebus = new EVMChainInfo(
 				EVMChain.REBUS.toString(), 
 				"Rebus Mainnet", 
+				9696L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Rebus Mainnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://apievml2.rebuschain.com/l2rpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://evm.rebuschain.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/9696");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.REBUS, rebus);
+		
+		// rebus_classic
+		EVMChainInfo rebus_classic = new EVMChainInfo(
+				EVMChain.REBUSCLASSIC.toString(), 
+				"Rebus Mainnet", 
 				1011L, 
 				BlockchainType.BORKED.toString(), // 502 from single node
 				new EVMCurrency("Rebus Mainnet Gas Token", "REBUS", 18), 
@@ -6751,7 +6781,7 @@ public class BlockchainDetailsMainEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.REBUS, rebus);
+		networks.put(EVMChain.REBUSCLASSIC, rebus_classic);
 
 		// lisk
 		EVMChainInfo lisk = new EVMChainInfo(
@@ -7925,7 +7955,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ACCUMULATE.toString(), 
 				"Accumulate Kermit", 
 				2478899481L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Accumulate Kermit Gas Token", "ACME", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10895,7 +10925,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.XPLA.toString(), 
 				"Xpla Mainnet", 
 				37L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Xpla Gas Token", "XPLA", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -14353,6 +14383,7 @@ public class BlockchainDetailsMainEVM1 {
 					this.add("https://rpc.mevblocker.io/fullprivacy");
 					this.add("https://eth1.lava.build/lava-referer-2d782cbf-8784-4606-a25b-f91e98729c71/");
 					this.add("https://eth.drpc.org");
+					this.add("https://api.securerpc.com/v1");
 
 					//this.add("https://main-rpc.linkpool.io"); // invalid cert
 					//this.add("https://main-light.eth.linkpool.io"); // invalid cert

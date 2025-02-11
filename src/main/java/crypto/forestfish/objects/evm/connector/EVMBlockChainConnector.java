@@ -24,24 +24,30 @@ public class EVMBlockChainConnector {
 	private HashMap<String, Boolean> deadnodes = new HashMap<>();
 
 	// call defaults
-	int callRetryThreshold = 3;
-	int confirmTimeInSecondsBeforeRetry = 20;
-	boolean haltOnFailedCall = true;
-
-	// tx defaults
-	int txRetryThreshold = 3;
-
-	public EVMBlockChainConnector(EVMChain _chain, String _forced_nodeURL, boolean _haltOnRPCNodeSelectionFail) {
+	private int callRetryThreshold = 3;
+	private int txRetryThreshold = 3;
+	private int nodeRetryThreshold = 3;
+	private int confirmTimeInSecondsBeforeRetry = 20;
+	private boolean haltOnFailedCall = true;
+	
+	public EVMBlockChainConnector(EVMChain _chain, String _forced_nodeURL, boolean _haltOnRPCNodeSelectionFail, boolean earlyMoveOnIfErrors) {
 		super();
 		this.chain = _chain;
 		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
 
+		if (earlyMoveOnIfErrors) {
+			this.callRetryThreshold = 1;
+			this.txRetryThreshold = 1;
+			this.nodeRetryThreshold = 1;
+			this.haltOnFailedCall = false;
+		}
+		
 		boolean initialization_complete = false;
 		int randomAttemptCounter = 0;
-		while (!initialization_complete && (randomAttemptCounter<=10)) {
+		while (!initialization_complete && (randomAttemptCounter<=this.getNodeRetryThreshold())) {
 			Web3j web3j_cand = Web3j.build(new HttpService(_forced_nodeURL));
 			long init = System.currentTimeMillis();
-			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, _forced_nodeURL, web3j_cand);
+			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, _forced_nodeURL, web3j_cand, nodeRetryThreshold);
 			//System.out.println("latestblocknr: " + latestblocknr);
 			long resp = System.currentTimeMillis() - init;
 			if ((null != latestblocknr) && (latestblocknr>0L)) {
@@ -51,7 +57,42 @@ public class EVMBlockChainConnector {
 				this.current_nodeURL = _forced_nodeURL;
 				initialization_complete = true;
 			} else {
-				LOGGER.info("Failed attempt using node " + _forced_nodeURL + ", randomAttemptCounter=" + randomAttemptCounter);
+				LOGGER.debug("Failed attempt using node " + _forced_nodeURL + ", randomAttemptCounter=" + randomAttemptCounter);
+			}
+			randomAttemptCounter++;
+		}
+		
+		if (!initialization_complete) {
+			if (_haltOnRPCNodeSelectionFail) {
+				LOGGER.error("Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
+				SystemUtils.halt();
+			} else {
+				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
+			}
+		}
+	}
+	
+	public EVMBlockChainConnector(EVMChain _chain, String _forced_nodeURL, boolean _haltOnRPCNodeSelectionFail) {
+		super();
+		this.chain = _chain;
+		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
+
+		boolean initialization_complete = false;
+		int randomAttemptCounter = 0;
+		while (!initialization_complete && (randomAttemptCounter<=this.getNodeRetryThreshold())) {
+			Web3j web3j_cand = Web3j.build(new HttpService(_forced_nodeURL));
+			long init = System.currentTimeMillis();
+			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, _forced_nodeURL, web3j_cand, this.getNodeRetryThreshold());
+			//System.out.println("latestblocknr: " + latestblocknr);
+			long resp = System.currentTimeMillis() - init;
+			if ((null != latestblocknr) && (latestblocknr>0L)) {
+				LOGGER.info("node URL " + _forced_nodeURL + " looks fine for " + this.chain);
+				LOGGER.info("latestblock='" + latestblocknr + "', response_time=" + resp + " ms");
+				this.provider_instance = web3j_cand;
+				this.current_nodeURL = _forced_nodeURL;
+				initialization_complete = true;
+			} else {
+				LOGGER.debug("Failed attempt using node " + _forced_nodeURL + ", randomAttemptCounter=" + randomAttemptCounter);
 			}
 			randomAttemptCounter++;
 		}
@@ -73,10 +114,30 @@ public class EVMBlockChainConnector {
 		selectRandomNodeURL(_haltOnRPCNodeSelectionFail);
 	}
 
+	public EVMBlockChainConnector(EVMChain _chain, boolean _nodeOptimized, boolean _haltOnRPCNodeSelectionFail, boolean earlyMoveOnIfErrors) {
+		super();
+		this.chain = _chain;
+		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
+		
+		if (earlyMoveOnIfErrors) {
+			this.callRetryThreshold = 1;
+			this.txRetryThreshold = 1;
+			this.nodeRetryThreshold = 1;
+			this.haltOnFailedCall = false;
+		}
+		
+		if (_nodeOptimized) {
+			selectSpeedyNodeURL(_haltOnRPCNodeSelectionFail);
+		} else {
+			selectRandomNodeURL(_haltOnRPCNodeSelectionFail);
+		}
+	}
+	
 	public EVMBlockChainConnector(EVMChain _chain, boolean _nodeOptimized, boolean _haltOnRPCNodeSelectionFail) {
 		super();
 		this.chain = _chain;
 		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
+		
 		if (_nodeOptimized) {
 			selectSpeedyNodeURL(_haltOnRPCNodeSelectionFail);
 		} else {
@@ -88,19 +149,19 @@ public class EVMBlockChainConnector {
 		this.setHaltOnFailedCall(_haltOnRPCNodeSelectionFail);
 		
 		// verify and select RPC connection
-		LOGGER.info("We need to get 1 of these candidates working, gonna go random:");
+		LOGGER.debug("We need to get 1 of these candidates working, gonna go random:");
 		int candindex = 1;
 		for (String nodeURL: this.chaininfo.getNodeURLs()) {
-			LOGGER.info(" #" + candindex + ": " + nodeURL);
+			LOGGER.debug(" #" + candindex + ": " + nodeURL);
 			candindex++;
 		}
 		boolean selection_complete = false;
 		int randomAttemptCounter = 0;
-		while (!selection_complete && (randomAttemptCounter<=3)) {
+		while (!selection_complete && (randomAttemptCounter<=this.nodeRetryThreshold)) {
 			String candidate = getRandom_nodeURL_candidate();
 			Web3j web3j_cand = Web3j.build(new HttpService(candidate));
 			long init = System.currentTimeMillis();
-			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand);
+			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand, this.getNodeRetryThreshold());
 			//System.out.println("latestblocknr: " + latestblocknr);
 			long resp = System.currentTimeMillis() - init;
 			if ( (null != latestblocknr) && (latestblocknr>0L)) {
@@ -110,14 +171,14 @@ public class EVMBlockChainConnector {
 				this.current_nodeURL = candidate;
 				selection_complete = true;
 			} else {
-				LOGGER.info("Failed attempt using node " + candidate + ", randomAttemptCounter=" + randomAttemptCounter);
+				LOGGER.debug("Failed attempt using node " + candidate + ", randomAttemptCounter=" + randomAttemptCounter);
 			}
 			randomAttemptCounter++;
 		}
 
 		if (!selection_complete) {
 			if (_haltOnRPCNodeSelectionFail) {
-				LOGGER.error("Unable to get an RPC connection for chain " + this.chain);
+				LOGGER.error("Unable to get an RPC connection for chain " + this.chain + ", instructed to halt.");
 				SystemUtils.halt();
 			} else {
 				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain);
@@ -128,21 +189,21 @@ public class EVMBlockChainConnector {
 	public void selectRandomNodeURL(String _skipthisNodeURL) {
 		// verify and select RPC connection
 		if (null == _skipthisNodeURL) {
-			LOGGER.info("We need to get 1 of these candidates working, gonna go random");
+			LOGGER.debug("We need to get 1 of these candidates working, gonna go random");
 			_skipthisNodeURL = "";
 		} else {
-			LOGGER.info("We need to get 1 of these candidates working, gonna go random without " + _skipthisNodeURL);
+			LOGGER.debug("We need to get 1 of these candidates working, gonna go random without " + _skipthisNodeURL);
 		}
 		int candindex = 1;
 		for (String nodeURL: this.chaininfo.getNodeURLs()) {
-			LOGGER.info(" #" + candindex + ": " + nodeURL);
+			LOGGER.debug(" #" + candindex + ": " + nodeURL);
 			candindex++;
 		}
 		boolean morethan1Candidate = true;
 		if (this.chaininfo.getNodeURLs().size() == 1) morethan1Candidate = false;
 		boolean selection_complete = false;
 		int randomAttemptCounter = 0;
-		while (!selection_complete && (randomAttemptCounter<=3)) {
+		while (!selection_complete && (randomAttemptCounter<=this.getNodeRetryThreshold())) {
 			String candidate = getRandom_nodeURL_candidate();
 			if (morethan1Candidate && _skipthisNodeURL.equals(candidate)) {
 				// lets pick a different node
@@ -152,11 +213,11 @@ public class EVMBlockChainConnector {
 			} else {	
 				Web3j web3j_cand = Web3j.build(new HttpService(candidate));
 				long init = System.currentTimeMillis();
-				Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand);
+				Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand, this.getNodeRetryThreshold());
 				long resp = System.currentTimeMillis() - init;
 				if ( (null != latestblocknr) && (latestblocknr>0L)) {
-					LOGGER.info("node URL " + candidate + " looks fine for " + this.chain + ", will use it");
-					LOGGER.info("latestblock='" + latestblocknr + "', response_time=" + resp + " ms");
+					LOGGER.debug("node URL " + candidate + " looks fine for " + this.chain + ", will use it");
+					LOGGER.debug("latestblock='" + latestblocknr + "', response_time=" + resp + " ms");
 					this.provider_instance = web3j_cand;
 					this.current_nodeURL = candidate;
 					selection_complete = true;
@@ -195,7 +256,7 @@ public class EVMBlockChainConnector {
 			// verify that the one we have works though
 			String candidate = this.getChaininfo().getNodeURLs().get(0);
 			Web3j web3j_cand = Web3j.build(new HttpService(candidate));
-			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand);
+			Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand, this.getNodeRetryThreshold());
 			if ( (null != latestblocknr) && (latestblocknr>0L)) {
 				winner = this.chaininfo.getNodeURLs().get(0);
 				this.current_nodeURL = winner;
@@ -230,7 +291,7 @@ public class EVMBlockChainConnector {
 					if (null == deadnodes.get(candidate)) {
 						Web3j web3j_cand = Web3j.build(new HttpService(candidate));
 						long init = System.currentTimeMillis();
-						Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand);
+						Long latestblocknr = EVMUtils.getLatestBlockNumberFromNodeAsHealthCheck(this.chain, candidate, web3j_cand, this.getNodeRetryThreshold());
 						//System.out.println("version: " + version);
 						long resp = System.currentTimeMillis() - init;
 						if ( (null != latestblocknr) && (latestblocknr>0L)) {
@@ -369,6 +430,22 @@ public class EVMBlockChainConnector {
 
 	public void setTxRetryThreshold(int txRetryThreshold) {
 		this.txRetryThreshold = txRetryThreshold;
+	}
+
+	public int getNodeRetryThreshold() {
+		return nodeRetryThreshold;
+	}
+
+	public void setNodeRetryThreshold(int nodeRetryThreshold) {
+		this.nodeRetryThreshold = nodeRetryThreshold;
+	}
+
+	public int getCallRetryThreshold() {
+		return callRetryThreshold;
+	}
+
+	public void setCallRetryThreshold(int callRetryThreshold) {
+		this.callRetryThreshold = callRetryThreshold;
 	}
 
 }

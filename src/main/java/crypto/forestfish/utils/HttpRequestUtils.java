@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class HttpRequestUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpRequestUtils.class);
-
+	
 	public static String getBodyUsingGETUrlRequest(String _url) {
 		try {
 			Document doc = Jsoup.connect(_url).ignoreContentType(true)

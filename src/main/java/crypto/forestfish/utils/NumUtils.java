@@ -7,6 +7,8 @@ import java.util.Random;
 
 public class NumUtils {
 
+	private static final Random RANDOM = new Random();
+	
 	// credit https://www.geeksforgeeks.org/round-the-given-number-to-nearest-multiple-of-10/
     public static int getNearestMultipleOf10(int n) {
         
@@ -39,8 +41,7 @@ public class NumUtils {
             return min; // default to max value
         }
         int diff = max-min;
-        final Random random = new Random();
-        int randValue = random.nextInt(diff+1) + min;
+        int randValue = RANDOM.nextInt(diff+1) + min;
         return randValue;
     }
     
@@ -52,8 +53,7 @@ public class NumUtils {
             return min; // default to max value
         }
         long diff = max-min;
-        final Random random = new Random();
-        long randValue = random.nextLong(diff+1) + min;
+        long randValue = RANDOM.nextLong(diff+1) + min;
         return randValue;
     }
     

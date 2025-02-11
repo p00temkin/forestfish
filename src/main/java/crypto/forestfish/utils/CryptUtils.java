@@ -25,6 +25,9 @@ public class CryptUtils {
 	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(CryptUtils.class);
 
+	private static SecureRandom RANDOM = new SecureRandom();
+	private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	
 	public static byte[] digest(byte[] data) throws NoSuchAlgorithmException {
 		CryptoProvider.setupIfNeeded();
 		MessageDigest digest = java.security.MessageDigest.getInstance("SHA256");
@@ -127,9 +130,8 @@ public class CryptUtils {
 	}
 
 	public static String generateSafe288BITToken() {
-		SecureRandom random = new SecureRandom();
 		byte[] bytes = new byte[36]; // 36 bytes * 8 = 288 bits
-		random.nextBytes(bytes);
+		RANDOM.nextBytes(bytes);
 		String token = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
 		return token;
 	}
@@ -236,13 +238,10 @@ public class CryptUtils {
 		return val;  
 	}
 
-	private static SecureRandom random = new SecureRandom();
-	private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
 	public static String generateRandomString() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < 54; i++) {
-			int index = random.nextInt(ALPHABET.length());
+			int index = RANDOM.nextInt(ALPHABET.length());
 			char randomChar = ALPHABET.charAt(index);
 			sb.append(randomChar);
 		}

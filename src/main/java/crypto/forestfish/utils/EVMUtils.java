@@ -87,6 +87,7 @@ public class EVMUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EVMUtils.class);
 
+	private static SecureRandom RANDOM = new SecureRandom();
 	public static String SIGN_PREFIX = "\u0019Ethereum Signed Message:\n32";
 	public static String signSTR(EVMLocalWallet localWallet, String message) {
 		return sign(localWallet.getCredentials(), message);
@@ -106,26 +107,24 @@ public class EVMUtils {
 
 	public static String generate12wordMnemonic() {
 		byte[] initialEntropy = new byte[16];
-		SecureRandom SECURE_RANDOM = new SecureRandom();
-		SECURE_RANDOM.nextBytes(initialEntropy);
+		RANDOM.nextBytes(initialEntropy);
 		String mnemonic = MnemonicUtils.generateMnemonic(initialEntropy);
 		return mnemonic;
 	}
 
 	public static String generate24wordMnemonic() {
 		byte[] initialEntropy = new byte[32];
-		SecureRandom SECURE_RANDOM = new SecureRandom();
-		SECURE_RANDOM.nextBytes(initialEntropy);
+		RANDOM.nextBytes(initialEntropy);
 		String mnemonic = MnemonicUtils.generateMnemonic(initialEntropy);
 		return mnemonic;
 	}
 
-	public static Long getLatestBlockNumberFromNodeAsHealthCheck(EVMChain chain, String nodeURL, Web3j web3j) {
+	public static Long getLatestBlockNumberFromNodeAsHealthCheck(EVMChain chain, String nodeURL, Web3j web3j, int nodeRetryThreshold) {
 		String meth = "getLatestBlockNumberFromNodeAsHealthCheck()";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<2) && (requestCount<3)) { // early exit
+		while ((nodeCallAttemptCount<2) && (requestCount<nodeRetryThreshold)) { // early exit
 			requestCount++;
 			try {
 				EthBlockNumber result = web3j.ethBlockNumber().sendAsync().get(); 
@@ -134,7 +133,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly), without connector
 				EVMProviderException evmE = analyzeProviderException(chain, nodeURL, ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=nodeRetryThreshold)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++;
 				if (evmE.isSleepBeforeRetry()) {
 					SystemUtils.sleepInSeconds(evmE.getSleepTimeInSecondsRecommended());
@@ -169,7 +168,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=3)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -195,7 +194,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -224,7 +223,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -249,7 +248,7 @@ public class EVMUtils {
 					ethGetBalance = _connector.getProvider_instance().ethGetBalance(_address, DefaultBlockParameterName.FINALIZED).send();
 				}
 				if (null == ethGetBalance.getResult()) {
-					LOGGER.warn("Unable to get a proper balance response");
+					LOGGER.warn("Unable to get a proper balance response for " + _address + " for chain " + _connector.getChain().toString());
 					return null;
 				}
 
@@ -257,14 +256,18 @@ public class EVMUtils {
 				BigDecimal balanceETH = Convert.fromWei(ethGetBalance.getBalance().toString(), Unit.ETHER);
 				BigDecimal balanceInGWEI = Convert.fromWei(ethGetBalance.getBalance().toString(), Unit.GWEI);
 				boolean isEmpty = true;
-				if ((null != balanceWEI) && balanceWEI.compareTo(BigInteger.ZERO) > 0) isEmpty = false;
-				BigDecimal scaledBalanceInGWEI = balanceInGWEI.setScale(0, RoundingMode.HALF_UP);
-				return new EVMAccountBalance(balanceWEI.toString(), scaledBalanceInGWEI.toString(), balanceETH.round(new MathContext(7)).toString(), _connector.getChaininfo().getNativeCurrency(), isEmpty);
+				if ((null != balanceWEI) && (balanceWEI.compareTo(BigInteger.ZERO) > 0)) {
+					isEmpty = false;
+					BigDecimal scaledBalanceInGWEI = balanceInGWEI.setScale(0, RoundingMode.HALF_UP);
+					return new EVMAccountBalance(balanceWEI.toString(), scaledBalanceInGWEI.toString(), balanceETH.round(new MathContext(7)).toString(), _connector.getChaininfo().getNativeCurrency(), isEmpty);
+				} else {
+					return new EVMAccountBalance("0", "0", "0", _connector.getChaininfo().getNativeCurrency(), isEmpty);
+				}
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -274,7 +277,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -306,14 +309,18 @@ public class EVMUtils {
 				BigDecimal balanceInETH = EVMUtils.convertBalanceInWeiToDecimals(balanceInWEI, _tokenInfo.getDecimals());
 				BigDecimal balanceInGWEI = EVMUtils.convertBalanceInWeiToGwei(balanceInWEI); 
 				boolean isEmpty = true;
-				if ((null != balanceInWEI) && balanceInWEI.compareTo(BigInteger.ZERO) > 0) isEmpty = false;
-				BigDecimal scaledBalanceInGWEI = balanceInGWEI.setScale(0, RoundingMode.HALF_UP);
-				return new EVMAccountBalance(balanceInWEI.toString(), scaledBalanceInGWEI.toString(), balanceInETH.toPlainString(), new EVMCurrency(_tokenInfo.getName(), _tokenInfo.getSymbol(), _tokenInfo.getDecimals()), isEmpty);
+				if ((null != balanceInWEI) && (balanceInWEI.compareTo(BigInteger.ZERO) > 0)) {
+					isEmpty = false;
+					BigDecimal scaledBalanceInGWEI = balanceInGWEI.setScale(0, RoundingMode.HALF_UP);
+					return new EVMAccountBalance(balanceInWEI.toString(), scaledBalanceInGWEI.toString(), balanceInETH.toPlainString(), new EVMCurrency(_tokenInfo.getName(), _tokenInfo.getSymbol(), _tokenInfo.getDecimals()), isEmpty);
+				} else {
+					return new EVMAccountBalance("0", "0", "0", new EVMCurrency(_tokenInfo.getName(), _tokenInfo.getSymbol(), _tokenInfo.getDecimals()), isEmpty);
+				}
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -323,7 +330,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -347,13 +354,17 @@ public class EVMUtils {
 
 				BigInteger balance = customERC721Contract.balanceOf(_account_address).send();
 				boolean isEmpty = true;
-				if ((null != balance) && balance.compareTo(BigInteger.ZERO) > 0) isEmpty = false;
-				return new EVMNftAccountBalance(balance.toString(), isEmpty);
+				if ((null != balance) && balance.compareTo(BigInteger.ZERO) > 0) {
+					isEmpty = false;
+					return new EVMNftAccountBalance(balance.toString(), isEmpty);
+				} else {
+					return new EVMNftAccountBalance("0", isEmpty);
+				}
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -363,10 +374,9 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
-		//return new EVMNftAccountBalance(new BigInteger("0").toString(), true);
 	}
 
 	public static String transferERC721Token(EVMBlockChainConnector _connector, Credentials _creds, String _target_address, String _tokenName, Long _tokenID) {
@@ -435,7 +445,7 @@ public class EVMUtils {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmE.isTimeout()) timeoutNoted = true;
@@ -447,7 +457,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -458,42 +468,15 @@ public class EVMUtils {
 
 		String address = _creds.getAddress();
 		PendingTxStatus pendingTX = checkForPendingTransactions(_connector, address);
-		if (pendingTX.isPending()) {
-			if (timeoutNoted) {
-				LOGGER.warn("We have pending (possibly stuck) transaction, but we already submitted a tx and got a timeout .. ");
-				LOGGER.warn("I think we are good but lost track of our tx .. the timeout probably needs to be increased for this chain ..");
-				return new NonceCheckStatus(pendingTX, true);
-			} else if (pendingTX.getNonce_diff() >= 2L) {
-				LOGGER.warn("The account  " + _creds.getAddress() + " has a nonce diff of " + pendingTX.getNonce_diff());
-				LOGGER.warn("We might have to try to reset this account. timeoutNoted=" + timeoutNoted + " txAttemptCount=" + txAttemptCount);
-				if (txAttemptCount>1) {
-					System.out.println("transactionAttemptCount is " + txAttemptCount + " so lets do it...");
-
-					String txhash_reset = EVMUtils.resetPendingTransactionsForAccount(_connector, _creds);
-					if (null == txhash_reset) {
-						LOGGER.error(" - Giving up on reset account transaction..");
-						SystemUtils.halt();
-					} else {
-						LOGGER.info(" - Reset account TX completed with hash: " + txhash_reset);
-						LOGGER.error("OK now we should be able to proceed with the actual tx");
-						SystemUtils.sleepInSeconds(3);
-					}
-				} else {
-					System.out.println("transactionAttemptCount is " + txAttemptCount + ", is this account running txs in parallel? Lets do an early exit ..");
+		if (null != pendingTX) {
+			if (pendingTX.isPending()) {
+				if (timeoutNoted) {
+					LOGGER.warn("We have pending (possibly stuck) transaction, but we already submitted a tx and got a timeout .. ");
+					LOGGER.warn("I think we are good but lost track of our tx .. the timeout probably needs to be increased for this chain ..");
 					return new NonceCheckStatus(pendingTX, true);
-				}
-			} else {
-				LOGGER.error("We have pending (possibly stuck) transaction, need clear that up before proceeding.");
-
-				LOGGER.info("First lets just try to wait it in");
-				boolean pendingResolved = brieflyWaitForPendingTransactionsToClear(_connector, address);
-				if (pendingResolved) {
-					LOGGER.info("Nice, we solved a problem by only waiting .. winning .. waiting just a few more to make sure all nodes are synced");
-					SystemUtils.sleepInSeconds(20);
-				} else {
-					LOGGER.warn("The account " + _creds.getAddress() + " might be stuck in pending state due to this one ..");
-					System.out.println("do a nonce reset automatically? ... send 0 value from/to my address?");
-
+				} else if (pendingTX.getNonce_diff() >= 2L) {
+					LOGGER.warn("The account  " + _creds.getAddress() + " has a nonce diff of " + pendingTX.getNonce_diff());
+					LOGGER.warn("We might have to try to reset this account. timeoutNoted=" + timeoutNoted + " txAttemptCount=" + txAttemptCount);
 					if (txAttemptCount>1) {
 						System.out.println("transactionAttemptCount is " + txAttemptCount + " so lets do it...");
 
@@ -507,11 +490,42 @@ public class EVMUtils {
 							SystemUtils.sleepInSeconds(3);
 						}
 					} else {
-						LOGGER.info("give up .. txAttempCount is " + txAttemptCount);
+						System.out.println("transactionAttemptCount is " + txAttemptCount + ", is this account running txs in parallel? Lets do an early exit ..");
 						return new NonceCheckStatus(pendingTX, true);
+					}
+				} else {
+					LOGGER.error("We have pending (possibly stuck) transaction, need clear that up before proceeding.");
+
+					LOGGER.info("First lets just try to wait it in");
+					boolean pendingResolved = brieflyWaitForPendingTransactionsToClear(_connector, address);
+					if (pendingResolved) {
+						LOGGER.info("Nice, we solved a problem by only waiting .. winning .. waiting just a few more to make sure all nodes are synced");
+						SystemUtils.sleepInSeconds(20);
+					} else {
+						LOGGER.warn("The account " + _creds.getAddress() + " might be stuck in pending state due to this one ..");
+						System.out.println("do a nonce reset automatically? ... send 0 value from/to my address?");
+
+						if (txAttemptCount>1) {
+							System.out.println("transactionAttemptCount is " + txAttemptCount + " so lets do it...");
+
+							String txhash_reset = EVMUtils.resetPendingTransactionsForAccount(_connector, _creds);
+							if (null == txhash_reset) {
+								LOGGER.error(" - Giving up on reset account transaction..");
+								SystemUtils.halt();
+							} else {
+								LOGGER.info(" - Reset account TX completed with hash: " + txhash_reset);
+								LOGGER.error("OK now we should be able to proceed with the actual tx");
+								SystemUtils.sleepInSeconds(3);
+							}
+						} else {
+							LOGGER.info("give up .. txAttempCount is " + txAttemptCount);
+							return new NonceCheckStatus(pendingTX, true);
+						}
 					}
 				}
 			}
+		} else {
+			LOGGER.warn("Unable to check for pending TX on chain " + _connector.getChain());
 		}
 		return new NonceCheckStatus(pendingTX, false);
 	}
@@ -554,7 +568,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -564,7 +578,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -633,7 +647,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -643,7 +657,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -654,17 +668,17 @@ public class EVMUtils {
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<3) && (requestCount<5)) {
+		while ((nodeCallAttemptCount<3) && (requestCount<_connector.getNodeRetryThreshold())) {
 			requestCount++;
 			try {
 				EthBlockNumber result = _connector.getProvider_instance().ethBlockNumber().sendAsync().get(); 
 				return result.getBlockNumber();
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
-				System.out.println("exception .. nodeCallAttemptCount=" + nodeCallAttemptCount + " requestCount=" + requestCount);
+				LOGGER.debug("Exception .. nodeCallAttemptCount=" + nodeCallAttemptCount + " requestCount=" + requestCount + " nodeURL: " + _connector.getCurrent_nodeURL());
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -678,7 +692,7 @@ public class EVMUtils {
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<3) && (requestCount<5)) {
+		while ((nodeCallAttemptCount<3) && (requestCount<_connector.getNodeRetryThreshold())) {
 			requestCount++;
 			try {
 				EthGetTransactionCount result = new EthGetTransactionCount();
@@ -692,7 +706,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -702,7 +716,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -712,7 +726,7 @@ public class EVMUtils {
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<3) && (requestCount<5)) {
+		while ((nodeCallAttemptCount<3) && (requestCount<_connector.getNodeRetryThreshold())) {
 			requestCount++;
 			try {
 				EthChainId chainId = _connector.getProvider_instance().ethChainId().send();
@@ -721,14 +735,18 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		if (_connector.isHaltOnFailedCall()) {
+			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
+			SystemUtils.halt();
+		} else {
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
+		}
 		return null;
 	}
 
@@ -745,7 +763,7 @@ public class EVMUtils {
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
 		boolean tx_attempt = false;
-		while ((nodeCallAttemptCount<3) && (requestCount<5)) {
+		while ((nodeCallAttemptCount<3) && (requestCount<_connector.getNodeRetryThreshold())) {
 			requestCount++;
 			try {
 				EthGasPrice gasPrice = _connector.getProvider_instance().ethGasPrice().send();
@@ -755,7 +773,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -765,7 +783,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -784,7 +802,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -794,7 +812,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -811,7 +829,7 @@ public class EVMUtils {
 		int requestCount = 0;
 		BigInteger increaseGasPriceInWEI = BigInteger.valueOf(0);
 
-		while (!confirmedTransaction && (nodeCallAttemptCount<10) && (requestCount<15)) {
+		while (!confirmedTransaction && (nodeCallAttemptCount<10) && (requestCount<_connector.getNodeRetryThreshold())) {
 			requestCount++;
 			try {
 
@@ -958,7 +976,7 @@ public class EVMUtils {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmE.isTimeout()) timeoutNoted = true;
@@ -1006,7 +1024,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -1045,7 +1063,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -1068,7 +1086,7 @@ public class EVMUtils {
 			LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries .. ABORT!");
 			SystemUtils.halt();
 		} else {
-			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up");
+			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
 		return null;
 	}
@@ -1091,7 +1109,7 @@ public class EVMUtils {
 		}
 		int requestCount = 0;
 
-		while (!confirmedTransaction && (nodeCallAttemptCount<10) && (requestCount<15)) {
+		while (!confirmedTransaction && (nodeCallAttemptCount<_connector.getNodeRetryThreshold()) && (requestCount<15)) {
 			requestCount++;
 
 			/**
@@ -1307,27 +1325,31 @@ public class EVMUtils {
 
 							LOGGER.info("Lets check if our nonce is still pending");
 							PendingTxStatus pendingTX = checkForPendingTransactions(_connector, _creds.getAddress());
-							LOGGER.info("hmpf. " + pendingTX.toString());
+							if (null != pendingTX) {
+								LOGGER.info("hmpf. " + pendingTX.toString());
 
-							int pendingCounter = 0;
-							while (pendingTX.isPending() && (pendingCounter <= 100)) {
-								LOGGER.info("We have a pending TX so the tx went through .. lets wait another 100x10 seconds");
-								pendingCounter++;
-								SystemUtils.sleepInSeconds(10);
-								pendingTX = checkForPendingTransactions(_connector, _creds.getAddress());
-							}
+								int pendingCounter = 0;
+								while (pendingTX.isPending() && (pendingCounter <= 100)) {
+									LOGGER.info("We have a pending TX so the tx went through .. lets wait another 100x10 seconds");
+									pendingCounter++;
+									SystemUtils.sleepInSeconds(10);
+									pendingTX = checkForPendingTransactions(_connector, _creds.getAddress());
+								}
 
-							if ( (pendingCounter>0) && !pendingTX.isPending()) {
-								LOGGER.error("OK so the tx could have been removed from the mempool but check the tx again? txhash: " + txhash);
-								LOGGER.error("Blockchain is " + _connector.getChain().toString());
-								SystemUtils.halt();
-							}
+								if ( (pendingCounter>0) && !pendingTX.isPending()) {
+									LOGGER.error("OK so the tx could have been removed from the mempool but check the tx again? txhash: " + txhash);
+									LOGGER.error("Blockchain is " + _connector.getChain().toString());
+									SystemUtils.halt();
+								}
 
-							if (!confirmedTransaction && _haltOnUnconfirmedTX) {
-								LOGGER.error("We cant just continue with the tx here, instructed to halt on unconfirmed tx. Blockchain is " + _connector.getChain().toString());
-								SystemUtils.halt();
+								if (!confirmedTransaction && _haltOnUnconfirmedTX) {
+									LOGGER.error("We cant just continue with the tx here, instructed to halt on unconfirmed tx. Blockchain is " + _connector.getChain().toString());
+									SystemUtils.halt();
+								} else {
+									return null;
+								}
 							} else {
-								return null;
+								LOGGER.warn("Unable to check for pending TX on chain " + _connector.getChain());
 							}
 						} else {
 							if (_haltOnUnconfirmedTX) {
@@ -1384,7 +1406,7 @@ public class EVMUtils {
 					// RPC tx exceptions (readwrite)
 					EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 					if (evmE.isSkiptx()) requestCount = 100; // early exit
-					if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+					if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 					EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 					if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 					if (evmE.isTimeout()) timeoutNoted = true;
@@ -1395,7 +1417,7 @@ public class EVMUtils {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmE.isTimeout()) timeoutNoted = true;
@@ -1473,7 +1495,7 @@ public class EVMUtils {
 		}
 		if (null != _customNonce) {
 			LOGGER.info("We are doing custom nonce, so doubling gas price used");
-			gasPriceInWEI.multiply(new BigInteger("2"));
+			gasPriceInWEI = gasPriceInWEI.multiply(new BigInteger("2"));
 		}
 		if (withLogOutput) LOGGER.info(StringsUtils.cutAndPadStringToN("Moving forward with gasprice", 39) + ": " + Convert.fromWei(gasPriceInWEI.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPriceInWEI.toString() + " wei)");
 
@@ -1537,7 +1559,7 @@ public class EVMUtils {
 					}
 				}
 
-				if (nonce_pending.compareTo(nonce_latest) == 0) {
+				if ((null != nonce_latest) && (null != nonce_pending) && (nonce_pending.compareTo(nonce_latest) == 0)) {
 					if (null != nonce_finalized) {
 						if (nonce_pending.compareTo(nonce_finalized) == 0) {
 							LOGGER.info("checkForPendingTransactions() - No pending tx for " + _address + ", all good to proceed (nonce=" + nonce_pending.longValue() + ", nonce_finalized=" + nonce_finalized.longValue() + ", requestCount=" + requestCount + ")");
@@ -1555,11 +1577,15 @@ public class EVMUtils {
 					}
 				} else {
 					LOGGER.warn("We have pending (possibly stuck) transaction:");
-					LOGGER.warn(" - nonce_pending  : " + nonce_pending.longValue());
-					LOGGER.warn(" - nonce_latest   : " + nonce_latest.longValue());
+					if (null != nonce_pending) LOGGER.warn(" - nonce_pending  : " + nonce_pending.longValue());
+					if (null != nonce_latest) LOGGER.warn(" - nonce_latest   : " + nonce_latest.longValue());
 					if (null != nonce_finalized) LOGGER.warn(" - nonce_finalized: " + nonce_finalized.longValue());
-					Long nonce_diff = nonce_pending.subtract(nonce_latest).longValue();
-					return new PendingTxStatus(true, nonce_latest, nonce_pending, nonce_finalized, nonce_diff);
+					if (null != nonce_latest) {
+						Long nonce_diff = nonce_pending.subtract(nonce_latest).longValue();
+						return new PendingTxStatus(true, nonce_latest, nonce_pending, nonce_finalized, nonce_diff);
+					} else {
+						return null;
+					}
 				}
 
 			} catch (Exception ex) {
@@ -1573,15 +1599,14 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
 
-		LOGGER.error("Unable to get nonce state for " + _address + " on " + _connector.getChain() + ", exiting ..");
-		SystemUtils.halt();
+		LOGGER.warn("Unable to get nonce state for " + _address + " on " + _connector.getChain() + ", exiting ..");
 		return null;
 	}
 
@@ -1624,7 +1649,7 @@ public class EVMUtils {
 				// RPC call exceptions (readonly)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmAS = actAndGetStateEVMProviderException(evmE, _connector, false, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
@@ -1816,7 +1841,7 @@ public class EVMUtils {
 				} catch (Exception e) {
 					EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), e, meth, tx_attempt);
 					if (evmE.isSkiptx()) requestCount = 100; // early exit
-					if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+					if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 
 					//----------------------------------------------------------------
 					if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
@@ -1850,7 +1875,7 @@ public class EVMUtils {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmE.isTimeout()) timeoutNoted = true;
@@ -1945,7 +1970,7 @@ public class EVMUtils {
 					// RPC tx exceptions (readwrite)
 					EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 					if (evmE.isSkiptx()) requestCount = 100; // early exit
-					if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+					if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 					EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 					if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 					if (evmE.isTimeout()) timeoutNoted = true;
@@ -1956,7 +1981,7 @@ public class EVMUtils {
 				// RPC tx exceptions (readwrite)
 				EVMProviderException evmE = analyzeProviderException(_connector.getChain(), _connector.getCurrent_nodeURL(), ex, meth, tx_attempt);
 				if (evmE.isSkiptx()) requestCount = 100; // early exit
-				if (evmE.isTimeout() && (requestCount>=5)) evmE.setSwitchNode(true); // give up on timeout retries and switch node
+				if (evmE.isTimeout() && (requestCount>=_connector.getNodeRetryThreshold())) evmE.setSwitchNode(true); // give up on timeout retries and switch node
 				EVMProviderExceptionActionState evmEAS = actAndGetStateEVMProviderException(evmE, _connector, _haltOnUnconfirmedTX, nodeCallAttemptCount);
 				if (evmE.isNodeInteraction()) nodeCallAttemptCount++; 
 				if (evmE.isTimeout()) timeoutNoted = true;
@@ -2033,7 +2058,7 @@ public class EVMUtils {
 				(null == _ex) ||
 				((null != _ex) && (null == _ex.getMessage())) ||
 				false) {
-			LOGGER.info("Unable to communicate with nodeURL " + _nodeURL + ".. will not retry and switch provider, move on to next node");
+			LOGGER.debug("Unable to communicate with nodeURL " + _nodeURL + ".. will not retry and switch provider, move on to next node");
 			exceptionType = ExceptionType.NODE_UNAVAILABLE;	
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 1;
@@ -2042,7 +2067,7 @@ public class EVMUtils {
 				_ex.getMessage().contains("Network is unreachable") ||
 				false) {
 			// https://rpc.ankr.com/polygon, response: "Network is unreachable"
-			LOGGER.info("Got a network unreachable for nodeURL " + _nodeURL + ".. will sleep extra and retry .. ex: " + _ex.getMessage());
+			LOGGER.debug("Got a network unreachable for nodeURL " + _nodeURL + ".. will sleep extra and retry .. ex: " + _ex.getMessage());
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 30;
@@ -2058,7 +2083,7 @@ public class EVMUtils {
 				false) {
 			// java.net.SocketTimeoutException: connect timed out
 			// java.net.SocketTimeoutException: Read timed out
-			LOGGER.info("Got a timeout for nodeURL " + _nodeURL + ".. will retry .. ex: " + _ex.getMessage());
+			LOGGER.debug("Got a timeout for nodeURL " + _nodeURL + " ex: " + _ex.getMessage());
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
@@ -2072,7 +2097,7 @@ public class EVMUtils {
 				(_ex.getMessage().contains("rate limit exceeded")) ||
 				false) {
 			// https://polygon-mumbai.gateway.tenderly.co: Invalid response received: 429; {"id":48275,"jsonrpc":"2.0","error":{"code":-32005,"message":"rate limit exceeded"}}
-			LOGGER.warn("Got rate limited by nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got rate limited by nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
@@ -2101,14 +2126,14 @@ public class EVMUtils {
 			// https://rpc.startale.com/zkatana: "rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 10.65.132.186:50071: connect: connection refused"
 			// https://endpoints.omniatech.io/v1/op/goerli/public: "Post "https://goerli-sequencer.optimism.io": dial tcp: lookup goerli-sequencer.optimism.io on 127.0.0.53:53: no such host"
 			// https://lbry.nl/rpc, response: "com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'LBRY': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
-			LOGGER.warn("Got a connection reset from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a connection reset from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
 				_ex.getMessage().contains("UnknownHostException") ||
 				_ex.getMessage().contains("No such host is known") ||
 				false) {
-			LOGGER.info("Unable to resolve host using nodeURL " + _nodeURL + ".. will not retry and switch provider, move on to next node");
+			LOGGER.debug("Unable to resolve host using nodeURL " + _nodeURL + ".. will not retry and switch provider, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 1;
@@ -2119,13 +2144,17 @@ public class EVMUtils {
 				false) {
 			// https://github.com/web3j/web3j/issues/1643
 			// https://endpoints.omniatech.io/v1/op/goerli/public: "Cannot construct instance of `org.web3j.protocol.core.methods.response.EthSendTransaction` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value ('^....
-			LOGGER.info("Response decode error from nodeURL " + _nodeURL + ", did you use PENDING+getBalance() on BERACHAIN? Or FINALIZED+getNonce() on a chain which does not support it? ill not retry, move on to next node. Error message: " + _ex.getMessage());
+			LOGGER.debug("Response decode error from nodeURL " + _nodeURL + ", did you use PENDING+getBalance() on BERACHAIN? Or FINALIZED+getNonce() on a chain which does not support it? ill not retry, move on to next node. Error message: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
 				_ex.getMessage().contains("is null") ||
 				false) {
-			LOGGER.info("No proper response from nodeURL " + _nodeURL + ", will not retry and move on to next node");
+			if (null == _nodeURL) {
+				LOGGER.debug("Invalid nodeURL " + _nodeURL);
+			} else {
+				LOGGER.debug("No proper response from nodeURL " + _nodeURL + ", will not retry and move on to next node");
+			}
 			exceptionType = ExceptionType.NODE_UNAVAILABLE;	
 			switchNode = true;
 		} else if (false ||
@@ -2133,16 +2162,16 @@ public class EVMUtils {
 				_ex.getMessage().contains("is null") ||
 				false) {
 			// https://fantom-testnet.public.blastapi.io, response: "Cannot read field "signum" because "val" is null"
-			LOGGER.info("Response decode error from nodeURL " + _nodeURL + ", did you use FINALIZED+getNonce() on a chain which does not support it? ill not retry, move on to next node. Error message: " + _ex.getMessage());
+			LOGGER.debug("Response decode error from nodeURL " + _nodeURL + ", did you use FINALIZED+getNonce() on a chain which does not support it? ill not retry, move on to next node. Error message: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("No value present")) {
 			// No value present
-			LOGGER.info("Got a no value present error from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a no value present error from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("404;")) {
-			LOGGER.warn("Got a 404 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a 404 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
@@ -2159,14 +2188,14 @@ public class EVMUtils {
 			// https://rpc.velaverse.io: Received fatal alert: internal_error
 			// https://rpc.ankr.com/filecoin_testnet, response: "Error processing request: failed to lookup Eth Txn 0x7e... as baf...: failed to load the actor: load state tree: failed to load state tree bafy... failed to load hamt node: ipld: could not find
 			// https://endpoints.omniatech.io/v1/eth/sepolia/public: "ID1ID2: actual 0x00007b22 != expected 0x00001f8b"
-			LOGGER.warn("Got a 500 internal server error response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a 500 internal server error response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
 				_ex.getMessage().contains("RPC is deprecated. Please use another provider") ||
 				false) {
 			//  https://rpc-mumbai.maticvigil.com: org.web3j.protocol.exceptions.ClientConnectionException: Invalid response received: 403; Our Mumbai RPC is deprecated. Please use another provider.
-			LOGGER.info("Got an unknown/invalid RPC reply from nodeURL " + _nodeURL + ".. will not retry, move on to next node. ex: " + _ex.getMessage());
+			LOGGER.debug("Got an RPC deprecated reply from nodeURL " + _nodeURL + ".. will not retry, move on to next node. ex: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (false ||
@@ -2178,50 +2207,50 @@ public class EVMUtils {
 			// org.web3j.protocol.exceptions.ClientConnectionException: Invalid response received: 403; {"message":"Forbidden"}
 			// org.web3j.protocol.exceptions.ClientConnectionException: Invalid response received: 521; 
 			// https://zksync.drpc.org: Numeric value (4294935296) out of range of int (-2147483648 - 2147483647) at [Source: (ByteArrayInputStream); line: 1, column: 79] (through reference chain: org.web3j.protocol.core.methods.response.EthGasPrice["error"]->org.web3j.protocol.core.Response$Error["code"])"
-			LOGGER.info("Got an unknown/invalid RPC reply from nodeURL " + _nodeURL + ".. will not retry, move on to next node. ex: " + _ex.getMessage());
+			LOGGER.debug("Got an known invalid RPC reply from nodeURL " + _nodeURL + ".. will not retry, move on to next node. ex: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("502 Bad Gateway")) {
 			// 502; <html><head><title>502 Bad Gateway</title></head><body><center><h1>502 Bad Gateway</h1></center></body></html>
-			LOGGER.warn("Got a 502 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a 502 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("503")) {
 			// 503; <html><body><h1>503 Service Unavailable</h1>
 			// <center><h1>503 Service Temporarily Unavailable</h1></center>
-			LOGGER.warn("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("unexpected")) {
 			// java.io.IOException: unexpected end of stream on
-			LOGGER.warn("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("protocol_version")) {
 			// https://smart.zeniq.network:9545: "javax.net.ssl.SSLHandshakeException: Received fatal alert: protocol_version"
-			LOGGER.warn("Got a SSL Protocol Version issue from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a SSL Protocol Version issue from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("mempool is full")) {
-			LOGGER.warn("Got a mempool full response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a mempool full response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().toLowerCase().contains("maximum load")) {
 			// Maximum load exceeded.
-			LOGGER.warn("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a 503 non JSON response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 10;
 			switchNode = true;
 		} else if (_ex.getMessage().contains("Unsupported")) {
 			// https://taycan-rpc.hupayx.io:8545: javax.net.ssl.SSLException: Unsupported or unrecognized SSL message
-			LOGGER.warn("Got an invalid SSL cert from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got an invalid SSL cert from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("PKIX path")) {
 			// javax.net.ssl.SSLHandshakeException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException
 			// javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: validity check failed
-			LOGGER.warn("Got an invalid SSL cert from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got an invalid SSL cert from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("javax.net.ssl.SSLPeerUnverifiedException")) {
@@ -2229,32 +2258,32 @@ public class EVMUtils {
 			//certificate: sha256/U95EtMx8zsqjbErAr71y57SwDgA2rZnTLlTIvQqMRzE=
 			//	    DN: CN=raa.namecheap.com
 			//	    subjectAltNames: [raa.namecheap.com, www.raa.namecheap.com]
-			LOGGER.warn("Got an invalid SSL cert from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got an invalid SSL cert from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("405 Not Allowed")) {
 			// <center><h1>405 Not Allowed</h1></center>
-			LOGGER.warn("Got a 405 response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a 405 response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("Contract Call has been reverted by the EVM with the reason")) {
 			// Contract Call has been reverted by the EVM with the reason: 'Cannot fulfill request'
-			LOGGER.warn("Got a contract call reverted from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got a contract call reverted from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().toLowerCase().contains("invalid numeric")) {
 			// Invalid numeric value: Leading zeroes not allowed
-			LOGGER.warn("Got invalid numeric value from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got invalid numeric value from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("access_denied")) {
 			// javax.net.ssl.SSLHandshakeException: Received fatal alert: access_denied (caused by cloudflare-eth.com, AV?)
-			LOGGER.warn("Got accessed denied from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got accessed denied from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
 		} else if (_ex.getMessage().contains("exceeds the configured cap")) {
 			// https://testnet.liquidlayer.network: tx fee (19.58 ether) exceeds the configured cap (1.00 ether)
-			LOGGER.warn("Tx fee issue response from nodeURL " + _nodeURL + ".. will not retry, fix your code. Exception: " + _ex.getMessage());
+			LOGGER.debug("Tx fee issue response from nodeURL " + _nodeURL + ".. will not retry, fix your code. Exception: " + _ex.getMessage());
 			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().contains("Transaction receipt was not generated after 600 seconds for transaction")) {
 			// Transaction receipt was not generated after 600 seconds for transaction
@@ -2286,12 +2315,12 @@ public class EVMUtils {
 			increaseGasPrice = true;
 		} else if (_ex.getMessage().contains("transaction underpriced")) {
 			// JsonRpcError thrown with code -32000. Message: transaction underpriced
-			LOGGER.warn("Got transaction underpriced from nodeURL " + _nodeURL + ".. will increase gasprice and try again");
+			LOGGER.debug("Got transaction underpriced from nodeURL " + _nodeURL + ".. will increase gasprice and try again");
 			exceptionType = ExceptionType.NODE_RECOVERABLE;
 			increaseGasPrice = true;
 		} else if (_ex.getMessage().contains("invalid unit price")) {
 			// invalid unit price, https://pkg.go.dev/github.com/klaytn/klaytn/blockchain
-			LOGGER.warn("Got invalid unit price from " + _nodeURL + ".. will not retry, move on to next node");
+			LOGGER.debug("Got invalid unit price from " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;	
 		} else if (_ex.getMessage().contains("a legacy transaction must be with a legacy account key")) {
@@ -2306,7 +2335,7 @@ public class EVMUtils {
 			exceptionType = ExceptionType.FATAL;
 		} else if (_ex.getMessage().contains("Unable to determine sync status of node")) {
 			// org.web3j.ens.EnsResolutionException: Unable to determine sync status of node
-			LOGGER.warn("Got a sync status unknown from nodeURL " + _nodeURL + ".. will not retry since this usually means your specified address is misformed");
+			LOGGER.debug("Got a sync status unknown from nodeURL " + _nodeURL + ".. will not retry since this usually means your specified address is misformed");
 			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().contains("only replay-protected (EIP-155) transactions allowed over RPC")) {
 			// only replay-protected (EIP-155) transactions allowed over RPC
@@ -2333,13 +2362,14 @@ public class EVMUtils {
 			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().toLowerCase().contains("nonce too low")) {
 			// INTERNAL_ERROR: nonce too low
-			LOGGER.warn("Got nonce too low from nodeURL " + _nodeURL + ".. this usually means you screwed up when passing a custom nonce");
 			if (_chain == EVMChain.BASEGOERLITEST) {
-				LOGGER.info("This does happen from time to time on the BASE test network though, lets retry");
+				LOGGER.debug("Got nonce too low from nodeURL " + _nodeURL + ".. this usually means you screwed up when passing a custom nonce");
+				LOGGER.debug("This does happen from time to time on the BASE test network though, lets retry");
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
 			} else {
-				LOGGER.info("This should not happen for " + _chain + ", exiting");
+				LOGGER.warn("Got nonce too low from nodeURL " + _nodeURL + ".. this usually means you screwed up when passing a custom nonce");
+				LOGGER.warn("This should not happen for " + _chain + ", exiting");
 				exceptionType = ExceptionType.FATAL;
 			}
 		} else if (_ex.getMessage().toLowerCase().contains("revert")) {
@@ -2409,6 +2439,7 @@ public class EVMUtils {
 			if (false ||
 					_ex.getMessage().contains("daily request count exceeded") ||
 					_ex.getMessage().contains("You have sent too many requests in a given amount of time") ||
+					_ex.getMessage().contains("Too Many Requests") ||
 					false) {
 				LOGGER.info("RPC Node limit reached for nodeURL " + _nodeURL + ", we should probably cool down: " + _ex.getMessage());
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
@@ -2685,8 +2716,8 @@ public class EVMUtils {
 				} else {
 					BigInteger latestBlockNr = EVMUtils.getLatestBlockNumberOpportunistic(connector_temp);
 					if (null == latestBlockNr) {
-						LOGGER.warn("Seems we cant get a good connection to the chain " + chain);
-						LOGGER.info("Skipping and will move on ..");
+						LOGGER.debug("Seems we cant get a good connection to the chain " + chain);
+						LOGGER.debug("Skipping and will move on ..");
 					} else {
 
 						if (_debug) LOGGER.info("We have a valid connector for chain " + chain +", latestBlockNr=" + latestBlockNr);
@@ -2699,88 +2730,93 @@ public class EVMUtils {
 						EVMBlockChainConnector connector = _ultra_connector.getConnectors().get(chain);
 
 						if (null != connector) {
+							LOGGER.debug("getTransactionCountForAddress() call for " + _account_addr + " and chain " + connector.getChain().toString());
 							BigInteger txCount = EVMUtils.getTransactionCountForAddress(connector, _account_addr);
-
-							/**
-							 * Check native balance
-							 */
-							native_balance = EVMUtils.getAccountNativeBalance(connector, _account_addr);
-							if ((null != native_balance) && (!native_balance.isEmpty())) {
+							if (null != txCount) {
 
 								/**
-								 * Check presence of known ERC-20 tokens on chain
+								 * Check native balance
 								 */
-								ERC20TokenIndex idx = chainInfo.getTokenIndex();
-								for (String tokenName: idx.getTokens().keySet()) {
-									if (_debug) System.out.println(" ... " + tokenName);
-									if (false ||
-											(null == _erc20_restriction) || // no restriction
-											((null != _erc20_restriction) && (null != _erc20_restriction.get(tokenName))) || // restriction but match
-											false) {
-										EVMERC20TokenInfo tokenInfo = idx.getTokens().get(tokenName);
-										if (isEVMNoiseToken(tokenInfo.getCategory())) {
-											// skip
-										} else {
-											EVMAccountBalance token_balance = EVMUtils.getAccountBalanceForERC20Token(connector, _account_addr, tokenInfo);
+								native_balance = EVMUtils.getAccountNativeBalance(connector, _account_addr);
+								if ((null != native_balance) && (!native_balance.isEmpty())) {
 
-											// Decimals debug
-											if (_debug && (chain == EVMChain.POLYGON) && ("WETH".equals(tokenName))) {
-												System.out.println(tokenName + " token_balance: " + token_balance.toString());
-											}
-
-											if (!token_balance.isEmpty()) {
-												erc20tokens.put(tokenName, token_balance);
-											}
-										}
-									}
-								}
-
-								/**
-								 * Check presence of known ERC-721 tokens on chain
-								 */
-								if (_checkForNFTs) {
-									EVMNFTIndex idx_nft = chainInfo.getNftindex();
-									for (String nftName: idx_nft.getErc721tokens().keySet()) {
+									/**
+									 * Check presence of known ERC-20 tokens on chain
+									 */
+									ERC20TokenIndex idx = chainInfo.getTokenIndex();
+									for (String tokenName: idx.getTokens().keySet()) {
+										if (_debug) System.out.println(" ... " + tokenName);
 										if (false ||
-												(null == _nft_restriction) || // no restriction
-												((null != _nft_restriction) && (null != _nft_restriction.get(nftName))) || // restriction but match
+												(null == _erc20_restriction) || // no restriction
+												((null != _erc20_restriction) && (null != _erc20_restriction.get(tokenName))) || // restriction but match
 												false) {
-											EVMERC721TokenInfo nftInfo = idx_nft.getErc721tokens().get(nftName);
-											if (isEVMNoiseToken(nftInfo.getCategory())) {
+											EVMERC20TokenInfo tokenInfo = idx.getTokens().get(tokenName);
+											if (isEVMNoiseToken(tokenInfo.getCategory())) {
 												// skip
 											} else {
-												EVMNftAccountBalance nft_balance = EVMUtils.getAccountBalanceForERC721Token(connector, _account_addr, nftInfo);
-												if (!nft_balance.isEmpty()) {
-													erc721tokens.put(nftName, nft_balance);
+												EVMAccountBalance token_balance = EVMUtils.getAccountBalanceForERC20Token(connector, _account_addr, tokenInfo);
+
+												// Decimals debug
+												if (_debug && (chain == EVMChain.POLYGON) && ("WETH".equals(tokenName))) {
+													System.out.println(tokenName + " token_balance: " + token_balance.toString());
+												}
+
+												if (!token_balance.isEmpty()) {
+													erc20tokens.put(tokenName, token_balance);
 												}
 											}
 										}
 									}
-								}
 
-								/**
-								 * Check presence of known ERC-1155 tokens on chain
-								 */
-								/*
-								NFTIndex idx_nft_1155 = chainInfo.getNftindex();
-								for (String nftName: idx_nft_1155.getErc1155tokens().keySet()) {
-									EVMERC1155TokenInfo nftInfo = idx_nft_1155.getErc1155tokens().get(nftName);
-									if (false ||
-											(TokenCategory.valueOf(nftInfo.getCategory()) == TokenCategory.UNKNOWN) ||
-											(TokenCategory.valueOf(nftInfo.getCategory()) == TokenCategory.SCAM) ||
-											false) {
-										// skip
-									} else {
-										EVMNftAccountBalance nft_balance = EVMUtils.getAccountBalanceForERC1155Token(connector, account_addr, nftInfo);
-										if (!nft_balance.isEmpty()) {
-											erc1155tokens.put(nftName, nft_balance);
+									/**
+									 * Check presence of known ERC-721 tokens on chain
+									 */
+									if (_checkForNFTs) {
+										EVMNFTIndex idx_nft = chainInfo.getNftindex();
+										for (String nftName: idx_nft.getErc721tokens().keySet()) {
+											if (false ||
+													(null == _nft_restriction) || // no restriction
+													((null != _nft_restriction) && (null != _nft_restriction.get(nftName))) || // restriction but match
+													false) {
+												EVMERC721TokenInfo nftInfo = idx_nft.getErc721tokens().get(nftName);
+												if (isEVMNoiseToken(nftInfo.getCategory())) {
+													// skip
+												} else {
+													EVMNftAccountBalance nft_balance = EVMUtils.getAccountBalanceForERC721Token(connector, _account_addr, nftInfo);
+													if (!nft_balance.isEmpty()) {
+														erc721tokens.put(nftName, nft_balance);
+													}
+												}
+											}
 										}
 									}
-								}
-								 */
 
-								EVMChainPortfolio portfolio = new EVMChainPortfolio(_account_addr, chain.toString(), native_balance, txCount.toString(), erc20tokens, erc721tokens, erc1155tokens);
-								chainportfolio.put(chain, portfolio);
+									/**
+									 * Check presence of known ERC-1155 tokens on chain
+									 */
+									/*
+									NFTIndex idx_nft_1155 = chainInfo.getNftindex();
+									for (String nftName: idx_nft_1155.getErc1155tokens().keySet()) {
+										EVMERC1155TokenInfo nftInfo = idx_nft_1155.getErc1155tokens().get(nftName);
+										if (false ||
+												(TokenCategory.valueOf(nftInfo.getCategory()) == TokenCategory.UNKNOWN) ||
+												(TokenCategory.valueOf(nftInfo.getCategory()) == TokenCategory.SCAM) ||
+												false) {
+											// skip
+										} else {
+											EVMNftAccountBalance nft_balance = EVMUtils.getAccountBalanceForERC1155Token(connector, account_addr, nftInfo);
+											if (!nft_balance.isEmpty()) {
+												erc1155tokens.put(nftName, nft_balance);
+											}
+										}
+									}
+									 */
+
+									EVMChainPortfolio portfolio = new EVMChainPortfolio(_account_addr, chain.toString(), native_balance, txCount.toString(), erc20tokens, erc721tokens, erc1155tokens);
+									chainportfolio.put(chain, portfolio);
+								}
+							} else {
+								LOGGER.debug("Unable to get txCount for " + _account_addr + ", skipping");
 							}
 						}
 					}
@@ -3514,18 +3550,22 @@ public class EVMUtils {
 		// force custom behavior for chain?
 		if (_connector.getChain() == EVMChain.MANTLETEST) {
 			PendingTxStatus pendingTX = checkForPendingTransactions(_connector, cred.getAddress());
-			if (pendingTX.getNonce_diff() == 0L) {
-				Long nonce_to_use = pendingTX.getNonce_finalized().longValue();
-				LOGGER.info("Since we are dealing with " + _connector.getChain().toString() + " going to set nonce to " + nonce_to_use);
-				if ("LEGACY".equals(_connector.getChaininfo().getPriceMechanism())) {
-					txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(_connector, cred, to_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
-				} else if ("EIP1559".equals(_connector.getChaininfo().getPriceMechanism())) {
-					txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, cred, to_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
-				} else {
-					LOGGER.error("Unable to handle pricing mechanism named: " + _connector.getChaininfo().getPriceMechanism());
-					SystemUtils.halt();
-				}
-			}	
+			if (null != pendingTX) {
+				if (pendingTX.getNonce_diff() == 0L) {
+					Long nonce_to_use = pendingTX.getNonce_finalized().longValue();
+					LOGGER.info("Since we are dealing with " + _connector.getChain().toString() + " going to set nonce to " + nonce_to_use);
+					if ("LEGACY".equals(_connector.getChaininfo().getPriceMechanism())) {
+						txhash = EVMUtils.sendTXWithNativeCurrency_LegacyPricingMechanism_WithCustomNonce(_connector, cred, to_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
+					} else if ("EIP1559".equals(_connector.getChaininfo().getPriceMechanism())) {
+						txhash = EVMUtils.sendTXWithNativeCurrency_EIP1559PricingMechanism_WithCustomNonce(_connector, cred, to_address, val_to_withdraw, haltOnUnconfirmedTX, BigInteger.valueOf(nonce_to_use), false);
+					} else {
+						LOGGER.error("Unable to handle pricing mechanism named: " + _connector.getChaininfo().getPriceMechanism());
+						SystemUtils.halt();
+					}
+				}	
+			} else {
+				LOGGER.warn("Unable to check for pending TX on chain " + _connector.getChain());
+			}
 		}
 
 		if ("LEGACY".equals(_connector.getChaininfo().getPriceMechanism())) {

@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import crypto.forestfish.objects.evm.farcaster.FnameLookupResponse;
+import crypto.forestfish.objects.api.farcaster.FnameLookupResponse;
 
 public class FarcasterUtilsTest {
 

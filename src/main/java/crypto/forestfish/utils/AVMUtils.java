@@ -206,8 +206,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		return null;
 	}
 
@@ -231,7 +230,7 @@ public class AVMUtils {
 				}
 
 				TransactionsResponse txs = respCall.body();
-				if (txs.transactions.size() > 0); {
+				if (null != txs) {
 					for (com.algorand.algosdk.v2.client.model.Transaction tx: txs.transactions) {
 						boolean assetConfigTx = false;
 						if (null != tx.assetConfigTransaction) {
@@ -285,7 +284,7 @@ public class AVMUtils {
 
 				String latesttxnote = "";
 				TransactionsResponse txs = respCall.body();
-				if (txs.transactions.size() > 0); {
+				if (null != txs) {
 					for (com.algorand.algosdk.v2.client.model.Transaction tx: txs.transactions) {
 						boolean assetConfigTx = false;
 						if (null != tx.assetConfigTransaction) {
@@ -340,7 +339,7 @@ public class AVMUtils {
 				} else {
 
 					TransactionsResponse txs = respCall.body();
-					if (txs.transactions.size() > 0); {
+					if (null != txs) {
 						for (com.algorand.algosdk.v2.client.model.Transaction tx: txs.transactions) {
 							Long currentCount = txtype_counts.get(tx.txType.toString());
 							if (null == currentCount) currentCount = 0L;
@@ -950,8 +949,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		return null;
 	}
 
@@ -980,8 +978,7 @@ public class AVMUtils {
 				if (avmEAS.isNewAVMBlockChainConnector()) _connector = avmEAS.getConnector();
 			}
 		}
-		LOGGER.error(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
-		SystemUtils.halt();
+		LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
 		return null;
 	}
 
