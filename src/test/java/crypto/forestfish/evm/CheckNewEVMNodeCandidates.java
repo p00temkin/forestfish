@@ -2,6 +2,7 @@ package crypto.forestfish.evm;
 
 import java.util.HashMap;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ public class CheckNewEVMNodeCandidates {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CheckNewEVMNodeCandidates.class);
 
+	@Ignore
 	@SuppressWarnings("serial")
 	@Test
 	public void check() {

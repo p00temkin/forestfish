@@ -45,6 +45,11 @@ If you want to print out an account portfolio across all EVM chains (similar to 
    mvn clean package install
    ```
 
+### Support for NOTTE.CC
+
+To use NotteUtils, sign up for an API key at https://www.notte.cc/ and define the variable 'NOTTEAPIKEY'. See NotteUtilsTest for example usage.
+
+
 ### Using the library
 
 Maven:
@@ -53,13 +58,13 @@ Maven:
 	<dependency>
 	  <groupId>crypto.forestfish</groupId>
 	  <artifactId>forestfish</artifactId>
-	  <version>0.2.2</version>
+	  <version>LATEST_VERSION_HERE</version>
 	</dependency>
    ```
    
 ### Next steps
 - Improved Ethereum and Algorand support
-- Burst/Signum and more
+- Solana/Burst/Signum and more
 
 ### Credits
 - Web3 Labs for creating web3j: https://www.web3labs.com/web3j-sdk
