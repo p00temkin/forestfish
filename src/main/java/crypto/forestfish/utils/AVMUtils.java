@@ -2088,7 +2088,7 @@ public class AVMUtils {
 				false) {
 			// hostname echoed back
 			// mainnet-algorand.api.purestake.io
-			LOGGER.info("Got hostname echoed back .. will retry .. ex: " + _ex.getMessage());
+			LOGGER.info("Got relay hostname echoed back .. will retry .. ex: " + _ex.getMessage());
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
@@ -2186,7 +2186,7 @@ public class AVMUtils {
 				false) {
 			// hostname echoed back
 			// mainnet-algorand.api.purestake.io
-			LOGGER.info("Got hostname echoed back .. will retry .. ex: " + _ex.getMessage());
+			LOGGER.info("Got indexer hostname echoed back .. will retry .. ex: " + _ex.getMessage());
 			nodeInteraction = false;
 			sleepBeforeRetry = true;
 			sleepTimeInSecondsRecommended = 5;
