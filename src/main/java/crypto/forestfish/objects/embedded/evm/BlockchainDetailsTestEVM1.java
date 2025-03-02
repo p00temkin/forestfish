@@ -1228,8 +1228,8 @@ public class BlockchainDetailsTestEVM1 {
 		networks.put(EVMChain.ZEUSTEST, zeus_test);
 		
 		// nibiru_test
-		EVMChainInfo nibiru_test = new EVMChainInfo(
-				EVMChain.NIBIRUTEST.toString(), 
+		EVMChainInfo nibiru_dev3_test = new EVMChainInfo(
+				EVMChain.NIBIRUDEV3TEST.toString(), 
 				"Nibiru Devnet-3", 
 				7222L, 
 				BlockchainType.PUBLIC.toString(),
@@ -1255,7 +1255,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.NIBIRUTEST, nibiru_test);
+		networks.put(EVMChain.NIBIRUDEV3TEST, nibiru_dev3_test);
 		
 		// apexfusion_test
 		EVMChainInfo apexfusion_test = new EVMChainInfo(
@@ -4526,6 +4526,7 @@ public class BlockchainDetailsTestEVM1 {
 				new ArrayList<String>() {{
 					this.add("https://testnet.telos.net/evm");
 					this.add("https://telos-testnet.drpc.org");
+					this.add("https://rpc.testnet.telos.net");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -4542,7 +4543,7 @@ public class BlockchainDetailsTestEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.TELOSTEST, telos_test);
-
+		
 		// ethernity_test
 		EVMChainInfo ethernity_test = new EVMChainInfo(
 				EVMChain.ETHERNITYTEST.toString(), 
@@ -6943,7 +6944,6 @@ public class BlockchainDetailsTestEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.PLYRTEST, plyr_test);
 
-
 		// tanssi
 		EVMChainInfo tanssi = new EVMChainInfo(
 				EVMChain.TANSSITEST.toString(), 
@@ -6957,6 +6957,7 @@ public class BlockchainDetailsTestEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://fraa-dancebox-3001-rpc.a.dancebox.tanssi.network");
+					this.add("https://dancebox-3001.tanssi-api.network");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -11908,6 +11909,7 @@ public class BlockchainDetailsTestEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://rpc.blaze.soniclabs.com");
+					this.add("https://sonic-blaze-rpc.publicnode.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),

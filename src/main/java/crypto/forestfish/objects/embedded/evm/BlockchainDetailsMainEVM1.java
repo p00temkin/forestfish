@@ -45,36 +45,6 @@ public class BlockchainDetailsMainEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.ETHEREUMINS, ethereum);
-		
-		// coinweb
-		EVMChainInfo coinweb = new EVMChainInfo(
-				EVMChain.COINWEB.toString(), 
-				"Coinweb BNB shard", 
-				2222222L, 
-				BlockchainType.PUBLIC.toString(),
-				new EVMCurrency("Coinweb BNB shard Gas Token", "CWEB", 18), 
-				EVMPriceMechanism.LEGACY.toString(),30,
-				"30000000000", //30 gwei
-				null, // enforced min gasprice
-				"300000", //300k units
-				new ArrayList<String>() {{
-					this.add("https://api-cloud.coinweb.io/eth-rpc-service/bnb");
-				}}, 
-				new ArrayList<String>(), // archive nodes (if available)
-				new ArrayList<String>(),
-				new ArrayList<String>(),
-				new ArrayList<String>() {{
-					this.add("https://explorer.coinweb.io");
-				}},
-				new ArrayList<String>() {{
-					this.add("<TODO>");
-				}},
-				new ArrayList<String>() {{
-					this.add("https://chainlist.org/chain/2222222");
-				}},
-				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
-				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.COINWEB, coinweb);
 
 		// zytron
 		EVMChainInfo zytron = new EVMChainInfo(
@@ -2379,7 +2349,7 @@ public class BlockchainDetailsMainEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.NETSBO, netsbo);
-
+		
 		// peaq
 		EVMChainInfo peaq = new EVMChainInfo(
 				EVMChain.PEAQ.toString(), 
@@ -2396,6 +2366,7 @@ public class BlockchainDetailsMainEVM1 {
 					this.add("https://peaq-rpc.dwellir.com");
 					this.add("https://peaq-rpc.publicnode.com");
 					this.add("https://evm.peaq.network");
+					this.add("https://responsive-powerful-mansion.peaq-mainnet.quiknode.pro/29963d0a2deee01a20b091926b08d68db12bc68b");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -5830,6 +5801,7 @@ public class BlockchainDetailsMainEVM1 {
 					this.add("https://rpc1.us.telos.net/evm");
 					this.add("https://mainnet.telos.net/evm");
 					this.add("https://telos.drpc.org");
+					this.add("https://rpc.telos.net");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -5846,7 +5818,7 @@ public class BlockchainDetailsMainEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.TELOS, telos);
-
+		
 		// shibachain
 		EVMChainInfo shibachain = new EVMChainInfo(
 				EVMChain.SHIBACHAIN.toString(), 
@@ -9928,7 +9900,7 @@ public class BlockchainDetailsMainEVM1 {
 
 		// atleta
 		EVMChainInfo atleta = new EVMChainInfo(
-				EVMChain.ATLETA.toString(), 
+				EVMChain.ATLETAOLYMPIA.toString(), 
 				"Atleta Olympia", 
 				2340L, 
 				BlockchainType.BORKED.toString(), // 403s from all nodes
@@ -9940,6 +9912,8 @@ public class BlockchainDetailsMainEVM1 {
 				new ArrayList<String>() {{
 					this.add("https://testnet-rpc.atleta.network");
 					this.add("https://testnet-rpc.atleta.network:9944");
+					this.add("https://rpc.ankr.com/atleta_olympia");
+					this.add("https://public-atleta.nownodes.io");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -9955,7 +9929,7 @@ public class BlockchainDetailsMainEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.ATLETA, atleta);
+		networks.put(EVMChain.ATLETAOLYMPIA, atleta);
 
 		// centrifuge
 		EVMChainInfo centrifuge = new EVMChainInfo(
@@ -15881,7 +15855,7 @@ public class BlockchainDetailsMainEVM1 {
 				BlockchainTokenDetailsEVM.generateKlaytnTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.KLAYTN, klay);
-
+		
 		// shido
 		EVMChainInfo shido = new EVMChainInfo(
 				EVMChain.SHIDO.toString(), 
@@ -15894,8 +15868,10 @@ public class BlockchainDetailsMainEVM1 {
 				null, // enforced min gasprice
 				"300000", //300k units
 				new ArrayList<String>() {{
+					this.add("https://evm.shidoscan.net");
 					this.add("https://rpc-delta-nodes.shidoscan.com");
 					this.add("https://rpc-nodes.shidoscan.com");
+					this.add("https://shido-mainnet-archive-lb-nw5es9.zeeve.net/USjg7xqUmCZ4wCsqEOOE/rpc");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
