@@ -12874,6 +12874,7 @@ public class BlockchainDetailsTestEVM1 {
 				null, // enforced min gasprice
 				"300000", //300k units
 				new ArrayList<String>() {{
+					this.add("https://testnet.zircuit.com");
 					this.add("http://zircuit1-testnet.p2pify.com/");
 					this.add("https://zircuit1.p2pify.com/");
 					this.add("https://zircuit1-testnet.p2pify.com/");

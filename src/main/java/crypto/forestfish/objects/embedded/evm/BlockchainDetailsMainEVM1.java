@@ -1601,6 +1601,7 @@ public class BlockchainDetailsMainEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://rpc.co2ledger.xyz");
+					this.add("https://rpc.co2e.cc");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -1811,6 +1812,7 @@ public class BlockchainDetailsMainEVM1 {
 				null, // enforced min gasprice
 				"300000", //300k units
 				new ArrayList<String>() {{
+					this.add("https://mainnet.zircuit.com");
 					this.add("https://zircuit1-mainnet.p2pify.com/");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
@@ -5121,6 +5123,7 @@ public class BlockchainDetailsMainEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://iost-mainnet.alt.technology");
+					this.add("https://l2-mainnet.iost.io");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -5409,36 +5412,6 @@ public class BlockchainDetailsMainEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.PAREX, parex);
 
-		// hemi
-		EVMChainInfo hemi = new EVMChainInfo(
-				EVMChain.HEMI.toString(), 
-				"Hemi Sepolia", 
-				743111L, 
-				BlockchainType.BORKED.toString(),
-				new EVMCurrency("Hemi Sepolia Gas Token", "ETH", 18), 
-				EVMPriceMechanism.LEGACY.toString(),30,
-				"30000000000", //30 gwei
-				null, // enforced min gasprice
-				"300000", //300k units
-				new ArrayList<String>() {{
-					this.add("https://testnet.rpc.hemi.network/rpc");
-				}}, 
-				new ArrayList<String>(), // archive nodes (if available)
-				new ArrayList<String>(),
-				new ArrayList<String>(),
-				new ArrayList<String>() {{
-					this.add("https://testnet.explorer.hemi.network");
-				}},
-				new ArrayList<String>() {{
-					this.add("<TODO>");
-				}},
-				new ArrayList<String>() {{
-					this.add("https://chainlist.org/chain/743111");
-				}},
-				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
-				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.HEMI, hemi);
-
 		// filecoin
 		EVMChainInfo filecoin = new EVMChainInfo(
 				EVMChain.FILECOIN.toString(), 
@@ -5472,6 +5445,36 @@ public class BlockchainDetailsMainEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.FILECOIN, filecoin);
 
+		// juneo
+		EVMChainInfo juneo = new EVMChainInfo(
+				EVMChain.JUNEO.toString(), 
+				"Juneo Mainnet", 
+				45003L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Juneo Mainnet Gas Token", "JUNE", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.juneo-mainnet.network/ext/bc/JUNE/rpc");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://juneoscan.io/chain/2");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/45003");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.JUNEO, juneo);
+		
 		// kinto
 		EVMChainInfo kinto = new EVMChainInfo(
 				EVMChain.KINTO.toString(), 
@@ -8515,6 +8518,8 @@ public class BlockchainDetailsMainEVM1 {
 				new ArrayList<String>() {{
 					this.add("https://mainnet.edexa.network/rpc");
 					this.add("https://mainnet.edexa.com/rpc");
+					this.add("https://rpc.edexa.network");
+					this.add("https://rpc.edexa.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -12640,6 +12645,7 @@ public class BlockchainDetailsMainEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://rpc.electroneum.com");
+					this.add("https://rpc.ankr.com/electroneum");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),

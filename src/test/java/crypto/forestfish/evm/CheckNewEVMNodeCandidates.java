@@ -22,7 +22,7 @@ public class CheckNewEVMNodeCandidates {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CheckNewEVMNodeCandidates.class);
 
-	//@Ignore
+	@Ignore
 	@SuppressWarnings("serial")
 	@Test
 	public void check() {
@@ -341,7 +341,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("re.al", EVMChain.REAL);
 			this.put("YMTECH-BESU Testnet", EVMChain.YMTECHBESUTEST);
 			this.put("Galadriel Devnet", EVMChain.GALADRIELTEST);
-			this.put("Hemi Sepolia", EVMChain.HEMI);
+			this.put("Hemi Sepolia", EVMChain.HEMISEPOLIATEST);
 			this.put("DeBank Sepolia Testnet", EVMChain.DEBANKTEST);
 			this.put("WorldLand Mainnet", EVMChain.WORLDLAND);
 			this.put("Roburna Mainnet", EVMChain.ROBURNA);
@@ -1119,7 +1119,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("O Chain", EVMChain.O);
 			this.put("Henez Chain Mainnet", EVMChain.HENEZ);
 			this.put("Sidra Chain", EVMChain.SIDRA);
-			this.put("Plume Mainnet", EVMChain.PLUME);
 			this.put("Edge Matrix Chain Sepolia", EVMChain.EDGESEPOLIATEST);
 			this.put("eGold Chain Testnet", EVMChain.EGOLDTEST);
 			this.put("OpenLedger Testnet", EVMChain.OPENLEDGERTEST);
@@ -1200,7 +1199,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Emeraldz", EVMChain.EMERALDZ);
 			this.put("Naga Testnet", EVMChain.NAGATEST);
 			this.put("Recall Testnet", EVMChain.RECALLTEST);
-			this.put("Reactive Kopli", EVMChain.REACTIVE);
+			this.put("Reactive Kopli", EVMChain.REACTIVEKOPLI);
 			this.put("The Ting Blockchain Testnet Explorer", EVMChain.THETINGTEST);
 			this.put("Tuxappcoin", EVMChain.TUXAPPCOIN);
 			this.put("Zephyr Testnet", EVMChain.ZEPHYRTEST);
@@ -1222,6 +1221,28 @@ public class CheckNewEVMNodeCandidates {
 			this.put("QuarkChain L2 Beta Testnet", EVMChain.QUARKCHAINTEST);
 			this.put("Okto Testnet", EVMChain.OKTOTEST);
 			this.put("MagiChain", EVMChain.MAGICHAIN);
+			this.put("CO2e Chain", EVMChain.CO2E);
+			this.put("Telos zkEVM Testnet", EVMChain.TELOSZKEVMTEST);
+			this.put("Pundi AIFX Omnilayer", EVMChain.PUNDI);
+			this.put("Reactive Mainnet", EVMChain.REACTIVE);
+			this.put("Pepe Unchained", EVMChain.PEPE);
+			this.put("BlackFort Exchange Network Testnet DEPRECATED", EVMChain.BLACKFORTTEST);
+			this.put("BlackFort Exchange Network Deprecated", EVMChain.BLACKFORT);
+			this.put("Pione Zero", EVMChain.PIONEZERO);
+			this.put("Seismic devnet", EVMChain.SEISMICTEST);
+			this.put("Nibiru testnet-2", EVMChain.NIBIRU2TEST);
+			this.put("Z Chain", EVMChain.Z);
+			this.put("Hemi Network", EVMChain.HEMI);
+			this.put("Juneo Mainnet", EVMChain.JUNEO);
+			this.put("Zircuit Garfield Testnet", EVMChain.ZIRCUITGARFIELDTTEST);
+			this.put("Pundi AIFX Omnilayer Testnet", EVMChain.PUNDITEST);
+			this.put("Miracle Chain", EVMChain.MIRACLE);
+			this.put("Plume", EVMChain.PLUME98865);
+			this.put("Plume Mainnet", EVMChain.PLUME98866);
+			this.put("Oone Chain Mainnet", EVMChain.OONE);
+			this.put("Arcadia Mainnet", EVMChain.ARCADIA);
+			this.put("Electroneum Testnet", EVMChain.ELECTRONEUMTEST);
+			this.put("Status Network Sepolia", EVMChain.STATUSSEPOLIATEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
