@@ -22,7 +22,7 @@ public class CheckNewEVMNodeCandidates {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CheckNewEVMNodeCandidates.class);
 
-	@Ignore
+	//@Ignore
 	@SuppressWarnings("serial")
 	@Test
 	public void check() {
@@ -495,8 +495,8 @@ public class CheckNewEVMNodeCandidates {
 			this.put("UCHAIN Mainnet", EVMChain.UCHAIN);
 			this.put("Tobe Chain", EVMChain.TOBE);
 			this.put("TAO EVM Testnet", EVMChain.TAOTEST);
-			this.put("Xchain Mainnet", EVMChain.XCHAIN);
-			this.put("Xchain Testnet", EVMChain.XCHAINTEST);
+			this.put("Xchain Mainnet", EVMChain.XCHAIN31753);
+			this.put("Xchain Testnet", EVMChain.XCHAIN31754TEST);
 			this.put("Entangle Mainnet", EVMChain.ENTANGLE);
 			this.put("Entangle Testnet", EVMChain.ENTANGLETEST);
 			this.put("Etherlink Mainnet", EVMChain.ETHERLINK);
@@ -1097,7 +1097,6 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Fluent Developer Preview", EVMChain.FLUENTTEST);
 			this.put("PremiumBlock", EVMChain.PREMIUMBLOCK);
 			this.put("Ronin Mainnet", EVMChain.RONIN);
-			this.put("Qubetics Testnet", EVMChain.QUBETICSTEST);
 			this.put("Ferrum Quantum Portal Network", EVMChain.FERRUM);
 			this.put("Newton Finance Testnet", EVMChain.NEWTONTEST);
 			this.put("PMON Chain", EVMChain.PMON);
@@ -1243,6 +1242,32 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Arcadia Mainnet", EVMChain.ARCADIA);
 			this.put("Electroneum Testnet", EVMChain.ELECTRONEUMTEST);
 			this.put("Status Network Sepolia", EVMChain.STATUSSEPOLIATEST);
+			this.put("KUB Mainnet", EVMChain.KUB);
+			this.put("MegaETH Testnet", EVMChain.MEGAETHTEST);
+			this.put("MTT Network", EVMChain.MTT);
+			this.put("Rarimo", EVMChain.RARIMO);
+			this.put("Powerloom Mainnet V2", EVMChain.POWERLOOM2);
+			this.put("ZenChain Testnet", EVMChain.ZENCHAINTEST);
+			this.put("Qubetics Alpha Testnet", EVMChain.QUBETICSALPHATEST);
+			this.put("GEB Mainnet", EVMChain.GEB);
+			this.put("GEB Signet", EVMChain.GEBSIGNET);
+			this.put("Esports Chain", EVMChain.ESPORTS);
+			this.put("Nexurachain", EVMChain.NEXURACHAIN);
+			this.put("KUB Testnet", EVMChain.KUBTEST);
+			this.put("AB Core Testnet", EVMChain.ABTEST);
+			this.put("Hemi", EVMChain.HEMI);
+			this.put("IDN Mainnet", EVMChain.IDN);
+			this.put("Draw Coin", EVMChain.DRAW);
+			this.put("XCHAIN Testnet", EVMChain.XCHAINTEST);
+			this.put("Berachain Bepolia", EVMChain.BERACHAINTEST);
+			this.put("XCHAIN", EVMChain.XCHAIN);
+			this.put("Plume (Legacy)", EVMChain.PLUME);
+			this.put("Xsolla ZK Sepolia Testnet", EVMChain.XSOLLASEPOLIATEST);
+			this.put("Pyrope Testnet", EVMChain.PYROPETEST);
+			this.put("Surge Testnet", EVMChain.SURGETEST);
+			this.put("Xphere Mainnet", EVMChain.XPHERE);
+			this.put("Basecamp", EVMChain.BASECAMP);
+
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
@@ -2603,7 +2628,7 @@ public class CheckNewEVMNodeCandidates {
 								eece.getName().toLowerCase().contains("staging") ||
 								eece.getName().toLowerCase().contains("demo") ||
 								eece.getName().toLowerCase().contains("goerli") ||
-								eece.getName().toLowerCase().contains("sepolia") ||
+								eece.getName().toLowerCase().contains("epolia") ||
 								eece.getName().toLowerCase().contains("holesky") ||
 								false) {
 							chain_shortname = eece.getName().split(" ")[0].toLowerCase().replace("(","").replace(")","").replace("-","").replace("testnet","").replace("-","");

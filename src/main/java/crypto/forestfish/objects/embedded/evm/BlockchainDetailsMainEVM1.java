@@ -2728,6 +2728,9 @@ public class BlockchainDetailsMainEVM1 {
 				null, // enforced min gasprice
 				"300000", //300k units
 				new ArrayList<String>() {{
+					this.add("https://rpc.6dochain.com");
+					this.add("https://rpc2.6dochain.com");
+					this.add("https://rpc3.6dochain.com");
 					this.add("https://rpc.6do.world");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
@@ -5890,13 +5893,14 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.HEDERA.toString(), 
 				"Hedera Mainnet", 
 				295L, 
-				BlockchainType.BORKED.toString(), // single node unreliable
+				BlockchainType.PUBLIC.toString(), // single node unreliable
 				new EVMCurrency("Hedera Mainnet Gas Token", "HBAR", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
 				null, // enforced min gasprice
 				"8400000", //only give enough to enable transfers .. 
 				new ArrayList<String>() {{
+					this.add("https://hedera.linkpool.pro");
 					this.add("https://mainnet.hashio.io/api");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
@@ -8568,8 +8572,38 @@ public class BlockchainDetailsMainEVM1 {
 		networks.put(EVMChain.TSC, tsc);
 
 		// xchain
-		EVMChainInfo xchain = new EVMChainInfo(
+		EVMChainInfo xchain1 = new EVMChainInfo(
 				EVMChain.XCHAIN.toString(), 
+				"XCHAIN", 
+				94524L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("XCHAIN Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://xchain-rpc.kuma.bid");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://xchain-explorer.kuma.bid");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/94524");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.XCHAIN, xchain1);
+		
+		// xchain
+		EVMChainInfo xchain = new EVMChainInfo(
+				EVMChain.XCHAIN31753.toString(), 
 				"Xchain Mainnet", 
 				31753L, 
 				BlockchainType.BORKED.toString(), // unstable single
@@ -8595,7 +8629,7 @@ public class BlockchainDetailsMainEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.XCHAIN, xchain);
+		networks.put(EVMChain.XCHAIN31753, xchain);
 
 		// entangle
 		EVMChainInfo entangle = new EVMChainInfo(
@@ -9915,6 +9949,7 @@ public class BlockchainDetailsMainEVM1 {
 				null, // enforced min gasprice
 				"300000", //300k units
 				new ArrayList<String>() {{
+					this.add("https://public-atla-testnet.fastnode.io");
 					this.add("https://testnet-rpc.atleta.network");
 					this.add("https://testnet-rpc.atleta.network:9944");
 					this.add("https://rpc.ankr.com/atleta_olympia");

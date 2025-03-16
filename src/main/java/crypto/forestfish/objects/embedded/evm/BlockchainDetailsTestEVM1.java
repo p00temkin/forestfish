@@ -6764,9 +6764,9 @@ public class BlockchainDetailsTestEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.BINARYCHAINTEST, binarychain_test);
 
-		// xchain_test
-		EVMChainInfo xchain_test = new EVMChainInfo(
-				EVMChain.XCHAINTEST.toString(), 
+		// xchain_test11
+		EVMChainInfo xchain_test1 = new EVMChainInfo(
+				EVMChain.XCHAIN31754TEST.toString(), 
 				"Xchain Testnet", 
 				31754L, 
 				BlockchainType.BORKED.toString(), // unstable single node
@@ -6792,7 +6792,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.XCHAINTEST, xchain_test);
+		networks.put(EVMChain.XCHAIN31754TEST, xchain_test1);
 
 		// entangle_test
 		EVMChainInfo entangle_test = new EVMChainInfo(
@@ -9956,6 +9956,7 @@ public class BlockchainDetailsTestEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://rpc-testnet.6do.world");
+					this.add("https://rpc-testnet.6dochain.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
