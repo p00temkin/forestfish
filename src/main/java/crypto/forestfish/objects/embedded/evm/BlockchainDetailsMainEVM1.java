@@ -9954,6 +9954,7 @@ public class BlockchainDetailsMainEVM1 {
 					this.add("https://testnet-rpc.atleta.network:9944");
 					this.add("https://rpc.ankr.com/atleta_olympia");
 					this.add("https://public-atleta.nownodes.io");
+					this.add("https://atleta-testnet.htw.tech/");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -13908,6 +13909,7 @@ public class BlockchainDetailsMainEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://mainnet-rpc.game7.io");
+					this.add("https://mainnet-rpc.game7.build");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),

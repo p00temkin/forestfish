@@ -74,6 +74,7 @@ import crypto.forestfish.objects.avm.model.nft.metadata.ARC3MetaData;
 import crypto.forestfish.objects.avm.model.nft.metadata.ARC69ARC19MetaData;
 import crypto.forestfish.objects.avm.model.nft.metadata.MetaDataEntry;
 import crypto.forestfish.objects.embedded.avm.BlockchainDetailsAVM;
+import crypto.forestfish.objects.generic.BooleanResponse;
 import crypto.forestfish.objects.ipfs.connector.IPFSConnector;
 import io.ipfs.cid.Cid;
 import io.ipfs.cid.Cid.Codec;
@@ -182,7 +183,7 @@ public class AVMUtils {
 		return null;
 	}
 
-	public static Boolean checkIfASAExists(AVMBlockChainConnector _connector, Long _assetID) {
+	public static BooleanResponse checkIfASAExists(AVMBlockChainConnector _connector, Long _assetID) {
 		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
@@ -192,13 +193,13 @@ public class AVMUtils {
 				Response<Asset> respAss = _connector.getProvider_instance().GetAssetByID(_assetID).execute();
 				if (!respAss.isSuccessful()) {
 					if (respAss.message().contains("asset does not exist")) {
-						return false;
+						return new BooleanResponse(false, true);
 					} else {
 						LOGGER.error("respAss.message(): " + respAss.message());
 						SystemUtils.halt();
 					}
 				}
-				return true;
+				return new BooleanResponse(true, true);
 			} catch (Exception ex) {
 				// tx exceptions (readonly)
 				AVMProviderException avmE = analyzeProviderException(_connector.getChain(), _connector.getRelayNode(), ex);
@@ -207,7 +208,7 @@ public class AVMUtils {
 			}
 		}
 		LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
-		return null;
+		return new BooleanResponse(false, false);
 	}
 
 	public static ArrayList<MetaDataEntry> getASAConfigTransactionNotes(AVMBlockChainConnector _connector, Long _assetID) {
@@ -924,7 +925,7 @@ public class AVMUtils {
 		return null;
 	}
 
-	public static Boolean isAccountRekeyed(AVMBlockChainConnector _connector, Address _address) {
+	public static BooleanResponse isAccountRekeyed(AVMBlockChainConnector _connector, Address _address) {
 		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
@@ -938,9 +939,9 @@ public class AVMUtils {
 				}
 				com.algorand.algosdk.v2.client.model.Account accountInfo = respAcct.body();
 				if (null == accountInfo.authAddr) {
-					return false;
+					return new BooleanResponse(false, true);
 				} else {
-					return true;
+					return new BooleanResponse(true, true);
 				}
 			} catch (Exception ex) {
 				// tx exceptions (readonly)
@@ -950,10 +951,10 @@ public class AVMUtils {
 			}
 		}
 		LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
-		return null;
+		return new BooleanResponse(false, false);
 	}
 
-	public static Boolean getRekeyAddressForAccount(AVMBlockChainConnector _connector, Address _address) {
+	public static BooleanResponse getRekeyAddressForAccount(AVMBlockChainConnector _connector, Address _address) {
 		String meth = "";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
@@ -967,9 +968,9 @@ public class AVMUtils {
 				}
 				com.algorand.algosdk.v2.client.model.Account accountInfo = respAcct.body();
 				if (null == accountInfo.authAddr) {
-					return false;
+					return new BooleanResponse(false, true);
 				} else {
-					return true;
+					return new BooleanResponse(true, true);
 				}
 			} catch (Exception ex) {
 				// tx exceptions (readonly)
@@ -979,7 +980,7 @@ public class AVMUtils {
 			}
 		}
 		LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain() + ", out of retries .. ABORT!");
-		return null;
+		return new BooleanResponse(false, false);
 	}
 
 	public static Long calculateMinimumBalanceForASAOwnedByAccount(AVMBlockChainConnector _connector, Address _address) {
@@ -3209,7 +3210,9 @@ public class AVMUtils {
 											for (AssetHolding asa: asas_optins) {
 												if (_debug) System.out.println(" - " + asa.assetId + ": deleted=" + asa.deleted + " frozen:" + asa.isFrozen + " amount: " + asa.amount + " optedInAtRound: " + asa.optedInAtRound);
 												if (_debug) System.out.println("checkIfASAExists()");
-												if (AVMUtils.checkIfASAExists(connector, asa.assetId)) {
+												
+												BooleanResponse check_status = AVMUtils.checkIfASAExists(connector, asa.assetId);
+												if (check_status.isTrue()) {
 													if (_debug) System.out.println("getASARawJSONResponse()");
 													String json = AVMUtils.getASARawJSONResponse(connector, asa.assetId);
 													if (_debug) System.out.println("identifyARCStandardFromASAJSON()");

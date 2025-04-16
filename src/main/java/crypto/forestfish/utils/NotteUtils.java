@@ -12,18 +12,48 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import crypto.forestfish.objects.api.nuit.ActionRequest;
-import crypto.forestfish.objects.api.nuit.ErrorDetail;
-import crypto.forestfish.objects.api.nuit.ObserveRequest;
-import crypto.forestfish.objects.api.nuit.ObserveResponse;
-import crypto.forestfish.objects.api.nuit.SessionStartRequest;
-import crypto.forestfish.objects.api.nuit.SessionStatus;
+import crypto.forestfish.objects.api.notte.ActionRequest;
+import crypto.forestfish.objects.api.notte.ErrorDetail;
+import crypto.forestfish.objects.api.notte.HealthStatus;
+import crypto.forestfish.objects.api.notte.ObserveRequest;
+import crypto.forestfish.objects.api.notte.ObserveResponse;
+import crypto.forestfish.objects.api.notte.SessionStartRequest;
+import crypto.forestfish.objects.api.notte.SessionStatus;
 import crypto.forestfish.objects.http.HttpCustomResponse;
 
 public class NotteUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(NotteUtils.class);
 
+	public static HealthStatus healthCheck() {
+		HealthStatus ssr = null;
+		int trycounter = 0;
+		Boolean validpojo = false;
+		while (!validpojo && (trycounter <= 50)) {
+			trycounter++;
+			try {
+				String resp = HttpRequestUtils.getBodyUsingGETUrlRequest("https://api.notte.cc/health");
+				if (!"".equals(resp)) {
+					if (resp.startsWith("{") && resp.endsWith("}")) {
+						ssr = JSONUtils.createPOJOFromJSONOpportunistic(resp, HealthStatus.class);
+						if (null != ssr) {
+							validpojo = true;
+							return ssr;
+						}
+					}
+				} else {
+					LOGGER.info("Unknown NUIT endpoint reply");
+				}
+			} catch (Exception e) {
+				LOGGER.info("Caught NUIT exception: " + e.getMessage());
+			}
+			
+			LOGGER.info("Unable to check NOTTE API health");
+			SystemUtils.sleepInSeconds(5);
+		}
+		return ssr;	
+	}
+	
 	public static ObserveResponse action(String _apikey, String _session_id, String action_id, Boolean _keep_alive, Boolean _flush_screenshot, Boolean _flush_body) {
 		ObserveResponse oresponse = null;
 		int trycounter = 0;
@@ -41,6 +71,7 @@ public class NotteUtils {
 				
 				HttpCustomResponse hcr = getBodyUsingPOSTURLRequest(_apikey, "https://api.notte.cc/env/step", jsonBody);
 				if (null != hcr) {
+					response_code = hcr.getStatuscode();
 					if (_flush_body) flushBody(_session_id, hcr.getResponse_body());
 					if (hcr.getResponse_body().startsWith("{") && hcr.getResponse_body().endsWith("}")) {
 						oresponse = JSONUtils.createPOJOFromJSONOpportunistic(hcr.getResponse_body(), ObserveResponse.class);
@@ -57,8 +88,7 @@ public class NotteUtils {
 			}
 			
 			if (response_code == 0) {
-				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", DNS issues?");
-				return null; // dns issue
+				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", lets try again");
 			}
 			if (response_code == 401) {
 				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", API key issue?");
@@ -81,6 +111,7 @@ public class NotteUtils {
 				String jsonBody = JSONUtils.createJSONFromPOJO(or);
 				HttpCustomResponse hcr = getBodyUsingPOSTURLRequest(_apikey, "https://api.notte.cc/env/observe", jsonBody);
 				if (null != hcr) {
+					response_code = hcr.getStatuscode();
 					if (_flush_body) flushBody(_session_id, hcr.getResponse_body());
 					if (hcr.getResponse_body().startsWith("{") && hcr.getResponse_body().endsWith("}")) {
 						oresponse = JSONUtils.createPOJOFromJSONOpportunistic(hcr.getResponse_body(), ObserveResponse.class);
@@ -98,8 +129,7 @@ public class NotteUtils {
 			}
 			
 			if (response_code == 0) {
-				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", DNS issues?");
-				return null; // dns issue
+				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", lets try again");
 			}
 			if (response_code == 401) {
 				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", API key issue?");
@@ -143,7 +173,7 @@ public class NotteUtils {
 		}
 	}
 
-	public static SessionStatus sessionStart(String _apikey, Boolean _flush_body) {
+	public static SessionStatus sessionStart(String _apikey, Boolean _flush_screenshots, Boolean _flush_body) {
 		SessionStatus ssr = null;
 		int trycounter = 0;
 		Boolean validpojo = false;
@@ -152,9 +182,11 @@ public class NotteUtils {
 			trycounter++;
 			try {
 				SessionStartRequest ss = new SessionStartRequest();
+				ss.setScreenshot(_flush_screenshots);
 				String jsonBody = JSONUtils.createJSONFromPOJO(ss);
-				HttpCustomResponse hcr = getBodyUsingPOSTURLRequest(_apikey, "https://api.notte.cc/session/start", jsonBody);
+				HttpCustomResponse hcr = getBodyUsingPOSTURLRequest(_apikey, "https://api.notte.cc/sessions/start", jsonBody);
 				if (null != hcr) {
+					response_code = hcr.getStatuscode();
 					if (hcr.getResponse_body().startsWith("{") && hcr.getResponse_body().endsWith("}")) {
 						ssr = JSONUtils.createPOJOFromJSONOpportunistic(hcr.getResponse_body(), SessionStatus.class);
 						if (null != ssr) {
@@ -171,8 +203,7 @@ public class NotteUtils {
 			}
 			
 			if (response_code == 0) {
-				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", DNS issues?");
-				return null; // dns issue
+				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", lets try again");
 			}
 			if (response_code == 401) {
 				LOGGER.info("Unable to create NUIT session, response_code=" + response_code + ", API key issue?");
@@ -186,7 +217,7 @@ public class NotteUtils {
 
 	public static HttpCustomResponse getBodyUsingPOSTURLRequest(String jwtToken, String url, String body) {
 		boolean keep_trying = true;
-		int trycounter = 30;
+		int trycounter = 10;
 		while (keep_trying && trycounter>0) {
 			trycounter--;
 			try {
@@ -202,7 +233,7 @@ public class NotteUtils {
 						.ignoreContentType(true)
 						.execute();
 
-				//System.out.println("status: " + response.statusMessage() + " statuscode: " + response.statusCode());
+				//ystem.out.println("status: " + response.statusMessage() + " statuscode: " + response.statusCode());
 				
 				/*
 				 * 
@@ -217,8 +248,11 @@ public class NotteUtils {
 				 */
 
 				if (response.statusCode() == 200) {
-					Document doc = response.parse();
-					String res = Jsoup.parse(doc.toString()).body().text();
+					
+					//Document doc = response.parse();
+					//String res = Jsoup.parse(doc.toString()).body().text();
+					String res = response.body();
+					
 					return new HttpCustomResponse(false, response.statusCode(), res, "");
 				} else if (false ||
 						(response.statusCode() == 404) ||
@@ -232,7 +266,7 @@ public class NotteUtils {
 						ErrorDetail ed = JSONUtils.createPOJOFromJSON(response.body(), ErrorDetail.class);
 						System.out.println("detail: " + ed.getDetail()+ " session: " + ed.getSession_id());
 						System.out.println("resp: " + response.body() + " message: " + response.statusMessage());
-						System.exit(1);
+						SystemUtils.halt();
 					}
 					
 					Document doc = response.parse();
@@ -249,6 +283,10 @@ public class NotteUtils {
 						ErrorDetail ed = JSONUtils.createPOJOFromJSON(response.body(), ErrorDetail.class);
 						System.out.println("detail: " + ed.getDetail()+ " session: " + ed.getSession_id());
 						System.out.println("resp: " + response.body() + " message: " + response.statusMessage());
+						if (response.statusMessage().contains("Sorry, Notte is not yet able to process this website")) {
+							LOGGER.info("No need to retry, exiting");
+							return null;
+						}
 					} else {
 						System.out.println("response body: " + StringsUtils.cutAndPadStringToN(response.body(), 10));
 					}

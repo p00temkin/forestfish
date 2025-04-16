@@ -40,6 +40,16 @@ public class AlgoLocalWallet {
 		File walletDirectory = new File(".avm/wallets/" + walletName);
 		if (!walletDirectory.exists()) walletDirectory.mkdirs();
 
+		File[] files = walletDirectory.listFiles();
+		if (files == null) {
+		    // Handle the case where walletDirectory is not a directory or is unreadable
+		    LOGGER.error("Unable to list files for " + walletDirectory.getAbsolutePath());
+		    SystemUtils.halt();
+		} else if (files.length != 1) {
+		    LOGGER.warn("More than one wallet file? Cannot handle this atm.");
+		    SystemUtils.halt();
+		}
+		
 		if (walletDirectory.listFiles().length == 0) {
 
 			// No existing wallet so assume mnemonic creation in scope

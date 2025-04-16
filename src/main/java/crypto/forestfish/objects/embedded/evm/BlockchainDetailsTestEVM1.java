@@ -180,6 +180,7 @@ public class BlockchainDetailsTestEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://happy-testnet-sepolia.rpc.caldera.xyz/http");
+					this.add("https://rpc.testnet.happy.tech/http");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -2445,6 +2446,7 @@ public class BlockchainDetailsTestEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://testnet.vcity.app");
+					this.add("http://testnet-rpc.vcity.app");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -3331,6 +3333,7 @@ public class BlockchainDetailsTestEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://testnet-rpc.game7.io");
+					this.add("https://testnet-rpc.game7.build");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -9117,7 +9120,7 @@ public class BlockchainDetailsTestEVM1 {
 		EVMChainInfo plume_test = new EVMChainInfo(
 				EVMChain.PLUMETEST.toString(), 
 				"Plume Testnet", 
-				161221135L, 
+				98867L, 
 				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Plume Testnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
@@ -9125,6 +9128,7 @@ public class BlockchainDetailsTestEVM1 {
 				null, // enforced min gasprice
 				"210000", // pure tx
 				new ArrayList<String>() {{
+					this.add("https://testnet-rpc.plumenetwork.xyz");
 					this.add("https://testnet-rpc.plumenetwork.xyz/http");
 					this.add("https://plume-testnet.rpc.caldera.xyz/http");
 				}}, 
@@ -11828,7 +11832,7 @@ public class BlockchainDetailsTestEVM1 {
 		
 		// reddio_test
 		EVMChainInfo reddio_test = new EVMChainInfo(
-				EVMChain.REDDIOTEST.toString(), 
+				EVMChain.REDDIODEVTEST.toString(), 
 				"Reddio Devnet", 
 				50341L, 
 				BlockchainType.PUBLIC.toString(),
@@ -11854,7 +11858,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.REDDIOTEST, reddio_test);
+		networks.put(EVMChain.REDDIODEVTEST, reddio_test);
 		
 		// kpa_test
 		EVMChainInfo kpa_test = new EVMChainInfo(

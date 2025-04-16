@@ -13,7 +13,7 @@ public class ConfigUtils {
 		if (null == secret_env) {
 			LOGGER.info("NOTTEAPIKEY env variable not set");
 		} else {
-			LOGGER.info("NOTTEAPIKEY env variable set to " + StringsUtils.cutStringFromLeft(secret_env, 10) + " ..");
+			LOGGER.info("NOTTEAPIKEY env variable set to " + StringsUtils.cutStringFromLeft(secret_env, 10) + " .. " + StringsUtils.cutStringFromRight(secret_env, 5));
 			return secret_env;
 		}
 		return secret;

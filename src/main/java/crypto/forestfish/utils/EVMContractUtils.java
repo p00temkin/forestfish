@@ -21,6 +21,7 @@ import crypto.forestfish.objects.evm.EVMProviderExceptionActionState;
 import crypto.forestfish.objects.evm.connector.EVMBlockChainConnector;
 import crypto.forestfish.objects.evm.model.erc721.ERC721ContractInfo;
 import crypto.forestfish.objects.evm.model.nft.EVMERC721TokenInfo;
+import crypto.forestfish.objects.generic.BooleanResponse;
 
 public class EVMContractUtils {
 
@@ -39,11 +40,11 @@ public class EVMContractUtils {
 			try {
 
 				// contract sanitycheck
-				Boolean isContract = EVMUtils.isContract(_erc721_contract_address, _connector);
-				if (null == isContract) {
+				BooleanResponse contract_check = EVMUtils.isContract(_erc721_contract_address, _connector);
+				if (!contract_check.isCallsuccess()) {
 					LOGGER.error("Unable to determine what is on address " + _erc721_contract_address + " on " + _connector.getChain().name() + ", trying to check if its a smart contract");
 					SystemUtils.halt();
-				} else if (!isContract) {
+				} else if (!contract_check.isTrue()) {
 					LOGGER.info("Address " + _erc721_contract_address + " on " + _connector.getChain().name() + " does not appear to be a smart contract");
 					return null;
 				}
@@ -112,9 +113,14 @@ public class EVMContractUtils {
 		String function_args_hex1 = EVMContractUtils.genFunctionArgsForEmptyArgsUsingFunctionJSON(_funcName, generic_string_funcJSON);
 
 		// sanity check
-		if (!EVMUtils.isContract(_contract_address, _connector)) {
-			LOGGER.error("Specified contract address " + _contract_address + " is not a contract");
+		// contract sanitycheck
+		BooleanResponse contract_check = EVMUtils.isContract(_contract_address, _connector);
+		if (!contract_check.isCallsuccess()) {
+			LOGGER.error("Unable to determine what is on address " + _contract_address + " on " + _connector.getChain().name() + ", trying to check if its a smart contract");
 			SystemUtils.halt();
+		} else if (!contract_check.isTrue()) {
+			LOGGER.info("Address " + _contract_address + " on " + _connector.getChain().name() + " does not appear to be a smart contract");
+			return null;
 		}
 		
 		// execute

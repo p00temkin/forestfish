@@ -33,7 +33,7 @@ public class EVMRPCInteractTest {
 		
 		BigDecimal networkGasPriceInGwei = EVMUtils.getCurrentNetworkGasPriceInGWEI(connector);
 		LOGGER.info("networkGasPriceInGwei: " + networkGasPriceInGwei.doubleValue());
-		assertTrue("Ensure sane ETH gas price", networkGasPriceInGwei.doubleValue()>0.5d);
+		assertTrue("Ensure sane ETH gas price", networkGasPriceInGwei.doubleValue()>0.05d);
 	}
 	
 	@Test

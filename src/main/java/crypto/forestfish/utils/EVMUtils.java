@@ -65,6 +65,7 @@ import crypto.forestfish.objects.evm.model.erc20.ERC20TokenIndex;
 import crypto.forestfish.objects.evm.model.erc20.EVMERC20TokenInfo;
 import crypto.forestfish.objects.evm.model.nft.EVMERC721TokenInfo;
 import crypto.forestfish.objects.evm.model.nft.EVMNFTIndex;
+import crypto.forestfish.objects.generic.BooleanResponse;
 import crypto.forestfish.objects.evm.EVMLocalWallet;
 import crypto.forestfish.objects.evm.EVMNativeValue;
 import crypto.forestfish.objects.evm.EVMNftAccountBalance;
@@ -530,12 +531,12 @@ public class EVMUtils {
 		return new NonceCheckStatus(pendingTX, false);
 	}
 
-	public static Boolean isOwnerOfERC721Token(EVMBlockChainConnector _connector, String _address, String _tokenName, Long _tokenID) {
+	public static BooleanResponse isOwnerOfERC721Token(EVMBlockChainConnector _connector, String _address, String _tokenName, Long _tokenID) {
 		EVMERC721TokenInfo tokenInfo = _connector.getChaininfo().getNftindex().getErc721tokens().get(_tokenName);
 		return isOwnerOfERC721Token(_connector, _address, tokenInfo, _tokenID);
 	}
 
-	public static Boolean isOwnerOfERC721Token(EVMBlockChainConnector _connector, String _address, EVMERC721TokenInfo _tokenInfo, Long _tokenID) {
+	public static BooleanResponse isOwnerOfERC721Token(EVMBlockChainConnector _connector, String _address, EVMERC721TokenInfo _tokenInfo, Long _tokenID) {
 		String meth = "isOwnerOfERC721Token()";
 		int nodeCallAttemptCount = 0;
 		int requestCount = 0;
@@ -554,14 +555,14 @@ public class EVMUtils {
 
 					String owner = customERC721Contract.ownerOf(new BigInteger(_tokenID.toString())).send();
 					if (owner.toLowerCase().equals(_address.toLowerCase())) {
-						return true;
+						return new BooleanResponse(true, true);
 					} else {
-						return false;
+						return new BooleanResponse(false, true);
 					}
 
 				} else {
 					// No need to check for specific tokenID match, the address does not own any
-					return false;
+					return new BooleanResponse(false, true);
 				}
 
 			} catch (Exception ex) {
@@ -580,7 +581,7 @@ public class EVMUtils {
 		} else {
 			LOGGER.warn(meth + ": Unable to properly interact with the blockchain " + _connector.getChain().toString() + ", out of retries and giving up on this chain");
 		}
-		return null;
+		return new BooleanResponse(false, false);
 	}
 
 	public static void printWalletBalanceForERC20Token(EVMBlockChainConnector _connector, String _address, EVMERC20TokenInfo _tokenInfo) {
@@ -1043,7 +1044,7 @@ public class EVMUtils {
 
 	}
 
-	public static Boolean isContract(String _contractAddress, EVMBlockChainConnector _connector) {
+	public static BooleanResponse isContract(String _contractAddress, EVMBlockChainConnector _connector) {
 		String meth = "isContract()";
 		boolean confirmedCall = false;
 		int nodeCallAttemptCount = 0;
@@ -1055,9 +1056,9 @@ public class EVMUtils {
 				EthGetCode ethCall = _connector.getProvider_instance().ethGetCode(_contractAddress, DefaultBlockParameter.valueOf("latest")).send();
 				String code = ethCall.getCode();
 				if ("0x".equals(code)) {
-					return false;
+					return new BooleanResponse(false, true);
 				} else {
-					return true;
+					return new BooleanResponse(true, true);
 				}
 			} catch (Exception ex) {
 				// RPC call exceptions (readonly)
@@ -1069,7 +1070,7 @@ public class EVMUtils {
 				if (evmAS.isNewEVMBlockChainConnector()) _connector = evmAS.getConnector();
 			}
 		}
-		return null;
+		return new BooleanResponse(false, false);
 	}
 
 	public static String sendTXWithNativeCurrency(EVMBlockChainConnector _connector, Credentials _from_wallet_credentials, String _target_address, String _strGasLimit, EVMNativeValue _evmNativeValue, boolean _haltOnUnconfirmedTX) {
