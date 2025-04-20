@@ -16,6 +16,36 @@ public class BlockchainDetailsMainEVM2 {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 
+		// shardeum
+		EVMChainInfo shardeum = new EVMChainInfo(
+				EVMChain.SHARDEUM.toString(), 
+				"Shardeum", 
+				8118L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Shardeum Gas Token", "SHM", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://api.shardeum.org/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.shardeum.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/8118");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.SHARDEUM, shardeum);
+		
 		// firachain
 		EVMChainInfo firachain = new EVMChainInfo(
 				EVMChain.FIRACHAIN.toString(), 

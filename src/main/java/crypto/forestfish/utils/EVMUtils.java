@@ -1018,8 +1018,9 @@ public class EVMUtils {
 				String value = ethCall.getValue();
 				if (null == value) {
 					LOGGER.warn("Response from unsigned call failed (null response)");
+				} else {
+					return value;
 				}
-				return value;
 			} catch (Exception ex) {
 				LOGGER.info("ex: " + ex.getMessage());
 				// RPC call exceptions (readonly)
@@ -2012,8 +2013,10 @@ public class EVMUtils {
 			SystemUtils.sleepInSeconds(1); // Always sleep for 1 sec
 		}
 		if (_evmE.getExceptionType() == ExceptionType.FATAL) {
-			LOGGER.info("ExceptionType is FATAL, exiting ..");
-			SystemUtils.halt();
+			if (_haltOnUnconfirmedTX) {
+				LOGGER.info("ExceptionType is FATAL, exiting .. since _haltOnUnconfirmedTX is true");
+				SystemUtils.halt();
+			}
 		}
 
 		boolean forceswitchNode = false;
@@ -2639,9 +2642,9 @@ public class EVMUtils {
 		int txCounter = 0;
 		boolean txCallCompleted = false;
 		while (!txCallCompleted && txCounter <= _txRetryThreshold) {
-			LOGGER.debug("Sending request: " + _hexData);
 			String reply = EVMUtils.sendUnsignedRawCALL(_hexData, _contractAddress, _connector, _haltOnFailedCall);
-			return reply;
+			if (null != reply) return reply;
+			LOGGER.warn("Got null reply when sending request: " + _hexData + ", txCounter=" + txCounter);
 		}
 		return null;
 	}

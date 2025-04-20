@@ -17,7 +17,7 @@ public class NotteUtilsTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(NotteUtilsTest.class);
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void testSimpleSessionStart() {
 

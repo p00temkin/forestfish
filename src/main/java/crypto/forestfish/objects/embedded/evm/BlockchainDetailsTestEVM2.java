@@ -16,6 +16,37 @@ public class BlockchainDetailsTestEVM2 {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 		
+
+		// shardeum_test
+		EVMChainInfo shardeum_test = new EVMChainInfo(
+				EVMChain.SHARDEUMTEST.toString(), 
+				"Shardeum Testnet", 
+				8083L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Shardeum Testnet Gas Token", "SHM", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://api-testnet.shardeum.org/");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer-testnet.shardeum.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/8083");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.SHARDEUMTEST, shardeum_test);
+		
 		// kii_test
 		EVMChainInfo kii_test = new EVMChainInfo(
 				EVMChain.KIIOROTEST.toString(), 
