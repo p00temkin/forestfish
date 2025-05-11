@@ -16,6 +16,127 @@ public class BlockchainDetailsMainEVM2 {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 
+		// altblockscan
+		EVMChainInfo altblockscan = new EVMChainInfo(
+				EVMChain.ALTBLOCKSCAN.toString(), 
+				"Altblockscan Mainnet", 
+				191919L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Altblockscan Mainnet Gas Token", "ALTB", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.altblockscan.com");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.altblockscan.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/191919");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.ALTBLOCKSCAN, altblockscan);
+		
+		// swisstronik
+		EVMChainInfo swisstronik = new EVMChainInfo(
+				EVMChain.SWISSTRONIK.toString(), 
+				"Swisstronik Mainnet", 
+				1848L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Swisstronik Mainnet Gas Token", "SWTR", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://json-rpc.mainnet.swisstronik.com/unencrypted/");
+					this.add("https://json-rpc.mainnet.swisstronik.com");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer-cosmos.mainnet.swisstronik.com/swisstronik");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/1848");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.SWISSTRONIK, swisstronik);
+		
+		// opengpu
+		EVMChainInfo opengpu = new EVMChainInfo(
+				EVMChain.OPENGPU.toString(), 
+				"OpenGPU Mainnet", 
+				1071L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("OpenGPU Mainnet Gas Token", "OGPU", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://mainnet-rpc.ogpuscan.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://ogpuscan.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/1071");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.OPENGPU, opengpu);
+		
+		// choochain
+		EVMChainInfo choochain = new EVMChainInfo(
+				EVMChain.CHOOCHAIN.toString(), 
+				"ChooChain", 
+				247L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("ChooChain Gas Token", "CHOO", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.choochain.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://blocks.choochain.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/247");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.CHOOCHAIN, choochain);
+		
 		// shardeum
 		EVMChainInfo shardeum = new EVMChainInfo(
 				EVMChain.SHARDEUM.toString(), 

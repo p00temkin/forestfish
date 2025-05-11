@@ -16,7 +16,66 @@ public class BlockchainDetailsTestEVM2 {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 		
-
+		// helios_test
+		EVMChainInfo helios_test = new EVMChainInfo(
+				EVMChain.HELIOSTEST.toString(), 
+				"Helios Chain Testnet", 
+				42000L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Helios Chain Testnet Gas Token", "HLS", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://testnet1.helioschainlabs.org");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.helioschainlabs.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://testnet.helioschain.network");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/42000");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.HELIOSTEST, helios_test);
+		
+		// teasepolia_test
+		EVMChainInfo teasepolia_test = new EVMChainInfo(
+				EVMChain.TEASEPOLIATEST.toString(), 
+				"Tea Sepolia Testnet", 
+				10218L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Tea Sepolia Testnet Gas Token", "TEA", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://tea-sepolia.g.alchemy.com/public");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://sepolia.tea.xyz");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://faucet-sepolia.tea.xyz");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/10218");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.TEASEPOLIATEST, teasepolia_test);
+		
 		// shardeum_test
 		EVMChainInfo shardeum_test = new EVMChainInfo(
 				EVMChain.SHARDEUMTEST.toString(), 

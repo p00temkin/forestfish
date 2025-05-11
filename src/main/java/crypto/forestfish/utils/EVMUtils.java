@@ -1939,7 +1939,7 @@ public class EVMUtils {
 				}
 
 				LOGGER.info("------------------------------------------------------------");
-				LOGGER.info("sendTXWithNativeCurrency_EIP1559PricingMechanism(): Proceeding with tx using gasPrice: " + Convert.fromWei(gasPrice.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPrice.toString() + " wei), gasLimit: " + gasLimit + " units, nodeCallAttemptCount=" + nodeCallAttemptCount + "nonce: " + nc_state.getStatus().getNonce_latest()); 
+				LOGGER.info("sendTXWithNativeCurrency_EIP1559PricingMechanism(): Proceeding with tx using gasPrice: " + Convert.fromWei(gasPrice.toString(), Unit.GWEI).setScale(0, RoundingMode.HALF_UP) + " gwei (" + gasPrice.toString() + " wei), gasLimit: " + gasLimit + " units, nodeCallAttemptCount=" + nodeCallAttemptCount + " nonce: " + nc_state.getStatus().getNonce_latest()); 
 
 				try {
 
@@ -2197,8 +2197,10 @@ public class EVMUtils {
 			switchNode = true;
 		} else if (false ||
 				_ex.getMessage().contains("RPC is deprecated. Please use another provider") ||
+				_ex.getMessage().contains("transactions are turned off") ||
 				false) {
-			//  https://rpc-mumbai.maticvigil.com: org.web3j.protocol.exceptions.ClientConnectionException: Invalid response received: 403; Our Mumbai RPC is deprecated. Please use another provider.
+			// https://rpc-mumbai.maticvigil.com: org.web3j.protocol.exceptions.ClientConnectionException: Invalid response received: 403; Our Mumbai RPC is deprecated. Please use another provider.
+			// https://api.shardeum.org/, response: "Application transactions are turned off."
 			LOGGER.debug("Got an RPC deprecated reply from nodeURL " + _nodeURL + ".. will not retry, move on to next node. ex: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -2406,10 +2408,12 @@ public class EVMUtils {
 				_ex.getMessage().contains("No content to map due to end-of-input") ||
 				_ex.getMessage().contains("Cannot deserialize value of type") ||
 				_ex.getMessage().contains("Invalid") ||
+				_ex.getMessage().contains("Error processing request") ||
 				false) {
 			// https://rpc.sepolia.ethpandaops.io: "Invalid"
 			// com.fasterxml.jackson.databind.exc.MismatchedInputException: No content to map due to end-of-input
 			// Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)
+			// https://rpc.ankr.com/filecoin_testnet: "Error processing request: failed to lookup Eth Txn 0xc...56 as bafy2bz...u4qvm: failed to load message: ipld: could not find bafy2b...vm"
 			LOGGER.warn("Got a bad response from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -2434,8 +2438,10 @@ public class EVMUtils {
 			exceptionType = ExceptionType.FATAL;
 		} else if (false ||
 				_ex.getMessage().contains("legacy transaction is not supported") ||
+				_ex.getMessage().contains("INVALID_TRANSACTION") ||
 				false) {
 			// https://rpc.ankr.com/filecoin_testnet: legacy transaction is not supported
+			// https://dream-rpc.somnia.network: INVALID_TRANSACTION
 			LOGGER.warn("Legacy transaction not supported, need to switch to EIP1559 for chain " + _chain + ", exception: " + _ex.getMessage());
 			nodeInteraction = true;
 			exceptionType = ExceptionType.FATAL;
@@ -2688,139 +2694,149 @@ public class EVMUtils {
 		return match;
 	}
 
-	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _haltOnRPCNodeSelectionFail) {
-		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, false, _haltOnRPCNodeSelectionFail);
+	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _haltOnRPCNodeSelectionFail, HashMap<EVMChain, Boolean> _skipchains) {
+		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, false, _haltOnRPCNodeSelectionFail, _skipchains);
 	}
 
-	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean debug, boolean _haltOnRPCNodeSelectionFail) {
-		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, debug, _haltOnRPCNodeSelectionFail);
+	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean debug, boolean _haltOnRPCNodeSelectionFail, HashMap<EVMChain, Boolean> _skipchains) {
+		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, debug, _haltOnRPCNodeSelectionFail, _skipchains);
 	}
 
-	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _checkForNFTs, HashMap<String, Boolean> _erc20_restriction, HashMap<String, Boolean> _nft_restriction, boolean _debug, boolean _haltOnRPCError) {
+	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _checkForNFTs, HashMap<String, Boolean> _erc20_restriction, HashMap<String, Boolean> _nft_restriction, boolean _debug, boolean _haltOnRPCError, HashMap<EVMChain, Boolean> _skipchains) {
 		HashMap<EVMChain, EVMChainPortfolio> chainportfolio = new HashMap<>();
 
+		// allow null args instead of empties
+		if (null == _skipchains) _skipchains = new HashMap<>();
+
 		for (EVMChain chain: EVMChain.values()) {
-			if (_debug) System.out.println("chain: " + chain);
 
-			EVMChainInfo chainInfo = EVMUtils.getEVMChainInfo(chain);
-			if (null == chainInfo) {
-				LOGGER.error("chainInfo cannot be null for " + chain);
-				SystemUtils.halt();
-			}
+			if (null == _skipchains.get(chain)) {
 
-			if (BlockchainType.valueOf(chainInfo.getType()) == _ultra_connector.getChainType()) {
+				if (_debug) System.out.println("chain: " + chain);
 
-				/**
-				 * Verify RPC node connectivity
-				 */
-				EVMBlockChainConnector connector_temp = _ultra_connector.getConnectors().get(chain);
-				if (null == connector_temp) {
-					LOGGER.debug("We dont have a valid connector for chain " + chain);
-					LOGGER.debug("Skipping and will move on ..");
-				} else {
-					BigInteger latestBlockNr = EVMUtils.getLatestBlockNumberOpportunistic(connector_temp);
-					if (null == latestBlockNr) {
-						LOGGER.debug("Seems we cant get a good connection to the chain " + chain);
+				EVMChainInfo chainInfo = EVMUtils.getEVMChainInfo(chain);
+				if (null == chainInfo) {
+					LOGGER.error("chainInfo cannot be null for " + chain);
+					SystemUtils.halt();
+				}
+
+				if (BlockchainType.valueOf(chainInfo.getType()) == _ultra_connector.getChainType()) {
+
+					/**
+					 * Verify RPC node connectivity
+					 */
+					EVMBlockChainConnector connector_temp = _ultra_connector.getConnectors().get(chain);
+					if (null == connector_temp) {
+						LOGGER.debug("We dont have a valid connector for chain " + chain);
 						LOGGER.debug("Skipping and will move on ..");
 					} else {
+						BigInteger latestBlockNr = EVMUtils.getLatestBlockNumberOpportunistic(connector_temp);
+						if (null == latestBlockNr) {
+							LOGGER.warn("Seems we cant get a good connection to the chain " + chain + " (latest block nr is null)");
+							LOGGER.warn("Skipping and will move on ..");
+							_skipchains.put(chain, true);
+						} else {
 
-						if (_debug) LOGGER.info("We have a valid connector for chain " + chain +", latestBlockNr=" + latestBlockNr);
+							if (_debug) LOGGER.info("We have a valid connector for chain " + chain +", latestBlockNr=" + latestBlockNr);
 
-						HashMap<String, EVMAccountBalance> erc20tokens = new HashMap<>();
-						HashMap<String, EVMNftAccountBalance> erc721tokens = new HashMap<>();
-						HashMap<String, EVMNftAccountBalance> erc1155tokens = new HashMap<>();
-						EVMAccountBalance native_balance = null;
+							HashMap<String, EVMAccountBalance> erc20tokens = new HashMap<>();
+							HashMap<String, EVMNftAccountBalance> erc721tokens = new HashMap<>();
+							HashMap<String, EVMNftAccountBalance> erc1155tokens = new HashMap<>();
+							EVMAccountBalance native_balance = null;
 
-						EVMBlockChainConnector connector = _ultra_connector.getConnectors().get(chain);
+							EVMBlockChainConnector connector = _ultra_connector.getConnectors().get(chain);
 
-						if (null != connector) {
-							LOGGER.debug("getTransactionCountForAddress() call for " + _account_addr + " and chain " + connector.getChain().toString());
-							BigInteger txCount = EVMUtils.getTransactionCountForAddress(connector, _account_addr);
-							if (null != txCount) {
-
-								/**
-								 * Check native balance
-								 */
-								native_balance = EVMUtils.getAccountNativeBalance(connector, _account_addr);
-								if ((null != native_balance) && (!native_balance.isEmpty())) {
-
-									/**
-									 * Check presence of known ERC-20 tokens on chain
-									 */
-									ERC20TokenIndex idx = chainInfo.getTokenIndex();
-									for (String tokenName: idx.getTokens().keySet()) {
-										if (_debug) System.out.println(" ... " + tokenName);
-										if (false ||
-												(null == _erc20_restriction) || // no restriction
-												((null != _erc20_restriction) && (null != _erc20_restriction.get(tokenName))) || // restriction but match
-												false) {
-											EVMERC20TokenInfo tokenInfo = idx.getTokens().get(tokenName);
-											if (isEVMNoiseToken(tokenInfo.getCategory())) {
-												// skip
-											} else {
-												EVMAccountBalance token_balance = EVMUtils.getAccountBalanceForERC20Token(connector, _account_addr, tokenInfo);
-
-												// Decimals debug
-												if (_debug && (chain == EVMChain.POLYGON) && ("WETH".equals(tokenName))) {
-													System.out.println(tokenName + " token_balance: " + token_balance.toString());
-												}
-
-												if (!token_balance.isEmpty()) {
-													erc20tokens.put(tokenName, token_balance);
-												}
-											}
-										}
-									}
+							if (null != connector) {
+								LOGGER.debug("getTransactionCountForAddress() call for " + _account_addr + " and chain " + connector.getChain().toString());
+								BigInteger txCount = EVMUtils.getTransactionCountForAddress(connector, _account_addr);
+								if (null != txCount) {
 
 									/**
-									 * Check presence of known ERC-721 tokens on chain
+									 * Check native balance
 									 */
-									if (_checkForNFTs) {
-										EVMNFTIndex idx_nft = chainInfo.getNftindex();
-										for (String nftName: idx_nft.getErc721tokens().keySet()) {
+									native_balance = EVMUtils.getAccountNativeBalance(connector, _account_addr);
+									if (null == native_balance) _skipchains.put(chain, true);
+									if ((null != native_balance) && (!native_balance.isEmpty())) {
+
+										/**
+										 * Check presence of known ERC-20 tokens on chain
+										 */
+										ERC20TokenIndex idx = chainInfo.getTokenIndex();
+										for (String tokenName: idx.getTokens().keySet()) {
+											if (_debug) System.out.println(" ... " + tokenName);
 											if (false ||
-													(null == _nft_restriction) || // no restriction
-													((null != _nft_restriction) && (null != _nft_restriction.get(nftName))) || // restriction but match
+													(null == _erc20_restriction) || // no restriction
+													((null != _erc20_restriction) && (null != _erc20_restriction.get(tokenName))) || // restriction but match
 													false) {
-												EVMERC721TokenInfo nftInfo = idx_nft.getErc721tokens().get(nftName);
-												if (isEVMNoiseToken(nftInfo.getCategory())) {
+												EVMERC20TokenInfo tokenInfo = idx.getTokens().get(tokenName);
+												if (isEVMNoiseToken(tokenInfo.getCategory())) {
 													// skip
 												} else {
-													EVMNftAccountBalance nft_balance = EVMUtils.getAccountBalanceForERC721Token(connector, _account_addr, nftInfo);
-													if (!nft_balance.isEmpty()) {
-														erc721tokens.put(nftName, nft_balance);
+													EVMAccountBalance token_balance = EVMUtils.getAccountBalanceForERC20Token(connector, _account_addr, tokenInfo);
+
+													// Decimals debug
+													if (_debug && (chain == EVMChain.POLYGON) && ("WETH".equals(tokenName))) {
+														System.out.println(tokenName + " token_balance: " + token_balance.toString());
+													}
+
+													if (!token_balance.isEmpty()) {
+														erc20tokens.put(tokenName, token_balance);
 													}
 												}
 											}
 										}
-									}
 
-									/**
-									 * Check presence of known ERC-1155 tokens on chain
-									 */
-									/*
-									NFTIndex idx_nft_1155 = chainInfo.getNftindex();
-									for (String nftName: idx_nft_1155.getErc1155tokens().keySet()) {
-										EVMERC1155TokenInfo nftInfo = idx_nft_1155.getErc1155tokens().get(nftName);
-										if (false ||
-												(TokenCategory.valueOf(nftInfo.getCategory()) == TokenCategory.UNKNOWN) ||
-												(TokenCategory.valueOf(nftInfo.getCategory()) == TokenCategory.SCAM) ||
-												false) {
-											// skip
-										} else {
-											EVMNftAccountBalance nft_balance = EVMUtils.getAccountBalanceForERC1155Token(connector, account_addr, nftInfo);
-											if (!nft_balance.isEmpty()) {
-												erc1155tokens.put(nftName, nft_balance);
+										/**
+										 * Check presence of known ERC-721 tokens on chain
+										 */
+										if (_checkForNFTs) {
+											EVMNFTIndex idx_nft = chainInfo.getNftindex();
+											for (String nftName: idx_nft.getErc721tokens().keySet()) {
+												if (false ||
+														(null == _nft_restriction) || // no restriction
+														((null != _nft_restriction) && (null != _nft_restriction.get(nftName))) || // restriction but match
+														false) {
+													EVMERC721TokenInfo nftInfo = idx_nft.getErc721tokens().get(nftName);
+													if (isEVMNoiseToken(nftInfo.getCategory())) {
+														// skip
+													} else {
+														EVMNftAccountBalance nft_balance = EVMUtils.getAccountBalanceForERC721Token(connector, _account_addr, nftInfo);
+														if (!nft_balance.isEmpty()) {
+															erc721tokens.put(nftName, nft_balance);
+														}
+													}
+												}
 											}
 										}
-									}
-									 */
 
-									EVMChainPortfolio portfolio = new EVMChainPortfolio(_account_addr, chain.toString(), native_balance, txCount.toString(), erc20tokens, erc721tokens, erc1155tokens);
-									chainportfolio.put(chain, portfolio);
+										/**
+										 * Check presence of known ERC-1155 tokens on chain
+										 */
+										/*
+										NFTIndex idx_nft_1155 = chainInfo.getNftindex();
+										for (String nftName: idx_nft_1155.getErc1155tokens().keySet()) {
+											EVMERC1155TokenInfo nftInfo = idx_nft_1155.getErc1155tokens().get(nftName);
+											if (false ||
+													(TokenCategory.valueOf(nftInfo.getCategory()) == TokenCategory.UNKNOWN) ||
+													(TokenCategory.valueOf(nftInfo.getCategory()) == TokenCategory.SCAM) ||
+													false) {
+												// skip
+											} else {
+												EVMNftAccountBalance nft_balance = EVMUtils.getAccountBalanceForERC1155Token(connector, account_addr, nftInfo);
+												if (!nft_balance.isEmpty()) {
+													erc1155tokens.put(nftName, nft_balance);
+												}
+											}
+										}
+										 */
+
+										EVMChainPortfolio portfolio = new EVMChainPortfolio(_account_addr, chain.toString(), native_balance, txCount.toString(), erc20tokens, erc721tokens, erc1155tokens);
+										chainportfolio.put(chain, portfolio);
+									}
+								} else {
+									LOGGER.warn("Unable to get txCount for " + _account_addr + ", skipping chain " + chain);
+									_skipchains.put(chain, true);
 								}
-							} else {
-								LOGGER.debug("Unable to get txCount for " + _account_addr + ", skipping");
 							}
 						}
 					}
@@ -2828,7 +2844,7 @@ public class EVMUtils {
 			}
 		}
 
-		return new EVMPortfolio(_account_addr, chainportfolio, System.currentTimeMillis()/1000L);
+		return new EVMPortfolio(_account_addr, chainportfolio, System.currentTimeMillis()/1000L, _skipchains);
 	}
 
 	private static boolean isEVMNoiseToken(String _category) {
@@ -3302,7 +3318,7 @@ public class EVMUtils {
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail, null);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
@@ -3317,7 +3333,7 @@ public class EVMUtils {
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail, null);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
@@ -3345,7 +3361,7 @@ public class EVMUtils {
 		System.out.println("EVMBlockChainUltraConnector ready ..");	
 
 		// Print EVM portfolio
-		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail);
+		EVMPortfolio evm_chainPortfolio = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _publicaddress, _haltOnRPCNodeSelectionFail, null);
 		EVMPortfolioSimple evm_chainPortfolio_simple = EVMUtils.createEVMPortfolioSimple(evm_chainPortfolio);
 		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioAsString(evm_chainPortfolio_simple);
 		System.out.println(portfolio_diff.getPortfolio_full_str());
@@ -3551,7 +3567,7 @@ public class EVMUtils {
 		String txhash = null;
 		LOGGER.info("sendTX from " + cred.getAddress() + " to " + to_address);
 
-		// force custom behavior for chain?
+		// force custom behavior for Mantle
 		if (_connector.getChain() == EVMChain.MANTLETEST) {
 			PendingTxStatus pendingTX = checkForPendingTransactions(_connector, cred.getAddress());
 			if (null != pendingTX) {

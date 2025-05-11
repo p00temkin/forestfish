@@ -1312,6 +1312,12 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Yominet", EVMChain.YOMINET);
 			this.put("Shardeum Testnet", EVMChain.SHARDEUMTEST);
 			this.put("Shardeum", EVMChain.SHARDEUM);
+			this.put("ChooChain", EVMChain.CHOOCHAIN);
+			this.put("OpenGPU Mainnet", EVMChain.OPENGPU);
+			this.put("Swisstronik Mainnet", EVMChain.SWISSTRONIK);
+			this.put("Tea Sepolia Testnet", EVMChain.TEASEPOLIATEST);
+			this.put("Helios Chain Testnet", EVMChain.HELIOSTEST);
+			this.put("Altblockscan Mainnet", EVMChain.ALTBLOCKSCAN);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{

@@ -12,16 +12,18 @@ public class EVMPortfolio {
 	private HashMap<EVMChain, EVMChainPortfolio> chainportfolio = new HashMap<>();
 	private Credentials cred;
 	private Long timestamp_in_seconds;
+	private HashMap<EVMChain, Boolean> skipchains;
 
 	public EVMPortfolio() {
 		super();
 	}
 
-	public EVMPortfolio(String _account_address, HashMap<EVMChain, EVMChainPortfolio> _chainportfolio, Long _timestamp_in_seconds) {
+	public EVMPortfolio(String _account_address, HashMap<EVMChain, EVMChainPortfolio> _chainportfolio, Long _timestamp_in_seconds, HashMap<EVMChain, Boolean> _skipchains) {
 		super();
 		this.account_address = _account_address;
 		this.chainportfolio = _chainportfolio;
 		this.timestamp_in_seconds = _timestamp_in_seconds;
+		this.skipchains = _skipchains;
 	}
 
 	public HashMap<EVMChain, EVMChainPortfolio> getChainportfolio() {
@@ -54,6 +56,14 @@ public class EVMPortfolio {
 
 	public void setTimestamp_in_seconds(Long timestamp_in_seconds) {
 		this.timestamp_in_seconds = timestamp_in_seconds;
+	}
+
+	public HashMap<EVMChain, Boolean> getSkipchains() {
+		return skipchains;
+	}
+
+	public void setSkipchains(HashMap<EVMChain, Boolean> skipchains) {
+		this.skipchains = skipchains;
 	}
 
 }
