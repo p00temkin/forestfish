@@ -4053,7 +4053,7 @@ public class BlockchainDetailsTestEVM1 {
 		
 		// mezo_test
 		EVMChainInfo mezo_test = new EVMChainInfo(
-				EVMChain.MEZOTEST.toString(), 
+				EVMChain.MEZOTMATSNETEST.toString(), 
 				"Mezo Matsnet Testnet", 
 				31611L, 
 				BlockchainType.PUBLIC.toString(),
@@ -4079,7 +4079,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.MEZOTEST, mezo_test);
+		networks.put(EVMChain.MEZOTMATSNETEST, mezo_test);
 		
 		// titan_test
 		EVMChainInfo titansep_test = new EVMChainInfo(
@@ -6961,6 +6961,7 @@ public class BlockchainDetailsTestEVM1 {
 				new ArrayList<String>() {{
 					this.add("https://fraa-dancebox-3001-rpc.a.dancebox.tanssi.network");
 					this.add("https://dancebox-3001.tanssi-api.network");
+					this.add("https://dancelight-2001.tanssi-api.network");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -9131,6 +9132,7 @@ public class BlockchainDetailsTestEVM1 {
 					this.add("https://testnet-rpc.plumenetwork.xyz");
 					this.add("https://testnet-rpc.plumenetwork.xyz/http");
 					this.add("https://plume-testnet.rpc.caldera.xyz/http");
+					this.add("https://testnet-rpc.plume.org");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),

@@ -2369,6 +2369,9 @@ public class BlockchainDetailsMainEVM1 {
 					this.add("https://peaq-rpc.publicnode.com");
 					this.add("https://evm.peaq.network");
 					this.add("https://responsive-powerful-mansion.peaq-mainnet.quiknode.pro/29963d0a2deee01a20b091926b08d68db12bc68b");
+					this.add("https://quicknode1.peaq.xyz");
+					this.add("https://quicknode2.peaq.xyz");
+					this.add("https://quicknode3.peaq.xyz");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -12970,6 +12973,7 @@ public class BlockchainDetailsMainEVM1 {
 					this.add("https://syscoin-evm.publicnode.com");
 					this.add("https://rpc.ankr.com/syscoin");
 					this.add("https://syscoin.public-rpc.com");
+					this.add("https://57.rpc.thirdweb.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(), // flashbot nodes (if available)
@@ -15712,7 +15716,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
 				null, // enforced min gasprice
-				"21000", // pure tx
+				"100000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://base.blockpi.network/v1/rpc/public");
 					this.add("https://developer-access-mainnet.base.org/");

@@ -143,20 +143,6 @@ public class EVMUtilsTest {
 		assertTrue("Ensure we get a sane gasprice back (more than 1 GWEI)", gasprice.compareTo(new BigDecimal("1")) > 0);
 		LOGGER.info("Gas price in GWEI: " + gasprice);
 	}
-	
-	@Test
-	public void connectToPolygonBlockChainCheckIfAddressIsContract() {
-
-		// Instantiate an node optimized connector to the Polygon network
-		EVMBlockChainConnector polygonConnector = new EVMBlockChainConnector(EVMChain.POLYGON, true);
-
-		Boolean hardhat_default_account_is_contract = EVMUtils.isContractAddress(polygonConnector, "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
-		assertFalse("Hardhat default account is not a contract but a EOA", hardhat_default_account_is_contract);
-		
-		Boolean ghst_contract_address_is_contract = EVMUtils.isContractAddress(polygonConnector, polygonConnector.getChaininfo().getTokenIndex().getTokens().get(PolygonERC20Token.GHST.toString()).getContractAddress());
-		assertTrue("Aavegotchi GHST ERC20 contract is a contract", ghst_contract_address_is_contract);
-		
-	}
 
 	@Test
 	public void createCredentialsAndCheckPublicAddress() {

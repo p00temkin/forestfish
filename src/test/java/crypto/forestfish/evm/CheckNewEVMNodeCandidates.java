@@ -955,7 +955,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Unit Zero Mainnet", EVMChain.UNIT);
 			this.put("arena-z", EVMChain.ARENAZ);
 			this.put("IOST Mainnet", EVMChain.IOST);
-			this.put("Mezo Matsnet Testnet", EVMChain.MEZOTEST);
+			this.put("Mezo Matsnet Testnet", EVMChain.MEZOTMATSNETEST);
 			this.put("Superposition Testnet", EVMChain.SUPERPOSITIONTEST);
 			this.put("Odyssey Chain Mainnet", EVMChain.ODYSSEY);
 			this.put("Anomaly Andromeda Testnet", EVMChain.ANOMALYTEST);
@@ -1318,6 +1318,44 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Tea Sepolia Testnet", EVMChain.TEASEPOLIATEST);
 			this.put("Helios Chain Testnet", EVMChain.HELIOSTEST);
 			this.put("Altblockscan Mainnet", EVMChain.ALTBLOCKSCAN);
+			this.put("R5 Network", EVMChain.R5);
+			this.put("Mezo Testnet", EVMChain.MEZOTEST);
+			this.put("Mezo", EVMChain.MEZO);
+			this.put("R5 Network Testnet", EVMChain.R5TEST);
+			this.put("RISE Testnet", EVMChain.RISETEST);
+			this.put("Ethereum Hoodi", EVMChain.ETHEREUMHOODITEST);
+			this.put("Eteria Mainnet", EVMChain.ETERIA);
+			this.put("Layer Edge Mainnet", EVMChain.LAYER);
+			this.put("Rogue Chain", EVMChain.ROGUE);
+			this.put("TAC Mainnet", EVMChain.TAC);
+			this.put("TAC Saint Petersburg", EVMChain.TACSAINTPETERSBURGTEST);
+			this.put("Realio Testnet", EVMChain.REALIOTEST);
+			this.put("Realio", EVMChain.REALIO);
+			this.put("Plasma Testnet", EVMChain.PLASMATEST);
+			this.put("Althea L1 Mainnet", EVMChain.ALTHEA);this.put("Botanix Mainnet", EVMChain.BOTANIX);
+			this.put("Reddio", EVMChain.REDDIO);
+			this.put("DeInfra Mainnet", EVMChain.DEINFRA);
+			this.put("DeInfra Devnet3", EVMChain.DEINFRATEST);
+			this.put("ENI Mainnet", EVMChain.ENI);
+			this.put("BuyCex Infinity Chain", EVMChain.BUYCEX);
+			this.put("T-Rex Testnet", EVMChain.TREXTEST);
+			this.put("GANchain L1", EVMChain.GANCHAIN);
+			this.put("Nexera Mainnet", EVMChain.NEXERA);
+			this.put("Rome Mainnet 0 Palatine", EVMChain.PALATINEROME);
+			this.put("Rome Mainnet 0 Aventine", EVMChain.AVENTINEROME);
+			this.put("Arena-Z-Testnet", EVMChain.ARENAZTEST);
+			this.put("Polynomial Sepolia", EVMChain.POLYNOMIALSEPOLIATEST);
+			this.put("Pay1 Network", EVMChain.PAY1);
+			this.put("Monsoon ", EVMChain.MONSOON);
+			this.put("Rome Devnet Esquiline", EVMChain.ROMEESQUILINETEST);
+			this.put("Rome Devnet Subura", EVMChain.ROMESUBURATEST);
+			this.put("Rome Testnet Martius", EVMChain.ROMEMARTIUSTEST);
+			this.put("Rome Testnet Caelian", EVMChain.ROMECAELIANTEST);
+			this.put("Tatara Testnet", EVMChain.TATARATEST);
+			this.put("ENI Testnet", EVMChain.ENITEST);
+			this.put("Humanity Protocol", EVMChain.HUMANITY);
+			this.put("Humanity Protocol testnet", EVMChain.HUMANITYTEST);
+			this.put("Lumia Beam Testnet", EVMChain.LUMIABEAMTEST);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
@@ -2680,6 +2718,8 @@ public class CheckNewEVMNodeCandidates {
 								eece.getName().toLowerCase().contains("goerli") ||
 								eece.getName().toLowerCase().contains("epolia") ||
 								eece.getName().toLowerCase().contains("holesky") ||
+								eece.getName().toLowerCase().contains("hoodi") ||
+								eece.getName().toLowerCase().contains("saint petersburg") ||
 								false) {
 							chain_shortname = eece.getName().split(" ")[0].toLowerCase().replace("(","").replace(")","").replace("-","").replace("testnet","").replace("-","");
 							chain_enum = eece.getName().split(" ")[0].toUpperCase().replace("(","").replace(")","").replace("-","").replace("TESTNET","").replace("-","");
@@ -2697,6 +2737,16 @@ public class CheckNewEVMNodeCandidates {
 							if (eece.getName().toLowerCase().contains("holesky")) {
 								chain_shortname = chain_shortname + "holesky";
 								chain_enum = chain_enum + "HOLESKY";
+							}
+							
+							if (eece.getName().toLowerCase().contains("hoodi")) {
+								chain_shortname = chain_shortname + "hoodi";
+								chain_enum = chain_enum + "HOODI";
+							}
+							
+							if (eece.getName().toLowerCase().contains("saint petersburg")) {
+								chain_shortname = chain_shortname + "saintpetersburg";
+								chain_enum = chain_enum + "SAINTPETERSBURG";
 							}
 
 							chain_shortname = chain_shortname + "_test";

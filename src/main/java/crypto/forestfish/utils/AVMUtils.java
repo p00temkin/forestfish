@@ -24,6 +24,7 @@ import com.algorand.algosdk.v2.client.model.ApplicationLocalState;
 import com.algorand.algosdk.v2.client.model.Asset;
 import com.algorand.algosdk.v2.client.model.AssetHolding;
 import com.algorand.algosdk.v2.client.model.Enums.TxType;
+import com.algorand.algosdk.v2.client.model.Genesis;
 import com.algorand.algosdk.v2.client.model.HealthCheck;
 import com.algorand.algosdk.v2.client.model.NodeStatusResponse;
 import com.algorand.algosdk.v2.client.model.PendingTransactionResponse;
@@ -670,13 +671,13 @@ public class AVMUtils {
 		while ((nodeCallAttemptCount<10) && (requestCount<20)) {
 			requestCount++;
 			try {
-				Response<String> resp = _connector.getProvider_instance().GetGenesis().execute();
+				Response<Genesis> resp = _connector.getProvider_instance().GetGenesis().execute();
 				if (!resp.isSuccessful()) {
 					LOGGER.error("resp.message(): " + resp.message());
 					SystemUtils.halt();
 				}
-				String genesis = resp.body();
-				return genesis;
+				Genesis genesis = resp.body();
+				return genesis.toString();
 			} catch (Exception ex) {
 				// tx exceptions (readonly)
 				AVMProviderException avmE = analyzeProviderException(_connector.getChain(), _connector.getRelayNode(), ex);

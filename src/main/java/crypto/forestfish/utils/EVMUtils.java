@@ -204,6 +204,8 @@ public class EVMUtils {
 		return null;
 	}
 
+	// no longer a reliable method
+	/*
 	public static boolean isContractAddress(EVMBlockChainConnector _connector, String _address) {
 		String meth = "isContractAddress()";
 		boolean tx_attempt = false;
@@ -232,6 +234,7 @@ public class EVMUtils {
 		}
 		return false;
 	}
+	*/
 
 	public static EVMAccountBalance getAccountNativeBalance(EVMBlockChainConnector _connector, String _address) {
 		String meth = "getAccountNativeBalance()";
@@ -940,7 +943,7 @@ public class EVMUtils {
 						LOGGER.info("response error.data: " + response.getError().getData());		
 						LOGGER.info("response error.message: " + response.getError().getMessage());
 					}
-					LOGGER.info("response reseult: " + response.getResult());
+					LOGGER.info("response result: " + response.getResult());
 				}
 
 				// At least give it a few seconds
@@ -2378,6 +2381,10 @@ public class EVMUtils {
 				LOGGER.warn("This should not happen for " + _chain + ", exiting");
 				exceptionType = ExceptionType.FATAL;
 			}
+		} else if (_ex.getMessage().toLowerCase().contains("account not activated")) {
+			// // https://anon-entrypoint-test-1.atgraphite.com
+			LOGGER.warn("Got revert from nodeURL " + _nodeURL + ".. will not retry since custom EVM: " + _ex.getMessage());
+			exceptionType = ExceptionType.FATAL;		
 		} else if (_ex.getMessage().toLowerCase().contains("revert")) {
 			// Failed to submit transaction: Failed to validate the transaction. Reason: Validation revert: Account validation error: Error function_selector = 0x, data = 0x
 			// Transaction 0x4926dad... has failed with status: 0x0. Gas used: 29603. Revert reason: 'execution reverted'.
@@ -2450,7 +2457,9 @@ public class EVMUtils {
 					_ex.getMessage().contains("daily request count exceeded") ||
 					_ex.getMessage().contains("You have sent too many requests in a given amount of time") ||
 					_ex.getMessage().contains("Too Many Requests") ||
+					_ex.getMessage().contains("Too many follow-up requests") ||
 					false) {
+				// https://rpc.forma.art, response: "java.net.ProtocolException: Too many follow-up requests: 21"
 				LOGGER.info("RPC Node limit reached for nodeURL " + _nodeURL + ", we should probably cool down: " + _ex.getMessage());
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;		

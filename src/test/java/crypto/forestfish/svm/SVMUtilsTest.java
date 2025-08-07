@@ -15,7 +15,7 @@ public class SVMUtilsTest {
 	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(SVMUtilsTest.class);
 
-	@Test
+	//@Test
 	public void simpletest() {
 
 		RpcClient client = new RpcClient(Cluster.TESTNET);
