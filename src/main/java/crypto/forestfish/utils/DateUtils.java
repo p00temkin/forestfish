@@ -27,4 +27,10 @@ public class DateUtils {
 		return format.format(date);
 	}
 	
+	public static long secondsToHours(long seconds) {
+        if (seconds < 0) {
+            return -1;
+        }
+        return seconds / 3600;
+    }
 }

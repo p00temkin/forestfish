@@ -16,6 +16,66 @@ public class BlockchainDetailsTestEVM2 {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 		
+		// celosepolia_test
+		EVMChainInfo celosepolia_test = new EVMChainInfo(
+				EVMChain.CELOSEPOLIATEST.toString(), 
+				"Celo Sepolia Testnet", 
+				11142220L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Celo Sepolia Testnet Gas Token", "CELO", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://forno.celo-sepolia.celo-testnet.org");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://celo-sepolia.blockscout.com");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://faucet.celo.org");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/11142220");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.CELOSEPOLIATEST, celosepolia_test);
+		
+		// sovasepolia_test
+		EVMChainInfo sovasepolia_test = new EVMChainInfo(
+				EVMChain.SOVASEPOLIATEST.toString(), 
+				"Sova Sepolia Testnet", 
+				120893L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Sova Sepolia Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.testnet.sova.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://explorer.testnet.sova.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/120893");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.SOVASEPOLIATEST, sovasepolia_test);
+		
 		// lumia_test
 		EVMChainInfo lumia_test = new EVMChainInfo(
 				EVMChain.LUMIABEAMTEST.toString(), 
