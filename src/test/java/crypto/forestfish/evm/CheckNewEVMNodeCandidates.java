@@ -1358,6 +1358,11 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Lumia Beam Testnet", EVMChain.LUMIABEAMTEST);
 			this.put("Sova Sepolia Testnet", EVMChain.SOVASEPOLIATEST);
 			this.put("Celo Sepolia Testnet", EVMChain.CELOSEPOLIATEST);
+			this.put("Abey Testnet", EVMChain.ABEYTEST);
+			this.put("Abey Mainnet", EVMChain.ABEY);
+			this.put("OpenLedger Mainnet", EVMChain.OPENLEDGER);
+			this.put("MANTRACHAIN Testnet", EVMChain.MANTRACHAINTEST);
+
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{

@@ -3553,6 +3553,36 @@ public class BlockchainDetailsTestEVM2 {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.MATR1XTEST, matr1x_test);
 		
+		// mantrachain_test
+		EVMChainInfo mantrachain_test = new EVMChainInfo(
+				EVMChain.MANTRACHAINTEST.toString(), 
+				"MANTRACHAIN Testnet", 
+				5887L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("MANTRACHAIN Testnet Gas Token", "OM", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://evm.dukong.mantrachain.io");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("http://mantrascan.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://faucet.dukong.mantrachain.io");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/5887");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.MANTRACHAINTEST, mantrachain_test);
+		
 		return networks;
 
 	}

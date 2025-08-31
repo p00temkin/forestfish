@@ -16,6 +16,36 @@ public class BlockchainDetailsMainEVM2 {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 
+		// openledger
+		EVMChainInfo openledger = new EVMChainInfo(
+				EVMChain.OPENLEDGER.toString(), 
+				"OpenLedger Mainnet", 
+				1612L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("OpenLedger Mainnet Gas Token", "OPEN", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://rpc.openledger.xyz");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://scan.openledger.xyz");
+				}},
+				new ArrayList<String>() {{
+					this.add("<TODO>");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/1612");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.OPENLEDGER, openledger);
+		
 		// humanity
 		EVMChainInfo humanity = new EVMChainInfo(
 				EVMChain.HUMANITY.toString(), 

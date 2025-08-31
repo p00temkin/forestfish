@@ -2166,8 +2166,10 @@ public class EVMUtils {
 			switchNode = true;
 		} else if (false ||
 				_ex.getMessage().contains("Cannot read field \"signum") ||
+				_ex.getMessage().contains("txpool is full") ||
 				_ex.getMessage().contains("is null") ||
 				false) {
+			// https://klaytn.api.onfinality.io/public, response: "txpool is full: 5120"
 			// https://fantom-testnet.public.blastapi.io, response: "Cannot read field "signum" because "val" is null"
 			LOGGER.debug("Response decode error from nodeURL " + _nodeURL + ", did you use FINALIZED+getNonce() on a chain which does not support it? ill not retry, move on to next node. Error message: " + _ex.getMessage());
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
