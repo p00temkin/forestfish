@@ -9742,6 +9742,7 @@ public class BlockchainDetailsTestEVM1 {
 				"21000", // pure tx
 				new ArrayList<String>() {{
 					this.add("https://dev-api.zilliqa.com");
+					this.add("https://api.testnet.zilliqa.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),

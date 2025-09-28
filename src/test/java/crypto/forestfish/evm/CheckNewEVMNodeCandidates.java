@@ -1362,6 +1362,17 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Abey Mainnet", EVMChain.ABEY);
 			this.put("OpenLedger Mainnet", EVMChain.OPENLEDGER);
 			this.put("MANTRACHAIN Testnet", EVMChain.MANTRACHAINTEST);
+			this.put("Plasma Mainnet", EVMChain.PLASMA);
+			this.put("Syndicate Mainnet", EVMChain.SYNDICATE);
+			this.put("WorldMobileChain-Mainnet", EVMChain.WORLDMOBILECHAINMAINNET);
+			this.put("MANTRACHAIN Mainnet", EVMChain.MANTRACHAIN);
+			this.put("0G-Galileo-Testnet", EVMChain.ZEROGGALILEOTEST);
+			this.put("0G Mainnet", EVMChain.ZEROG);
+			this.put("Zilliqa 2", EVMChain.ZILLIQA);
+			this.put("Zilliqa 2 Testnet", EVMChain.ZILLIQATEST);
+			this.put("Studio Blockchain Mainnet", EVMChain.STUDIO);
+			this.put("Jovay Sepolia Testnet", EVMChain.JOVAYSEPOLIATEST);
+			this.put("Jovay Mainnet", EVMChain.JOVAY);
 
 		}};
 

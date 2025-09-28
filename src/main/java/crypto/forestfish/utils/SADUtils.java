@@ -1,26 +1,9 @@
 package crypto.forestfish.utils;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.UnknownHostException;
-
-import org.jsoup.Connection.Method;
-import org.jsoup.Connection.Response;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import crypto.forestfish.objects.api.notte.ActionRequest;
-import crypto.forestfish.objects.api.notte.ErrorDetail;
-import crypto.forestfish.objects.api.notte.HealthStatus;
-import crypto.forestfish.objects.api.notte.ObserveRequest;
-import crypto.forestfish.objects.api.notte.ObserveResponse;
-import crypto.forestfish.objects.api.notte.SessionStartRequest;
-import crypto.forestfish.objects.api.notte.SessionStatus;
 import crypto.forestfish.objects.api.sad.UpdateRequest;
-import crypto.forestfish.objects.http.HttpCustomResponse;
 
 public class SADUtils {
 

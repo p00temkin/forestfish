@@ -16,6 +16,66 @@ public class BlockchainDetailsTestEVM2 {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 		
+		// jovaysepolia_test
+		EVMChainInfo jovaysepolia_test = new EVMChainInfo(
+				EVMChain.JOVAYSEPOLIATEST.toString(), 
+				"Jovay Sepolia Testnet", 
+				2019775L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("Jovay Sepolia Testnet Gas Token", "ETH", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://api.zan.top/public/jovay-testnet");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://sepolia-explorer.jovay.io/l2");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://zan.top/faucet/jovay");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/2019775");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.JOVAYSEPOLIATEST, jovaysepolia_test);
+		
+		// ZEROggalileo_test
+		EVMChainInfo ZEROggalileo_test = new EVMChainInfo(
+				EVMChain.ZEROGGALILEOTEST.toString(), 
+				"0G-Galileo-Testnet", 
+				16601L, 
+				BlockchainType.PUBLIC.toString(),
+				new EVMCurrency("0G-Galileo-Testnet Gas Token", "A0GI", 18), 
+				EVMPriceMechanism.LEGACY.toString(),30,
+				"30000000000", //30 gwei
+				null, // enforced min gasprice
+				"300000", //300k units
+				new ArrayList<String>() {{
+					this.add("https://evmrpc-testnet.0g.ai");
+				}}, 
+				new ArrayList<String>(), // archive nodes (if available)
+				new ArrayList<String>(),
+				new ArrayList<String>(),
+				new ArrayList<String>() {{
+					this.add("https://chainscan-galileo.0g.ai");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://faucet.0g.ai");
+				}},
+				new ArrayList<String>() {{
+					this.add("https://chainlist.org/chain/16601");
+				}},
+				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
+				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
+		networks.put(EVMChain.ZEROGGALILEOTEST, ZEROggalileo_test);
+		
 		// celosepolia_test
 		EVMChainInfo celosepolia_test = new EVMChainInfo(
 				EVMChain.CELOSEPOLIATEST.toString(), 
