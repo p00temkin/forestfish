@@ -2420,7 +2420,9 @@ public class EVMUtils {
 				_ex.getMessage().contains("Cannot deserialize value of type") ||
 				_ex.getMessage().contains("Invalid") ||
 				_ex.getMessage().contains("Error processing request") ||
+				_ex.getMessage().contains("Received HTTP_PROXY_AUTH (407) code while not using proxy") || // auth required?
 				false) {
+			// https://mainnet.silentdata.com/${SILENTDATA_AUTH_TOKEN}, response: "java.net.ProtocolException: Received HTTP_PROXY_AUTH (407) code while not using proxy"
 			// https://rpc.sepolia.ethpandaops.io: "Invalid"
 			// com.fasterxml.jackson.databind.exc.MismatchedInputException: No content to map due to end-of-input
 			// Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)
@@ -2519,6 +2521,7 @@ public class EVMUtils {
 		} else if (false ||
 				_errorMessage.toLowerCase().contains("internal error") ||
 				_errorMessage.toLowerCase().contains("internal_error") ||
+				_errorMessage.toLowerCase().contains("server_error") ||
 				_errorMessage.toLowerCase().contains("server_error") ||
 				false) {
 			// Internal error
@@ -2707,6 +2710,10 @@ public class EVMUtils {
 		return match;
 	}
 
+	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _haltOnRPCNodeSelectionFail) {
+		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, false, _haltOnRPCNodeSelectionFail, new HashMap<EVMChain, Boolean>());
+	}
+	
 	public static EVMPortfolio getEVMPortfolioForAccount(EVMBlockChainUltraConnector _ultra_connector, String _account_addr, boolean _haltOnRPCNodeSelectionFail, HashMap<EVMChain, Boolean> _skipchains) {
 		return getEVMPortfolioForAccount(_ultra_connector, _account_addr, true, null, null, false, _haltOnRPCNodeSelectionFail, _skipchains);
 	}

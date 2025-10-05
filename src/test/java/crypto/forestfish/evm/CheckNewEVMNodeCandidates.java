@@ -1366,14 +1366,26 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Syndicate Mainnet", EVMChain.SYNDICATE);
 			this.put("WorldMobileChain-Mainnet", EVMChain.WORLDMOBILECHAINMAINNET);
 			this.put("MANTRACHAIN Mainnet", EVMChain.MANTRACHAIN);
-			this.put("0G-Galileo-Testnet", EVMChain.ZEROGGALILEOTEST);
+			this.put("0G-Galileo-Testnet", EVMChain.ZEROGGALILEO16601TEST);
 			this.put("0G Mainnet", EVMChain.ZEROG);
 			this.put("Zilliqa 2", EVMChain.ZILLIQA);
 			this.put("Zilliqa 2 Testnet", EVMChain.ZILLIQATEST);
 			this.put("Studio Blockchain Mainnet", EVMChain.STUDIO);
 			this.put("Jovay Sepolia Testnet", EVMChain.JOVAYSEPOLIATEST);
 			this.put("Jovay Mainnet", EVMChain.JOVAY);
-
+			this.put("Quai Network Mainnet", EVMChain.QUAI);
+			this.put("Injective Testnet", EVMChain.INJECTIVETEST);
+			this.put("Injective", EVMChain.INJECTIVE);
+			this.put("HyperAGI Mainnet", EVMChain.HYPERAGI);
+			this.put("Quai Network Testnet", EVMChain.QUAITEST);
+			this.put("0G-Testnet-Galileo", EVMChain.ZEROGGALILEOTEST);
+			this.put("GIWA Sepolia Testnet", EVMChain.GIWASEPOLIATEST);
+			this.put("Doma Testnet", EVMChain.DOMATEST);
+			this.put("Doma", EVMChain.DOMA);
+			this.put("Sova", EVMChain.SOVA);
+			this.put("NitroGraph Testnet", EVMChain.NITROGRAPHTEST);
+			this.put("WABA Chain Mainnet", EVMChain.WABA);
+			this.put("Tron Nile", EVMChain.TRONNILE);
 		}};
 
 		HashMap<String, Boolean> skipnodeurls = new HashMap<String, Boolean>() {{
