@@ -16,10 +16,15 @@ import com.esaulpaugh.headlong.abi.Function;
 import com.esaulpaugh.headlong.abi.Single;
 import com.esaulpaugh.headlong.abi.Tuple;
 
+import crypto.forestfish.enums.BlockchainType;
 import crypto.forestfish.enums.evm.EVMChain;
 import crypto.forestfish.enums.evm.PolygonERC20Token;
+import crypto.forestfish.objects.evm.EVMPortfolio;
+import crypto.forestfish.objects.evm.EVMPortfolioDiffResult;
+import crypto.forestfish.objects.evm.EVMPortfolioSimple;
 import crypto.forestfish.objects.evm.SimpleWallet;
 import crypto.forestfish.objects.evm.connector.EVMBlockChainConnector;
+import crypto.forestfish.objects.evm.connector.EVMBlockChainUltraConnector;
 import crypto.forestfish.utils.CryptUtils;
 import crypto.forestfish.utils.EVMUtils;
 
@@ -131,7 +136,7 @@ public class EVMUtilsTest {
 	public void connectToPolygonBlockChain() {
 
 		// Instantiate an node optimized connector to the Polygon network
-		EVMBlockChainConnector polygonConnector = new EVMBlockChainConnector(EVMChain.POLYGON, true);
+		EVMBlockChainConnector polygonConnector = new EVMBlockChainConnector(EVMChain.POLYGON, true, false);
 
 		// Latest block number should be larger than 1
 		BigInteger blockNR = EVMUtils.getLatestBlockNumber(polygonConnector);
@@ -153,4 +158,12 @@ public class EVMUtilsTest {
 		assertEquals("Ensure correct ETH address", "0x12890d2cce102216644c59dae5baed380d84830c", credentials.getAddress());
 	}
 
+	@Test
+	public void getPortfolioForPublicAddress() {
+		// vitalik
+		String portfolio_str = EVMUtils.getPortfolioForMainnetCommons("0xab5801a7d398351b8be11c439e05c5b3259aec9b");
+		System.out.println(portfolio_str);
+		
+	}
+	
 }

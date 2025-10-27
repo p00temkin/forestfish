@@ -498,7 +498,7 @@ public class EVMUtils {
 						return new NonceCheckStatus(pendingTX, true);
 					}
 				} else {
-					LOGGER.error("We have pending (possibly stuck) transaction, need clear that up before proceeding.");
+					LOGGER.warn("We have pending (possibly stuck) transaction, need clear that up before proceeding.");
 
 					LOGGER.info("First lets just try to wait it in");
 					boolean pendingResolved = brieflyWaitForPendingTransactionsToClear(_connector, address);
@@ -1638,13 +1638,17 @@ public class EVMUtils {
 				EthGetTransactionCount ethGetTransactionCount_finalized = _connector.getProvider_instance().ethGetTransactionCount(_address, DefaultBlockParameterName.FINALIZED).send();
 				BigInteger nonce_finalized =  ethGetTransactionCount_finalized.getTransactionCount();
 
-				if (nonce_pending.compareTo(nonce_latest) == 0) {
+				if (true &&
+						(nonce_pending.compareTo(nonce_latest) == 0) &&
+						(nonce_finalized.compareTo(nonce_latest) == 0) &&
+				true) {
 					LOGGER.info("brieflyWaitForPendingTransactionsToClear() - No pending tx for " + _address + ", all good to proceed (nonce=" + nonce_pending.longValue() + ", nonce_finalized=" + nonce_finalized.longValue() + ", requestCount=" + requestCount + ")");
 					return true;
 				} else {
 					LOGGER.info("We are waiting for pending (possibly stuck) transaction:");
 					LOGGER.info(" - nonce_pending: " + nonce_pending.longValue());
 					LOGGER.info(" - nonce_latest: " + nonce_latest.longValue());
+					LOGGER.info(" - nonce_finalized: " + nonce_finalized.longValue());
 				}
 
 			} catch (Exception ex) {
@@ -3623,6 +3627,49 @@ public class EVMUtils {
 		String hex = _cred.getEcKeyPair().getPrivateKey().toString(16);
 		while (hex.length() < 64) hex = "0" + hex;
 		return hex;
+	}
+
+	public static String getFullPortfolio(String _address) {
+		EVMBlockChainUltraConnector ultra_connector = new EVMBlockChainUltraConnector(BlockchainType.PUBLIC, false, false, true);
+		EVMPortfolio chainPortfolio1 = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _address, false, null, null, false, false, null);
+		EVMPortfolioSimple chainPortfolio_simple1 = EVMUtils.createEVMPortfolioSimple(chainPortfolio1);
+		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioDiff(chainPortfolio_simple1, chainPortfolio_simple1);
+		return portfolio_diff.getPortfolio_full_str();
+	}
+	
+	@SuppressWarnings("serial")
+	public static String getPortfolioForMainnetCommons(String _address) {
+		// just do the chads
+		LOGGER.info("Limiting checks to most common blockchains ..");
+		EVMBlockChainUltraConnector ultra_connector = new EVMBlockChainUltraConnector(BlockchainType.PUBLIC, 
+				new HashMap<String, Boolean>() {{
+					this.put(EVMChain.ETH.toString(), true);
+					this.put(EVMChain.POLYGON.toString(), true);
+					this.put(EVMChain.BSC.toString(), true);
+					this.put(EVMChain.BASE.toString(), true);
+					this.put(EVMChain.AVAX.toString(), true);
+					this.put(EVMChain.OPTIMISM.toString(), true);
+					this.put(EVMChain.SONIC.toString(), true);
+					this.put(EVMChain.GNOSIS.toString(), true);
+					this.put(EVMChain.MANTLE.toString(), true);
+					this.put(EVMChain.LINEA.toString(), true);
+					this.put(EVMChain.INK.toString(), true);
+					this.put(EVMChain.UNICHAIN.toString(), true);
+					this.put(EVMChain.ZKEVM.toString(), true);
+					this.put(EVMChain.BERACHAIN.toString(), true);
+					this.put(EVMChain.BLAST.toString(), true);
+					this.put(EVMChain.SCROLL.toString(), true);
+					this.put(EVMChain.SONEIUM.toString(), true);
+					this.put(EVMChain.WORLD.toString(), true);
+					this.put(EVMChain.HYPEREVM.toString(), true);
+				}}, false, 
+				false,
+				true);
+		
+		EVMPortfolio chainPortfolio1 = EVMUtils.getEVMPortfolioForAccount(ultra_connector, _address, false, null, null, false, false, null);
+		EVMPortfolioSimple chainPortfolio_simple1 = EVMUtils.createEVMPortfolioSimple(chainPortfolio1);
+		EVMPortfolioDiffResult portfolio_diff = EVMUtils.getEVMPortfolioDiff(chainPortfolio_simple1, chainPortfolio_simple1);
+		return portfolio_diff.getPortfolio_full_str();
 	}
 
 }

@@ -16,36 +16,6 @@ public class BlockchainDetailsTestEVM1 {
 
 		HashMap<EVMChain, EVMChainInfo> networks = new HashMap<>();
 		
-		// dos_test
-		EVMChainInfo dos_test = new EVMChainInfo(
-				EVMChain.DOSTEST.toString(), 
-				"DOS Testnet", 
-				3939L, 
-				BlockchainType.PUBLIC.toString(),
-				new EVMCurrency("DOS Testnet Gas Token", "DOS", 18), 
-				EVMPriceMechanism.LEGACY.toString(),30,
-				"30000000000", //30 gwei
-				null, // enforced min gasprice
-				"300000", //300k units
-				new ArrayList<String>() {{
-					this.add("https://test.doschain.com/");
-				}}, 
-				new ArrayList<String>(), // archive nodes (if available)
-				new ArrayList<String>(),
-				new ArrayList<String>(),
-				new ArrayList<String>() {{
-					this.add("https://test.doscan.io");
-				}},
-				new ArrayList<String>() {{
-					this.add("<TODO>");
-				}},
-				new ArrayList<String>() {{
-					this.add("https://chainlist.org/chain/3939");
-				}},
-				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
-				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.DOSTEST, dos_test);
-		
 		// meroneum_test
 		EVMChainInfo meroneum_test = new EVMChainInfo(
 				EVMChain.MERONEUMTEST.toString(), 
@@ -2014,7 +1984,7 @@ public class BlockchainDetailsTestEVM1 {
 
 		// incentiv_test
 		EVMChainInfo incentiv_test = new EVMChainInfo(
-				EVMChain.INCENTIVTEST.toString(), 
+				EVMChain.INCENTIV16350TEST.toString(), 
 				"Incentiv Devnet", 
 				16350L, 
 				BlockchainType.PUBLIC.toString(),
@@ -2040,7 +2010,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.INCENTIVTEST, incentiv_test);
+		networks.put(EVMChain.INCENTIV16350TEST, incentiv_test);
 
 		// pivotal_test
 		EVMChainInfo pivotal_test = new EVMChainInfo(
@@ -9731,7 +9701,7 @@ public class BlockchainDetailsTestEVM1 {
 		
 		// zilliqa_test
 		EVMChainInfo zilliqa_test = new EVMChainInfo(
-				EVMChain.ZILLIQATEST.toString(), 
+				EVMChain.ZILLIQA33469TEST.toString(), 
 				"Zilliqa Testnet", 
 				33101L, 
 				BlockchainType.PUBLIC.toString(),
@@ -9758,7 +9728,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.ZILLIQATEST, zilliqa_test);
+		networks.put(EVMChain.ZILLIQA33469TEST, zilliqa_test);
 
 		// opsep
 		EVMChainInfo opsep = new EVMChainInfo(
@@ -11906,7 +11876,7 @@ public class BlockchainDetailsTestEVM1 {
 
 		// sonic_test
 		EVMChainInfo sonic_test = new EVMChainInfo(
-				EVMChain.SONICTEST.toString(), 
+				EVMChain.SONICBLAZETEST.toString(), 
 				"Sonic Blaze Testnet", 
 				57054L, 
 				BlockchainType.PUBLIC.toString(),
@@ -11933,7 +11903,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.SONICTEST, sonic_test);
+		networks.put(EVMChain.SONICBLAZETEST, sonic_test);
 		
 		// applayer_test
 		EVMChainInfo applayer_test = new EVMChainInfo(

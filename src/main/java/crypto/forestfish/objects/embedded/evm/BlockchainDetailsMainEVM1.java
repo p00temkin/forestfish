@@ -7114,6 +7114,8 @@ public class BlockchainDetailsMainEVM1 {
 				"21000", //only give enough to enable transfers .. 
 				new ArrayList<String>() {{
 					this.add("https://rpc.mainnet.lukso.network");
+					this.add("https://42.rpc.thirdweb.com");
+					this.add("https://rpc.lukso.sigmacore.io");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -8739,6 +8741,7 @@ public class BlockchainDetailsMainEVM1 {
 					this.add("https://rpc.chiliz.com");
 					this.add("https://rpc.ankr.com/chiliz");
 					this.add("https://chiliz.publicnode.com");
+					this.add("https://rpc.ankr.com/chiliz/");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -11315,6 +11318,7 @@ public class BlockchainDetailsMainEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://rari.calderachain.xyz/http");
+					this.add("https://mainnet.rpc.rarichain.org/http/");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),

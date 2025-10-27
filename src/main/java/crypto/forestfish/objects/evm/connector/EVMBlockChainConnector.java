@@ -64,10 +64,10 @@ public class EVMBlockChainConnector {
 		
 		if (!initialization_complete) {
 			if (_haltOnRPCNodeSelectionFail) {
-				LOGGER.error("Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
+				LOGGER.error("#1 Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
 				SystemUtils.halt();
 			} else {
-				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
+				LOGGER.warn("#1 Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
 			}
 		}
 	}
@@ -99,10 +99,10 @@ public class EVMBlockChainConnector {
 		
 		if (!initialization_complete) {
 			if (_haltOnRPCNodeSelectionFail) {
-				LOGGER.error("Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
+				LOGGER.error("#2 Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
 				SystemUtils.halt();
 			} else {
-				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
+				LOGGER.warn("#2 Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
 			}
 		}
 	}
@@ -178,10 +178,10 @@ public class EVMBlockChainConnector {
 
 		if (!selection_complete) {
 			if (_haltOnRPCNodeSelectionFail) {
-				LOGGER.error("Unable to get an RPC connection for chain " + this.chain + ", instructed to halt.");
+				LOGGER.error("selectRandomNodeURL(): Unable to get an RPC connection for chain " + this.chain + ", instructed to halt.");
 				SystemUtils.halt();
 			} else {
-				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain);
+				LOGGER.warn("selectRandomNodeURL(): Unable to get an RPC connection for chain " + this.chain);
 			}
 		}
 	}
@@ -263,10 +263,10 @@ public class EVMBlockChainConnector {
 				LOGGER.info("We only have one node candidate (and it works fine) so lets move forward with " + winner);
 			} else {
 				if (_haltOnRPCNodeSelectionFail) {
-					LOGGER.error("Unable to get an RPC connection for chain " + this.chain);
+					LOGGER.error("selectSpeedyNodeURL(): Unable to get an RPC connection for chain " + this.chain);
 					SystemUtils.halt();
 				} else {
-					LOGGER.warn("Unable to get an RPC connection for chain " + this.chain);
+					LOGGER.warn("selectSpeedyNodeURL(): Unable to get an RPC connection for chain " + this.chain);
 				}
 			}
 		} else {
@@ -349,10 +349,10 @@ public class EVMBlockChainConnector {
 
 		if ("".equals(winner)) {
 			if (_haltOnRPCNodeSelectionFail) {
-				LOGGER.error("Unable to get an RPC connection for chain " + this.chain);
+				LOGGER.error("selectSpeedyNodeURL(): Unable to get an RPC connection for chain " + this.chain);
 				SystemUtils.halt();
 			} else {
-				LOGGER.warn("Unable to get an RPC connection for chain " + this.chain);
+				LOGGER.warn("selectSpeedyNodeURL(): Unable to get an RPC connection for chain " + this.chain);
 			}
 		} else {
 			this.provider_instance = Web3j.build(new HttpService(winner));
