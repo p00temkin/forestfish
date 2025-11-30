@@ -163,7 +163,7 @@ public class BlockchainDetailsAVM {
 				generateDummyNFTIndex());
 		networks.put(AVMChain.TESTNET_SANDBOX4001, localtestnet);
 
-		// voi_testnet
+		// voi_testnet // legacy incentivized testnet? DNS failure for only public node from 2025-11-24 
 		AVMChainInfo voi_testnet = new AVMChainInfo(
 				AVMChain.VOI_TESTNET.toString(), 
 				"Voi Testnet", 
@@ -172,10 +172,10 @@ public class BlockchainDetailsAVM {
 				"IXnoWtviVVJW5LGivNFc0Dq14V3kqaXuK2u5OQrdVZo=",
 				new AVMCurrency("VOI", "VOI", 6), 
 				new ArrayList<AlgoRelayNode>() {{
-					this.add(new AlgoRelayNode("https://testnet-api.voi.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
+					//this.add(new AlgoRelayNode("https://testnet-api.voi.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
 				}}, 
 				new ArrayList<AlgoIndexerNode>() {{
-					this.add(new AlgoIndexerNode("https://testnet-idx.voi.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
+					//this.add(new AlgoIndexerNode("https://testnet-idx.voi.nodely.dev", 443, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "X-Algo-API-Token"));
 				}}, 
 				new ArrayList<String>() {{
 					this.add("https://voitest-explorer.k1-fi.a-wallet.net/dashboard/home");

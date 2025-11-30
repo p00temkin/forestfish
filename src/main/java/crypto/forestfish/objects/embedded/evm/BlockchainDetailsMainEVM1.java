@@ -46,6 +46,7 @@ public class BlockchainDetailsMainEVM1 {
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
 		networks.put(EVMChain.ETHEREUMINS, ethereum);
 
+		
 		// zytron
 		EVMChainInfo zytron = new EVMChainInfo(
 				EVMChain.ZYTRON.toString(), 
@@ -141,7 +142,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.LOCACHAIN.toString(), 
 				"LocaChain Mainnet", 
 				19180L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("LocaChain Mainnet Gas Token", "LCC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -231,7 +232,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GEIST.toString(), 
 				"Geist Mainnet", 
 				63157L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Geist Mainnet Gas Token", "GHST", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -292,7 +293,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GALACTICARETICULUM.toString(), 
 				"Galactica-Reticulum", 
 				9302L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Galactica-Reticulum Gas Token", "GNET", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -352,7 +353,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.SRICHAIN.toString(), 
 				"SRICHAIN", 
 				95432L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("SRICHAIN Gas Token", "SRIX", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -473,7 +474,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.PAYSCAN.toString(), 
 				"PAYSCAN CHAIN", 
 				756689L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("PAYSCAN CHAIN Gas Token", "PYZ", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -745,7 +746,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ADF.toString(), 
 				"ADF Chain", 
 				1215L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("ADF Chain Gas Token", "ADF", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -806,7 +807,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GLIDEL1.toString(), 
 				"Glide L1 Protocol XP", 
 				251L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Glide L1 Protocol XP Gas Token", "GLXP", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -865,7 +866,7 @@ public class BlockchainDetailsMainEVM1 {
 
 		// haust
 		EVMChainInfo haust = new EVMChainInfo(
-				EVMChain.HAUST.toString(), 
+				EVMChain.HAUST938.toString(), 
 				"Haust Mainnet", 
 				938L, 
 				BlockchainType.PUBLIC.toString(),
@@ -891,14 +892,14 @@ public class BlockchainDetailsMainEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.HAUST, haust);
+		networks.put(EVMChain.HAUST938, haust);
 
 		// argochain
 		EVMChainInfo argochain = new EVMChainInfo(
 				EVMChain.ARGOCHAIN.toString(), 
 				"Argochain", 
 				1299L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Argochain Gas Token", "AGC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -1019,7 +1020,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.BAHAMUT.toString(), 
 				"Bahamut horizon", 
 				2552L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Bahamut horizon Gas Token", "FTN", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -1382,7 +1383,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.AARMA.toString(), 
 				"Aarma Mainnet", 
 				2889L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Aarma Mainnet Gas Token", "ARMA", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2024,7 +2025,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.PALM.toString(), 
 				"Palm Smart Chain", 
 				973L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Palm Smart Chain Gas Token", "PALM", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2114,7 +2115,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.LAIKA.toString(), 
 				"Laika Mainnet", 
 				6942L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Laika Mainnet Gas Token", "DOGE", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2144,7 +2145,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.DIV.toString(), 
 				"DIV Chain", 
 				40000L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("DIV Chain Gas Token", "DIVC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2205,7 +2206,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ZCHAINS.toString(), 
 				"Zchains", 
 				168168L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Zchains Gas Token", "ZCD", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2484,7 +2485,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.BULLIONS.toString(), 
 				"Bullions Smart Chain", 
 				8732L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Bullions Smart Chain Gas Token", "BLN", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2694,7 +2695,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.SNAXCHAIN.toString(), 
 				"SnaxChain", 
 				2192L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("SnaxChain Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2757,7 +2758,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ISUNCOIN.toString(), 
 				"iSunCoin Mainnet", 
 				8017L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("iSunCoin Mainnet Gas Token", "ISC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2878,7 +2879,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.STORCHAIN.toString(), 
 				"Storchain", 
 				6667L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Storchain Gas Token", "STR", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2969,7 +2970,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.METACCES.toString(), 
 				"Metacces Mainnet", 
 				2071L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Metacces Mainnet Gas Token", "ACCES", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -2999,7 +3000,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ALEPHEVM.toString(), 
 				"Aleph Zero EVM", 
 				41455L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Aleph Zero EVM Gas Token", "AZERO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3270,7 +3271,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.DOJIMA.toString(), 
 				"Dojima", 
 				187L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Dojima Gas Token", "DOJ", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3300,7 +3301,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.PIVOTAL.toString(), 
 				"Pivotal Mainnet", 
 				1648L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Pivotal Mainnet Gas Token", "PLUS", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3330,7 +3331,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GDCC.toString(), 
 				"GDCC MAINNET", 
 				7774L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("GDCC MAINNET Gas Token", "GDCC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3420,7 +3421,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.CMDAO.toString(), 
 				"CMDAO BBQ Chain", 
 				190L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("CMDAO BBQ Chain Gas Token", "CMD", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3510,7 +3511,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.LESTNET.toString(), 
 				"Lestnet", 
 				21363L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Lestnet Gas Token", "LETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3691,7 +3692,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.FHENIX.toString(), 
 				"Fhenix Helium", 
 				8008135L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Fhenix Helium Gas Token", "tFHE", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3751,7 +3752,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.BINARY.toString(), 
 				"Binary Mainnet", 
 				624L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Binary Mainnet Gas Token", "BNRY", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -3962,7 +3963,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ETERNALCOIN.toString(), 
 				"EternalCoin Mainnet", 
 				140L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("EternalCoin Mainnet Gas Token", "Eter", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -4174,7 +4175,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ECLAT.toString(), 
 				"Eclat Mainnet", 
 				165279L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Eclat Mainnet Gas Token", "ECLAT", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -4204,7 +4205,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.RANGERS.toString(), 
 				"Rangers Protocol Mainnet", 
 				2025L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Rangers Protocol Mainnet Gas Token", "RPG", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
@@ -4574,7 +4575,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.TITAN.toString(), 
 				"Titan (TKX)", 
 				18888L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Titan (TKX) Gas Token", "TKX", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -4879,7 +4880,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.LAMBDA.toString(), 
 				"Lambda Chain Mainnet", 
 				56026L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Lambda Chain Mainnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -5061,7 +5062,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.PROOFBOSS.toString(), 
 				"Proof of Play - Boss", 
 				70701L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Proof of Play - Boss Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -5242,7 +5243,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.PROOFAPEX.toString(), 
 				"Proof of Play - Apex", 
 				70700L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Proof of Play - Apex Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -5486,7 +5487,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.KINTO.toString(), 
 				"Kinto Mainnet", 
 				7887L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Kinto Mainnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
@@ -5608,7 +5609,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.LIQUIDLAYER.toString(), 
 				"LiquidLayer Mainnet", 
 				25186L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Kinto Mainnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
@@ -6109,7 +6110,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.THE.toString(), 
 				"The Widows Mite", 
 				426L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("The Widows Mite Gas Token", "MITE", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -6169,7 +6170,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.REDEFI.toString(), 
 				"ReDeFi Layer 1", 
 				47803L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("ReDeFi Layer 1 Gas Token", "BAX", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -6387,7 +6388,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.FILEFILEGO.toString(), 
 				"FileFileGo", 
 				191L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("FileFileGo Gas Token", "FFG", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -6417,7 +6418,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.EOSEVM.toString(), 
 				"EOS EVM Network", 
 				17777L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("EOS EVM Network Gas Token", "EOS", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"1000000000", //1 gwei
@@ -6710,7 +6711,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.REBUS.toString(), 
 				"Rebus Mainnet", 
 				9696L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Rebus Mainnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -6830,7 +6831,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.SAITABLOCKCHAIN.toString(), 
 				"SaitaBlockChain(SBC)", 
 				1209L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("SaitaBlockChain(SBC) Gas Token", "STC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -6890,7 +6891,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.SYNDR.toString(), 
 				"Syndr L3", 
 				404L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Syndr L3 Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -6952,7 +6953,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.TOMOCHAIN.toString(), 
 				"Tomochain Mainnet", 
 				88L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Tomo Gas Token", "TOMO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -7294,7 +7295,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.FLAG.toString(), 
 				"Flag Mainnet", 
 				147L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Flag Mainnet Gas Token", "FLAG", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -7576,7 +7577,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.SATSCHAIN.toString(), 
 				"SatsChain", 
 				11521L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("SatsChain Gas Token", "SATS", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -7697,7 +7698,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ONCHAIN.toString(), 
 				"Onchain Points", 
 				17071L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Onchain Points Gas Token", "POP", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -7788,7 +7789,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ABYSS.toString(), 
 				"Abyss Protocol", 
 				229772L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Abyss Protocol Gas Token", "aETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -7849,7 +7850,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.NAL.toString(), 
 				"Nal Mainnet", 
 				328527L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Nal Mainnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8029,7 +8030,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.VOLMEX.toString(), 
 				"volmex", 
 				123420000588L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("volmex Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8059,7 +8060,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.BETHERANCE.toString(), 
 				"Betherance", 
 				1605L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Betherance Gas Token", "BETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8089,7 +8090,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.PIN.toString(), 
 				"PIN", 
 				123420000558L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("PIN Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8149,7 +8150,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GURU.toString(), 
 				"Guru Network", 
 				260L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Guru Network Gas Token", "GURU", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8180,7 +8181,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.MEKONG.toString(), 
 				"Mekong", 
 				7078815900L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Mekong Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8421,7 +8422,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.VRCSCAN.toString(), 
 				"Vrcscan Mainnet", 
 				713L, 
-				BlockchainType.PUBLIC.toString(), // unstable
+				BlockchainType.BORKED.toString(), // unstable
 				new EVMCurrency("Vrcscan Mainnet Gas Token", "VRC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8701,7 +8702,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.INOAI.toString(), 
 				"Inoai Network", 
 				88559L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Inoai Network Gas Token", "INO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8795,7 +8796,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.TANGLE.toString(), 
 				"Tangle", 
 				5845L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Tangle Gas Token", "TNT", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8825,7 +8826,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.BOUNCEBIT.toString(), 
 				"BounceBit Mainnet", 
 				6001L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("BounceBit Mainnet Gas Token", "BB", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -8855,7 +8856,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.QIE.toString(), 
 				"QIE Blockchain", 
 				5656L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("QIE Blockchain Gas Token", "QIE", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -9168,7 +9169,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.HYPRA.toString(), 
 				"Hypra Mainnet", 
 				622277L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Hypra Mainnet Gas Token", "HYP", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -9613,7 +9614,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.BOOL.toString(), 
 				"Bool Network Beta Mainnet", 
 				11100L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Bool Network Beta Mainnet Gas Token", "BOL", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -9673,7 +9674,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ZILLIQA2.toString(), 
 				"Zilliqa 2 EVM proto-mainnet", 
 				32770L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Zilliqa 2 EVM proto-mainnet Gas Token", "ZIL", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -9768,7 +9769,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ELUX.toString(), 
 				"Elux Chain", 
 				2907L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Elux Chain Gas Token", "ELUX", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -9798,7 +9799,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.NANON.toString(), 
 				"Nanon", 
 				2748L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Nanon Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -9828,7 +9829,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GMNETWORK.toString(), 
 				"GM Network Mainnet", 
 				2777L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("GM Network Mainnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -9858,7 +9859,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.HAM.toString(), 
 				"Ham", 
 				5112L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Ham Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -9888,7 +9889,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.MO.toString(), 
 				"MO Mainnet", 
 				7924L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("MO Mainnet Gas Token", "MO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10016,7 +10017,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ERBIE.toString(), 
 				"Erbie Mainnet", 
 				50888L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Erbie Mainnet Gas Token", "ERB", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10278,7 +10279,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.PLAYDAPP.toString(), 
 				"Playdapp Network", 
 				504441L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Playdapp Network Gas Token", "PDA", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10308,7 +10309,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.DOCOIN.toString(), 
 				"DoCoin Community Chain", 
 				526916L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("DoCoin Community Chain Gas Token", "DCT", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10338,7 +10339,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.DOTBLOX.toString(), 
 				"Dot Blox", 
 				7923L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Dot Blox Gas Token", "DTBX", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -10698,7 +10699,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.DISCHAIN.toString(), 
 				"DisChain", 
 				513100L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("DisChain Gas Token", "DIS", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11097,7 +11098,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.CRYPTOX.toString(), 
 				"CryptoX", 
 				158245L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("CryptoX Gas Token", "XCOIN", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11159,7 +11160,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GPT.toString(), 
 				"GPT Mainnet", 
 				1511670449L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("GPT Mainnet Gas Token", "GPT", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11280,7 +11281,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.PTCESCAN.toString(), 
 				"PTCESCAN Mainnet", 
 				889910246L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("PTCESCAN Mainnet Gas Token", "PTCE", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11372,7 +11373,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.LORENZO.toString(), 
 				"Lorenzo", 
 				8329L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Lorenzo Gas Token", "stBTC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11613,7 +11614,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ONIGIRI.toString(), 
 				"ONIGIRI Subnet", 
 				5040L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("ONIGIRI Subnet Gas Token", "ONGR", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11703,7 +11704,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ALGEN.toString(), 
 				"Algen", 
 				8911L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Algen Gas Token", "ALG", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11733,7 +11734,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ALGENL2.toString(), 
 				"Algen Layer2", 
 				8921L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Algen Layer2 Gas Token", "ALG", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11920,7 +11921,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.DEFIVERSE.toString(), 
 				"DeFiVerse Mainnet", 
 				16116L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("DeFiVerse Mainnet Gas Token", "OAS", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -11950,7 +11951,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.EBI.toString(), 
 				"Ebi Chain", 
 				98881L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Ebi Chain Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -12194,7 +12195,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.C4EI.toString(), 
 				"C4EI", 
 				21004L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("C4EI Gas Token", "C4EI", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -12284,7 +12285,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GDPR.toString(), 
 				"GDPR Mainnet", 
 				12358L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("GDPR Mainnet Gas Token", "GDPR", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -12404,7 +12405,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ATHENE.toString(), 
 				"Athene Parthenon", 
 				281123L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Athene Parthenon Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -12497,7 +12498,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.KINGDOM.toString(), 
 				"Kingdom Chain", 
 				39916801L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Kingdom Chain Gas Token", "KOZI", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -12527,7 +12528,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.OPCELESTIARASPBERRY.toString(), 
 				"OP Celestia Raspberry", 
 				123420111L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("OP Celestia Raspberry Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -12926,7 +12927,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.CANTO.toString(), 
 				"Canto Network", 
 				7700L, 
-				BlockchainType.PUBLIC.toString(), 
+				BlockchainType.BORKED.toString(), 
 				new EVMCurrency("Canto Token", "CANTO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13003,7 +13004,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.MILKOMEDAC1.toString(), 
 				"Milkomeda Cardano mainnet", 
 				2001L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("milkADA", "mADA", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13232,7 +13233,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ASTARZKYOTO.toString(), 
 				"Astar zKyoto", 
 				6038361L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Astar zKyoto Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13264,7 +13265,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ASTARZKEVM.toString(), 
 				"Astar zkEVM", 
 				3776L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Astar zkEVM Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13330,7 +13331,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ATLAS.toString(), 
 				"Atlas", 
 				622463L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Atlas Gas Token", "TON", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13360,7 +13361,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ERAM.toString(), 
 				"ERAM Mainnet", 
 				721529L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("ERAM Mainnet Gas Token", "ERAM", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13390,7 +13391,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ETERNAL.toString(), 
 				"Eternal Mainnet", 
 				140L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Eternal Mainnet Gas Token", "Eter", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13450,7 +13451,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GLSCAN.toString(), 
 				"GLScan", 
 				10222L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("GLScan Gas Token", "GLC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13728,7 +13729,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ROBURNA.toString(), 
 				"Roburna Mainnet", 
 				158L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Roburna Mainnet Gas Token", "RBA", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13819,7 +13820,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.STENIX.toString(), 
 				"Stenix Mainnet", 
 				425L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Stenix Mainnet Gas Token", "STEN", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -13909,7 +13910,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GAME7.toString(), 
 				"Game7", 
 				2187L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Game7 Gas Token", "G7", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -14000,7 +14001,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.BLOCKFIT.toString(), 
 				"Blockfit", 
 				202424L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Blockfit Gas Token", "BFIT", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -14060,7 +14061,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ZEBRO.toString(), 
 				"Zebro Smart Chain", 
 				786786L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Zebro Smart Chain Gas Token", "ZEBRO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -14091,7 +14092,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.LUMMIO.toString(), 
 				"Lummio Network", 
 				12020498L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Lummio Network Gas Token", "LRPO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -14121,7 +14122,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.TREASURETOPAZ.toString(), 
 				"Treasure Topaz", 
 				978658L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Treasure Topaz Gas Token", "MAGIC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -14314,7 +14315,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.CRONOS.toString(), 
 				"Cronos Main Network", 
 				25L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("CRONOS Main Token", "CRO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -15141,7 +15142,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.SUPERLUMIO.toString(), 
 				"SuperLumio", 
 				8866L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("SuperLumio Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -15171,7 +15172,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.GOLD.toString(), 
 				"Gold Chain", 
 				4653L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Gold Chain Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -15267,7 +15268,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ALEPH.toString(), 
 				"Aleph Zero", 
 				2039L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Aleph Zero Gas Token", "TZERO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -15529,7 +15530,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.MASA.toString(), 
 				"Masa", 
 				13396L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Masa Gas Token", "MASA", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -15756,7 +15757,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.AILAYER.toString(), 
 				"AILayer Mainnet", 
 				2649L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("AILayer Mainnet Gas Token", "BTC", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -15816,7 +15817,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.KYOTO.toString(), 
 				"Kyoto", 
 				1997L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Kyoto Gas Token", "KYOTO", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -15846,7 +15847,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.CUCKOO.toString(), 
 				"Cuckoo Chain", 
 				1200L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("Cuckoo Chain Gas Token", "CAI", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -15876,7 +15877,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.KLAYTN.toString(), 
 				"KLAYTN Mainnet", 
 				8217L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(),
 				new EVMCurrency("KLAYTN Native Token", "KLAY", 18), 
 				EVMPriceMechanism.EIP1559.toString(),30,
 				"30000000000", //30 gwei

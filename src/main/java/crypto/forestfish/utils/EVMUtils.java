@@ -970,8 +970,8 @@ public class EVMUtils {
 
 						if (receiptPollCounter>20) {
 							LOGGER.warn("nodeCallAttemptCount: " + nodeCallAttemptCount + ", unable to grab tx receipt for " + response.getTransactionHash());
-							LOGGER.info("lets make sure we increase the gas price for the next attempt");
-							increaseGasPriceInWEI = increaseGasPriceInWEI.add(BigInteger.valueOf(2000000000)); // bump by 2 gwei
+							LOGGER.info("lets make sure we increase the gas price by 10% for the next attempt");
+							increaseGasPriceInWEI = increaseGasPriceInWEI.multiply(BigInteger.valueOf(110)).divide(BigInteger.valueOf(100)); // increase by 10%
 						}
 					}
 				}
@@ -1342,9 +1342,7 @@ public class EVMUtils {
 								}
 
 								if ( (pendingCounter>0) && !pendingTX.isPending()) {
-									LOGGER.error("OK so the tx could have been removed from the mempool but check the tx again? txhash: " + txhash);
-									LOGGER.error("Blockchain is " + _connector.getChain().toString());
-									SystemUtils.halt();
+									LOGGER.warn("OK so the tx " + _connector.getChain().toString() + " could have been removed from the mempool but check the tx again? txhash: " + txhash);
 								}
 
 								if (!confirmedTransaction && _haltOnUnconfirmedTX) {
@@ -1680,23 +1678,8 @@ public class EVMUtils {
 		}
 
 		// Additional topups
-		if (_gasPrice.compareTo(BigInteger.valueOf(50L*1000000000L)) > 0) {
-			_gasPrice = _gasPrice.add(new BigInteger("12000000000")); // +12 gwei
-		} else if (_gasPrice.compareTo(BigInteger.valueOf(40L*1000000000L)) > 0) {
-			_gasPrice = _gasPrice.add(new BigInteger("10000000000")); // +10 gwei
-		} else if (_gasPrice.compareTo(BigInteger.valueOf(30L*1000000000L)) > 0) {
-			_gasPrice = _gasPrice.add(new BigInteger("8000000000"));  // +8 gwei
-		} else if (_gasPrice.compareTo(BigInteger.valueOf(20L*1000000000L)) > 0) {
-			_gasPrice = _gasPrice.add(new BigInteger("5000000000"));  // +5 gwei
-		} else if (_gasPrice.compareTo(BigInteger.valueOf(10L*1000000000L)) > 0) {
-			_gasPrice = _gasPrice.add(new BigInteger("3000000000"));  // +3 gwei
-		} else if (_gasPrice.compareTo(BigInteger.valueOf(5L*1000000000L)) > 0) {
-			_gasPrice = _gasPrice.add(new BigInteger("1000000000"));  // +1 gwei
-		} else if (_gasPrice.compareTo(BigInteger.valueOf(1L*1000000000L)) > 0) {
-			_gasPrice = _gasPrice.add(new BigInteger("500000000"));  // +0.5 gwei
-		} else {
-			_gasPrice = _gasPrice.add(new BigInteger("10000000"));  // +0.01 gwei
-		}
+		// Increase gas price by 5%
+		_gasPrice = _gasPrice.multiply(BigInteger.valueOf(105)).divide(BigInteger.valueOf(100));
 
 		// min 1 gwei fixed for selected testnets
 		if (false ||
@@ -2454,6 +2437,7 @@ public class EVMUtils {
 			nodeInteraction = true;
 			exceptionType = ExceptionType.FATAL;
 		} else if (false ||
+				_ex.getMessage().contains("wrong chain id") ||
 				_ex.getMessage().contains("legacy transaction is not supported") ||
 				_ex.getMessage().contains("INVALID_TRANSACTION") ||
 				false) {
@@ -2469,6 +2453,7 @@ public class EVMUtils {
 					_ex.getMessage().contains("Too Many Requests") ||
 					_ex.getMessage().contains("Too many follow-up requests") ||
 					false) {
+				// https://zkrpc-sepolia.xsollazk.com, response: "Failed to serialize transaction: wrong chain id 555777"
 				// https://rpc.forma.art, response: "java.net.ProtocolException: Too many follow-up requests: 21"
 				LOGGER.info("RPC Node limit reached for nodeURL " + _nodeURL + ", we should probably cool down: " + _ex.getMessage());
 				exceptionType = ExceptionType.NODE_UNSTABLE;	

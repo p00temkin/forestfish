@@ -2,6 +2,7 @@ package crypto.forestfish.avm;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class AVMNodeInteractTest {
 		LOGGER.info("lastRound: " + lastRound);
 	}
 
+	@Ignore // DNS failure for only public node from 2025-11-24 
 	@Test
 	public void testNodeInteract_VOI_TESTNET() {
 		
