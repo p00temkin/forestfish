@@ -75,7 +75,8 @@ public class EVMBlockChainUltraConnector {
 			if (null != _chainlimit.get(chain.toString())) {
 				EVMChainInfo chainInfo = EVMUtils.getEVMChainInfo(chain);
 				if (BlockchainType.valueOf(chainInfo.getType()) == chainType) {
-					LOGGER.debug("Adding optimal node for public EVM blockchain " + chain);
+					if (_isnodeOptimized) LOGGER.info("Getting optimal node for " + chainType + " EVM blockchain " + chain);
+					if (!_isnodeOptimized) LOGGER.info("Getting first healthy node for " + chainType + " EVM blockchain " + chain);
 					EVMBlockChainConnector connector = new EVMBlockChainConnector(chain, _isnodeOptimized, _haltOnRPCNodeSelectionFail, _earlyMoveOnIfErrors);
 					connectors.put(chain, connector);
 				}

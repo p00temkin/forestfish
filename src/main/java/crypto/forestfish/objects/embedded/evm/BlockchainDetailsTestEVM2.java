@@ -2536,7 +2536,6 @@ public class BlockchainDetailsTestEVM2 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://edge-testnet.g.alchemy.com/public");
-					this.add("https://rpc.testnet.tempo.xyz");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),

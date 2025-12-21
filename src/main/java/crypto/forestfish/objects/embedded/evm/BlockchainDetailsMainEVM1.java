@@ -13651,12 +13651,8 @@ public class BlockchainDetailsMainEVM1 {
 				new ArrayList<String>() {{
 					this.add("https://polygon-rpc.com/");
 					this.add("https://rpc-mainnet.matic.quiknode.pro");
-					this.add("https://poly-rpc.gateway.pokt.network");
-					this.add("https://polygon-mainnet.public.blastapi.io");
-					this.add("https://rpc.ankr.com/polygon");
 					this.add("https://1rpc.io/matic");
 					this.add("https://polygon-bor.publicnode.com");
-					this.add("https://polygon.llamarpc.com");
 					this.add("https://polygon.blockpi.network/v1/rpc/public");
 					this.add("https://endpoints.omniatech.io/v1/matic/mainnet/public");
 					this.add("https://polygon.api.onfinality.io/public");
@@ -13664,6 +13660,10 @@ public class BlockchainDetailsMainEVM1 {
 					this.add("https://polygon-bor-rpc.publicnode.com");
 					this.add("https://polygon.drpc.org");
 
+					//this.add("https://polygon.llamarpc.com"); // dead node
+					//this.add("https://poly-rpc.gateway.pokt.network"); // dead node
+					//this.add("https://polygon-mainnet.public.blastapi.io"); // dead node
+					//this.add("https://rpc.ankr.com/polygon"); // dead node
 					//this.add("https://rubic-polygon.rpc.blxrbdn.com/"); // MEV protection
 					//this.add("https://rpc-mainnet.maticvigil.com");
 					//this.add("https://polygon.rpc.blxrbdn.com");
@@ -14392,18 +14392,18 @@ public class BlockchainDetailsMainEVM1 {
 				null, // enforced min gasprice
 				"21000", // pure tx
 				new ArrayList<String>() {{
-					this.add("https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
+					//this.add("https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
 					this.add("https://eth-mainnet.public.blastapi.io");
-					this.add("https://rpc.ankr.com/eth");
-					this.add("https://eth-rpc.gateway.pokt.network");
-					this.add("https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79");
-					this.add("https://cloudflare-eth.com");
+					//this.add("https://rpc.ankr.com/eth");
+					//this.add("https://eth-rpc.gateway.pokt.network");
+					//this.add("https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79");
+					//this.add("https://cloudflare-eth.com");
 					this.add("https://nodes.mewapi.io/rpc/eth");
 					this.add("https://rpc.mevblocker.io");
 					this.add("https://ethereum-rpc.publicnode.com");
 					this.add("https://ethereum.publicnode.com");
 					this.add("https://mainnet.gateway.tenderly.co");
-					this.add("https://rpc.blocknative.com/boost");
+					//this.add("https://rpc.blocknative.com/boost");
 					this.add("https://rpc.flashbots.net");
 					this.add("https://rpc.flashbots.net/fast");
 					this.add("https://rpc.mevblocker.io/fast");
