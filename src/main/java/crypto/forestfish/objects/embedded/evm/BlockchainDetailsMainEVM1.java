@@ -3208,7 +3208,7 @@ public class BlockchainDetailsMainEVM1 {
 
 		// edgamatrix
 		EVMChainInfo edgamatrix = new EVMChainInfo(
-				EVMChain.EDGAMATRIX.toString(), 
+				EVMChain.EDGEMATRIX.toString(), 
 				"EdgaMatrix Chain", 
 				6678L, 
 				BlockchainType.PUBLIC.toString(),
@@ -3234,7 +3234,7 @@ public class BlockchainDetailsMainEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.EDGAMATRIX, edgamatrix);
+		networks.put(EVMChain.EDGEMATRIX, edgamatrix);
 
 		// 5irechain
 		EVMChainInfo five_irechain = new EVMChainInfo(
@@ -3838,8 +3838,8 @@ public class BlockchainDetailsMainEVM1 {
 		networks.put(EVMChain.ETHOS, ethos);
 
 		// edge
-		EVMChainInfo edge = new EVMChainInfo(
-				EVMChain.EDGE.toString(), 
+		EVMChainInfo edgem = new EVMChainInfo(
+				EVMChain.EDGEMATRIX.toString(), 
 				"Edge Matrix Chain", 
 				6678L, 
 				BlockchainType.PUBLIC.toString(),
@@ -3865,7 +3865,7 @@ public class BlockchainDetailsMainEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.EDGE, edge);
+		networks.put(EVMChain.EDGEMATRIX, edgem);
 
 		// bifrost
 		EVMChainInfo bifrost_polkadot = new EVMChainInfo(
@@ -6028,6 +6028,8 @@ public class BlockchainDetailsMainEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://rpc.mainnet.dailycrypto.net");
+					this.add("https://rpc-2.mainnet.dailycrypto.net");
+					this.add("https://rpc-3.mainnet.dailycrypto.net");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -11319,7 +11321,7 @@ public class BlockchainDetailsMainEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://rari.calderachain.xyz/http");
-					this.add("https://mainnet.rpc.rarichain.org/http/");
+					this.add("https://mainnet.rpc.rarichain.org/http");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),

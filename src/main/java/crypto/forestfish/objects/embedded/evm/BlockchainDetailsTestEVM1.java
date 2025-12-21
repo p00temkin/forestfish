@@ -4467,6 +4467,8 @@ public class BlockchainDetailsTestEVM1 {
 				null, // enforced min gasprice
 				"300000", //300k units
 				new ArrayList<String>() {{
+					this.add("https://rpc-2.testnet.dailycrypto.net");
+					this.add("https://rpc-3.testnet.dailycrypto.net");
 					this.add("https://rpc.testnet.dailycrypto.net");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
@@ -11474,7 +11476,7 @@ public class BlockchainDetailsTestEVM1 {
 		
 		// memento_test
 		EVMChainInfo memento_test = new EVMChainInfo(
-				EVMChain.MEMENTOTEST.toString(), 
+				EVMChain.MEMENTO12052024TEST.toString(), 
 				"Memento Testnet", 
 				12052024L, 
 				BlockchainType.BORKED.toString(),
@@ -11500,7 +11502,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.MEMENTOTEST, memento_test);
+		networks.put(EVMChain.MEMENTO12052024TEST, memento_test);
 		
 		// sophon_test
 		EVMChainInfo sophon_test = new EVMChainInfo(
@@ -12480,7 +12482,7 @@ public class BlockchainDetailsTestEVM1 {
 		
 		// edge_test
 		EVMChainInfo edge_test = new EVMChainInfo(
-				EVMChain.EDGETEST.toString(), 
+				EVMChain.EDGEMATRIXTEST.toString(), 
 				"Edge Matrix Chain Testnet", 
 				99876L, 
 				BlockchainType.BORKED.toString(),
@@ -12506,7 +12508,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.EDGETEST, edge_test);
+		networks.put(EVMChain.EDGEMATRIXTEST, edge_test);
 		
 		// stratovm_test
 		EVMChainInfo stratovm_test = new EVMChainInfo(

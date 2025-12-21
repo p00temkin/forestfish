@@ -743,7 +743,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Chips Network", EVMChain.CHIPS);
 			this.put("peaq", EVMChain.PEAQ);
 			this.put("Connext Sepolia", EVMChain.CONNEXTTEST);
-			this.put("EdgaMatrix Chain", EVMChain.EDGAMATRIX);
+			this.put("EdgaMatrix Chain", EVMChain.EDGEMATRIX);
 			this.put("ZEUS Testnet", EVMChain.ZEUSTEST);
 			this.put("PandaSea Mainnet", EVMChain.PANDASEA);
 			this.put("MaalChain Testnet V2", EVMChain.MAALCHAINTEST);
@@ -790,14 +790,14 @@ public class CheckNewEVMNodeCandidates {
 			this.put("BOB Sepolia", EVMChain.BOBTEST);
 			this.put("RUNEVM Testnet", EVMChain.RUNEVMTEST);
 			this.put("Blessnet Sepolia", EVMChain.BLESSNETTEST);
-			this.put("Memento Testnet", EVMChain.MEMENTOTEST);
+			this.put("Memento Testnet", EVMChain.MEMENTO12052024TEST);
 			this.put("SX Toronto Rollup", EVMChain.SXTORONTO);
 			this.put("Ethos", EVMChain.ETHOS);
 			this.put("Sophon Testnet", EVMChain.SOPHONTEST);
 			this.put("Fluence Stage", EVMChain.FLUENCESTAGETEST);
 			this.put("Bifrost Polkadot Mainnet", EVMChain.BIFROSTPOLKADOT);
-			this.put("Edge Matrix Chain", EVMChain.EDGE);
-			this.put("Edge Matrix Chain Testnet", EVMChain.EDGETEST);
+			this.put("Edge Matrix Chain", EVMChain.EDGEMATRIX);
+			this.put("Edge Matrix Chain Testnet", EVMChain.EDGEMATRIXTEST);
 			this.put("Ethernity Testnet", EVMChain.ETHERNITYTEST);
 			this.put("Tobe Chain Testnet", EVMChain.TOBETEST);
 			this.put("UXER TESTNET NETWORK", EVMChain.UXERTEST);
@@ -1559,6 +1559,29 @@ public class CheckNewEVMNodeCandidates {
 			this.put("GLOBALCHAIN", EVMChain.GLOBALCHAIN);
 			this.put("Sophon OS Testnet", EVMChain.SOPHONZK531050204TEST);
 			this.put("Denergy Testnet", EVMChain.DENERGYTEST);
+			this.put("L2 Protocol Mainnet", EVMChain.L2);
+			this.put("Dinari Financial Network Paper", EVMChain.DINARI179205);
+			this.put("Entropy Chain", EVMChain.ENTROPY);
+			this.put("Dinari Financial Network", EVMChain.DINARI);
+			this.put("Celes Testnet", EVMChain.CELESTEST);
+			this.put("H2", EVMChain.H22582);
+			this.put("Notes Network Mainnet", EVMChain.NOTES);
+			this.put("Buburuza Mainnet", EVMChain.BUBURUZA);
+			this.put("Alpha Chain Mainnet", EVMChain.ALPHA);
+			this.put("VirBiCoin", EVMChain.VIRBICOIN);
+			this.put("Tempo Testnet", EVMChain.TEMPOTEST);
+			this.put("Tensora", EVMChain.TENSORA);
+			this.put("BTB Chain Mainnet", EVMChain.BTB);
+			this.put("Alpha Chain Testnet", EVMChain.ALPHATEST);
+			this.put("SilverBitcoin", EVMChain.SILVERBITCOIN);
+			this.put("Apollo Mainnet", EVMChain.APOLLO);
+			this.put("DogeOS Chikyū Testnet", EVMChain.DOGEOSTEST);
+			this.put("ETO L1", EVMChain.ETO);
+			this.put("MakaChain Mainnet", EVMChain.MAKACHAIN);
+			this.put("HyperX", EVMChain.HYPERX);
+			this.put("Stable Mainnet", EVMChain.STABLE);
+			this.put("Quantum Sharded Network Testnet", EVMChain.QUANTUMTEST);
+			this.put("H2 Lambda", EVMChain.H2LAMBDA);
 
 		}};
 
@@ -2801,10 +2824,13 @@ public class CheckNewEVMNodeCandidates {
 					EVMChainInfo chainInfo = EVMUtils.getEVMChainInfo(evmchain);
 
 					for (String nodeURL : eece.getRpc()) {
+						nodeURL = nodeURL.replaceAll("/$", "");
+						
 						if (nodeURL.startsWith("http") && !nodeURL.contains("API_KEY")) {
 							if (null == skipnodeurls.get(nodeURL)) {
 								boolean isKnown = false;
 								for (String knownURL : chainInfo.getNodeURLs()) {
+									knownURL = knownURL.replaceAll("/$", "");
 									if (knownURL.equals(nodeURL)) {
 										isKnown = true;
 										break;
@@ -4100,7 +4126,7 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Chips Network", EVMChain.CHIPS);
 			this.put("peaq", EVMChain.PEAQ);
 			this.put("Connext Sepolia", EVMChain.CONNEXTTEST);
-			this.put("EdgaMatrix Chain", EVMChain.EDGAMATRIX);
+			this.put("EdgaMatrix Chain", EVMChain.EDGEMATRIX);
 			this.put("ZEUS Testnet", EVMChain.ZEUSTEST);
 			this.put("PandaSea Mainnet", EVMChain.PANDASEA);
 			this.put("MaalChain Testnet V2", EVMChain.MAALCHAINTEST);
@@ -4147,14 +4173,13 @@ public class CheckNewEVMNodeCandidates {
 			this.put("BOB Sepolia", EVMChain.BOBTEST);
 			this.put("RUNEVM Testnet", EVMChain.RUNEVMTEST);
 			this.put("Blessnet Sepolia", EVMChain.BLESSNETTEST);
-			this.put("Memento Testnet", EVMChain.MEMENTOTEST);
 			this.put("SX Toronto Rollup", EVMChain.SXTORONTO);
 			this.put("Ethos", EVMChain.ETHOS);
 			this.put("Sophon Testnet", EVMChain.SOPHONTEST);
 			this.put("Fluence Stage", EVMChain.FLUENCESTAGETEST);
 			this.put("Bifrost Polkadot Mainnet", EVMChain.BIFROSTPOLKADOT);
-			this.put("Edge Matrix Chain", EVMChain.EDGE);
-			this.put("Edge Matrix Chain Testnet", EVMChain.EDGETEST);
+			this.put("Edge Matrix Chain", EVMChain.EDGEMATRIX);
+			this.put("Edge Matrix Chain Testnet", EVMChain.EDGEMATRIXTEST);
 			this.put("Ethernity Testnet", EVMChain.ETHERNITYTEST);
 			this.put("Tobe Chain Testnet", EVMChain.TOBETEST);
 			this.put("UXER TESTNET NETWORK", EVMChain.UXERTEST);
@@ -4772,6 +4797,66 @@ public class CheckNewEVMNodeCandidates {
 			this.put("Arc Network Testnet", EVMChain.ARCTEST);
 			this.put("Monad", EVMChain.MONAD);
 			this.put("Reactive Lasna", EVMChain.REACTIVELASNA);
+			this.put("Redmansion Chain", EVMChain.REDMANSION);
+			this.put("VirBiCoin", EVMChain.VIRBICOIN);
+			this.put("zkXPLA Mainnet", EVMChain.ZKXPLA);
+			this.put("Camp Network Mainnet", EVMChain.CAMP);
+			this.put("QL1", EVMChain.QL1);
+			this.put("Datagram", EVMChain.DATAGRAM);
+			this.put("IIC Blockchain Testnet", EVMChain.IICTEST);
+			this.put("Phala Network", EVMChain.PHALA);
+			this.put("Stable Testnet", EVMChain.STABLETEST);
+			this.put("H2 Chain Mainnet", EVMChain.H2);
+			this.put("Alpha Chain Mainnet", EVMChain.ALPHA);
+			this.put("C9XChain", EVMChain.C9XCHAIN);
+			this.put("Edge", EVMChain.EDGE);
+			this.put("Denergy Testnet", EVMChain.DENERGYTEST);
+			this.put("MST Mainnet", EVMChain.MST);
+			this.put("Somnia Mainnet", EVMChain.SOMNIA);
+			this.put("SagaEVM", EVMChain.SAGAEVM);
+			this.put("Jamton", EVMChain.JAMTON);
+			this.put("billions-testnet", EVMChain.BILLIONSTEST);
+			this.put("Pruv Testnet", EVMChain.PRUVTEST);
+			this.put("Pruv Mainnet", EVMChain.PRUV);
+			this.put("Qubetics Mainnet", EVMChain.QUBETICS);
+			this.put("Trexx", EVMChain.TREXX);
+			this.put("Sonic Testnet", EVMChain.SONICTEST);
+			this.put("DMD Diamond", EVMChain.DMD);
+			this.put("Trustivon Testnet", EVMChain.TRUSTIVONTEST);
+			this.put("Gotas Social", EVMChain.GOTAS);
+			this.put("H2 Chain Testnet Lambda", EVMChain.H2TEST);
+			this.put("Horizen Mainnet", EVMChain.HORIZEN);
+			this.put("Rivool", EVMChain.RIVOOL);
+			this.put("Edge Testnet", EVMChain.EDGETEST);
+			this.put("AB Core Mainnet", EVMChain.AB);
+			this.put("Tempo Testnet", EVMChain.TEMPOTEST);
+			this.put("DataHaven Testnet", EVMChain.DATAHAVENTEST);
+			this.put("Apollo Mainnet", EVMChain.APOLLO);
+			this.put("Henesys", EVMChain.HENESYS);
+			this.put("HyperX", EVMChain.HYPERX);
+			this.put("Codex", EVMChain.CODEX);
+			this.put("CpChain Testnet", EVMChain.CPCHAINTEST);
+			this.put("CpChain", EVMChain.CPCHAIN);
+			this.put("Cycle Network Mainnet Frigate", EVMChain.CYCLE);
+			this.put("Monsoon Alpha", EVMChain.MONSOONALPHA);
+			this.put("Taiko Hoodi", EVMChain.TAIKOHOODITEST);
+			this.put("Lit Chain Mainnet", EVMChain.LIT);
+			this.put("HPP Sepolia Testnet", EVMChain.HPPSEPOLIATEST);
+			this.put("HPP Mainnet", EVMChain.HPP);
+			this.put("JuChain Testnet", EVMChain.JUCHAINTEST);
+			this.put("JuChain Mainnet", EVMChain.JUCHAIN);
+			this.put("World Mobile Chain Testnet", EVMChain.WORLDMOBILETEST);
+			this.put("Scenium", EVMChain.SCENIUM);
+			this.put("Denergy Network", EVMChain.DENERGY);
+			this.put("Alpha Chain Testnet", EVMChain.ALPHATEST);
+			this.put("Codex Testnet", EVMChain.CODEXTEST);
+			this.put("Wirex Pay Testnet", EVMChain.WIREXTEST);
+			this.put("XRPL EVM Sidechain", EVMChain.XRPL);
+			this.put("Symbiosis", EVMChain.SYMBIOSIS);
+			this.put("PlatON Dev Testnet", EVMChain.PLATONTEST);
+			this.put("Autonity Mainnet", EVMChain.AUTONITY);
+			this.put("SKALE Base Sepolia", EVMChain.SKALESEPOLIATEST);
+			this.put("SKALE Base", EVMChain.SKALE);
 
 		}};
 
@@ -6042,12 +6127,14 @@ public class CheckNewEVMNodeCandidates {
 						}
 
 						for (String nodeURL: chaininfo.getNodeURLs()) {
+							nodeURL = nodeURL.replaceAll("/$", "");
 							if (debug) System.out.println(" - existing forestfish node: " + nodeURL);
 							forestfish_nodes.put(nodeURL, true);
 						}
 						if (debug) System.out.println("----------------------------------");
 						int newnode_count = 0;
 						for (String nodeURL: eece.getRpc()) {
+							nodeURL = nodeURL.replaceAll("/$", "");
 							if (nodeURL.startsWith("http")) {
 								if (!nodeURL.contains("API_KEY")) {
 									if (null == forestfish_nodes.get(nodeURL)) {

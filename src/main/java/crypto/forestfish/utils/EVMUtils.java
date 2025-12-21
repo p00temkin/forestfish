@@ -2440,9 +2440,11 @@ public class EVMUtils {
 				_ex.getMessage().contains("wrong chain id") ||
 				_ex.getMessage().contains("legacy transaction is not supported") ||
 				_ex.getMessage().contains("INVALID_TRANSACTION") ||
+				_ex.getMessage().contains("Native transfers are not supported") ||
 				false) {
 			// https://rpc.ankr.com/filecoin_testnet: legacy transaction is not supported
 			// https://dream-rpc.somnia.network: INVALID_TRANSACTION
+			//  https://rpc.testnet.tempo.xyz, response: "Native transfers are not supported, if you were trying to transfer a stablecoin, please call TIP20::Transfer"
 			LOGGER.warn("Legacy transaction not supported, need to switch to EIP1559 for chain " + _chain + ", exception: " + _ex.getMessage());
 			nodeInteraction = true;
 			exceptionType = ExceptionType.FATAL;
