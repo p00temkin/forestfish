@@ -2108,7 +2108,13 @@ public class EVMUtils {
 				(_ex.getMessage().contains("Unrecognized token")) ||
 				(_ex.getMessage().contains(" expected ")) ||
 				(_ex.getMessage().contains("SSLHandshakeException")) ||
+				(_ex.getMessage().contains("not verified")) ||
+				(_ex.getMessage().contains("temporary error")) ||
+				(_ex.getMessage().contains("cannot issue transaction")) ||
+				(_ex.getMessage().contains("testnet")) ||
+				(_ex.getMessage().contains("Received fatal alert: unrecognized_name")) ||
 				false) {
+			// https://testnet-rpc1.pikascan.com, response: "Received fatal alert: unrecognized_name"
 			// https://rpc.gitagi.org, response: "javax.net.ssl.SSLHandshakeException: Received fatal alert: unrecognized_name"
 			// https://endpoints.omniatech.io/v1/eth/sepolia/public, response: "java.io.IOException: ID1ID2: actual 0xffff8b16 != expected 0x00001f8b"
 			// javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
@@ -2120,6 +2126,10 @@ public class EVMUtils {
 			// https://rpc.startale.com/zkatana: "rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 10.65.132.186:50071: connect: connection refused"
 			// https://endpoints.omniatech.io/v1/op/goerli/public: "Post "https://goerli-sequencer.optimism.io": dial tcp: lookup goerli-sequencer.optimism.io on 127.0.0.53:53: no such host"
 			// https://lbry.nl/rpc, response: "com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'LBRY': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+			// https://rpc82.testnet.ethpar.net/, response: "Hostname rpc82.testnet.ethpar.net not verified .. certificate: sha256/+OL26sLXxQUsmhA+bI3hwrAuqe3S0LuVA8jDN9EVwOI= .. 
+			// https://xylume-testnet.sparked.network/rpc/, response: "This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server (xylume-testnet.sparked.network)"
+			// https://subnets.avax.network/dfnpaper/testnet/rpc, response: "cannot issue transaction from non-allow listed address
+			// https://xyl-testnet.glitch.me/rpc/, response: "xylume-testnet.sparked.network"
 			LOGGER.debug("Got a connection reset from nodeURL " + _nodeURL + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -2341,8 +2351,12 @@ public class EVMUtils {
 			// only replay-protected (EIP-155) transactions allowed over RPC
 			LOGGER.warn("Got a replay-protection error from nodeURL " + _nodeURL + ".. will not retry since this usually means you didnt ship the chain id with your tx, fix your code");
 			exceptionType = ExceptionType.FATAL;	
-		} else if (_ex.getMessage().contains("insufficient funds for gas")) {
+		} else if (false ||
+				_ex.getMessage().contains("insufficient funds for gas") ||
+				_ex.getMessage().contains("The provided gas limit") ||
+				false) {
 			// insufficient funds for gas * price + value
+			// https://node.shadownet.etherlink.com, response: "Error: The provided gas limit (300000) is insufficient to cover the transaction cost of 621000 gas. Please increase the gas limit or use eth_estimateGas to get the recommended amount.
 			LOGGER.warn("Got insufficient funds for gas from nodeURL " + _nodeURL + ".. will not retry since this usually means you need to top up the account or attempted to transfer amount which left nothing for gas");
 			exceptionType = ExceptionType.FATAL;	
 		} else if (_ex.getMessage().toLowerCase().contains("invalid chain id")) {
@@ -2454,9 +2468,11 @@ public class EVMUtils {
 					_ex.getMessage().contains("You have sent too many requests in a given amount of time") ||
 					_ex.getMessage().contains("Too Many Requests") ||
 					_ex.getMessage().contains("Too many follow-up requests") ||
+					_ex.getMessage().contains("temporary error") ||
 					false) {
 				// https://zkrpc-sepolia.xsollazk.com, response: "Failed to serialize transaction: wrong chain id 555777"
 				// https://rpc.forma.art, response: "java.net.ProtocolException: Too many follow-up requests: 21"
+				// https://rpc.zypher.network: This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server (rpc.zypher.network)
 				LOGGER.info("RPC Node limit reached for nodeURL " + _nodeURL + ", we should probably cool down: " + _ex.getMessage());
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;		
@@ -2473,9 +2489,8 @@ public class EVMUtils {
 			}
 		} else {
 			// node hostname echoed back
-			String hostname = _nodeURL.replace("http://","").replace("https://","").replace("/","");
-			if (_ex.getMessage().contains(hostname)) {
-				LOGGER.info("Hostname echoed back when using " + _nodeURL + ", will switch node");
+			if (_nodeURL.contains(_ex.getMessage())) {
+				LOGGER.info("Node hostname echoed back when using " + _nodeURL + ", will switch node");
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
 			} else {

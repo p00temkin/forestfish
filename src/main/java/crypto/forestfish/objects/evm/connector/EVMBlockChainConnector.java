@@ -29,7 +29,7 @@ public class EVMBlockChainConnector {
 	private int nodeRetryThreshold = 3;
 	private int confirmTimeInSecondsBeforeRetry = 20;
 	private boolean haltOnFailedCall = true;
-	
+
 	public EVMBlockChainConnector(EVMChain _chain, String _forced_nodeURL, boolean _haltOnRPCNodeSelectionFail, boolean earlyMoveOnIfErrors) {
 		super();
 		this.chain = _chain;
@@ -41,7 +41,7 @@ public class EVMBlockChainConnector {
 			this.nodeRetryThreshold = 1;
 			this.haltOnFailedCall = false;
 		}
-		
+
 		boolean initialization_complete = false;
 		int randomAttemptCounter = 0;
 		while (!initialization_complete && (randomAttemptCounter<=this.getNodeRetryThreshold())) {
@@ -61,7 +61,7 @@ public class EVMBlockChainConnector {
 			}
 			randomAttemptCounter++;
 		}
-		
+
 		if (!initialization_complete) {
 			if (_haltOnRPCNodeSelectionFail) {
 				LOGGER.error("#1 Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
@@ -71,7 +71,7 @@ public class EVMBlockChainConnector {
 			}
 		}
 	}
-	
+
 	public EVMBlockChainConnector(EVMChain _chain, String _forced_nodeURL, boolean _haltOnRPCNodeSelectionFail) {
 		super();
 		this.chain = _chain;
@@ -96,7 +96,7 @@ public class EVMBlockChainConnector {
 			}
 			randomAttemptCounter++;
 		}
-		
+
 		if (!initialization_complete) {
 			if (_haltOnRPCNodeSelectionFail) {
 				LOGGER.error("#2 Unable to get an RPC connection for chain " + this.chain + " using forced node " + _haltOnRPCNodeSelectionFail);
@@ -118,26 +118,26 @@ public class EVMBlockChainConnector {
 		super();
 		this.chain = _chain;
 		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
-		
+
 		if (earlyMoveOnIfErrors) {
 			this.callRetryThreshold = 1;
 			this.txRetryThreshold = 1;
 			this.nodeRetryThreshold = 1;
 			this.haltOnFailedCall = false;
 		}
-		
+
 		if (_nodeOptimized) {
 			selectSpeedyNodeURL(_haltOnRPCNodeSelectionFail);
 		} else {
 			selectRandomNodeURL(_haltOnRPCNodeSelectionFail);
 		}
 	}
-	
+
 	public EVMBlockChainConnector(EVMChain _chain, boolean _nodeOptimized, boolean _haltOnRPCNodeSelectionFail) {
 		super();
 		this.chain = _chain;
 		this.chaininfo = EVMUtils.getEVMChainInfo(_chain);
-		
+
 		if (_nodeOptimized) {
 			selectSpeedyNodeURL(_haltOnRPCNodeSelectionFail);
 		} else {
@@ -147,7 +147,7 @@ public class EVMBlockChainConnector {
 
 	public void selectRandomNodeURL(boolean _haltOnRPCNodeSelectionFail) {
 		this.setHaltOnFailedCall(_haltOnRPCNodeSelectionFail);
-		
+
 		// verify and select RPC connection
 		LOGGER.info("We need to get 1 of these candidates working for " + chain + ", gonna go random and grab the first healthy:");
 		int candindex = 1;
@@ -258,7 +258,7 @@ public class EVMBlockChainConnector {
 		if (this.chaininfo.getNodeURLs().size() == 1) {
 
 			LOGGER.info("We only have one node URL for the chain " + chain.toString() + ", we need to check that it works though");
-			
+
 			// verify that the one we have works though
 			String candidate = this.getChaininfo().getNodeURLs().get(0);
 			Web3j web3j_cand = Web3j.build(new HttpService(candidate));
@@ -286,8 +286,10 @@ public class EVMBlockChainConnector {
 
 			boolean nondead_winner_found = false;
 			int nodescancounter = 0;
-			while (!nondead_winner_found) {
+			int counter = 0;
+			while (!nondead_winner_found && (counter<20)) {
 
+				counter++;
 				HashMap<String, Long> candidate_blockstate = new HashMap<>();
 
 				long maxBlockNR = Long.MIN_VALUE;
@@ -317,8 +319,10 @@ public class EVMBlockChainConnector {
 				}
 
 				if ("".equals(winner)) {
-					LOGGER.error("Unable to find a valid node for " + this.chain);
-					SystemUtils.halt();
+					if (_haltOnRPCNodeSelectionFail) {
+						LOGGER.error("Unable to find a valid node for " + this.chain);
+						SystemUtils.halt();
+					}
 				} else {
 
 					// Verify that our winner node is not outdated
@@ -338,12 +342,17 @@ public class EVMBlockChainConnector {
 						LOGGER.info("We need to re-run, found dead nodes (" + deadnodes.size() + ") in our list of candidates (" + this.getChaininfo().getNodeURLs().size() + ") .. [nodescancounter: " + nodescancounter + "]");
 						LOGGER.info("deadnodes: " + deadnodes.keySet());
 						if (this.getChaininfo().getNodeURLs().size() == deadnodes.size()) {
-							LOGGER.error("All RPC node candidates are dead?");
-							SystemUtils.halt();
+							LOGGER.warn("All RPC node candidates are dead?");
+							if (_haltOnRPCNodeSelectionFail) {
+								LOGGER.error("Unable to find a valid node for " + this.chain);
+								SystemUtils.halt();
+							}
 						}
 						if (nodescancounter > 10) {
-							LOGGER.error("All RPC node candidates are dead? Giving up after 10 scans");
-							SystemUtils.halt();
+							if (_haltOnRPCNodeSelectionFail) {
+								LOGGER.error("All RPC node candidates are dead? Gave up after 10 scans");
+								SystemUtils.halt();
+							}
 						}
 					}
 

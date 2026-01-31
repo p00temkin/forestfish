@@ -806,7 +806,7 @@ public class BlockchainDetailsTestEVM1 {
 				EVMChain.CREATORTEST.toString(), 
 				"Creator Chain Testnet", 
 				66665L, 
-				BlockchainType.BORKED.toString(),
+				BlockchainType.PUBLIC.toString(),
 				new EVMCurrency("Creator Chain Testnet Gas Token", "CETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
@@ -814,6 +814,7 @@ public class BlockchainDetailsTestEVM1 {
 				"300000", //300k units
 				new ArrayList<String>() {{
 					this.add("https://rpc.creatorchain.io");
+					this.add("https://zksync-os-testnet-creator.zksync.dev");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)
 				new ArrayList<String>(),
@@ -10975,6 +10976,7 @@ public class BlockchainDetailsTestEVM1 {
 				null, // enforced min gasprice
 				"21000", // pure tx
 				new ArrayList<String>() {{
+					this.add("https://auroria.rpc.xertra.com");
 					this.add("https://auroria.rpc.stratisevm.com");
 				}}, 
 				new ArrayList<String>(), // archive nodes (if available)

@@ -2101,10 +2101,12 @@ public class AVMUtils {
 				(_ex.getMessage().contains("Connection reset")) ||
 				(_ex.getMessage().contains("closed")) ||
 				(_ex.getMessage().contains("Remote host terminated the handshake")) ||
+				(_ex.getMessage().contains("PKIX path validation failed")) ||
 				false) {
 			// java.net.ConnectException: Failed to connect to
 			// java.net.SocketException: Connection reset
 			// javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
+			// https://mainnet-api.algonode.network: PKIX path validation failed: java.security.cert.CertPathValidatorException: validity check failed
 			LOGGER.warn("Got a connection reset from nodeURL " + _relayNode.getUrl() + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -2147,14 +2149,14 @@ public class AVMUtils {
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;		
 			} else {
-				LOGGER.error("Generic 429 error from nodeURL " + _relayNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeProviderException() .. ");
+				LOGGER.error("Generic 429 error from nodeURL " + _relayNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeProviderException2() .. ");
 				LOGGER.info("429 error noted for nodeURL " + _relayNode.getUrl() + ": " + _ex.getMessage() + ", lets try again");
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
 			}
 		} else {
 			exceptionType = ExceptionType.UNKNOWN;
-			LOGGER.error("Unknown error from relay node " + _relayNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeProviderException()");
+			LOGGER.error("Unknown error from relay node " + _relayNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeProviderException2()");
 			LOGGER.error("Unknown response noted while communicating with relay node " + _relayNode.getUrl());
 			SystemUtils.halt();
 		}
@@ -2199,10 +2201,12 @@ public class AVMUtils {
 				(_ex.getMessage().contains("Connection reset")) ||
 				(_ex.getMessage().contains("closed")) ||
 				(_ex.getMessage().contains("Remote host terminated the handshake")) ||
+				(_ex.getMessage().contains("PKIX path validation failed")) ||
 				false) {
 			// java.net.ConnectException: Failed to connect to
 			// java.net.SocketException: Connection reset
 			// javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
+			// https://mainnet-idx.algonode.network: PKIX path validation failed: java.security.cert.CertPathValidatorException: validity check failed
 			LOGGER.warn("Got a connection reset from nodeURL " + _indexerNode.getUrl() + ".. will not retry, move on to next node");
 			exceptionType = ExceptionType.NODE_UNSTABLE;	
 			switchNode = true;
@@ -2239,14 +2243,14 @@ public class AVMUtils {
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;		
 			} else {
-				LOGGER.error("Generic 429 error from nodeURL " + _indexerNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeIndexerException() .. ");
+				LOGGER.error("Generic 429 error from nodeURL " + _indexerNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeIndexerException1() .. ");
 				LOGGER.info("429 error noted for nodeURL " + _indexerNode.getUrl() + ": " + _ex.getMessage() + ", lets try again");
 				exceptionType = ExceptionType.NODE_UNSTABLE;	
 				switchNode = true;
 			}
 		} else {
 			exceptionType = ExceptionType.UNKNOWN;
-			LOGGER.error("Unknown error from indexer node " + _indexerNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeIndexerException()");
+			LOGGER.error("Unknown error from indexer node " + _indexerNode.getUrl() + ": " + _ex.getMessage() + ", update analyzeIndexerException1()");
 			LOGGER.error("Unknown response noted while communicating with indexer node " + _indexerNode.getUrl());
 			SystemUtils.halt();
 		}

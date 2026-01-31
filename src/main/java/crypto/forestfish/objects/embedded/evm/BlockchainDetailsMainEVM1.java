@@ -52,7 +52,7 @@ public class BlockchainDetailsMainEVM1 {
 				EVMChain.ZYTRON.toString(), 
 				"Zytron Linea Mainnet", 
 				9901L, 
-				BlockchainType.PUBLIC.toString(),
+				BlockchainType.BORKED.toString(), // single node misbehaving
 				new EVMCurrency("Zytron Linea Mainnet Gas Token", "ETH", 18), 
 				EVMPriceMechanism.LEGACY.toString(),30,
 				"30000000000", //30 gwei
