@@ -803,7 +803,7 @@ public class BlockchainDetailsTestEVM1 {
 		
 		// creator_test
 		EVMChainInfo creator_test = new EVMChainInfo(
-				EVMChain.CREATORTEST.toString(), 
+				EVMChain.CREATOR66665TEST.toString(), 
 				"Creator Chain Testnet", 
 				66665L, 
 				BlockchainType.PUBLIC.toString(),
@@ -830,7 +830,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.CREATORTEST, creator_test);
+		networks.put(EVMChain.CREATOR66665TEST, creator_test);
 		
 		// overprotocol_test
 		EVMChainInfo overprotocol_test = new EVMChainInfo(
@@ -12574,7 +12574,7 @@ public class BlockchainDetailsTestEVM1 {
 		
 		// cratd2c_test
 		EVMChainInfo cratd2c_test = new EVMChainInfo(
-				EVMChain.CRATD2CTEST.toString(), 
+				EVMChain.CRATD2C65349TEST.toString(), 
 				"CratD2C Testnet", 
 				65349L, 
 				BlockchainType.BORKED.toString(),
@@ -12601,7 +12601,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.CRATD2CTEST, cratd2c_test);
+		networks.put(EVMChain.CRATD2C65349TEST, cratd2c_test);
 		
 		// ducatusx_test
 		EVMChainInfo ducatusx_test = new EVMChainInfo(
@@ -13183,7 +13183,7 @@ public class BlockchainDetailsTestEVM1 {
 
 		// x_test
 		EVMChainInfo x_test = new EVMChainInfo(
-				EVMChain.XLAYERTEST.toString(), 
+				EVMChain.XLAYER195TEST.toString(), 
 				"X Layer Testnet", 
 				195L, 
 				BlockchainType.PUBLIC.toString(),
@@ -13210,7 +13210,7 @@ public class BlockchainDetailsTestEVM1 {
 				}},
 				BlockchainTokenDetailsEVM.generateDummyTokenIndex(),
 				BlockchainTokenDetailsEVM.generateDummyNFTIndex());
-		networks.put(EVMChain.XLAYERTEST, x_test);
+		networks.put(EVMChain.XLAYER195TEST, x_test);
 
 		// neura_test
 		EVMChainInfo neura_test = new EVMChainInfo(
